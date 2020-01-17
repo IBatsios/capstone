@@ -1,6 +1,6 @@
 # Featurama
 
-# Developers
+Developers
 
 Ioannis Batsios
 Michael McCullough
