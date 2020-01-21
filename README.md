@@ -8,23 +8,23 @@ Backend: NodeJS, ExpressJS, MongoDB
 Frontend: ReactJS
 
 ## Developers
-<a align="left" href="https://github.com/IBatsios"><img src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100"></a>
-<b>Ioannis Bastois</b>
-<a href="https://github.com/IBatsios">IBatsios</a>
+<img align="left" src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100">
+**Ioannis Bastois**
+[IBatsiois](https://github.com/IBatsios)
 
-<a align="left" href="https://github.com/mjmccull0"><img src="https://avatars1.githubusercontent.com/u/42848059?s=460&v=4" width="100" height="100"></a>
-<b>Michael McCull</b>
-<a href="https://github.com/mjmccull0">mjmccull0</a>
+<img align="left" src="https://avatars1.githubusercontent.com/u/42848059?s=460&v=4" width="100" height="100">
+**Michael McCull**
+[mjmcull0](https://github.com/mjmccull0)
 
-<a align="left" href="https://github.com/Kozmocha"><img src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100"></a>
-<b>Christopher Thacker</b>
-<a href="https://github.com/Kozmocha">Kozmocha</a>
+<img align="left" src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100">
+**Christopher Thacker**
+[Kozmocha](https://github.com/Kozmocha)
 
-<a align="left" href="https://github.com/hvvo"><img src="https://avatars1.githubusercontent.com/u/38018429?s=460&v=4" width="100" height="100"></a>
-<b>Hieu Vo</b>
-<a href="https://github.com/hvvo">hvvo</a>
+<img align="left" src="https://avatars1.githubusercontent.com/u/38018429?s=460&v=4" width="100" height="100">
+**Hieu Vo**
+[hvvo](https://github.com/hvvo")
 
-<a align="left" href="https://github.com/jwthrs"><img src="https://avatars3.githubusercontent.com/u/26640295?s=460&v=4" width="100" height="100"><a>
-<b>Jamie Weathers</b>
-<a href="https://github.com/jwthrs">jwthrs</a>
+<img align="left" src="https://avatars3.githubusercontent.com/u/26640295?s=460&v=4" width="100" height="100">
+**Jamie Weathers**
+[jwthrs](https://github.com/jwthrs)
 
