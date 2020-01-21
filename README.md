@@ -15,6 +15,7 @@ Frontend: ReactJS
             <b>Ioannis Bastois</b><br>
             <a href="https://github.com/IBatsios">IBatsios</a>
         </p>
+        <br>
     </div>
     <div>
         <a href="https://github.com/mjmccull0"><img align="left" src="https://avatars1.githubusercontent.com/u/42848059?s=460&v=4" width="100" height="100"></a>
@@ -22,6 +23,7 @@ Frontend: ReactJS
             <b>Michael McCull</b><br>
             <a href="https://github.com/mjmccull0">mjmccull0</a>
         </p>
+        <br>
     </div>
     <div>
         <a href="https://github.com/Kozmocha"><img align="left" src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100"></a>
@@ -29,6 +31,7 @@ Frontend: ReactJS
             <b>Christopher Thacker</b><br>
             <a href="https://github.com/Kozmocha">Kozmocha</a>
         </p>
+        <br>
     </div>
     <div>
         <p><a href="https://github.com/jwthrs"><img align="left" src="https://avatars3.githubusercontent.com/u/26640295?s=460&v=4" width="100" height="100"></a></p>
@@ -36,6 +39,7 @@ Frontend: ReactJS
             <b>Jamie Weathers</b><br>
             <a href="https://github.com/jwthrs">jwthrs</a>
         </p>
+        <br>
     </div>
 
 </div> 
