@@ -10,10 +10,12 @@ Frontend: ReactJS
 ## Developers
 <div style="display:flex;">
     <div>
-        <a href="https://github.com/IBatsios">
-            <img style="float:right" src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100">
-        </a>
         <div style="float:left">
+            <a href="https://github.com/IBatsios">
+                <img src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100">
+            </a>
+        </div>
+        <div style="float:right">
             <b>Ioannis Bastois</b><br>
             <a href="https://github.com/IBatsios">IBatsios</a>
         </div>
