@@ -16,8 +16,8 @@ Frontend: ReactJS
 <b>Michael McCull</b>
 <a href="https://github.com/mjmccull0">mjmccull0</a>
 
-<a align="left" href="https://github.com/Kozmocha"><img src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100">
-<b>Christopher Thacker</b></a>
+<a align="left" href="https://github.com/Kozmocha"><img src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100"></a>
+<b>Christopher Thacker</b>
 <a href="https://github.com/Kozmocha">Kozmocha</a>
 
 <a align="left" href="https://github.com/hvvo"><img src="https://avatars1.githubusercontent.com/u/38018429?s=460&v=4" width="100" height="100"></a>
