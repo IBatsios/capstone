@@ -3,7 +3,8 @@
 ## Summary
 
 ## Technology Used
-Backend: NodeJS, ExpressJS, MongoDB
+Backend: NodeJS, ExpressJS, MongoDB 
+<br>
 Frontend: ReactJS
 
 ## Developers
