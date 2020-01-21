@@ -1,15 +1,12 @@
 # Featurama
 
 ## Summary
----
 
 ## Technology Used
 Backend: NodeJS, ExpressJS, MongoDB
 Frontend: ReactJS
----
 
 ## Developers
----
 <div style="display:flex;">
     <div>
         <img src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100"><br>
