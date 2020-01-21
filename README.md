@@ -10,20 +10,40 @@ Frontend: ReactJS
 ## Developers
 <div style="display:flex;">
     <div>
-        <img src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100"><br>
-        <a href="https://github.com/IBatsios">Ioannis Batsios</a>
+        <a href="https://github.com/IBatsios">
+            <img style="float:left" src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100">
+        </a>
+        <div style="float:right">
+        <b>Ioannis Bastois</b><br>
+        <a href="https://github.com/IBatsios">IBatsios</a>
+        </div>
     </div>
     <div>
-        <img src="https://avatars1.githubusercontent.com/u/42848059?s=460&v=4" width="100" height="100"><br>
-        <a href="https://github.com/mjmccull0">Michael McCull</a>
+        <a href="https://github.com/mjmccull0">
+            <img style="float:left" src="https://avatars1.githubusercontent.com/u/42848059?s=460&v=4" width="100" height="100"/>
+        </a>
+        <div style="float:right">
+        <b>Michael McCull</b><br>
+        <a href="https://github.com/mjmccull0">mjmccull0</a>
+        </div>
     </div>
     <div>
-        <img src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100"><br>
-        <a href="https://github.com/Kozmocha">Christopher Thacker</a>
+        <a href="https://github.com/Kozmocha">
+            <img style="float:left" src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100"/>
+        </a>
+        <div style="float:right">
+        <b>Christopher Thacker</b><br>
+        <a href="https://github.com/Kozmocha">Kozmocha</a>
+        </div>
     </div>
     <div>
-        <img src="https://avatars3.githubusercontent.com/u/26640295?s=460&v=4" width="100" height="100"><br>
-                <a href="https://github.com/jwthrs">Jamie Weathers</a>
+        <a href="https://github.com/jwthrs">
+            <img style="float:left" src="https://avatars3.githubusercontent.com/u/26640295?s=460&v=4" width="100" height="100"/>
+        </a>
+        <div style="float:right">
+        <b>Jamie Weathers</b><br>
+        <a href="https://github.com/jwthrs">jwthrs</a>
+        </div>
     </div>
 
 </div> 
