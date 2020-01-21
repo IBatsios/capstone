@@ -9,7 +9,7 @@ Frontend: ReactJS
 
 ## Developers
 
-<div>
+<div height="300px">
     <a href="https://github.com/IBatsios"><img align="left" src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100"></a>
     <b>Ioannis Bastois</b><br>
     <a href="https://github.com/IBatsios">IBatsios</a>
