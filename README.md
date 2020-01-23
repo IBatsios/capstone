@@ -25,7 +25,7 @@
 **Michael McCulloch**<br>
 [mjmcull0](https://github.com/mjmccull0)<br><br><br>
 
-<img align="left" src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100">
+<img align="left" src="https://drive.google.com/file/d/1OUfwjY8Ph6tW5LuWFpRNr-Q3iYUL7jwM/view?usp=sharing" width="100" height="100">
 
 **Christopher Thacker**<br>
 [Kozmocha](https://github.com/Kozmocha)<br><br><br>
