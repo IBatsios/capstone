@@ -3,9 +3,15 @@
 ## Summary
 
 ## Technology Used
-Backend: NodeJS, ExpressJS, MongoDB 
-<br>
-Frontend: ReactJS
+
+### Front-End
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [React](https://reactjs.org/)
+### Back-End
+- [Node.js](https://nodejs.org/en/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 ## Developers
 
