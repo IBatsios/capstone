@@ -20,7 +20,7 @@
 **Ioannis Bastois**<br>
 [IBatsiois](https://github.com/IBatsios)<br><br><br>
 
-<img align="left" src="https://drive.google.com/file/d/1OUfwjY8Ph6tW5LuWFpRNr-Q3iYUL7jwM/preview" width="100" height="100">
+<img align="left" src="https://avatars2.githubusercontent.com/u/42848059?s=400&u=1cb2a0a17469fbbebf97e3ec4b77546f86b89afa&v=4" width="100" height="100">
 
 **Michael McCulloch**<br>
 [mjmcull0](https://github.com/mjmccull0)<br><br><br>
