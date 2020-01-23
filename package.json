@@ -1,0 +1,14 @@
+{
+  "name": "featurama",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"cd api && npm run start\" \"cd client && npm run start\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.0.2",
+    "nodemon": "^2.0.2"
+  }
+}
