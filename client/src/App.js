@@ -1,46 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  NavLink
+} from 'react-router-dom';
+import { Home } from './components/Home';
+import { About } from './components/About';
+import { Watercooler } from './components/Watercooler';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { apiResponse: "" };
-  }
-
-  callAPI() {
-    fetch("http://localhost:9000/testAPI")
-      .then(res => res.text())
-      .then(res => this.setState({ apiResponse: res }));
-  }
-
-  componentDidMount() {
-    this.callAPI();
-  }
-
+class App extends Component {
   render() {
-    if (!this.state.apiResponse) {
-      this.setState({apiResponse: "Backend not reachable"});
-    }
-
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <p>{this.state.apiResponse}</p>
-        </header>
-      </div>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/watercooler">Watercooler</NavLink>
+              </li>
+              <li>
+                <NavLink to="/about">About</NavLink>
+              </li>
+            </ul>
+          </nav>
+
+          {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/watercooler">
+              <Watercooler />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
