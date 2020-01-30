@@ -8,7 +8,7 @@ const mongoose = require("mongoose");
 
 var commentSchema = new mongoose.Schema({
     content: String,
-    authorId: String,
+    authorId: String, // userSchema should probably handle this functionality.
     dateCreated: Date,
     dateEdited: Date,
     isActive: Boolean // In lieu of permanently deleting the Comment.

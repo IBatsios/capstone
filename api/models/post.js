@@ -1,9 +1,15 @@
+/**
+ * This is the schema for user posts that will be displayed on the web application.
+ * 
+ * @author Christopher Thacker
+ */
+
 const mongoose = require("mongoose");
 
 var postSchema = new mongoose.Schema({
     title: String,
     content: String,
-    authorId: String,
+    authorId: String, // userSchema should probably handle this functionality as this has done with Comments.
     datePosted: Date,
     dateEdited: Date,
     comments: [
