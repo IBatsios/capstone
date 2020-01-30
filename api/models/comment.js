@@ -2,6 +2,7 @@
  * This is the schema for the comments that will appear under posts.
  * 
  * @author Christopher Thacker
+ * @since 1.0.0
  */
 
 const mongoose = require("mongoose");

@@ -2,6 +2,7 @@
  * This is the schema for user posts that will be displayed on the web application.
  * 
  * @author Christopher Thacker
+ * @since 1.0.0
  */
 
 const mongoose = require("mongoose");
