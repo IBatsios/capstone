@@ -1,3 +1,9 @@
+/**
+ * This is the schema for the comments that will appear under posts.
+ * 
+ * @author Christopher Thacker
+ */
+
 const mongoose = require("mongoose");
 
 var commentSchema = new mongoose.Schema({
