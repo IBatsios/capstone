@@ -12,7 +12,7 @@ var postSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ],
-    isActive: Boolean
+    isActive: Boolean // In lieu of permanently deleting the Post.
 });
 
 // Allows the Post Schema to be used outside of this file.
