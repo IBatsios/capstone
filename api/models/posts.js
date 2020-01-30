@@ -9,5 +9,5 @@ var postSchema = new mongoose.Schema({
     isActive: Boolean
 });
 
-// Allows the User Schema to be used outside of this file.
+// Allows the Post Schema to be used outside of this file.
 module.exports = mongoose.model("Post", postSchema);
