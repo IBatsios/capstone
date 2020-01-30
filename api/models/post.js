@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 var postSchema = new mongoose.Schema({
     title: String,
     content: String,
-    authorId: String, // userSchema should probably handle this functionality as this has done with Comments.
+    // authorId: String, // userSchema should probably handle this functionality as this has done with Comments.
     datePosted: Date,
     dateEdited: Date,
     comments: [
