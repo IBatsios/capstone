@@ -1,1 +1,6 @@
 node_modules
+<<<<<<< HEAD
+=======
+api/node_modules
+client/node_modules
+>>>>>>> 30ed2b2d0f06781870ddac86ba4b13277b39e66a
