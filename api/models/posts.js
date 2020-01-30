@@ -6,6 +6,12 @@ var postSchema = new mongoose.Schema({
     authorId: String,
     datePosted: Date,
     dateEdited: Date,
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment"
+        }
+    ],
     isActive: Boolean
 });
 
