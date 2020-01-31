@@ -11,6 +11,13 @@ var commentSchema = new mongoose.Schema({
     content: String,
     dateCreated: Date,
     dateEdited: Date,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
     isActive: Boolean // In lieu of permanently deleting the Comment.
 });
 
