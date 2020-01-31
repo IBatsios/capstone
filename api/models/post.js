@@ -19,6 +19,13 @@ var postSchema = new mongoose.Schema({
             ref: "Comment"
         }
     ],
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
     isActive: Boolean // In lieu of permanently deleting the Post.
 });
 
