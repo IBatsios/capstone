@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 var postSchema = new mongoose.Schema({
     title: String,
     content: String,
+    topic: String,
     datePosted: Date,
     dateEdited: Date,
     comments: [
