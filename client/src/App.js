@@ -13,7 +13,7 @@ import { About } from './components/About';
 import { Watercooler } from './components/Watercooler';
 import logo from './logo.svg';
 import './App.css';
-import SimpleTabs from './components/Tabs/SimpleTabs';  
+import SiteTabs from './components/Tabs/SiteTabs';  
 
 class App extends Component {
   state = {
@@ -21,14 +21,15 @@ class App extends Component {
       { label: "Home", content: <Home />},
       { label: "Watercooler", content: <Watercooler />},
       { label: "About Us", content: <About />}
-    ]
+    ],
+    value: 0
   };
 
   render() {
     return (
       <React.Fragment>
         <CssBaseline />
-        <SimpleTabs tabs={this.state.tabs} />
+        <SiteTabs tabs={this.state.tabs} value={this.state.value} />
       </React.Fragment>
     );
   }
