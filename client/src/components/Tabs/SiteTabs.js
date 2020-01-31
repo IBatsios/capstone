@@ -15,8 +15,8 @@ function TabPanel(props) {
       component="div"
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`site-tabpanel-${index}`}
+      aria-labelledby={`site-tab-${index}`}
       {...other}
     >
       {value === index && <Box p={3}>{children}</Box>}
@@ -38,16 +38,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-class SimpleTabs extends Component {
+class SiteTabs extends Component {
+  state = {
+    value: this.props.value
+  }
 
-  handleChange = (event, value) => {
-    this.props.onValueChange(value);
+  handleChange = (event, newValue) => {
+    this.setState({ value: newValue});
   };
 
   a11yProps = (index) => {
     return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
+      id: `site-tab-${index}`,
+      'aria-controls': `site-tabpanel-${index}`,
     };
   }
 
@@ -56,14 +59,14 @@ class SimpleTabs extends Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Tabs value={this.props.value} onChange={this.handleChange} aria-label="simple tabs">
+          <Tabs value={this.state.value} onChange={this.handleChange} aria-label="site tabs">
             {this.props.tabs.map((tab, index) => (
               <Tab label={tab.label} {...this.a11yProps(index)} key={index} />
             ))} 
           </Tabs>
         </AppBar>
         {this.props.tabs.map((tab, index) => (
-          <TabPanel value={this.props.value} index={index} key={index}>
+          <TabPanel value={this.state.value} index={index} key={index}>
             {tab.content}
           </TabPanel>
         ))} 
@@ -72,4 +75,4 @@ class SimpleTabs extends Component {
   }
 }
 
-export default SimpleTabs;
+export default SiteTabs;
