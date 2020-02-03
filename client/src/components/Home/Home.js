@@ -2,21 +2,30 @@ import React, { Component } from 'react';
 import SimpleTabs from '../Tabs/SimpleTabs';  
 
 class Home extends Component {
-  static newValue = 0;
-  state = {
-    tabs: [
-      { label: "Item One", content: "Item One content"},
-      { label: "Item Two", content: "Item Two content"},
-      { label: "Item Three", content: "Item Three content"}
-    ],
-    value: 0
-  };
+  constructor(props) {
+    super(props);
+    this.displayName = 'Home';
+
+    this.state = {
+      tabs: [
+        { label: "Home Item One", content: "Home Item One content"},
+        { label: "Home Item Two", content: "Home Item Two content"},
+        { label: "Home Item Three", content: "Home Item Three content"}
+      ],
+      activeTab: parseInt(sessionStorage.getItem(this.displayName)) || 0 
+    };
+  }
 
   handleValueChange = (newValue) => {
-    Home.newValue = newValue;
-    //this.setState({ value: newValue });
-   this.setState({ value: newValue });
-    //Home.forceUpdate();
+    this.setState({ activeTab: newValue }); 
+    this.forceUpdate();
+  }
+
+  componentWillUnmount() {
+    sessionStorage.setItem(
+      this.displayName,
+      this.state.activeTab.toString()
+    );
   }
 
   render() {
@@ -25,7 +34,7 @@ class Home extends Component {
         <h2>Home</h2>
         <SimpleTabs
           tabs={this.state.tabs}
-          value={Home.newValue}
+          value={this.state.activeTab}
           onValueChange={this.handleValueChange} />
       </React.Fragment>
     );
