@@ -52,7 +52,7 @@ class SimpleTabs extends Component {
   }
 
   render() {
-    const  classes = this.props;
+    const  classes = useStyles;
     return (
       <div className={classes.root}>
         <AppBar position="static">
