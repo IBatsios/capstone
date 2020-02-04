@@ -8,7 +8,8 @@ var userSchema = new Schema({
   lastName: String,
   userName: String,
   phone: Number,
-  isActive: Boolean
+  isActive: Boolean,
+  bio: String
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
 module.exports = mongoose.model('User', userSchema);
