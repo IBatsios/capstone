@@ -1,46 +1,43 @@
 import React, { Component } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Home } from '../Home';
+import { About } from '../About';
+import { Watercooler } from '../Watercooler';
 import TabBar from '../Tabs/TabBar';
 import Tabs from '../Tabs/Tabs';
 import TabPanel from '../Tabs/TabPanel';
 
-class Watercooler extends Component {
+class Layout extends Component {
   constructor(props) {
     super(props);
-    this.displayName = 'Watercooler';
+    this.displayName = 'Layout';
 
     this.state = {
       tabs: [
-        { label: "Watercooler Item One", content: "Watercooler Item One content"},
-        { label: "Watercooler Item Two", content: "Watercooler Item Two content"},
-        { label: "Watercooler Item Three", content: "Watercooler Item Three content"}
+        { label: "Home", content: <Home />},
+        { label: "Watercooler", content: <Watercooler />},
+        { label: "About Us", content: <About />}
       ],
       activeTab: parseInt(sessionStorage.getItem(this.displayName)) || 0 
     };
   }
 
-  handleValueChange = (newValue) => {
-    this.setState({ activeTab: newValue }); 
-    this.forceUpdate();
-  }
-
   handleChange = (newValue) => {
     this.setState({ activeTab: newValue }); 
+    sessionStorage.setItem(
+      this.displayName,
+      newValue.toString()
+    );
     this.forceUpdate();
   }
 
-  componentWillUnmount() {
-    sessionStorage.setItem(
-      this.displayName,
-      this.state.activeTab.toString()
-    );
-  }
 
   render() {
     return (
       <React.Fragment>
-        <h2>Watercooler</h2>
+        <CssBaseline />
         <TabBar>
-          <Tabs {...this.state} onChange={this.handleChange}/>
+          <Tabs {...this.state} onChange={this.handleChange} centered/>
         </TabBar>
         {this.state.tabs.map((tab, index) => (
           <TabPanel value={this.state.activeTab} index={index} key={index}>
@@ -52,4 +49,4 @@ class Watercooler extends Component {
   }
 }
 
-export default Watercooler;
+export default Layout;
