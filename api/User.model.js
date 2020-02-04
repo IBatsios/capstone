@@ -8,18 +8,6 @@ var userSchema = new Schema({
   lastName: String,
   userName: String,
   phone: Number,
-  posts: [
-    {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Post"
-    }
-  ],
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment"
-    }
-  ],
   isActive: Boolean
 });
 
