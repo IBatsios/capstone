@@ -17,7 +17,7 @@
 
 <img align="left" src="https://avatars3.githubusercontent.com/u/19176974?s=460&v=4" width="100" height="100">
 
-**Ioannis Bastois**<br>
+**Ioannis Batsios**<br>
 [IBatsios](https://github.com/IBatsios)<br><br><br>
 
 <img align="left" src="https://avatars2.githubusercontent.com/u/42848059?s=400&u=1cb2a0a17469fbbebf97e3ec4b77546f86b89afa&v=4" width="100" height="100">
