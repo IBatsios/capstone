@@ -11,8 +11,6 @@ var postSchema = new mongoose.Schema({
     title: String,
     content: String,
     topic: String,
-    datePosted: Date,
-    dateEdited: Date,
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -27,7 +25,7 @@ var postSchema = new mongoose.Schema({
         username: String
     },
     isActive: Boolean // In lieu of permanently deleting the Post.
-});
+}, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
 // Allows the Post Schema to be used outside of this file.
 module.exports = mongoose.model("Post", postSchema);
