@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import SimpleTabs from '../Tabs/SimpleTabs';  
+import TabBar from '../Tabs/TabBar';
+import Tabs from '../Tabs/Tabs';
+import TabContent from '../Tabs/TabContent';
 
 class Home extends Component {
   constructor(props) {
@@ -16,7 +18,7 @@ class Home extends Component {
     };
   }
 
-  handleValueChange = (newValue) => {
+  handleChange = (newValue) => {
     this.setState({ activeTab: newValue }); 
     this.forceUpdate();
   }
@@ -32,10 +34,10 @@ class Home extends Component {
     return (
       <React.Fragment>
         <h2>Home</h2>
-        <SimpleTabs
-          tabs={this.state.tabs}
-          value={this.state.activeTab}
-          onValueChange={this.handleValueChange} />
+        <TabBar>
+          <Tabs {...this.state} onChange={this.handleChange}/>
+        </TabBar>
+        <TabContent {...this.state} />
       </React.Fragment>
     );
   }
