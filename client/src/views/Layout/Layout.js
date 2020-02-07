@@ -1,36 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Home } from '../Home';
-import { About } from '../About';
-import { Watercooler } from '../Watercooler';
-import TabBar from '../Tabs/TabBar';
-import Tabs from '../Tabs/Tabs';
-import TabPanel from '../Tabs/TabPanel';
+import TabsView from '../Tabs/TabsView';
+import Home from './Home';
+import Watercooler from './Watercooler';
+import About from './About';
+import TabBar from '../../components/Tabs/TabBar';
+import Tabs from '../../components/Tabs/Tabs';
+import TabContent from '../../components/Tabs/TabContent';
 
-class Layout extends Component {
+class Layout extends TabsView {
   constructor(props) {
     super(props);
-    this.displayName = 'Layout';
 
     this.state = {
       tabs: [
         { label: "Home", content: <Home />},
         { label: "Watercooler", content: <Watercooler />},
-        { label: "About Us", content: <About />}
+        { label: "About", content: <About />},
       ],
-      activeTab: parseInt(sessionStorage.getItem(this.displayName)) || 0 
+      activeTab: this.activeTab()
     };
   }
 
+  /* This may be removed if there is no need for for the layout
+     tabs to retain the selected after refresh. */
   handleChange = (newValue) => {
     this.setState({ activeTab: newValue }); 
     sessionStorage.setItem(
       this.displayName,
       newValue.toString()
     );
-    this.forceUpdate();
   }
-
 
   render() {
     return (
@@ -39,11 +39,7 @@ class Layout extends Component {
         <TabBar>
           <Tabs {...this.state} onChange={this.handleChange} centered/>
         </TabBar>
-        {this.state.tabs.map((tab, index) => (
-          <TabPanel value={this.state.activeTab} index={index} key={index}>
-            {tab.content}
-          </TabPanel>
-        ))} 
+        <TabContent {...this.state} />
       </React.Fragment>
     );
   }
