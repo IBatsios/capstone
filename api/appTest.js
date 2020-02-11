@@ -2,7 +2,9 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var User = require('./User');
+var User = require('./models/User');
+var Post = require('./models/Post');
+var Comment = require('./models/Comment');
 
 var port = 8080;
 var db = 'mongodb://localhost/example'
@@ -18,6 +20,180 @@ app.get('/', function(req, res) {
   res.send('Welcome!!!');
 });
 
+//get, post, edit and delete for posts
+app.get('/posts', function(req, res) {
+  console.log('getting all posts');
+  Post.find({})
+    .exec(function(err, posts) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(posts);
+        res.json(posts);
+      }
+    });
+});
+
+app.get('/posts/:id', function(req, res) {
+  console.log('getting a post');
+  Post.findOne({
+    _id: req.params.id
+    })
+    .exec(function(err, posts) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(posts);
+        res.json(posts);
+      }
+    });
+});
+
+app.post('/post', function(req, res) {
+  var newPost = new Post();
+
+  newPost.title= req.body.title;
+  newPost.content= req.body.connect;
+  newPost.topic= req.body.topic;
+  newPost.comments = req.body.comments;
+  newPost.author = req.body.author;
+  newPost.isActive= req.body.isActive;
+
+  newPost.save(function(err, post) {
+    if(err) {
+      res.send('error saving post');
+    } else {
+      console.log(post);
+      res.send(post);
+    }
+  });
+});
+
+app.post('/post2', function(req, res) {
+  Post.create(req.body, function(err, post) {
+    if(err) {
+      res.send('error saving post');
+    } else {
+      console.log(post);
+      res.send(post);
+    }
+  });
+});
+
+app.put('/post/:id', function(req, res) {
+  Post.findOneAndUpdate({
+    _id: req.params.id
+    },
+    { $set: { title: req.body.title }
+  }, {upsert: true}, function(err, newPost) {
+    if (err) {
+      res.send('error updating ');
+    } else {
+      console.log(newPost);
+      res.send(newPost);
+    }
+  });
+});
+
+app.delete('/post/:id', function(req, res) {
+  Post.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, post) {
+    if(err) {
+      res.send('error removing')
+    } else {
+      console.log(post);
+      res.status(204);
+    }
+  });
+});
+
+//get, post, edit and delete for comments
+app.get('/comments', function(req, res) {
+  console.log('getting all comments');
+  Comment.find({})
+    .exec(function(err, comments) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(comments);
+        res.json(comments);
+      }
+    });
+});
+
+app.get('/comments/:id', function(req, res) {
+  console.log('getting a comment');
+  Comment.findOne({
+    _id: req.params.id
+    })
+    .exec(function(err, comments) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(comments);
+        res.json(comments);
+      }
+    });
+});
+
+app.post('/comment', function(req, res) {
+  var newComment = new Comment();
+
+  newComment.content= req.body.content;
+  newComment.author= req.body.author;
+  newComment.isActive= req.body.isActive;
+
+  newComment.save(function(err, comment) {
+    if(err) {
+      res.send('error saving comment');
+    } else {
+      console.log(comment);
+      res.send(comment);
+    }
+  });
+});
+
+app.post('/comment2', function(req, res) {
+  Comment.create(req.body, function(err, comment) {
+    if(err) {
+      res.send('error saving comment');
+    } else {
+      console.log(comment);
+      res.send(comment);
+    }
+  });
+});
+
+app.put('/comment/:id', function(req, res) {
+  Comment.findOneAndUpdate({
+    _id: req.params.id
+    },
+    { $set: { title: req.body.title }
+  }, {upsert: true}, function(err, newComment) {
+    if (err) {
+      res.send('error updating ');
+    } else {
+      console.log(newComment);
+      res.send(newComment);
+    }
+  });
+});
+
+app.delete('/comment/:id', function(req, res) {
+  Comment.findOneAndRemove({
+    _id: req.params.id
+  }, function(err, comment) {
+    if(err) {
+      res.send('error removing')
+    } else {
+      console.log(comment);
+      res.status(204);
+    }
+  });
+});
+
+//get, post, edit and delete for users
 app.get('/users', function(req, res) {
   console.log('getting all users');
   User.find({})
@@ -94,7 +270,7 @@ app.put('/user/:id', function(req, res) {
   });
 });
 
-app.delete('/User/:id', function(req, res) {
+app.delete('/user/:id', function(req, res) {
   User.findOneAndRemove({
     _id: req.params.id
   }, function(err, user) {

@@ -5,9 +5,10 @@
  * @since 1.0.0
  */
 
-const mongoose = require("mongoose");
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var postSchema = new mongoose.Schema({
+var postSchema = new Schema({
     title: String,
     content: String,
     topic: String,
