@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Router, Location } from '@reach/router'
-import { Header, Home, Interests, Watercooler, Lists, User } from "components/featurama";
+import { Home, Interests, Watercooler, Lists, User } from "components/featurama";
 
 
 
