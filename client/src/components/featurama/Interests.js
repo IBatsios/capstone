@@ -21,7 +21,7 @@ class Interests extends Component {
   }
 
   render() {
-    let interests = this.props.interests;
+    const interests = this.props.interests;
     return(
       <Tabs value={this.activeTab()} onChange={this.handleChange}>
           {interests.map((interest, index) => (
