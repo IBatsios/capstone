@@ -5,27 +5,40 @@
  * @since 1.0.0
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var postSchema = new mongoose.Schema({
-    title: String,
-    content: String,
-    topic: String,
+const postSchema = new Schema({
+    title: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    },
+    topic: {
+        type: String,
+        required: true
+    },
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Comment"
+            ref: 'Comment'
         }
     ],
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: 'User'
         },
-        username: String
+        username: String,
     },
-    isActive: Boolean // In lieu of permanently deleting the Post.
+    isActive: {
+        type: Boolean,
+        required: true
+    }
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
-// Allows the Post Schema to be used outside of this file.
-module.exports = mongoose.model("Post", postSchema);
+const Post = mongoose.model('Post', postSchema);
+module.exports = Post;

@@ -5,19 +5,26 @@
  * @since 1.0.0
  */
 
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var commentSchema = new mongoose.Schema({
-    content: String,
+const commentSchema = new Schema({
+    content: {
+        type: String,
+        required: true
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
+            ref: 'User'
         },
         username: String
     },
-    isActive: Boolean // In lieu of permanently deleting the Comment.
+    isActive: {
+        type: Boolean,
+        required: true
+    }
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
-// Allows the Comment Schema to be used outside of this file.
-module.exports = mongoose.model("Comment", commentSchema);
+const Comment = mongoose.model('Comment', commentSchema);
+module.exports = Comment;
