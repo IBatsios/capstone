@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { UserProvider } from "components/featurama/UserContext";
-import { User } from "components/featurama";
+import { UserProvider } from "app/UserContext";
+import { User } from "app";
 
 
 class App extends Component {

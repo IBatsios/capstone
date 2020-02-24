@@ -4,8 +4,8 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import UserContext from "components/featurama/UserContext";
-import { Home, Watercooler, Lists } from "components/featurama";
+import UserContext from "app/UserContext";
+import { Home, Watercooler, Lists } from "app";
 
 class Header extends Component {
   static contextType = UserContext;

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Header } from "components/featurama";
+import { Header } from "app";
 
 class User extends Component {
   render() {

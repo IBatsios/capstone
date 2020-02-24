@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Interests } from "components/featurama";
-import UserContext from "components/featurama/UserContext";
+import { Interests } from "app";
+import UserContext from "app/UserContext";
 
 class Home extends Component {
   static contextType = UserContext;
