@@ -5,8 +5,7 @@ class User extends Component {
   render() {
     return (
       <div>
-        <Header {...this.props} nav={this.props.nav} />
-        {this.props.children}
+        <Header />
       </div>
     );
   }
