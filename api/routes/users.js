@@ -6,7 +6,7 @@
  */
 
 const router = require('express').Router();
-let User = require('../models/User');
+let User = require('../models/user.model');
 
 // INDEX: show all users.
 router.get('/', (req, res) => {
