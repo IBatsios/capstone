@@ -17,8 +17,13 @@ class MongoTranslator {
         console.log("Connecting to MongoDB...");
         mongoose.connect(this.uri, {useNewUrlParser: true, useUnifiedTopology: true})
             .then(() => console.log("MongoDB connected!"))
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log("Failed to establish connection with MongoDB.")
+                // console.log(error) // Logs entire stack trace; write to a log file in the future.
+            });
     }
+
+    // TODO: Add CRUD operations by utilizing Mongo's built in functions...
 }
 
 module.exports = MongoTranslator;

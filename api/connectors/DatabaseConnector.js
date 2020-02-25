@@ -1,7 +1,10 @@
 'use strict' // Chrome support for ES6.
 
-const translatorName = 'mongoose.translator';
+// Fetch settings.
+const translatorName = require('../config/config').dbTranslator;
+const uri = require('../config/config').dbUri;
 
+// Define database translator being used.
 const Translator = require('../translators/' + translatorName);
 
 /**
@@ -11,15 +14,16 @@ const Translator = require('../translators/' + translatorName);
  * @since 1.0.0
  */
 class DatabaseConnector {
-    constructor(uri, translator) {
+    constructor() {
         this.uri = uri;
-        this.translator = translator;
     }
 
     connect() {
         const translator = new Translator(this.uri);
         translator.connect();
     }
+
+    // TODO: Add CRUD operations...
 }
 
 module.exports = DatabaseConnector;
