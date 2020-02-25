@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Router, Location } from '@reach/router'
 import { Home, Interests, Watercooler, Lists, User } from "components/featurama";
 
-
-
 class App extends Component {
   state = {
     interests: ["movies", "music"],
@@ -37,6 +35,4 @@ class App extends Component {
   }
 }
 
-
 export default App;
-
