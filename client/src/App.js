@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { UserProvider } from "app/UserContext";
-import { User } from "app";
+import { UserProvider } from "app/context/UserContext";
+import { User } from "app/User";
 
 
 class App extends Component {
