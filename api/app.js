@@ -6,17 +6,17 @@ const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const path = require('path');
-const DatabaseConnector = require('./connectors/database.connector');
 
 // Import Routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 
-// Environment Variables
+// Import Connectors
+const DatabaseConnector = require('./connectors/DatabaseConnector');
+
+// Environment Variables Access
 require('dotenv').config();
-const dbUri = require('./config/config').dbUri;
-const dbTranslator = require('./config/config').dbTranslator;
 
 // Create Server Application
 const app = express();
@@ -39,8 +39,8 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 
 // Connect to Database
-var connector = new DatabaseConnector(dbUri, dbTranslator);
-connector.connect();
+const dbConnector = new DatabaseConnector();
+dbConnector.connect();
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
