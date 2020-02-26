@@ -1,1 +1,1 @@
-export { default as Watercooler } from './Watercooler'; 
+export { default as WatercoolerController } from './WatercoolerController'; 

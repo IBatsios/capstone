@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import UserContext from "app/UserContext";
+import UserContext from "app/context/UserContext";
 
 class Interests extends Component {
   static contextType = UserContext;

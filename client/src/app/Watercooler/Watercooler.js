@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Interests } from "app";
-import UserContext from "app/UserContext";
+import { Interests } from "app/components/Interests";
+import UserContext from "app/context/UserContext";
 
 class Watercooler extends Component {
   static contextType = UserContext;
