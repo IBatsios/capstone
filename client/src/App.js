@@ -1,36 +1,28 @@
 import React, { Component } from "react";
-import { Router, Location } from '@reach/router'
-import { Home, Interests, Watercooler, Lists, User } from "components/featurama";
+import { UserProvider } from "app/context/UserContext";
+import { User } from "app/User";
 
 class App extends Component {
+
   state = {
-    interests: ["movies", "music"],
-    nav: ["home", "watercooler", "lists"]
+      activeTab: 0,
+      username: 'username',
+      interests: ["movies", "music"],
+      nav: ["home", "watercooler", "lists"],
+      home:0,
+      watercooler:0,
+      lists: 0,
+      updateValue: (newValue) => {
+        this.setState(newValue);
+      }
   }
+
 
   render() {
     return (
-      <Location>
-        {({ location }) => (
-      <div>
-        <div>
-          <Router>
-            <User nav={this.state.nav} path="/" location={location} >
-              <Home path="home" pathname={location.pathname}>
-                <Interests path="/" interests={this.state.interests} />
-              </Home>
-
-              <Watercooler  path="watercooler" pathname={location.pathname}>
-                <Interests path="/" interests={this.state.interests} />
-              </Watercooler>
-
-              <Lists interests={this.state.interests} path="lists/*" />
-            </User>
-          </Router>
-        </div>
-      </div>
-      )}
-      </Location>
+      <UserProvider value={this.state}>
+        <User />
+      </UserProvider>
     );
   }
 }
