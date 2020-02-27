@@ -26,5 +26,5 @@ const listSchema = new Schema({
     }
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
-const Comment = mongoose.model('List', commentSchema);
-module.exports = Comment;
+const List = mongoose.model('List', listSchema);
+module.exports = List;
