@@ -5,7 +5,7 @@ const translatorName = require('../config/config').dbTranslator;
 const uri = require('../config/config').dbUri;
 
 // Define database translator being used.
-const Translator = require('../translators/' + translatorName);
+const Translator = require(`../translators/${translatorName}`);
 var translator = '';
 
 /**
