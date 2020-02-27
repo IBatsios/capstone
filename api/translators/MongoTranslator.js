@@ -35,6 +35,7 @@ class MongoTranslator {
     }
 
     close() {
+        console.log("This will eventually close the MongoDB!");
         // TODO: method to close the database connection when it's necessary.
     }
     
