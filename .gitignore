@@ -4,3 +4,4 @@ client/node_modules
 *.env
 client/*.env
 api/*.env
+package-lock.json
