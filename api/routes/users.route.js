@@ -6,11 +6,18 @@
  */
 
 const router = require('express').Router();
-let User = require('../models/user.model');
+
+const User = require('../models/user.model');
+
+const DatabaseConnector = require('../connectors/database.connector');
+const connector = new DatabaseConnector();
+
+const UserController = require('../controllers/user.controller');
+const userController = new UserController();
 
 // INDEX: show all users.
-router.get('/', (req, res) => {
-    res.send("This will eventually show ALL users!");
+router.get('/', function(req, res) {
+    userController.getAllUsers(req, res);
 });
 
 // CREATE: add a new user.

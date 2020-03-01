@@ -6,7 +6,6 @@ const uri = require('../config/config').dbUri;
 
 // Define database translator being used.
 const Translator = require(`../translators/${translatorName}`);
-var translator = '';
 
 /**
  * Database Connector: all calls to the database will be funneled through this file.
@@ -17,6 +16,7 @@ var translator = '';
 class DatabaseConnector {
     constructor() {
         this.uri = uri;
+        this.translator = new Translator(this.uri);
     }
 
     /**
@@ -27,20 +27,17 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     connect() {
-        translator = new Translator(this.uri);
-        translator.connect();
+        this.translator.connect();
     }
 
     /**
      * Close connector method: calls the translator's matching "close()" method.
      * 
-     * @param {*} obj
-     * 
      * @author Christopher Thacker
      * @since 1.0.0
      */
     close() {
-        translator.close();
+        this.translator.close();
     }
 
     /**
@@ -51,8 +48,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    create(obj) {
-        translator.create(obj);
+    create(req, res) {
+        this.translator.create(req, res);
     }
 
     /**
@@ -63,8 +60,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    read(obj) {
-        translator.read(obj);
+    read(req, res) {
+        this.translator.read(req, res);
     }
 
     /**
@@ -75,8 +72,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    update(obj) {
-        translator.update(obj);
+    update(req, res) {
+        this.translator.update(req, res);
     }
 
     /**
@@ -87,8 +84,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    delete(obj) {
-        translator.delete(obj);
+    delete(req, res) {
+        this.translator.delete(req, res);
     }
 }
 

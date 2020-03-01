@@ -9,11 +9,11 @@ const path = require('path');
 
 // Import Routers
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const postsRouter = require('./routes/posts');
+const usersRouter = require('./routes/users.route');
+const postsRouter = require('./routes/posts.route');
 
 // Import Connectors
-const DatabaseConnector = require('./connectors/DatabaseConnector');
+const DatabaseConnector = require('./connectors/database.connector');
 
 // Environment Variables Access
 require('dotenv').config();
