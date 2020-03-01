@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const db_settings = {
     dbUri: process.env.DB_URI,
-    dbTranslator: 'MongoTranslator'
+    dbTranslator: 'mongo.translator'
 };
 
 module.exports = db_settings;
