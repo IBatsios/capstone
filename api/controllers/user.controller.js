@@ -12,11 +12,12 @@ class UserController {
     }
 
     getAllUsers(req, res) {
-        // Build object (should eventually be done by some sort of factory or model)
-        req.params.obj = {};
+        // Build query object (should eventually be done by some sort of factory or model)
+        // req.body.query = {userName: 'test1'}; // Dev test
+        req.body.query = {};
 
         // Save model's file name
-        req.params.model = model;
+        req.body.model = model;
 
         // Begin READ operation
         connector.read(req, res);

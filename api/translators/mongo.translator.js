@@ -1,7 +1,6 @@
 'use strict' // Chrome support for ES6.
 
 const mongoose = require('mongoose');
-const ObjectUtil = require('../util/object.utility');
 
 /**
  * MongoDB Translator: translator class for MongoDB.
@@ -63,29 +62,40 @@ class MongoTranslator {
      */
     read(req, res) {
 
-        // Unload object
-        const obj = req.params.obj;
+        // Unload query object
+        const query = req.body.query;
+
+        // Unload object ID, if it exists
+        const objId = req.params.id;
 
         // Get model file name that the object belongs to
-        const modelName = req.params.model;
+        const modelName = req.body.model;
 
         // Require the object's corresponding model
         const Model = require(`../models/${modelName}`);
 
-        if(ObjectUtil.isEmpty(obj)) { // If no specific object is passed, then get all records.
-            Model.find(obj, function(error, allModels) {
+        // If an object ID is passed, use that to find a record.
+        if(objId) {
+            Model.findById(objId, function(error, record) {
                 if(error) {
                     return next(error);
                 } else {
-                    console.log("Sending all models!");
+                    console.log(`Sending object with ID ${objId}`);
+                    res.send(record);
+                }
+            });
+                
+        // Else, return all matching records using the defined query.
+        } else {
+            Model.find(query, function(error, allModels) {
+                if(error) {
+                    return next(error);
+                } else {
+                    console.log(`Sending all models`);
                     res.send(allModels);
                 }
             });
-        } else {
-            console.log('Not implemented: find specific objects by ID or topic.');
-            // TODO: Find specific object(s) by adding extra if conditions and/or modifying existing one(s).
         }
-        
     }
 
     update(req, res) {
