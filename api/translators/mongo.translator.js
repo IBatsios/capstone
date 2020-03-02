@@ -87,12 +87,12 @@ class MongoTranslator {
                 
         // Else, return all matching records using the defined query.
         } else {
-            Model.find(query, function(error, allModels) {
+            Model.find(query, function(error, allRecords) {
                 if(error) {
                     return next(error);
                 } else {
                     console.log(`Sending all models`);
-                    res.send(allModels);
+                    res.send(allRecords);
                 }
             });
         }
