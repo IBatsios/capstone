@@ -2,17 +2,19 @@ import React, { useContext, Fragment } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from '@material-ui/core/AppBar';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import { UserContext } from 'data/UserStore';
-import HomeView from "views/HomeView";
-import WatercoolerView from "views/WatercoolerView";
-import ListsView from "views/ListsView";
+import Home from "views/home/Home";
+import Watercooler from "views/watercooler/Watercooler";
+import Lists from "views/lists/Lists";
+import TabPanel from 'views/TabPanel';
 
 
-const UserView = () => {
+const User = () => {
   const [state, dispatch] = useContext(UserContext);
   const active = state.activeHeaderTab;
+  const otherProps = {
+    prefix: 'header'
+  }
 
   const onTabChange = (event, value) =>  {
     dispatch({
@@ -30,14 +32,14 @@ const UserView = () => {
           <Tab label="Lists" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={active} index={0}>
-        <HomeView />
+      <TabPanel value={active} index={0} {...otherProps}>
+        <Home />
       </TabPanel>
-      <TabPanel value={active} index={1}>
-        <WatercoolerView />
+      <TabPanel value={active} index={1} {...otherProps}>
+        <Watercooler />
       </TabPanel>
-      <TabPanel value={active} index={2}>
-        <ListsView />
+      <TabPanel value={active} index={2} {...otherProps}>
+        <Lists />
       </TabPanel>
     </Fragment>
   );
@@ -50,21 +52,4 @@ function a11yProps(index) {
   };
 }
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`header-tabpanel-${index}`}
-      aria-labelledby={`header-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box p={3}>{children}</Box>}
-    </Typography>
-  );
-}
-
-export default UserView;
+export default User;
