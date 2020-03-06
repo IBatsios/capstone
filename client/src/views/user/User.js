@@ -7,7 +7,7 @@ import Home from "views/home/Home";
 import Watercooler from "views/watercooler/Watercooler";
 import Lists from "views/lists/Lists";
 import TabPanel from 'views/TabPanel';
-
+import Paper from '@material-ui/core/Paper';
 
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -24,23 +24,25 @@ const User = () => {
   }
 
   return (
-    <Fragment>
-      <AppBar position="static" color="default">
-        <Tabs value={active} centered onChange={onTabChange}>
-          <Tab label="Home" {...a11yProps(0)} />
-          <Tab label="Watercooler" {...a11yProps(1)} />
-          <Tab label="Lists" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <TabPanel value={active} index={0} {...otherProps}>
-        <Home />
-      </TabPanel>
-      <TabPanel value={active} index={1} {...otherProps}>
-        <Watercooler />
-      </TabPanel>
-      <TabPanel value={active} index={2} {...otherProps}>
-        <Lists />
-      </TabPanel>
+     <Fragment>
+       <AppBar position="static" color="default">
+         <Tabs value={active} centered onChange={onTabChange}>
+           <Tab label="Home" {...a11yProps(0)} />
+           <Tab label="Watercooler" {...a11yProps(1)} />
+           <Tab label="Lists" {...a11yProps(2)} />
+         </Tabs>
+       </AppBar>
+       <Paper>
+         <TabPanel value={active} index={0} {...otherProps}>
+           <Home />
+         </TabPanel>
+         <TabPanel value={active} index={1} {...otherProps}>
+           <Watercooler />
+         </TabPanel>
+         <TabPanel value={active} index={2} {...otherProps}>
+           <Lists />
+         </TabPanel>
+       </Paper>
     </Fragment>
   );
 }
