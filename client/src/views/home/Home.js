@@ -21,7 +21,7 @@ const Home = () => {
 
   return (
     <Fragment>
-      <Tabs value={active} onChange={onTabChange}>
+      <Tabs position="fixed" value={active} onChange={onTabChange}>
         {interests.map((interest, index) => (
           <Tab label={interest} value={index} key={index} />
         ))}

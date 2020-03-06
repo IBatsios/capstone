@@ -8,6 +8,15 @@ import Watercooler from "views/watercooler/Watercooler";
 import Lists from "views/lists/Lists";
 import TabPanel from 'views/TabPanel';
 import Paper from '@material-ui/core/Paper';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import HomeIcon from '@material-ui/icons/Home';
+import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
+import ListIcon from '@material-ui/icons/List';
+import Hidden from '@material-ui/core/Hidden';
+import classes from './User.module.css';
+
+
 
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -25,13 +34,15 @@ const User = () => {
 
   return (
      <Fragment>
-       <AppBar position="static" color="default">
-         <Tabs value={active} centered onChange={onTabChange}>
-           <Tab label="Home" {...a11yProps(0)} />
-           <Tab label="Watercooler" {...a11yProps(1)} />
-           <Tab label="Lists" {...a11yProps(2)} />
-         </Tabs>
-       </AppBar>
+       <Hidden xsDown>
+         <AppBar position="static" color="default">
+           <Tabs value={active} centered onChange={onTabChange}>
+             <Tab label="Home" {...a11yProps(0)} />
+             <Tab label="Watercooler" {...a11yProps(1)} />
+             <Tab label="Lists" {...a11yProps(2)} />
+           </Tabs>
+         </AppBar>
+       </Hidden> 
        <Paper>
          <TabPanel value={active} index={0} {...otherProps}>
            <Home />
@@ -43,6 +54,20 @@ const User = () => {
            <Lists />
          </TabPanel>
        </Paper>
+
+      <Hidden smUp>
+        <BottomNavigation
+           value={active}
+           onChange={onTabChange}
+           showLabels
+           className={classes.root}
+        >
+
+          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+          <BottomNavigationAction label="Watercooler" icon={<LocalDrinkIcon />} />
+          <BottomNavigationAction label="Lists" icon={<ListIcon />} />
+        </BottomNavigation>
+      </Hidden>
     </Fragment>
   );
 }
