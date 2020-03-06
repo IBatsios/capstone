@@ -2,8 +2,12 @@ import React, { useContext, Fragment } from "react";
 import { UserContext } from 'data/UserStore';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import TabPanel from 'views/TabPanel';
+import General from "./General";
+import Movies from './Movies';
+import Music from './Music';
 
-const HomeView = () => {
+const Home = () => {
   const [state, dispatch] = useContext(UserContext);
   const active = state.activeHomeTab;
   const interests = state.interests;
@@ -22,8 +26,17 @@ const HomeView = () => {
           <Tab label={interest} value={index} key={index} />
         ))}
       </Tabs>
+      <TabPanel value={active} index={0} prefix="home">
+        <General />
+      </TabPanel>
+      <TabPanel value={active} index={1} prefix="home">
+        <Movies />
+      </TabPanel>
+      <TabPanel value={active} index={2} prefix="home">
+        <Music />
+      </TabPanel>
     </Fragment>
   );
 }
 
-export default HomeView;
+export default Home;

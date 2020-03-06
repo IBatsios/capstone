@@ -3,7 +3,7 @@ import React, { createContext, useReducer } from 'react';
 export const UserContext = createContext({});
 
 const initialState = {
-  interests: ["movies", "music"],
+  interests: ["general", "movies", "music"],
   headerTabs: ["home", "watercooler", "lists"],
   activeHeaderTab: 0,
   activeHomeTab: 0,

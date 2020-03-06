@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { UserStore } from 'data/UserStore';
-import UserView from 'views/UserView';
+import User from 'views/user';
 
 
 class App extends Component {
   render() {
     return (
-      <UserStore>
-        <UserView />
-      </UserStore>
+        <User />
     );
   }
 }

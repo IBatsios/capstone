@@ -1,7 +1,7 @@
 import React, { useContext, Fragment } from "react";
 import { UserContext } from 'data/UserStore';
 
-const ListsView = () => {
+const Lists = () => {
   const [state, dispatch] = useContext(UserContext);
 
   return (
@@ -11,4 +11,4 @@ const ListsView = () => {
   );
 }
 
-export default ListsView;
+export default Lists;

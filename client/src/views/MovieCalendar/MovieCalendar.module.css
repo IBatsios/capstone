@@ -1,0 +1,16 @@
+.header {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 1.25rem 0;
+}
+
+.trailer {
+  padding: 0 0 1rem 0;
+}
+
+.title {
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
