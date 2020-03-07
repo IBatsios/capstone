@@ -6,18 +6,14 @@
  */
 
 const router = require('express').Router();
-
-const User = require('../models/user.model');
-
-const DatabaseConnector = require('../connectors/database.connector');
-const connector = new DatabaseConnector();
-
-const UserController = require('../controllers/user.controller');
-const userController = new UserController();
+const UserServices = require('../services/UserServices');
 
 // INDEX: show all users.
-router.get('/', function(req, res) {
-    userController.getAllUsers(req, res);
+router.get('/', async (req, res) => {
+    const filter = req.body;
+
+    const allUsers = await UserServices.getAllUsers(filter);
+    return res.json(allUsers);
 });
 
 // CREATE: add a new user.
