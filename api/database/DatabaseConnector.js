@@ -58,8 +58,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    create(modelName, filter) {
-        return Translator.create(modelName, filter);
+    create(modelName, data) {
+        return Translator.create(modelName, data);
     }
 
     /**
@@ -68,8 +68,18 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    readOne(modelName, id) {
-        return Translator.readOne(modelName, id);
+    async readOne(modelName, id) {
+        var response = await Translator.readOne(modelName, id);
+
+        if (response === null) {
+            console.log(`Object in ${modelName} with ID ${id} not found.`);
+        }
+
+        if(response === false) {
+            console.log(`Invalid database object ID provided [${id}].`);
+        }
+
+        return response;
     }
 
     /**
@@ -78,8 +88,14 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    readMany(modelName, filter) {
-        return Translator.readMany(modelName, filter);
+    async readMany(modelName, filter) {
+        var response = await Translator.readMany(modelName, filter);
+
+        if (!response) {
+            console.log('No results found.');
+        }
+
+        return response;
     }
 
     /**
@@ -88,8 +104,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    update(modelName, filter) {
-        return Translator.update(modelName, filter);
+    update(modelName, id) {
+        return Translator.update(modelName, id);
     }
 
     /**
@@ -98,8 +114,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    delete(modelName, filter) {
-        return Translator.delete(modelName, filter);
+    delete(modelName, id) {
+        return Translator.delete(modelName, id);
     }
 }
 
