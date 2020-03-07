@@ -18,7 +18,7 @@ class MongoTranslator {
      */
     static async connect(uri) {
         console.log("Connecting to MongoDB...");
-        mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
+        await mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
             .then(() => console.log("MongoDB connected!"))
             .catch(error => console.log(`MongoDB connection error: ${error.message}`));
     }
