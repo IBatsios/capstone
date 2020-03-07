@@ -39,8 +39,6 @@ class MongoTranslator {
      *  
      * @param {*} modelName 
      * @param {*} filter 
-     * @param {*} projection 
-     * @param {*} options 
      * 
      * @author
      * @since 1.0.0
@@ -79,15 +77,11 @@ class MongoTranslator {
         return results;
     }
 
-    // static async readOne(modelName, )
-
     /**
      * Update in DB.
      * 
      * @param {*} modelName 
      * @param {*} filter 
-     * @param {*} projection 
-     * @param {*} options 
      * 
      * @author
      * @since 1.0.0
@@ -102,8 +96,6 @@ class MongoTranslator {
      * 
      * @param {*} modelName 
      * @param {*} filter 
-     * @param {*} projection 
-     * @param {*} options 
      * 
      * @author
      * @since 1.0.0
