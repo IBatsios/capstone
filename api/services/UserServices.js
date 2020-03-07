@@ -21,7 +21,7 @@ class UserServices {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    static getAllUsers(filter, projection, options) {
+    static getAllUsers(filter) {
         const allUsers = connector.readMany(modelName, filter);
         return allUsers;
     }
