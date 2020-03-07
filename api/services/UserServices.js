@@ -1,3 +1,5 @@
+'use strict'
+
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
 
