@@ -1,3 +1,5 @@
+'use strict'
+
 // Fetch settings.
 const translatorName = require('../config/config').dbTranslator;
 const uri = require('../config/config').dbUri;
