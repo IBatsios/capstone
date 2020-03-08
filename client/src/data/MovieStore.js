@@ -11,6 +11,7 @@ const initialState = {
   // Demo data for the movie calendar.  Probably should be removed, I don't think its a
   // good idea to keep loading all of these iframes.
   trailers: [
+   /*
    {
      name: 'Emma', 
      trailer: {
@@ -139,6 +140,7 @@ const initialState = {
        width: 300,
      }
    },
+   */
   ],
 };
 
