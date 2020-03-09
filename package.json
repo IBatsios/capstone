@@ -2,15 +2,17 @@
   "name": "featurama",
   "version": "1.0.0",
   "scripts": {
-    "start": "concurrently \"cd api && npm run start\" \"cd client && npm run start\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"cd api && npm run start\" \"cd client && npm run start\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "concurrently": "^5.0.2",
+    "glob": "^7.1.6",
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.10",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "normalize.css": "^8.0.1"
   }
 }
