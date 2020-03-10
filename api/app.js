@@ -4,16 +4,13 @@ const cors = require("cors");
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const mongoose = require('mongoose');
 const path = require('path');
+const DatabaseConnector = require('./database/DatabaseConnector');
 
 // Import Routers
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const postsRouter = require('./routes/posts');
-
-// Import Connectors
-const DatabaseConnector = require('./connectors/DatabaseConnector');
+const usersRouter = require('./routes/users.route');
+const postsRouter = require('./routes/posts.route');
 
 // Environment Variables Access
 require('dotenv').config();
@@ -39,8 +36,8 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 
 // Connect to Database
-const dbConnector = new DatabaseConnector();
-dbConnector.connect();
+let connection = new DatabaseConnector();
+connection.connect();
 
 // Catch 404 and forward to error handler
 app.use(function(req, res, next) {
