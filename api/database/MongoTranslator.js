@@ -139,12 +139,11 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static isValidId(id) {
-        var castedId;
         if ((id.length !== ID_DECIMAL_LENGTH && id.length !== ID_HEX_LENGTH)) {
             return false;
         }
 
-        castedId = new mongoose.Types.ObjectId(id);
+        var castedId = new mongoose.Types.ObjectId(id);
         
         if (mongoose.Types.ObjectId.isValid(castedId)) {
             return true;
