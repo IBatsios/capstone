@@ -48,7 +48,7 @@ class MongoTranslator {
      */
     static async create(modelName, data) {
         return ("NOT IMPLEMENTED: MongoDB Translator CREATE");
-        // TODO: perform create operation in DB.
+        // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID OR FALSE DEPENDING ON SUCCESS STATUS.
     }
 
     /**
@@ -91,7 +91,12 @@ class MongoTranslator {
         // Require the object's corresponding model (TODO: look into a better way of doing this)
         const Model = require(`../models/${modelName}`);
 
-        const results = await Model.find(filter); // find() returns an empty array if nothing is found.
+        const results = await Model.find(filter, (error) => {
+            if (error) {
+                console.log(`Error: ${error.message}`);
+                return false; // Fatal error.
+            }
+        }); // find() returns an empty array if nothing is found.
 
         if (!results.length) {
             return null; // Return null instead of empty array.
@@ -111,7 +116,7 @@ class MongoTranslator {
      */
     static async update(modelName, id) {
         return ("NOT IMPLEMENTED: MongoDB Translator UPDATE")
-        // TODO: perform update operation in DB.
+        // TODO: perform update operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
     /**
@@ -125,7 +130,7 @@ class MongoTranslator {
      */
     static async delete(modelName, id) {
         return ("MongoDB Translator DELETE");
-        // TODO: perform delete operation in DB.
+        // TODO: perform delete operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
     /**
@@ -139,12 +144,11 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static isValidId(id) {
-        var castedId;
         if ((id.length !== ID_DECIMAL_LENGTH && id.length !== ID_HEX_LENGTH)) {
             return false;
         }
 
-        castedId = new mongoose.Types.ObjectId(id);
+        var castedId = new mongoose.Types.ObjectId(id);
         
         if (mongoose.Types.ObjectId.isValid(castedId)) {
             return true;
