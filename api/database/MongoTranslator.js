@@ -91,7 +91,12 @@ class MongoTranslator {
         // Require the object's corresponding model (TODO: look into a better way of doing this)
         const Model = require(`../models/${modelName}`);
 
-        const results = await Model.find(filter); // find() returns an empty array if nothing is found.
+        const results = await Model.find(filter, (error) => {
+            if (error) {
+                console.log(`Error: ${error.message}`);
+                return false; // Fatal error.
+            }
+        }); // find() returns an empty array if nothing is found.
 
         if (!results.length) {
             return null; // Return null instead of empty array.
