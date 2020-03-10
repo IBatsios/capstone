@@ -48,7 +48,7 @@ class MongoTranslator {
      */
     static async create(modelName, data) {
         return ("NOT IMPLEMENTED: MongoDB Translator CREATE");
-        // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID.
+        // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID OR FALSE DEPENDING ON SUCCESS STATUS.
     }
 
     /**
