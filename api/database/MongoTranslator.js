@@ -48,7 +48,7 @@ class MongoTranslator {
      */
     static async create(modelName, data) {
         return ("NOT IMPLEMENTED: MongoDB Translator CREATE");
-        // TODO: perform create operation in DB.
+        // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID.
     }
 
     /**
@@ -111,7 +111,7 @@ class MongoTranslator {
      */
     static async update(modelName, id) {
         return ("NOT IMPLEMENTED: MongoDB Translator UPDATE")
-        // TODO: perform update operation in DB.
+        // TODO: perform update operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
     /**
@@ -125,7 +125,7 @@ class MongoTranslator {
      */
     static async delete(modelName, id) {
         return ("MongoDB Translator DELETE");
-        // TODO: perform delete operation in DB.
+        // TODO: perform delete operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
     /**
