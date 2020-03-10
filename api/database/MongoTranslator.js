@@ -179,6 +179,9 @@ class MongoTranslator {
     /**
      * Checks if MongoDB is connected. This can be utilized to check the status of the DB
      * connection before making a request.
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
      */
     static mongoIsConnected() {
         return (mongoose.connection.readyState === 1);
