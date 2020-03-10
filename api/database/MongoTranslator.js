@@ -21,9 +21,14 @@ class MongoTranslator {
      */
     static async connect(uri) {
         console.log("Connecting to MongoDB...");
+        var isConnected = false;
         await mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
-            .then(() => console.log("MongoDB connected!"))
+            .then(() => {
+                console.log("MongoDB connected!"),
+                isConnected = true
+            })
             .catch(error => console.log(`MongoDB connection error: ${error.message}`));
+        return isConnected;
     }
 
     /**
@@ -67,12 +72,19 @@ class MongoTranslator {
         // Require the object's corresponding model (TODO: look into a better way of doing this)
         const Model = require(`../models/${modelName}`);
 
-        if (!this.isValidId(id)) {
-            return false;
+        if (this.mongoIsConnected()) {
+            try {                
+                if (!this.isValidId(id)) {
+                    return false;
+                }
+                const response = await Model.findById(id); // findById() returns 'null' automatically if nothing is found.
+                return response;
+            } catch (error) {
+                console.log('Fatal error when making readOne() request to MongoDB.');
+            }
         }
-
-        const response = await Model.findById(id); // findById() returns 'null' automatically if nothing is found.
-        return response;
+        console.log('MongoDB is not connected.');
+        return false;
     }
 
     /**
@@ -91,18 +103,26 @@ class MongoTranslator {
         // Require the object's corresponding model (TODO: look into a better way of doing this)
         const Model = require(`../models/${modelName}`);
 
-        const results = await Model.find(filter, (error) => {
-            if (error) {
-                console.log(`Error: ${error.message}`);
-                return false; // Fatal error.
+        if (this.mongoIsConnected()) {
+            try {
+                const results = await Model.find(filter, (error) => {
+                    if (error) {
+                        console.log(`Error: ${error.message}`);
+                        return false; // Fatal error.
+                    }
+                }); // find() returns an empty array if nothing is found.
+        
+                if (!results.length) {
+                    return null; // Return null instead of empty array.
+                }
+        
+                return results;
+            } catch (error) {
+                console.log('Fatal error when making readMany() request to MongoDB.');
             }
-        }); // find() returns an empty array if nothing is found.
-
-        if (!results.length) {
-            return null; // Return null instead of empty array.
         }
-
-        return results;
+        console.log('MongoDB is not connected.');
+        return false;
     }
 
     /**
@@ -154,6 +174,17 @@ class MongoTranslator {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Checks if MongoDB is connected. This can be utilized to check the status of the DB
+     * connection before making a request.
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    static mongoIsConnected() {
+        return (mongoose.connection.readyState === 1);
     }
 }
 
