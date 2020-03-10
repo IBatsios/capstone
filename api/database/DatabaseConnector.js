@@ -38,8 +38,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    connect() {
-        return Translator.connect(uri);
+    async connect() {
+        return await Translator.connect(uri);
     }
 
     /**
