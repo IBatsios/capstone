@@ -52,7 +52,13 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static async create(modelName, data) {
-        return ("NOT IMPLEMENTED: MongoDB Translator CREATE");
+        const Model = require(`../models/${modelName}`);
+        if (this.mongoIsConnected()) {
+            const newModel = Model.create(data) 
+            return newModel;
+        }
+        console.log('MongoDB is not connected.');
+        return false;
         // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID OR FALSE DEPENDING ON SUCCESS STATUS.
     }
 
@@ -134,8 +140,25 @@ class MongoTranslator {
      * @author
      * @since 1.0.0
      */
-    static async update(modelName, id) {
-        return ("NOT IMPLEMENTED: MongoDB Translator UPDATE")
+    static async update(modelName, id, update) {
+        const Model = require(`../models/${modelName}`);
+
+        if (this.mongoIsConnected()) {
+            try {                
+                if (!this.isValidId(id)) {
+                    return false;
+                }
+                const newModel = await Model.findOneAndUpdate(id, update, {
+                    new: true
+                  }); //return the document after update was applied
+                return newModel;
+                
+            } catch (error) {
+                console.log('Fatal error when making readOne() request to MongoDB.');
+            }
+        }
+        console.log('MongoDB is not connected.');
+        return false;
         // TODO: perform update operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
@@ -149,7 +172,21 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static async delete(modelName, id) {
-        return ("MongoDB Translator DELETE");
+        const Model = require(`../models/${modelName}`);
+
+        if (this.mongoIsConnected()) {
+            try {                
+                if (!this.isValidId(id)) {
+                    return false;
+                }
+                const response = await Model.findOneAndRemove(id);// remove the entire data for now, witch to boolean later
+                return response; //return nothing
+            } catch (error) {
+                console.log('Fatal error when making readOne() request to MongoDB.');
+            }
+        }
+        console.log('MongoDB is not connected.');
+        return false;
         // TODO: perform delete operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
