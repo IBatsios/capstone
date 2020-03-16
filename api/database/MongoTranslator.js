@@ -137,10 +137,10 @@ class MongoTranslator {
      * @param {*} modelName 
      * @param {*} id 
      * 
-     * @author
+     * @author Hieu Vo
      * @since 1.0.0
      */
-    static async update(modelName, id, update) {
+    static async update(modelName, id, data) {
         const Model = require(`../models/${modelName}`);
 
         if (this.mongoIsConnected()) {
@@ -148,13 +148,13 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const newModel = await Model.findOneAndUpdate(id, update, {
+                const newModel = await Model.findOneAndUpdate(id, data, {
                     new: true
                   }); //return the document after update was applied
                 return newModel;
                 
             } catch (error) {
-                console.log('Fatal error when making readOne() request to MongoDB.');
+                console.log('Fatal error when making update() request to MongoDB.');
             }
         }
         console.log('MongoDB is not connected.');
@@ -168,7 +168,7 @@ class MongoTranslator {
      * @param {*} modelName 
      * @param {*} id 
      * 
-     * @author
+     * @author Hieu Vo
      * @since 1.0.0
      */
     static async delete(modelName, id) {
@@ -179,10 +179,10 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const response = await Model.findOneAndRemove(id);// remove the entire data for now, witch to boolean later
+                const response = await Model.findOneAndRemove(id);// remove the entire data for now, switch to boolean later
                 return response; //return nothing
             } catch (error) {
-                console.log('Fatal error when making readOne() request to MongoDB.');
+                console.log('Fatal error when making delete() request to MongoDB.');
             }
         }
         console.log('MongoDB is not connected.');
