@@ -65,7 +65,7 @@ router.get('/:id', async (req, res) => {
         return res.redirect('/users');
     }
     // console.log(foundUser);
-    return res.render('uses/show', {user: foundUser});
+    return res.render('users/show', {user: foundUser});
 });
 
 /**
