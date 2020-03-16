@@ -20,7 +20,7 @@ const app = express();
 
 // Backend View Engine Setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 // Use Dependencies
 app.use(cors());
