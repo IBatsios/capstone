@@ -35,10 +35,11 @@ router.get('/', async (req, res) => {
  * @since 1.0.0
  */
 router.post('/', async (req, res) => {
+    req.body.isActive = true;
     const userDTO = req.body; // Optional TODO: Outsource to a UserServices function to build DTO.
 
-    var userId = await UserServices.addUser(userDTO);
-    return res.json(userId);
+    var newUser = await UserServices.addUser(userDTO);
+    return res.json(newUser);
 });
 
 /**
