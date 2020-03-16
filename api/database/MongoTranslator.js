@@ -48,18 +48,25 @@ class MongoTranslator {
      * @param {*} modelName 
      * @param {*} data 
      * 
-     * @author
+     * @author Hieu Vo
      * @since 1.0.0
      */
     static async create(modelName, data) {
         const Model = require(`../models/${modelName}`);
         if (this.mongoIsConnected()) {
-            const newModel = Model.create(data) 
-            return newModel;
+            try {
+                const newModel = Model.create(data)
+                    .catch((error) => {
+                        console.log(`Error: ${error.message}`);
+                        return false;
+                    }); 
+                return newModel;
+            } catch (error) {
+                console.log(`Error: ${error.message}`);
+            }
         }
         console.log('MongoDB is not connected.');
         return false;
-        // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID OR FALSE DEPENDING ON SUCCESS STATUS.
     }
 
     /**
