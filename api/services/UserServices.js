@@ -71,6 +71,24 @@ class UserServices {
 
         return allUsers;
     }
+
+    /**
+     * 
+     * @param {*} userId 
+     * @param {*} newData 
+     */
+    static async updateUser(userId, newData) {
+
+        // TODO: validate newData
+
+        const updatedUser = await connector.update(modelName, userId, newData);
+
+        if (!updatedUser) {
+            console.log('Could not find user to update.');
+        }
+
+        return updatedUser;
+    }
 }
 
 module.exports = UserServices;
