@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show User</title>
+</head>
+<body>
+    <h1>Show 1 User</h1>
+    <h2>Developer Test</h2>
+    <a href="/users">Go Back</a>
+    <hr />
+    <div style="border: 1px solid red;">
+        <p><b>Username: </b><%= user.userName %></p>
+        <p><b>Email: </b><%= user.email %></p>
+        <p><b>First Name: </b><%= user.firstName %></p>
+        <p><b>Last Name: </b><%= user.lastName %></p>
+        <p><b>Bio: </b><%= user.bio %></p>
+        <p><b>Phone: </b><%= user.phone %></p>
+    </div>
+    <br>
+    <a href="/users/<%= user._id %>/edit">Edit User</a>
+</body>
+</html>
