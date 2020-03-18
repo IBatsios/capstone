@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false); // Fix deprecation warning
 
 const ID_DECIMAL_LENGTH = 12;
 const ID_HEX_LENGTH = 24;
@@ -66,9 +67,10 @@ class MongoTranslator {
             } catch (error) {
                 console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
     }
 
     /**
@@ -101,9 +103,10 @@ class MongoTranslator {
             } catch (error) {
                 console.log('Fatal error when making readOne() request to MongoDB.');
             }
-        }
-        console.log('MongoDB is not connected.');
-        return false;
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
+        }  
     }
 
     /**
@@ -139,9 +142,10 @@ class MongoTranslator {
             } catch (error) {
                 console.log('Fatal error when making readMany() request to MongoDB.');
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
     }
 
     /**
@@ -164,7 +168,7 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const newModel = await Model.findOneAndUpdate(id, data, {new: true})
+                const newModel = await Model.findByIdAndUpdate(id, {$set: data})
                     .catch((error) => {
                         console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
                         return false;
@@ -176,9 +180,10 @@ class MongoTranslator {
             } catch (error) {
                 console.log('Fatal error when making update() request to MongoDB.');
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
     }
 
     /**
@@ -206,9 +211,10 @@ class MongoTranslator {
             } catch (error) {
                 console.log('Fatal error when making delete() request to MongoDB.');
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
     }
 
     /**
