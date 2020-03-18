@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+</head>
+<body>
+    <div>
+        <h1>All Users</h1>
+        <h2>Developer Test</h2> 
+        <a href="/">Go Back</a> | <a href="/users/new">New User</a>
+    </div>
+    <hr />
+    <% users.forEach(function(user) { %>
+        <div style="border: 1px solid red;">
+            <div><b>Username:</b> <%= user.userName %></div>
+            <div><b>Mongo ID:</b> <%= user._id %></div>
+            <div><b></b><a href="/users/<%= user._id %>">See More</a></div>
+        </div>
+    <% }); %>
+</body>
+</html>
