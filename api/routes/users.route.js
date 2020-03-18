@@ -96,9 +96,20 @@ router.put('/:id', async (req, res) => {
     return res.redirect(`/users/${userId}`);
 });
 
-// DELETE: deactivates an existing user in the database (NOT permanent deletion).
-router.delete('/:id', (req, res) => {
-    res.send("This will eventually turn off a single user so it isn't displayed in the application! \nNOTE: DO NOT USE A PERMANENT DELETE METHOD.");
+/**
+ * DELETE: deactivates an existing user in the database (NOT permanent deletion).
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.delete('/:id', async (req, res) => {
+    const userId = req.params.id;
+    const response = await UserServices.deleteUser(userId); // TODO: Currently deletes the user in the DB, but eventually will need to update isActive flag.
+    console.log(response);
+    if (!response) {
+        console.log('Error when deleting user.'); // TODO: Send error message to view.
+    }
+    return res.redirect('/users'); //TODO: Send success message to view.
 });
 
 module.exports = router;
