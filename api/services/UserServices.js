@@ -73,9 +73,15 @@ class UserServices {
     }
 
     /**
+     * Contacts the database connector to update a user that matches the ID passed in.
      * 
-     * @param {*} userId 
-     * @param {*} newData 
+     * @param {ObjectId|string} userId 
+     * @param {object} newData 
+     * 
+     * @returns {object|null|false} the updated object if successful | null if no user found | false if failed
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
      */
     static async updateUser(userId, newData) {
 
@@ -83,11 +89,35 @@ class UserServices {
 
         const updatedUser = await connector.update(modelName, userId, newData);
 
-        if (!updatedUser) {
+        if (updatedUser === null) {
             console.log('Could not find user to update.');
         }
 
+        if (updatedUser === false) {
+            console.log('Update user failed.');
+        }
+
         return updatedUser;
+    }
+
+    /**
+     * Contacts the database connector to deactivate a user that matches the ID passed in.
+     * 
+     * @param {ObjectId|string} userId 
+     * 
+     * @returns {boolean} true if delete was successful, false if not
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    static async deleteUser(userId) {
+        const deleteResponse = await connector.delete(modelName, userId);
+
+        if (!deleteResponse) {
+            console.log('Error deleting user.');
+        }
+
+        return deleteResponse;
     }
 }
 
