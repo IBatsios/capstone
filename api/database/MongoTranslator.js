@@ -215,6 +215,7 @@ class MongoTranslator {
                 return response; //return nothing
             } catch (error) {
                 console.log('Fatal error when making delete() request to MongoDB.');
+                return false;
             }
         } else {
             console.log('MongoDB is not connected.');
