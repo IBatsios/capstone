@@ -22,10 +22,10 @@ router.get('/', async (req, res) => {
     var allUsers = await UserServices.getManyUsers(filter);
 
     if (!allUsers) {
-        return res.send('No users found.');
+        return res.redirect('/users/new');
     }
 
-    return res.render('users/', {users: allUsers});
+    return res.render('/users', {users: allUsers});
 });
 
 /**
