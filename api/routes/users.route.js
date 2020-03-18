@@ -17,15 +17,17 @@ const UserServices = require('../services/UserServices');
  * @since 1.0.0
  */
 router.get('/', async (req, res) => {
-    const filter = req.body; // Optional TODO: Outsource to a UserServices function to build filter.
+    // const filter = req.body; // Optional TODO: Outsource to a UserServices function to build filter.
+    const filter = {};
 
     var allUsers = await UserServices.getManyUsers(filter);
 
     if (!allUsers) {
+        // return res.send('No users found.');
         return res.redirect('/users/new');
     }
 
-    return res.render('/users', {users: allUsers});
+    return res.render('users', {users: allUsers});
 });
 
 /**
@@ -39,7 +41,12 @@ router.post('/', async (req, res) => {
     const userDTO = req.body; // Optional TODO: Outsource to a UserServices function to build DTO.
 
     var newUser = await UserServices.addUser(userDTO);
-    return res.json(newUser);
+
+    if (!newUser) {
+        return res.redirect('/users/new');
+    }
+
+    return res.render('users/show', {user: newUser});
 });
 
 /**
