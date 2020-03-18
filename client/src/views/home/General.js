@@ -1,5 +1,5 @@
 import React from "react";
-import Interest from 'layout/Interest';
+import { Interest, Sidebar, Content, Ads } from 'layout';
 import { Bio } from 'views/user/Bio';
 
 
@@ -7,36 +7,23 @@ const General = () => {
   return (
     <Interest
       sidebar={
-        <SideBar />
+        <Sidebar>
+          Home General SideBar
+        </Sidebar>
       }
       content={
-        <Content />
+        <Content>
+          <Bio />
+          Home General Content
+        </Content>
       }
       ads={
-        <Ads />
+        <Ads>
+          Home General Ads
+        </Ads>
       }
     />
   );
 }
 
-const Ads = () => {
-  return (
-    <div>Home General Ads</div>
-  );
-}
-
-const Content = () => {
-  return (
-    <div>
-      <Bio />
-      <div>Home General Content</div>
-    </div>
-  ); 
-}
-
-const SideBar = () => {
-  return (
-    <div>Home General SideBar</div>
-  );
-}
 export default General;

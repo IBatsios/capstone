@@ -1,38 +1,27 @@
 import React from "react";
-import Interest from 'layout/Interest';
+import { Interest, Sidebar, Content, Ads } from 'layout';
 
 
 const Music = () => {
   return (
     <Interest
       sidebar={
-        <SideBar />
+        <Sidebar>
+          <div>Watercooler Music SideBar</div>
+        </Sidebar>
       }
       content={
-        <Content />
+        <Content>
+          <div>Watercooler Music Content</div>
+        </Content>
       }
       ads={
-        <Ads />
+        <Ads>
+          <div>Watercooler Music Ads</div>
+        </Ads>
       }
     />
   );
 }
 
-const Ads = () => {
-  return (
-    <div>Watercooler Music Ads</div>
-  );
-}
-
-const Content = () => {
-  return (
-    <div>Watercooler Music Content</div>
-  ); 
-}
-
-const SideBar = () => {
-  return (
-    <div>Watercooler Music SideBar</div>
-  );
-}
 export default Music;

@@ -1,38 +1,30 @@
-import React from "react";
-import Interest from 'layout/Interest';
-
+import React, { useContext } from 'react';
+import { UserContext } from 'data/UserStore';
+import { Interest, Sidebar, Content, Ads } from 'layout';
 
 const Movies = () => {
+  const [state, dispatch] = useContext(UserContext);
+
+  // TODO: Remove hard-coded strings and create appropriate config files.
   return (
     <Interest
       sidebar={
-        <SideBar />
+        <Sidebar
+          lists={state.user.lists.filter(item => item.interest === 'movies')}
+        />
       }
       content={
-        <Content />
+        <Content>
+          Home Movies Content
+        </Content>
       }
       ads={
-        <Ads />
+        <Ads>
+          Home Movies Ads
+        </Ads>
       }
     />
   );
 }
 
-const Ads = () => {
-  return (
-    <div>Home Movies Ads</div>
-  );
-}
-
-const Content = () => {
-  return (
-    <div>Home Movies Content</div>
-  ); 
-}
-
-const SideBar = () => {
-  return (
-    <div>Home Movies SideBar</div>
-  );
-}
 export default Movies;

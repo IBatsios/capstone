@@ -1,38 +1,26 @@
 import React from "react";
-import Interest from 'layout/Interest';
-
+import { Interest, Sidebar, Content, Ads } from 'layout';
 
 const General = () => {
   return (
     <Interest
       sidebar={
-        <SideBar />
+        <Sidebar>
+          Watercooler General SideBar
+        </Sidebar>
       }
       content={
-        <Content />
+        <Content>
+          Watercooler General Content
+        </Content>
       }
       ads={
-        <Ads />
+        <Ads>
+          Watercooler General Ads
+        </Ads>
       }
     />
   );
 }
 
-const Ads = () => {
-  return (
-    <div>Watercooler General Ads</div>
-  );
-}
-
-const Content = () => {
-  return (
-    <div>Watercooler General Content</div>
-  ); 
-}
-
-const SideBar = () => {
-  return (
-    <div>Watercooler General SideBar</div>
-  );
-}
 export default General;
