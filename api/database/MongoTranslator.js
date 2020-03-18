@@ -1,6 +1,7 @@
 'use strict'
 
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false); // Fix deprecation warning
 
 const ID_DECIMAL_LENGTH = 12;
 const ID_HEX_LENGTH = 24;
@@ -43,23 +44,33 @@ class MongoTranslator {
     }
     
     /**
-     * Create in DB.
+     * Create in MongoDB: utilizes mongoosejs to store data in a MongoDB database.
      *  
-     * @param {*} modelName 
-     * @param {*} data 
+     * @param {string} modelName 
+     * @param {object} data
      * 
-     * @author
+     * @returns {object|false} the newly created record if the process was successful | false if the creation process failed
+     * 
+     * @author Hieu Vo
      * @since 1.0.0
      */
     static async create(modelName, data) {
         const Model = require(`../models/${modelName}`);
         if (this.mongoIsConnected()) {
-            const newModel = Model.create(data) 
-            return newModel;
+            try {
+                const newModel = Model.create(data)
+                    .catch((error) => {
+                        console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
+                        return false;
+                    }); 
+                return newModel;
+            } catch (error) {
+                console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
+            }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
-        // TODO: perform create operation in DB. NEEDS TO RETURN OBJECT ID OR FALSE DEPENDING ON SUCCESS STATUS.
     }
 
     /**
@@ -69,7 +80,7 @@ class MongoTranslator {
      * @param {string} modelName
      * @param {ObjectId|string} id 
      * 
-     * @returns {Object|null|false} the record if it's found | null if nothing is found | false if invalid ID
+     * @returns {object|null|false} the record if it's found | null if nothing is found | false if invalid ID
      * 
      * @author Christopher Thacker
      * @since 1.0.0
@@ -83,14 +94,19 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const response = await Model.findById(id); // findById() returns 'null' automatically if nothing is found.
+                const response = await Model.findById(id) // findById() returns 'null' automatically if nothing is found.
+                    .catch((error) => {
+                        console.log(`Error: ${error.message}`);
+                        return false;
+                    });
                 return response;
             } catch (error) {
                 console.log('Fatal error when making readOne() request to MongoDB.');
             }
-        }
-        console.log('MongoDB is not connected.');
-        return false;
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
+        }  
     }
 
     /**
@@ -126,21 +142,25 @@ class MongoTranslator {
             } catch (error) {
                 console.log('Fatal error when making readMany() request to MongoDB.');
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
     }
 
     /**
-     * Update in DB.
+     * Update in DB: change an existing record in the database.
      * 
-     * @param {*} modelName 
-     * @param {*} id 
+     * @param {string} modelName 
+     * @param {ObjectId|string} id
+     * @param {object} data
      * 
-     * @author
+     * @returns {object|false} the updated record if operation was successful | false if operation failed
+     * 
+     * @author Hieu Vo
      * @since 1.0.0
      */
-    static async update(modelName, id, update) {
+    static async update(modelName, id, data) {
         const Model = require(`../models/${modelName}`);
 
         if (this.mongoIsConnected()) {
@@ -148,27 +168,36 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const newModel = await Model.findOneAndUpdate(id, update, {
-                    new: true
-                  }); //return the document after update was applied
+                const newModel = await Model.findByIdAndUpdate(id, {$set: data})
+                    .catch((error) => {
+                        console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
+                        return false;
+                    });
+                
+                if (!newModel.length || newModel === null) {
+                    console.log('No user found to update.');
+                    return null;
+                }
+
                 return newModel;
                 
             } catch (error) {
-                console.log('Fatal error when making readOne() request to MongoDB.');
+                console.log('Fatal error when making update() request to MongoDB.');
+                return false;
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
-        // TODO: perform update operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
     /**
-     * Delete in DB.
+     * Delete in DB: remove a record from the database.
      * 
-     * @param {*} modelName 
-     * @param {*} id 
+     * @param {string} modelName 
+     * @param {ObjectId|string} id 
      * 
-     * @author
+     * @author Hieu Vo
      * @since 1.0.0
      */
     static async delete(modelName, id) {
@@ -179,15 +208,19 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const response = await Model.findOneAndRemove(id);// remove the entire data for now, witch to boolean later
+                const response = await Model.findOneAndRemove(id) // remove the entire data for now, switch to boolean later
+                    .catch((error) => {
+                        console.log(`Error: ${error.message}`);
+                    });
                 return response; //return nothing
             } catch (error) {
-                console.log('Fatal error when making readOne() request to MongoDB.');
+                console.log('Fatal error when making delete() request to MongoDB.');
+                return false;
             }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
         }
-        console.log('MongoDB is not connected.');
-        return false;
-        // TODO: perform delete operation in DB. NEEDS TO RETURN TRUE, FALSE, OR NULL DEPENDING ON SUCCESS STATUS.
     }
 
     /**

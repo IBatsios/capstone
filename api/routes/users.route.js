@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
         return res.send('No users found.');
     }
 
-    return res.json(allUsers);
+    return res.render('users/', {users: allUsers});
 });
 
 /**
@@ -35,10 +35,11 @@ router.get('/', async (req, res) => {
  * @since 1.0.0
  */
 router.post('/', async (req, res) => {
+    req.body.isActive = true;
     const userDTO = req.body; // Optional TODO: Outsource to a UserServices function to build DTO.
 
-    var userId = await UserServices.addUser(userDTO);
-    return res.json(userId);
+    var newUser = await UserServices.addUser(userDTO);
+    return res.json(newUser);
 });
 
 /**
@@ -64,8 +65,7 @@ router.get('/:id', async (req, res) => {
         console.log('Error when retrieving user.');
         return res.redirect('/users');
     }
-    // console.log(foundUser);
-    return res.render('uses/show', {user: foundUser});
+    return res.render('users/show', {user: foundUser});
 });
 
 /**
@@ -74,18 +74,42 @@ router.get('/:id', async (req, res) => {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.get('/:id/edit', (req, res) => {
-    return res.render('users/edit', {user: req.user});
+router.get('/:id/edit', async (req, res) => {
+    const foundUser = await UserServices.getUser(req.params.id);
+    return res.render('users/edit', {user: foundUser});
 });
 
-// PUT: updates a user in the database.
-router.put('/:id', (req, res) => {
+/**
+ * PUT: updates a user in the database.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.put('/:id', async (req, res) => {
+    const newData = req.body;
     const userId = req.params.id;
+    const updatedUser = await UserServices.updateUser(userId, newData);
+    if (!updatedUser) {
+        console.log('Error when updating user.');
+        return res.redirect('/users');
+    }
+    return res.redirect(`/users/${userId}`);
 });
 
-// DELETE: deactivates an existing user in the database (NOT permanent deletion).
-router.delete('/:id', (req, res) => {
-    res.send("This will eventually turn off a single user so it isn't displayed in the application! \nNOTE: DO NOT USE A PERMANENT DELETE METHOD.");
+/**
+ * DELETE: deactivates an existing user in the database (NOT permanent deletion).
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.delete('/:id', async (req, res) => {
+    const userId = req.params.id;
+    const response = await UserServices.deleteUser(userId); // TODO: Currently deletes the user in the DB, but eventually will need to update isActive flag.
+    console.log(response);
+    if (!response) {
+        console.log('Error when deleting user.'); // TODO: Send error message to view.
+    }
+    return res.redirect('/users'); //TODO: Send success message to view.
 });
 
 module.exports = router;

@@ -104,8 +104,9 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    update(modelName, id) {
-        return Translator.update(modelName, id);
+    async update(modelName, id, data) {
+        var response = await Translator.update(modelName, id, data);
+        return response;
     }
 
     /**
@@ -114,8 +115,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    delete(modelName, id) {
-        return Translator.delete(modelName, id);
+    async delete(modelName, id) {
+        return await Translator.delete(modelName, id);
     }
 }
 
