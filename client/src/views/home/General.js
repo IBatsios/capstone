@@ -1,5 +1,6 @@
 import React from "react";
 import Interest from 'layout/Interest';
+import { Bio } from 'views/user/Bio';
 
 
 const General = () => {
@@ -26,7 +27,10 @@ const Ads = () => {
 
 const Content = () => {
   return (
-    <div>Home General Content</div>
+    <div>
+      <Bio />
+      <div>Home General Content</div>
+    </div>
   ); 
 }
 

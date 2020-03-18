@@ -1,0 +1,23 @@
+.sidebar {
+  grid-area: sidebar;
+  padding: 50px;
+}
+
+.sidebar > img {
+  max-width: 100%;
+}
+
+.content {
+  grid-area: content;
+  position: relative;
+  border-radius: 5px;
+  padding: 50px;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+  "sidebar content content";
+}
