@@ -7,25 +7,28 @@ var userSchema = new Schema({
     required: true
 },
   password: {
-    type: String,
-    required: true
+    type: String
+    //required: true
 },
   firstName: {
     type: String,
-    required: true
+    required: false
 },
   lastName: {
     type: String,
-    required: true
+    required: false
 },
   userName: {
     type: String,
     required: true
 },
-  bio: String,
+  bio: {
+    type: String,
+    required: false
+  },
   phone: {
     type: Number,
-    required: true
+    required: false
 },
   isActive: Boolean
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
