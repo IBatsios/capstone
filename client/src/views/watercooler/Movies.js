@@ -1,31 +1,24 @@
 import React from "react";
 import MovieCalendar from 'views/MovieCalendar/MovieCalendar';
-import Interest from 'layout/Interest';
-
-const Ads = () => {
-  return (
-    <div>Watercooler Movies Ads</div>
-  );
-}
-
-const Content = () => {
-  return (
-    <div>Watercooler Movies Content</div>
-  ); 
-}
-
+import { Interest, Sidebar, Content, Ads } from 'layout';
 
 const Movies = () => {
   return (
     <Interest
       sidebar={
-        <MovieCalendar />
+        <Sidebar>
+          <MovieCalendar />
+        </Sidebar>
       }
       content={
-        <Content />
+        <Content>
+          <div>Watercooler Movies Content</div>
+        </Content>
       }
       ads={
-        <Ads />
+        <Ads>
+          <div>Watercooler Movies Ads</div>
+        </Ads>
        }
       />
   );
