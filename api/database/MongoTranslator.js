@@ -173,12 +173,17 @@ class MongoTranslator {
                         console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
                         return false;
                     });
+                
+                if (!newModel.length || newModel === null) {
+                    console.log('No user found to update.');
+                    return null;
+                }
 
-                //return the document after update was applied
                 return newModel;
                 
             } catch (error) {
                 console.log('Fatal error when making update() request to MongoDB.');
+                return false;
             }
         } else {
             console.log('MongoDB is not connected.');
