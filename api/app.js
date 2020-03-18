@@ -1,4 +1,5 @@
 // Import Dependencies
+const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const createError = require('http-errors');
@@ -23,6 +24,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Use Dependencies
+app.use(methodOverride('_method')); // IMPORTANT: Keep as first
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
