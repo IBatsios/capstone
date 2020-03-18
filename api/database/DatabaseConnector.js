@@ -115,8 +115,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    delete(modelName, id) {
-        return Translator.delete(modelName, id);
+    async delete(modelName, id) {
+        return await Translator.delete(modelName, id);
     }
 }
 
