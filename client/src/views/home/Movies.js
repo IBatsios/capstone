@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from 'data/UserStore';
 import { Interest, Sidebar, Content, Ads } from 'layout';
+import { Posts } from 'views/user';
 
 const Movies = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -15,7 +16,10 @@ const Movies = () => {
       }
       content={
         <Content>
-          Home Movies Content
+          <Posts posts={
+            state.posts.filter(post => {
+              return post.interest === 'movies' && post.author.id === state.user.id
+          })}/>
         </Content>
       }
       ads={
