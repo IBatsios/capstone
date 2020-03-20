@@ -1,17 +1,10 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import ReportIcon from '@material-ui/icons/Report';
-import AddCommentIcon from '@material-ui/icons/AddComment';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Hidden from '@material-ui/core/Hidden';
 import classes from './Posts.module.css';
 import { PostDrawer, PostMenu } from './PostMenu';
