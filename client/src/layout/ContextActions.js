@@ -15,6 +15,7 @@ import AddCommentIcon from '@material-ui/icons/AddComment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles({
   list: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const PostDrawer = () => {
+export const ContextActionsDrawer = () => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     bottom: false
@@ -99,7 +100,7 @@ export const PostDrawer = () => {
 }
 
 
-export const PostMenu = () => {
+export const ContextActionsMenu = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -159,3 +160,15 @@ export const PostMenu = () => {
   );
 }
 
+export const ContextActions = () => {
+  return (
+    <>
+      <Hidden xsDown>
+        <ContextActionsMenu />
+      </Hidden>
+      <Hidden smUp>
+        <ContextActionsDrawer />
+      </Hidden>
+    </>
+  );
+}
