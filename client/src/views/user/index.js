@@ -12,4 +12,3 @@ const User = () => {
 
 export default User;
 export { Bio } from './Bio';
-export { Posts } from './Posts';

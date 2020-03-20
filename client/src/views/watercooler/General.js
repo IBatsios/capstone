@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from 'data/UserStore';
 import { Interest, Sidebar, Content, Ads } from 'layout';
-import { Posts } from 'views/user';
+import { Posts } from 'views/post';
 
 const General = () => {
   const [state, dispatch] = useContext(UserContext);

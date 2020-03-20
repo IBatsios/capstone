@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { UserContext } from 'data/UserStore';
 import { Interest, Sidebar, Content, Ads } from 'layout';
-import { Bio, Posts } from 'views/user';
+import { Bio } from 'views/user';
+import { Posts } from 'views/post';
 
 
 const General = () => {
