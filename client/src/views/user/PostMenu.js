@@ -15,6 +15,8 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = makeStyles({
   list: {
@@ -95,6 +97,67 @@ export const PostDrawer = () => {
         {fullList('bottom')}
       </Drawer>
     </div>
+  );
+}
+
+
+export const PostMenu = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+  <>
+    <IconButton
+      onClick={handleClick}
+      aria-label="settings">
+      <MoreVertIcon />
+    </IconButton>
+    <Menu
+      id="context-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <ThumbUpIcon />
+        </ListItemIcon>
+        <ListItemText primary="Like" />
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <ThumbDownIcon />
+        </ListItemIcon>
+        <ListItemText primary="Dislike" />
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <AddCommentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Add Comment" />
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <PersonAddIcon />
+        </ListItemIcon>
+        <ListItemText primary="Friend Request" />
+      </MenuItem>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <ReportIcon />
+        </ListItemIcon>
+        <ListItemText primary="Report" />
+      </MenuItem>
+    </Menu>
+  </>
   );
 }
 

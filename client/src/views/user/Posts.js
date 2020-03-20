@@ -12,8 +12,9 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ReportIcon from '@material-ui/icons/Report';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Hidden from '@material-ui/core/Hidden';
 import classes from './Posts.module.css';
-import { PostDrawer } from './PostMenu';
+import { PostDrawer, PostMenu } from './PostMenu';
 
 export const Posts = (props) => {
   // Only render markup for posts that exist.
@@ -29,9 +30,14 @@ export const Posts = (props) => {
                 />
               }
               action={
-                <IconButton aria-label="settings">
-                  <PostDrawer />
-                </IconButton>
+                <>
+                  <Hidden xsDown>
+                    <PostMenu />
+                  </Hidden>
+                  <Hidden smUp>
+                    <PostDrawer />
+                  </Hidden>
+                </>
               }
               title={
                 post.author.username
@@ -45,23 +51,6 @@ export const Posts = (props) => {
                 {post.content}
               </Typography>
             </CardContent>
-            <CardActions>
-              <IconButton aria-label="like">
-                <ThumbUpIcon />
-              </IconButton>
-              <IconButton aria-label="dislike">
-                <ThumbDownIcon />
-              </IconButton>
-              <IconButton aria-label="comment">
-                <AddCommentIcon />
-              </IconButton>
-              <IconButton aria-label="friend request">
-                <PersonAddIcon />
-              </IconButton>
-              <IconButton aria-label="report">
-                <ReportIcon />
-              </IconButton>
-            </CardActions>
           </Card>
         ))}
       </>
