@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { UserContext } from 'data/UserStore';
 import { Interest, Sidebar, Content, Ads } from 'layout';
-import { Bio } from 'views/user/Bio';
+import { Bio } from 'views/user';
+import { Posts } from 'views/post';
 
 
 const General = () => {
+  const [state, dispatch] = useContext(UserContext);
+
+  const posts = state.posts;
   return (
     <Interest
       sidebar={
@@ -14,7 +19,10 @@ const General = () => {
       content={
         <Content>
           <Bio />
-          Home General Content
+          <Posts posts={
+            state.posts.filter(post => {
+              return post.interest === 'general' && post.author.id === state.user.id
+          })}/>
         </Content>
       }
       ads={

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from 'react';
+import { UserContext } from 'data/UserStore';
 import MovieCalendar from 'views/MovieCalendar/MovieCalendar';
 import { Interest, Sidebar, Content, Ads } from 'layout';
+import { Posts } from 'views/post';
 
 const Movies = () => {
+  const [state, dispatch] = useContext(UserContext);
+
   return (
     <Interest
       sidebar={
@@ -12,7 +16,8 @@ const Movies = () => {
       }
       content={
         <Content>
-          <div>Watercooler Movies Content</div>
+          <Posts posts={state.posts.filter(post => post.interest === 'movies')
+        }/>
         </Content>
       }
       ads={
