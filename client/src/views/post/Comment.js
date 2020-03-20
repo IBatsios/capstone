@@ -17,6 +17,7 @@ export const Comment = (props) => {
           avatar={
             <Avatar
               alt={props.comment.author.username}
+              src={props.comment.author.avatar}
             />
           }
           action={

@@ -2,8 +2,9 @@
   grid-area: sidebar;
 }
 
-.sidebar > img {
-  max-width: 100%;
+.sidebar .avatar {
+  width: 100%;
+  height: auto;
 }
 
 .content {

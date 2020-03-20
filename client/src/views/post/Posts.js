@@ -48,6 +48,7 @@ export const Posts = (props) => {
               avatar={
                 <Avatar
                   alt={post.author.username}
+                  src={post.author.avatar}
                 />
               }
               action={
