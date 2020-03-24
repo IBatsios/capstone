@@ -10,11 +10,18 @@ import TabPanel from 'views/TabPanel';
 import Paper from '@material-ui/core/Paper';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import HomeIcon from '@material-ui/icons/Home';
-import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
-import ListIcon from '@material-ui/icons/List';
 import Hidden from '@material-ui/core/Hidden';
 import classes from './User.module.css';
+import {
+  HOME,
+  WATERCOOLER,
+  HOME_ICON,
+  HOME_LABEL,
+  LISTS_ICON,
+  LISTS_LABEL,
+  WATERCOOLER_ICON,
+  WATERCOOLER_LABEL
+} from 'config/user';
 
 
 
@@ -37,9 +44,9 @@ const User = () => {
        <Hidden xsDown>
          <AppBar position="static" color="default">
            <Tabs value={active} centered onChange={onTabChange}>
-             <Tab label="Home" {...a11yProps(0)} />
-             <Tab label="Watercooler" {...a11yProps(1)} />
-             <Tab label="Lists" {...a11yProps(2)} />
+             <Tab label={HOME} {...a11yProps(0)} />
+             <Tab label={WATERCOOLER} {...a11yProps(1)} />
+             <Tab label={LISTS_LABEL} {...a11yProps(2)} />
            </Tabs>
          </AppBar>
        </Hidden> 
@@ -63,9 +70,18 @@ const User = () => {
            className={classes.root}
         >
 
-          <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-          <BottomNavigationAction label="Watercooler" icon={<LocalDrinkIcon />} />
-          <BottomNavigationAction label="Lists" icon={<ListIcon />} />
+          <BottomNavigationAction
+            label={HOME_LABEL}
+            icon={<HOME_ICON />}
+          />
+          <BottomNavigationAction
+            label={WATERCOOLER_LABEL}
+            icon={<WATERCOOLER_ICON />}
+          />
+          <BottomNavigationAction
+            label={LISTS_LABEL}
+            icon={<LISTS_ICON />}
+          />
         </BottomNavigation>
       </Hidden>
     </Fragment>
