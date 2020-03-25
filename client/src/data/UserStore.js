@@ -22,12 +22,7 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case 'changeActiveHeaderTab':
-      console.log('Changing header tab');
       return { ...state, activeHeaderTab: action.payload };
-    case 'changeActiveHomeTab':
-      return { ...state, activeHomeTab: action.payload };
-    case 'changeActiveWatercoolerTab':
-      return { ...state, activeWatercoolerTab: action.payload };
     default:
       throw new Error('Action type is not defined.');
   }

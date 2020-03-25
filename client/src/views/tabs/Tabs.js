@@ -1,19 +1,15 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext } from "react";
 import { UserContext } from 'data/UserStore';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Swipeable } from "react-swipeable";
 import TabPanel from 'views/TabPanel';
-import { InterestPage } from 'views/InterestPage';
+import { Interest } from 'views/interest';
 
 export const TabsUi = (props) => {
   const [state, dispatch] = useContext(UserContext);
   const [active, setActive] = React.useState(0);
   const interests = state.interests;
-
-  const handleChange = (event, newValue) => {
-    changeTab(newValue);
-  };
 
   const changeTab = (value) => {
     setActive(value);
@@ -61,7 +57,7 @@ export const TabsUi = (props) => {
 }
 
 const getInterest = (props) => {
-  return React.createElement(InterestPage, {
+  return React.createElement(Interest, {
     key: props.interest.toString(),
     section: props.section,
     interest: {

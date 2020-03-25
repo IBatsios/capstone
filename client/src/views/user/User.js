@@ -14,13 +14,11 @@ import Hidden from '@material-ui/core/Hidden';
 import classes from './User.module.css';
 import {
   HOME,
-  WATERCOOLER,
   HOME_ICON,
-  HOME_LABEL,
-  LISTS_ICON,
-  LISTS_LABEL,
+  WATERCOOLER,
   WATERCOOLER_ICON,
-  WATERCOOLER_LABEL
+  LISTS,
+  LISTS_ICON,
 } from 'config/user';
 
 
@@ -46,7 +44,7 @@ const User = () => {
            <Tabs value={active} centered onChange={onTabChange}>
              <Tab label={HOME} {...a11yProps(0)} />
              <Tab label={WATERCOOLER} {...a11yProps(1)} />
-             <Tab label={LISTS_LABEL} {...a11yProps(2)} />
+             <Tab label={LISTS} {...a11yProps(2)} />
            </Tabs>
          </AppBar>
        </Hidden> 
@@ -71,16 +69,19 @@ const User = () => {
         >
 
           <BottomNavigationAction
-            label={HOME_LABEL}
+            label={HOME}
             icon={<HOME_ICON />}
+            classes={{label: classes.label}}
           />
           <BottomNavigationAction
-            label={WATERCOOLER_LABEL}
+            label={WATERCOOLER}
             icon={<WATERCOOLER_ICON />}
+            classes={{label: classes.label}}
           />
           <BottomNavigationAction
-            label={LISTS_LABEL}
+            label={LISTS}
             icon={<LISTS_ICON />}
+            classes={{label: classes.label}}
           />
         </BottomNavigation>
       </Hidden>

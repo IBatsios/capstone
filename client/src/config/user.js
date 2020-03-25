@@ -8,14 +8,13 @@ import MovieCalendar from 'views/MovieCalendar/MovieCalendar';
 
 // Names and icons for top-level navigation. 
 const HOME = 'home';
-const HOME_ICON = HomeIcon;
-const HOME_LABEL = "Home";
 const LISTS = 'lists';
-const LISTS_ICON = ListIcon;
-const LISTS_LABEL = "Lists";
 const WATERCOOLER = 'watercooler';
+
+// Top-level navigation icons.
+const HOME_ICON = HomeIcon;
+const LISTS_ICON = ListIcon;
 const WATERCOOLER_ICON = LocalDrinkIcon;
-const WATERCOOLER_LABEL = "Watercooler";
 
 
 // Default user interests.
@@ -24,60 +23,30 @@ const MOVIES = "movies";
 const MUSIC = "music";
 const INTERESTS = [ GENERAL, MOVIES, MUSIC ];
 
+// Components or strings can be placed in a given section of the interest
+// layout.  
 const blocks = {
   home: {
     general: {
-      sidebar: [
-      ],
       content: [
         Bio 
-      ]
-    },
-    movies: {
-      sidebar: [
       ],
-      content: [
-      ]
-    },
-    music: {
-      sidebar: [
-      ],
-      content: [
-      ]
     }
   },
   watercooler: {
-    general: {
-      sidebar: [
-      ],
-      content: [
-      ]
-    },
     movies: {
       sidebar: [
         MovieCalendar
-      ],
-      content: [
-      ]
-    },
-    music: {
-      sidebar: [
-      ],
-      content: [
       ]
     }
-  },
-  lists: {
   }
 }
 
 const userConfig = {
   blocks: blocks,
   interests: INTERESTS,
-  headerTabs: [ HOME_LABEL, WATERCOOLER_LABEL, LISTS_LABEL ],
-  activeHeaderTab: 0,
-  activeHomeTab: 0,
-  activeWatercoolerTab: 0
+  headerTabs: [ HOME, WATERCOOLER, LISTS ],
+  activeHeaderTab: 0
 }
 
 
@@ -85,12 +54,10 @@ const userConfig = {
 export {
   HOME,
   HOME_ICON,
-  HOME_LABEL,
+  LISTS,
   LISTS_ICON,
-  LISTS_LABEL,
   WATERCOOLER,
   WATERCOOLER_ICON,
-  WATERCOOLER_LABEL,
   INTERESTS,
   userConfig
 }
