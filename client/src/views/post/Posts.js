@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
-import { ContextActions } from 'layout/ContextActions';
+import { ContextActions } from 'views/ContextActions';
 import { Comments } from 'views/post';
 
 const useStyles = makeStyles(theme => ({

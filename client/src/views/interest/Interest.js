@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { UserContext } from 'data/UserStore';
-import { Interest, Sidebar, Content, Ads } from 'layout';
+import Hidden from '@material-ui/core/Hidden';
+import classes from './Interest.module.css';
 import { Posts } from 'views/post';
 import { HOME, WATERCOOLER } from 'config/user';
+import { renderBlocks } from 'utils';
 
 
-export const InterestPage = (props) => {
+export const Interest = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   // The top-level navigation section for the site.
@@ -14,16 +16,25 @@ export const InterestPage = (props) => {
   // The category of the post.
   const interest = props.interest.component;
 
+  // Blocks of content configured to appear in  a given section
+  // and interest category.
+  let blocks = [];
+  if (state.blocks[section]) {
+    if (state.blocks[section][interest]) {
+      blocks = state.blocks[section][interest];
+    }
+  }
+
   // Posts with a given interest
   let posts = state.posts;
 
   switch (section) {
-    case 'home':
+    case HOME:
       posts = state.posts.filter(post => {
         return post.interest === interest && post.author.id === state.user.id
       })
       break;
-    case 'watercooler':
+    case WATERCOOLER:
       posts = state.posts.filter(post => {
         return post.interest === interest
       })
@@ -32,39 +43,29 @@ export const InterestPage = (props) => {
       throw new Error('Section not is not defined.');
   }
 
-  // Blocks of content configured to appear in  a given section
-  // and interest category.
-  const blocks = state.blocks[section][interest];
-
-
-  const sidebar_blocks = blocks.sidebar.map((Block, index) => (
-    <Block key={index} />
-  ));
-
-  const content_blocks = blocks.content.map((Block, index) => (
-    <Block key={index} />
-  ));
 
   return (
-    <Interest
-      sidebar={
-        <Sidebar>
-          {sidebar_blocks}
-          {props.children}
-        </Sidebar>
-      }
-      content={
-        <Content>
-          {content_blocks}
-          {props.children}
+    <div className={classes.interests}>
+      <Hidden smDown>
+        <div className={classes.sidebar}>
+          <div className={classes.wrapper}>
+            {renderBlocks(blocks.sidebar)}
+          </div>
+        </div>
+      </Hidden>
+      <div className={classes.content}>
+        <div className={classes.wrapper}>
+          {renderBlocks(blocks.content)}
           <Posts posts={posts} />
-        </Content>
-      }
-      ads={
-        <Ads>
-          {section} {interest} Ads
-        </Ads>
-      }
-    />
+        </div>
+      </div>
+      <Hidden smDown>
+        <div className={classes.ads}>
+          <div className={classes.wrapper}>
+            {renderBlocks(blocks.ads)}
+          </div>
+        </div>
+      </Hidden>
+    </div>
   );
 }
