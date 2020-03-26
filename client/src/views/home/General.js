@@ -1,38 +1,37 @@
-import React from "react";
-import Interest from 'layout/Interest';
+import React, { useContext } from 'react';
+import { UserContext } from 'data/UserStore';
+import { Interest, Sidebar, Content, Ads } from 'layout';
+import { Bio } from 'views/user';
+import { Posts } from 'views/post';
 
 
 const General = () => {
+  const [state, dispatch] = useContext(UserContext);
+
+  const posts = state.posts;
   return (
     <Interest
       sidebar={
-        <SideBar />
+        <Sidebar>
+          Home General SideBar
+        </Sidebar>
       }
       content={
-        <Content />
+        <Content>
+          <Bio />
+          <Posts posts={
+            state.posts.filter(post => {
+              return post.interest === 'general' && post.author.id === state.user.id
+          })}/>
+        </Content>
       }
       ads={
-        <Ads />
+        <Ads>
+          Home General Ads
+        </Ads>
       }
     />
   );
 }
 
-const Ads = () => {
-  return (
-    <div>Home General Ads</div>
-  );
-}
-
-const Content = () => {
-  return (
-    <div>Home General Content</div>
-  ); 
-}
-
-const SideBar = () => {
-  return (
-    <div>Home General SideBar</div>
-  );
-}
 export default General;

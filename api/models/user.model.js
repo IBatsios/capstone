@@ -2,13 +2,34 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-  email: String,
-  password: String,
-  firstName: String,
-  lastName: String,
-  userName: String,
-  bio: String,
-  phone: Number,
+  email: {
+    type: String,
+    required: true
+},
+  password: {
+    type: String
+    //required: true
+},
+  firstName: {
+    type: String,
+    required: false
+},
+  lastName: {
+    type: String,
+    required: false
+},
+  userName: {
+    type: String,
+    required: true
+},
+  bio: {
+    type: String,
+    required: false
+  },
+  phone: {
+    type: Number,
+    required: false
+},
   isActive: Boolean
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 

@@ -1,0 +1,78 @@
+[
+  {
+    "id":"5e7216fbacd4a42955b6450e",
+    "email":"jsmith@yopmail.com",
+    "password":"password",
+    "firstName":"John",
+    "lastName":"Smith",
+    "username":"jsmith",
+    "avatar": "/avatar2.png",
+    "bio":"Just a guy with a common name",
+    "phone":5555555555,
+    "isActive":true,
+    "createdAt":"2020-03-18T12:41:31.632Z",
+    "updatedAt":"2020-03-18T12:41:31.632Z",
+    "lists": [
+      {
+        "name": "Favorite Movies",
+        "interest": "movies",
+        "description": "My favorite movies at the moment",
+        "date": "2020-03-18T12:41:31.632Z",
+        "items": [
+          {
+            "id":"1e7216fbacd4a42955b6450e",
+            "name":"Eternal Sunshine of the Spotless Mind",
+            "description": "An older favorite movie.",
+            "imgUrl": "https://upload.wikimedia.org/wikipedia/en/a/a4/Eternal_Sunshine_of_the_Spotless_Mind.png",
+            "url": "https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind"
+          },
+          {
+            "id":"1f0216fbacd4a42955b6450e",
+            "name":"Alita: Battle Angel",
+            "description": "Very cool!",
+            "imgUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/Alita_Battle_Angel_%282019_poster%29.png/220px-Alita_Battle_Angel_%282019_poster%29.png",
+            "url": "https://en.wikipedia.org/wiki/Alita:_Battle_Angel"
+          }
+        ]
+      }
+    ]
+},
+{
+    "id":"0e7216fbacd4a42955b6450e",
+    "email":"bboard@yopmail.com",
+    "password":"monkey",
+    "firstName":"Bill",
+    "lastName":"Board",
+    "username":"bboard",
+    "avatar": "/avatar3.jpeg",
+    "bio":"I'm a Bill-Board",
+    "phone":5555555558,
+    "isActive":true,
+    "createdAt":"2019-03-18T12:41:31.632Z",
+    "updatedAt":"2019-03-18T12:41:31.632Z",
+    "lists": [
+      {
+        "name": "Favorite Movies",
+        "interest": "movies",
+        "description": "Movies I like.",
+        "date": "2020-01-18T12:41:31.632Z",
+        "items": [
+          {
+            "id":"1f1216fbacd4a42955b6450e",
+            "name":"Ready Player One",
+            "description": "I favorite for years to come.",
+            "imgUrl": "https://upload.wikimedia.org/wikipedia/en/7/74/Ready_Player_One_%28film%29.png",
+            "url": "https://en.wikipedia.org/wiki/Ready_Player_One_(film)"
+          },
+          {
+            "id":"1f2216fbacd4a42955b6450e",
+            "name":"Alita: Battle Angel",
+            "description": "It's worth watching!",
+            "imgUrl": "https://upload.wikimedia.org/wikipedia/en/thumb/e/ee/Alita_Battle_Angel_%282019_poster%29.png/220px-Alita_Battle_Angel_%282019_poster%29.png",
+            "url": "https://en.wikipedia.org/wiki/Alita:_Battle_Angel"
+          }
+        ]
+      }
+    ]
+  }
+]

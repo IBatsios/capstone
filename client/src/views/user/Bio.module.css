@@ -1,0 +1,21 @@
+.sidebar {
+  grid-area: sidebar;
+}
+
+.sidebar .avatar {
+  width: 100%;
+  height: auto;
+}
+
+.content {
+  grid-area: content;
+  position: relative;
+}
+
+.wrapper {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+  "sidebar content content";
+}

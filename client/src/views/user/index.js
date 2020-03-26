@@ -11,3 +11,4 @@ const User = () => {
 }
 
 export default User;
+export { Bio } from './Bio';
