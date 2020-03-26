@@ -13,16 +13,16 @@ const id = '5e7216fbacd4a42955b6450e';
 const posts = getPosts();
 
 const user = getUser(id);
-const initialState = {...userConfig, user, posts};
+const initialState = {
+  ...userConfig,
+  user,
+  posts
+};
 
 function reducer(state, action) {
   switch (action.type) {
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
-    case 'changeActiveHomeTab':
-      return { ...state, activeHomeTab: action.payload };
-    case 'changeActiveWatercoolerTab':
-      return { ...state, activeWatercoolerTab: action.payload };
     default:
       throw new Error('Action type is not defined.');
   }
