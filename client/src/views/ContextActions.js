@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ContextActionsDrawer = () => {
+export const ContextActionsDrawer = (props) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     bottom: false
@@ -40,6 +40,7 @@ export const ContextActionsDrawer = () => {
     setState({ ...state, [side]: open });
   };
 
+
   const fullList = side => (
     <div
       className={classes.fullList}
@@ -48,25 +49,25 @@ export const ContextActionsDrawer = () => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        <ListItem button>
+        <ListItem button onClick={() => props.onLike(props.id)}>
           <ListItemIcon>
             <ThumbUpIcon />
           </ListItemIcon>
           <ListItemText primary="Like" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => props.onDislike(props.id)}>
           <ListItemIcon>
             <ThumbDownIcon />
           </ListItemIcon>
           <ListItemText primary="Dislike" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => props.onAddComment(props.id)}>
           <ListItemIcon>
             <AddCommentIcon />
           </ListItemIcon>
           <ListItemText primary="Add Comment" />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => props.onFriendRequest(props.author)}>
           <ListItemIcon>
             <PersonAddIcon />
           </ListItemIcon>
@@ -75,7 +76,7 @@ export const ContextActionsDrawer = () => {
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={() => props.onReport(props.id)}>
           <ListItemIcon>
             <ReportIcon />
           </ListItemIcon>
@@ -100,10 +101,10 @@ export const ContextActionsDrawer = () => {
 }
 
 
-export const ContextActionsMenu = () => {
+export const ContextActionsMenu = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = event => {
+  const handleContextMenuClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -111,10 +112,35 @@ export const ContextActionsMenu = () => {
     setAnchorEl(null);
   };
 
+  const handleLike = () => {
+    props.onLike(props.id);
+    handleClose();
+  }
+
+  const handleDislike = () => {
+    props.onDislike(props.id);
+    handleClose();
+  }
+
+  const handleAddComment = () => {
+    props.onAddComment(props.id);
+    handleClose();
+  }
+
+  const handleFriendRequest = () => {
+    props.onFriendRequest(props.author);
+    handleClose();
+  }
+
+  const handleReport = () => {
+    props.onReport(props.id);
+    handleClose();
+  }
+
   return (
   <>
     <IconButton
-      onClick={handleClick}
+      onClick={handleContextMenuClick}
       aria-label="settings">
       <MoreVertIcon />
     </IconButton>
@@ -125,31 +151,31 @@ export const ContextActionsMenu = () => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleLike}>
         <ListItemIcon>
           <ThumbUpIcon />
         </ListItemIcon>
         <ListItemText primary="Like" />
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleDislike}>
         <ListItemIcon>
           <ThumbDownIcon />
         </ListItemIcon>
         <ListItemText primary="Dislike" />
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleAddComment}>
         <ListItemIcon>
           <AddCommentIcon />
         </ListItemIcon>
         <ListItemText primary="Add Comment" />
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleFriendRequest}>
         <ListItemIcon>
           <PersonAddIcon />
         </ListItemIcon>
         <ListItemText primary="Friend Request" />
       </MenuItem>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleReport}>
         <ListItemIcon>
           <ReportIcon />
         </ListItemIcon>
@@ -160,14 +186,15 @@ export const ContextActionsMenu = () => {
   );
 }
 
-export const ContextActions = () => {
+export const ContextActions = (props) => {
+
   return (
     <>
       <Hidden xsDown>
-        <ContextActionsMenu />
+        <ContextActionsMenu {...props} />
       </Hidden>
       <Hidden smUp>
-        <ContextActionsDrawer />
+        <ContextActionsDrawer {...props} />
       </Hidden>
     </>
   );
