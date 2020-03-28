@@ -31,7 +31,15 @@ class DatabaseConnector {
         return this;
     }
 
-
+    /**
+     * Returns the singleton instance of the Database Connector.
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    static getInstance() {
+        return this;
+    }
 
     /**
      * Connect method for database connector class; connects to a MongoDB database
