@@ -31,6 +31,8 @@ class DatabaseConnector {
         return this;
     }
 
+
+
     /**
      * Connect method for database connector class; connects to a MongoDB database
      * that is passed into the translator upon creating its instance.
@@ -58,8 +60,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    create(modelName, data) {
-        return Translator.create(modelName, data);
+    async create(modelName, data) {
+        return await Translator.create(modelName, data);
     }
 
     /**
