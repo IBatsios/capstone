@@ -1,8 +1,18 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+/**
+ * This is the schema for the comments that will appear under posts.
+ * 
+ * @author Hieu Vo and Christopher Thacker
+ * @since 1.0.0
+ */
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const listSchema = new Schema({
+var itemSchema = new Schema({
     itemName:{
+        type: String,
+        required: true
+    },
+    URL:{
         type: String,
         required: true
     },
@@ -27,5 +37,4 @@ const listSchema = new Schema({
     }
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
-const Item = mongoose.model('Item', itemSchema);
-module.exports = Item;
+module.exports = mongoose.model('Item', itemSchema);

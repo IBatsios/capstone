@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Item</title>
+</head>
+<body>
+    <h1>Edit Existing Item</h1>
+    <h2>Developer Test</h2>
+    <a href="/items">Return to list</a><br><br>
+    <form action="/items/<%= item._id %>?_method=PUT" method="POST">
+        <div>
+            <label for="itemName">ItemName</label>
+            <input type="itemName" name="itemName" id="itemName" placeholder="ItemName" value="<%= item.itemName %>">   
+        </div>
+        <div>
+            <label for="URL">URL</label>
+            <input type="URL" name="URL" id="URL" placeholder="URL" value="<%= item.URL %>">   
+        </div>
+        <div>
+            <label for="topic">Topic</label>
+            <input type="topic" name="topic" id="topic" placeholder="Topic" value="<%= item.topic %>">   
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <input type="description" name="description" id="description" placeholder="Description" value="<%= item.description %>">   
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
+        <button style="color: red;">Permanently Delete</button>
+    </form>
+</body>
+</html>

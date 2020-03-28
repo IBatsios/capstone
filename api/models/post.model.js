@@ -1,14 +1,14 @@
 /**
  * This is the schema for user posts that will be displayed on the web application.
  * 
- * @author Christopher Thacker
+ * @author Hieu Vo and Christopher Thacker
  * @since 1.0.0
  */
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const postSchema = new Schema({
+var postSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -21,6 +21,19 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
+    likeCount: {
+        type: Number,
+        required: true
+    },
+    arrayLike: [
+        {
+            id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User'
+            },
+            username: String,
+        }   
+    ],
     comments: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -34,11 +47,11 @@ const postSchema = new Schema({
         },
         username: String,
     },
+    
     isActive: {
         type: Boolean,
         required: true
     }
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
-const Post = mongoose.model('Post', postSchema);
-module.exports = Post;
+module.exports = mongoose.model('Post', postSchema);
