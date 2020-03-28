@@ -1,14 +1,14 @@
 /**
  * This is the schema for the comments that will appear under posts.
  * 
- * @author Christopher Thacker
+ * @author Hieu Vo and Christopher Thacker
  * @since 1.0.0
  */
 
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-const commentSchema = new Schema({
+var commentSchema = new Schema({
     content: {
         type: String,
         required: true
@@ -26,5 +26,5 @@ const commentSchema = new Schema({
     }
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
-const Comment = mongoose.model('Comment', commentSchema);
-module.exports = Comment;
+module.exports = mongoose.model('Comment', commentSchema);
+
