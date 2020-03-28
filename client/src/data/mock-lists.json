@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1",
+    "user_id": "5e7216fbacd4a42955b6450e",
+    "title": "Favorite Movies",
+    "items": {
+      "id": "101",
+      "name": "Unforgiven",
+      "url": "https://www.imdb.com/title/tt0105695/?ref_=nv_sr_srsg_0",
+      "description": "This is my favorite movie of all time. When Clint Eastwood says, 'He should have armed himself if he was gonna decorate his saloon with the body of my friend', I jumped for joy."
+    }
+  }
+]
