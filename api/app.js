@@ -50,6 +50,10 @@ passport.deserializeUser(User.deserializeUser());
 // Backend View Engine Setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(function(req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // Use Routes
 app.use('/', indexRouter);
