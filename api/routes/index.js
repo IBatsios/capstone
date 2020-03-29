@@ -1,16 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-// const localStrategy = require('passport-local');
+const Middleware = require('../utility/Middleware');
 
 var User = require('../models/user.model');
-// passport.use(new localStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.user);
   res.render('index', { title: 'Featurama' });
 });
 
@@ -49,17 +45,9 @@ router.post('/login', passport.authenticate('local',
   }), function(req, res, next) {
 });
 
-router.get('/logout', isLoggedIn, function(req, res, next) {
+router.get('/logout', Middleware.isLoggedIn, function(req, res, next) {
   req.logout();
   res.redirect('/');
 });
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  console.log('You must be logged in to do that!');
-  res.redirect('/login');
-}
 
 module.exports = router;
