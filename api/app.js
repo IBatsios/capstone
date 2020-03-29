@@ -8,6 +8,11 @@ const logger = require('morgan');
 const path = require('path');
 const DatabaseConnector = require('./database/DatabaseConnector');
 
+// Import Login Requirements
+const passport = require('passport');
+const localStrategy = require('passport-local');
+const User = require('./models/user.model');
+
 // Import Routers
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users.route');
@@ -39,7 +44,6 @@ app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/items', itemsRouter);
 
-
 // Connect to Database
 let connection = new DatabaseConnector();
 connection.connect();
@@ -48,6 +52,19 @@ connection.connect();
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// Passport configuration
+app.use(require('express-session')({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Error handler
 app.use(function(err, req, res, next) {
