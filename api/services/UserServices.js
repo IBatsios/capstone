@@ -2,11 +2,8 @@
 
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
-
 const modelName = 'user.model';
 const User = require(`../models/${modelName}`);
-
-const passport = require('passport');
 
 /**
  * User Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -39,7 +36,7 @@ class UserServices {
             const userPassword = userDTO.password;
 
             try {
-                const result = await User.register(newUser, userPassword) // Passport function
+                const result = await User.register(newUser, userPassword) // Passport function; if time permits, look into a way to abstract this out.
                 if (!result) {
                     console.log('Registration failed at UserServices');
                     return false;
@@ -58,7 +55,7 @@ class UserServices {
     /**
      * Service method to find a single user in the database.
      * 
-     * @param {*} userId
+     * @param {ObjectId|string} userId
      * 
      * @author Christopher Thacker
      * @since 1.0.0
@@ -81,6 +78,8 @@ class UserServices {
      * Returns all users based on the provided conditions. If no filters are provided, then all users in the database will be returned.
      * These parameters match the MongoDB function parameters; please refer to the MongoDB documentation for more details on what each
      * parameter is. WARNING: if no filter is defined, all users will be returned.
+     * 
+     * @param {object} filter
      * 
      * @author Christopher Thacker
      * @since 1.0.0
