@@ -26,7 +26,7 @@ var userSchema = new Schema({
     type: String,
     required: false
 },
-  userName: {
+  username: {
     type: String,
     required: true
 },
