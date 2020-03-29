@@ -1,53 +1,84 @@
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const UserServices = require('../services/UserServices');
+const User = require('../models/user.model');
 const Middleware = require('../utility/Middleware');
 
-var User = require('../models/user.model');
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Featurama' });
+/**
+ * Home Page for back-end developer testing.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.get('/', function (req, res, next) {
+    res.render('index', { title: 'Featurama' });
 });
 
-router.get('/register', function(req, res, next) {
-  res.render('register');
+/**
+ * Displays the registration form to the user.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.get('/register', function (req, res, next) {
+    res.render('register');
 });
 
-router.post('/register', function(req, res, next) {
-  User.register(new User({
-    email: req.body.email,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-    bio: req.body.bio,
-    phone: req.body.phone,
-    isActive: true
-  }), req.body.password, function(error, user) {
-    if (error) {
-      console.log(error.message);
-      return res.render('register');
+/**
+ * Sends data in POST request to register the new user through PassportJS.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.post('/register', async function (req, res, next) {
+    const newUser = req.body;
+
+    try {
+        const result = await UserServices.addUser(newUser);
+        if (result) {
+            return res.redirect('/');
+        }
+        console.log('Add user failed');
+        return res.render('register');
+    } catch (error) {
+        console.log(error);
+        return res.render('register');
     }
-    passport.authenticate('local')(req, res, function() {
-      res.redirect('/users');
-    });
-  });
 });
 
-router.get('/login', function(req, res, next) {
-  res.render('login');
+/**
+ * Displays the login form to the user.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.get('/login', function (req, res, next) {
+    res.render('login');
 });
 
-router.post('/login', passport.authenticate('local', 
-  {
-    successRedirect: '/', 
-    failureRedirect: '/login'
-  }), function(req, res, next) {
+/**
+ * Authenticates the user using PassportJS.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.post('/login', passport.authenticate('local',
+    {
+        successRedirect: '/',
+        failureRedirect: '/login'
+    }), function (req, res, next) {
 });
 
-router.get('/logout', Middleware.isLoggedIn, function(req, res, next) {
-  req.logout();
-  res.redirect('/');
+/**
+ * Logs the user out using PassportJS.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.get('/logout', Middleware.isLoggedIn, function (req, res, next) {
+    req.logout();
+    res.redirect('/');
 });
 
 module.exports = router;
