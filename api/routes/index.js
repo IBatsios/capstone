@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-const localStrategy = require('passport-local');
+// const localStrategy = require('passport-local');
 
 var User = require('../models/user.model');
+// passport.use(new localStrategy(User.authenticate()));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -36,6 +39,18 @@ router.post('/register', function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
   res.render('login');
+});
+
+router.post('/login', passport.authenticate('local', 
+  {
+    successRedirect: '/users', 
+    failureRedirect: '/login'
+  }), function(req, res, next) {
+});
+
+router.get('/logout', function(req, res, next) {
+  req.logout();
+  res.redirect('/');
 });
 
 module.exports = router;
