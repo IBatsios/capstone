@@ -48,9 +48,17 @@ router.post('/login', passport.authenticate('local',
   }), function(req, res, next) {
 });
 
-router.get('/logout', function(req, res, next) {
+router.get('/logout', isLoggedIn, function(req, res, next) {
   req.logout();
   res.redirect('/');
 });
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  console.log('You must be logged in to do that!');
+  res.redirect('/login');
+}
 
 module.exports = router;
