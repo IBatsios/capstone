@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+const localStrategy = require('passport-local');
 
 var User = require('../models/user.model');
 
