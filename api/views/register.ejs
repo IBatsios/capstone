@@ -6,17 +6,42 @@
     <title>Sign Up</title>
 </head>
 <body>
-    <div>
-        <h1>Register User</h1>
-        <h2>Developer Test</h2> 
-        <a href="/">Go Back</a>
-    </div>
-    <div>
-        <form action="/register" method="POST">
-            <input type="text" name="username" placeholder="username">
-            <input type="password" name="password" placeholder="password">
+    <h1>Register</h1>
+    <h2>Developer Test</h2>
+    <p><b>Note: Your browser may tell you that this webpage exposed your password.<br>That is because it does not hash the password yet and sends it across the wire unencrypted.</b><br><br><b style="color: red;">For now, "password" is not required.</b></p>
+    <p><a href="/">Go Back</a></p>
+    <form action="/register" method="POST">
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Email">   
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password">   
+        </div>
+        <div>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" id="firstName" placeholder="First Name">   
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Last Name">   
+        </div>
+        <div>
+            <label for="userName">Username</label>
+            <input type="text" name="userName" id="userName" placeholder="Username">   
+        </div>
+        <div>
+            <label for="bio">Biography</label>
+            <input type="text" name="bio" id="bio" placeholder="Biography">   
+        </div>
+        <div>
+            <label for="phone">Phone</label>
+            <input type="number" name="phone" id="phone" placeholder="Phone Number">   
+        </div>
+        <div>
             <button>Sign Up</button>
-        </form>
-    </div>
+        </div>
+    </form>
 </body>
 </html>
