@@ -7,6 +7,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var passportLocalMongoose = require('passport-local-mongoose');
+
 var userSchema = new Schema({
   email: {
     type: String,
@@ -38,5 +40,7 @@ var userSchema = new Schema({
 },
   isActive: Boolean
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
+
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', userSchema);
