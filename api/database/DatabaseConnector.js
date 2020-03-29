@@ -58,8 +58,8 @@ class DatabaseConnector {
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    close() {
-        return Translator.close();
+    async close() {
+        return await Translator.close();
     }
 
     /**
