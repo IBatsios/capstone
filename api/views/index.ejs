@@ -10,8 +10,14 @@
     <p>You can access the content on port 3000.</p>
     <div><b>Dev Link: </b><a href="/users">see all users</a></div>
     <div><b>Dev Link: </b><a href="/items">see all items</a></div>
+    <hr />
+    <% if(!currentUser) { %>
+    <div><h4>You are not logged in.</h4></div>
     <div><b>Dev Link: </b><a href="/register">register form</a></div>
     <div><b>Dev Link: </b><a href="/login">login form</a></div>
+    <% } else { %>
+    <div><h4>Hello, <%= currentUser.username %></h4></div>
     <div><b>Dev Link: </b><a href="/logout">logout</a></div>
+    <% } %>
   </body>
 </html>
