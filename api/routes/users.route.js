@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
     // }
 
     // return res.render('users/show', {user: newUser});
-    console.log('THIS ROUTE IS DEPRECATED. PLEASE USE THE /register ROUTE.');
+    console.log('THIS POST ROUTE (users.route.js/index) IS DEPRECATED. PLEASE USE THE /register ROUTE.');
     return res.redirect('/register');
 });
 
@@ -60,7 +60,7 @@ router.post('/', async (req, res) => {
  * @since 1.0.0
  */
 router.get('/new', (req, res) => {
-    console.log('THIS ROUTE IS DEPRECATED. PLEASE USE THE /register ROUTE.');
+    console.log('THIS GET ROUTE (user.route.js/index) IS DEPRECATED. PLEASE USE THE /register ROUTE.');
     return res.redirect('/register');
 });
 
