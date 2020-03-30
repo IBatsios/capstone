@@ -8,6 +8,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var listSchema = new Schema({
+    listName: {
+        type: String,
+        required: true
+    },
     topic: {
         type: String,
         required: true
@@ -19,13 +23,12 @@ var listSchema = new Schema({
         },
         username: String
     },
-    item: {
-        id:{
+    itemList: [
+        {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Item'
         }
-
-    },
+    ],
     isActive: {
         type: Boolean,
         required: true
