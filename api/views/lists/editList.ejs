@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New List</title>
+</head>
+<body>
+    <h1>Edit Existing List</h1>
+    <h2>Developer Test</h2>
+    <a href="/lists">Return to list</a><br><br>
+    <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
+        <div>
+            <label for="listName">ListName</label>
+            <input type="listName" name="listName" id="listName" placeholder="ListName" value="<%= list.listName %>">   
+        </div>
+        <div>
+            <label for="itemList">Choose Items:</label>
+            <select id="item">
+                <option value="item1">Item1</option>
+                <option value="item2">Item2</option>
+                <option value="item3">Item3</option>
+                <option value="item4">Item4</option>
+            </select>
+        </div>
+        <div>
+            <label for="topic">Topic</label>
+            <input type="topic" name="topic" id="topic" placeholder="Topic" value="<%= list.topic %>">   
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <form action="/lists/<%= list._id %>?_method=DELETE" method="POST">
+        <button style="color: red;">Permanently Delete</button>
+    </form>
+</body>
+</html>
