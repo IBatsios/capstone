@@ -13,16 +13,34 @@ const id = '5e7216fbacd4a42955b6450e';
 const posts = getPosts();
 
 const user = getUser(id);
-const initialState = {...userConfig, user, posts};
+const initialState = {
+  ...userConfig,
+  user,
+  posts
+};
 
 function reducer(state, action) {
   switch (action.type) {
+    // Need to add logic for these actions.  It's unclear
+    // how it will be implemented.
+    case 'likePost':
+      console.log(`liked postId: ${action.payload}`);
+      return { ...state };
+    case 'dislikePost':
+      console.log(`disliked postId: ${action.payload}`);
+      return { ...state };
+    case 'addCommentToPost':
+      console.log(`Want to add a comment to postId: ${action.payload}`);
+      return { ...state };
+    case 'newFriendRequest':
+      
+      console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
+      return { ...state };
+    case 'reportPost':
+      console.log(`postId ${action.payload} has been reported`);
+      return { ...state };
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
-    case 'changeActiveHomeTab':
-      return { ...state, activeHomeTab: action.payload };
-    case 'changeActiveWatercoolerTab':
-      return { ...state, activeWatercoolerTab: action.payload };
     default:
       throw new Error('Action type is not defined.');
   }

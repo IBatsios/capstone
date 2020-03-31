@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New List</title>
+</head>
+<body>
+    <h1>Add New List</h1>
+    <h2>Developer Test</h2>
+    <p><a href="/lists">Go Back</a></p>
+    <form action="/lists" method="POST">
+        <div>
+            <label for="listName">ListName</label>
+            <input type="listName" name="listName" id="listName" placeholder="ListName">   
+        </div>
+        <div>
+            <label for="itemList">Choose Items:</label>
+            <select id="itemList">
+                <option value="item1">Item1</option>
+                <option value="item2">Item2</option>
+                <option value="item3">Item3</option>
+                <option value="item4">Item4</option>
+            </select>
+        </div>
+        <div>
+            <label for="topic">Topic</label>
+            <input type="topic" name="topic" id="topic" placeholder="Topic">   
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form>
+</body>
+</html>

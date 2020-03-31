@@ -2,8 +2,8 @@
 
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
-
 const modelName = 'user.model';
+const User = require(`../models/${modelName}`);
 
 /**
  * User Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -14,25 +14,48 @@ const modelName = 'user.model';
 class UserServices {
 
     /**
-     * Service method to add a user to the database.
+     * Service method to add a user to the database. IMPORTANT: this method uses PassportJS to contact the database, NOT the DatabaseConnector.
      * 
-     * @param {*} userDTO Data Transfer Object for user.
+     * @param {object} userDTO Data Transfer Object for user.
      * 
      * @author Christopher Thacker
      * @since 1.0.0
      */
-    static addUser(userDTO) {
+    static async addUser(userDTO) {
+        try {
+            // TODO: make a separate user building function.
+            const newUser = new User({
+                email: userDTO.email,
+                firstName: userDTO.firstName,
+                lastName: userDTO.lastName,
+                username: userDTO.username,
+                bio: userDTO.bio,
+                phone: userDTO.phone,
+                isActive: true
+            });
+            const userPassword = userDTO.password;
 
-        // TODO: validate user DTO.
-
-        const userId = connector.create(modelName, userDTO);
-        return userId;
+            try {
+                const result = await User.register(newUser, userPassword) // Passport function; if time permits, look into a way to abstract this out.
+                if (!result) {
+                    console.log('Registration failed at UserServices');
+                    return false;
+                }
+                return result;
+            } catch (error) {
+                console.log(error);
+                return false;
+            }
+        } catch (error) {
+            console.log(error);
+            return false;
+        }  
     }
 
     /**
      * Service method to find a single user in the database.
      * 
-     * @param {*} userId
+     * @param {ObjectId|string} userId
      * 
      * @author Christopher Thacker
      * @since 1.0.0
@@ -55,6 +78,8 @@ class UserServices {
      * Returns all users based on the provided conditions. If no filters are provided, then all users in the database will be returned.
      * These parameters match the MongoDB function parameters; please refer to the MongoDB documentation for more details on what each
      * parameter is. WARNING: if no filter is defined, all users will be returned.
+     * 
+     * @param {object} filter
      * 
      * @author Christopher Thacker
      * @since 1.0.0

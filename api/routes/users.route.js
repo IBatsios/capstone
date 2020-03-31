@@ -31,32 +31,37 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * @DEPRECATED Replaced by '/register' POST route, which handles adding new users through PassportJS.
  * CREATE: add a new user.
  * 
  * @author Christopher Thacker
  * @since 1.0.0
  */
 router.post('/', async (req, res) => {
-    req.body.isActive = true;
-    const userDTO = req.body; // Optional TODO: Outsource to a UserServices function to build DTO.
+    // req.body.isActive = true;
+    // const userDTO = req.body; // Optional TODO: Outsource to a UserServices function to build DTO.
 
-    var newUser = await UserServices.addUser(userDTO);
+    // var newUser = await UserServices.addUser(userDTO);
 
-    if (!newUser) {
-        return res.redirect('/users/new');
-    }
+    // if (!newUser) {
+    //     return res.redirect('/users/new');
+    // }
 
-    return res.render('users/show', {user: newUser});
+    // return res.render('users/show', {user: newUser});
+    console.log('THIS POST ROUTE (users.route.js/index) IS DEPRECATED. PLEASE USE THE /register ROUTE.');
+    return res.redirect('/register');
 });
 
 /**
+ * @DEPRECATED Replaced by '/register' GET route, which handles adding new users through PassportJS.
  * NEW: renders the form to register a new user.
  * 
  * @author Christopher Thacker
  * @since 1.0.0
  */
 router.get('/new', (req, res) => {
-    return res.render('users/new');
+    console.log('THIS GET ROUTE (users.route.js/index) IS DEPRECATED. PLEASE USE THE /register ROUTE.');
+    return res.redirect('/register');
 });
 
 /**

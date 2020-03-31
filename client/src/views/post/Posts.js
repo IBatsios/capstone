@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { UserContext } from 'data/UserStore';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -8,11 +9,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
-import { ContextActions } from 'layout/ContextActions';
+import { ContextActions } from 'views/ContextActions';
 import { Comments } from 'views/post';
 
 const useStyles = makeStyles(theme => ({
@@ -29,6 +29,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Posts = (props) => {
+  const [state, dispatch] = useContext(UserContext);
   const classes = { ...useStyles(), ...styles};
   const [expanded, setExpanded] = React.useState(-1);
 
@@ -37,6 +38,44 @@ export const Posts = (props) => {
     // which is clicked on.
     setExpanded(expanded === index ? -1 : index);
   };
+
+  const handleLike = (postId) => {
+    dispatch({
+      type: 'likePost',
+      payload: postId 
+    });
+  };
+
+  const handleDislike = (postId) => {
+    dispatch({
+      type: 'dislikePost',
+      payload: postId 
+    });
+  };
+
+  const handleAddComment = (postId) => {
+    dispatch({
+      type: 'addCommentToPost',
+      payload: postId 
+    });
+  };
+
+  const handleFriendRequest = (author) => {
+    dispatch({
+      type: 'newFriendRequest',
+      payload: {
+        userId: state.user.id,
+        friendId: author.id
+      }
+    });
+  };
+
+  const handleReport = (postId) => {
+    dispatch({
+      type: 'reportPost',
+      payload: postId 
+    });
+  }
 
   // Only render markup for posts that exist.
   if (props.posts.length > 0) {
@@ -52,7 +91,15 @@ export const Posts = (props) => {
                 />
               }
               action={
-                <ContextActions />
+                <ContextActions
+                  id={post.id}
+                  author={post.author}
+                  onLike={(postId) => handleLike(postId)}
+                  onDislike={(postId) => handleDislike(postId)}
+                  onAddComment={(postId) => handleAddComment(postId)}
+                  onFriendRequest={(author) => handleFriendRequest(author)}
+                  onReport={(postId) => handleReport(postId)}
+                />
               }
               title={
                 post.author.username
