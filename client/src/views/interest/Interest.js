@@ -3,7 +3,8 @@ import { UserContext } from 'data/UserStore';
 import Hidden from '@material-ui/core/Hidden';
 import classes from './Interest.module.css';
 import { Posts } from 'views/post';
-import { HOME, WATERCOOLER } from 'config/user';
+import { Listing } from 'views/lists/Listing';
+import { HOME, WATERCOOLER, LISTS } from 'config/user';
 import { renderBlocks } from 'utils';
 
 
@@ -27,17 +28,28 @@ export const Interest = (props) => {
 
   // Posts with a given interest
   let posts = state.posts;
+  let lists = state.lists;
+  let content;
 
   switch (section) {
     case HOME:
       posts = state.posts.filter(post => {
         return post.interest === interest && post.author.id === state.user.id
       })
+
+      content = <Posts posts={posts} />;
       break;
     case WATERCOOLER:
       posts = state.posts.filter(post => {
         return post.interest === interest
       })
+      content = <Posts posts={posts} />;
+      break;
+    case LISTS:
+      lists = state.lists.filter(list => {
+        return list.interest === interest
+      })
+      content = <Listing lists={lists} />;
       break;
     default:
       throw new Error('Section not is not defined.');
@@ -46,26 +58,42 @@ export const Interest = (props) => {
 
   return (
     <div className={classes.interests}>
-      <Hidden smDown>
-        <div className={classes.sidebar}>
-          <div className={classes.wrapper}>
-            {renderBlocks(blocks.sidebar)}
-          </div>
-        </div>
-      </Hidden>
+      {Sidebar(blocks.sidebar)}
       <div className={classes.content}>
         <div className={classes.wrapper}>
           {renderBlocks(blocks.content)}
-          <Posts posts={posts} />
+          {content}
         </div>
       </div>
+      {Ads(blocks.ads)}
+    </div>
+  );
+}
+
+const Sidebar = (blocks) => {
+  if (blocks) {
+    return (
       <Hidden smDown>
-        <div className={classes.ads}>
+        <div className={classes.sidebar}>
           <div className={classes.wrapper}>
-            {renderBlocks(blocks.ads)}
+            {renderBlocks(blocks)}
           </div>
         </div>
       </Hidden>
-    </div>
-  );
+    );
+  }
+}
+
+const Ads = (blocks) => {
+  if (blocks) {
+    return (
+      <Hidden smDown>
+        <div className={classes.ads}>
+          <div className={classes.wrapper}>
+            {renderBlocks(blocks)}
+          </div>
+        </div>
+      </Hidden>
+    )
+  }
 }

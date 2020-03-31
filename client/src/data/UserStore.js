@@ -1,7 +1,12 @@
 import React, { createContext, useReducer } from 'react';
 import { userConfig } from '../config/user';
 // Acting as a call to the backend or some middleware.
-import { getUser, getUserPosts, getPosts } from './MockDataProvider';
+import {
+  getUser,
+  getUserPosts,
+  getPosts,
+  getLists
+} from './MockDataProvider';
 
 // No sure where this id will be coming from yet, but it's
 // time to start passing in more realistic user data.
@@ -12,10 +17,13 @@ const id = '5e7216fbacd4a42955b6450e';
 // the logic works for decided what is considered relevant.
 const posts = getPosts();
 
+const lists = getLists();
+
 const user = getUser(id);
 const initialState = {
   ...userConfig,
   user,
+  lists,
   posts
 };
 
