@@ -24,20 +24,31 @@ const MUSIC = "music";
 const INTERESTS = [ GENERAL, MOVIES, MUSIC ];
 
 // Components or strings can be placed in a given section of the interest
-// layout.  
+// layout.   
 const blocks = {
   home: {
     general: {
+      sidebar: [],
       content: [
         Bio 
       ],
+      ads: []
+    },
+    movies: {
+      sidebar: [],
+      ads: []
     }
   },
   watercooler: {
+    general: {
+      sidebar: [],
+      ads: []
+    },
     movies: {
       sidebar: [
         MovieCalendar
-      ]
+      ],
+      ads: []
     }
   }
 }

@@ -7,7 +7,6 @@ import Home from "views/home/Home";
 import Watercooler from "views/watercooler/Watercooler";
 import Lists from "views/lists/Lists";
 import TabPanel from 'views/TabPanel';
-import Paper from '@material-ui/core/Paper';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Hidden from '@material-ui/core/Hidden';
@@ -40,7 +39,7 @@ const User = () => {
   return (
      <Fragment>
        <Hidden xsDown>
-         <AppBar position="static" color="default">
+         <AppBar position="sticky" color="default">
            <Tabs value={active} centered onChange={onTabChange}>
              <Tab label={HOME} {...a11yProps(0)} />
              <Tab label={WATERCOOLER} {...a11yProps(1)} />
@@ -48,17 +47,15 @@ const User = () => {
            </Tabs>
          </AppBar>
        </Hidden> 
-       <Paper>
-         <TabPanel value={active} index={0} {...otherProps}>
-           <Home />
-         </TabPanel>
-         <TabPanel value={active} index={1} {...otherProps}>
-           <Watercooler />
-         </TabPanel>
-         <TabPanel value={active} index={2} {...otherProps}>
-           <Lists />
-         </TabPanel>
-       </Paper>
+       <TabPanel value={active} index={0} {...otherProps}>
+         <Home />
+       </TabPanel>
+       <TabPanel value={active} index={1} {...otherProps}>
+         <Watercooler />
+       </TabPanel>
+       <TabPanel value={active} index={2} {...otherProps}>
+         <Lists />
+       </TabPanel>
 
       <Hidden smUp>
         <BottomNavigation

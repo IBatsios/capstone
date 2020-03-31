@@ -1,6 +1,7 @@
 const users = require('./mock-user.json');
 const posts = require('./mock-posts.json');
 const comments = require('./mock-post-comments.json');
+const lists = require('./mock-lists.json');
 
 export const getUser = (id) => {
   return users.find(item => item.id === id) || null;
@@ -19,4 +20,8 @@ export const getPosts = () => {
      post.comments = getComments(post.id);
   })
   return posts;
+}
+
+export const getLists = () => {
+  return lists; 
 }

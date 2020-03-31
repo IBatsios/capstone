@@ -1,11 +1,5 @@
 .interests {
   display: flex;
-  height: calc(100vh - 124px);
-  position: absolute;
-  top: 100px;
-  bottom: 0;
-  right:0;
-  left: 0;
 }
 
 .interests > .sidebar,
@@ -25,7 +19,7 @@
 }
 
 .wrapper {
-  padding: 24px 1.2rem;
+  padding: 64px 1.2rem;
 }
 
 
@@ -34,4 +28,13 @@
   .ads {
     display: initial;
   }
+
+  .interests {
+    margin-top: 48px;
+  }
+
+  .wrapper {
+    padding: 24px 1.2rem;
+  }
+
 }
