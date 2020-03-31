@@ -178,8 +178,8 @@ class MongoTranslator {
                         return false;
                     });
                 
-                if (!newModel.length || newModel === null) {
-                    console.log('No user found to update.');
+                if (newModel === null) {
+                    console.log('No object found to update.');
                     return null;
                 }
 
