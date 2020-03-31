@@ -20,6 +20,10 @@ import {
   LISTS_ICON,
 } from 'config/user';
 
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+
 
 
 const User = () => {
@@ -38,15 +42,27 @@ const User = () => {
 
   return (
      <Fragment>
-       <Hidden xsDown>
-         <AppBar position="sticky" color="default">
-           <Tabs value={active} centered onChange={onTabChange}>
-             <Tab label={HOME} {...a11yProps(0)} />
-             <Tab label={WATERCOOLER} {...a11yProps(1)} />
-             <Tab label={LISTS} {...a11yProps(2)} />
-           </Tabs>
-         </AppBar>
-       </Hidden> 
+        <Toolbar>
+          <AppBar position="fixed" color="default">
+            <Toolbar>
+               <IconButton
+                 edge="start"
+                 className={classes.menuButton}
+                 color="inherit"
+                 aria-label="open drawer"
+               >
+                 <MenuIcon />
+               </IconButton>
+            </Toolbar>
+            <Hidden xsDown>
+              <Tabs className={classes.tabs} value={active} centered onChange={onTabChange}>
+                <Tab label={HOME} {...a11yProps(0)} />
+                <Tab label={WATERCOOLER} {...a11yProps(1)} />
+                <Tab label={LISTS} {...a11yProps(2)} />
+              </Tabs>
+            </Hidden> 
+          </AppBar>
+        </Toolbar>
        <TabPanel value={active} index={0} {...otherProps}>
          <Home />
        </TabPanel>
