@@ -1,0 +1,15 @@
+.tabs {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 48px;
+  z-index: 5;
+  background: white;
+}
+
+@media screen and (min-width: 768px) {
+  .tabs {
+    position: fixed;
+    top: 48px;
+  }
+}

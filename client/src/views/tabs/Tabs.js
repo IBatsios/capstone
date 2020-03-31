@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import { Swipeable } from "react-swipeable";
 import TabPanel from 'views/TabPanel';
 import { Interest } from 'views/interest';
+import classes from './Tabs.module.css';
 
 export const TabsUi = (props) => {
   const [state, dispatch] = useContext(UserContext);
@@ -46,7 +47,7 @@ export const TabsUi = (props) => {
 
   return (
     <>
-      <Tabs position="fixed" value={active} onChange={handleTabClick}>
+      <Tabs className={classes.tabs} position="fixed" value={active} onChange={handleTabClick}>
         {tabs}
       </Tabs>
       <Swipeable onSwiped={handleSwipe}>
