@@ -18,6 +18,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users.route');
 const postsRouter = require('./routes/posts.route');
 const itemsRouter = require('./routes/items.route');
+const listsRouter = require('./routes/lists.route');
 
 // Environment Variables Access
 require('dotenv').config();
@@ -62,6 +63,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/items', itemsRouter);
+app.use('/lists', listsRouter);
 
 // Connect to Database
 let connection = new DatabaseConnector();
