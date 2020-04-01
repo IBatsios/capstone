@@ -1,29 +1,28 @@
 import React, { useContext, Fragment } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import AppBar from '@material-ui/core/AppBar';
-import { UserContext } from 'data/UserStore';
-import Home from "views/home/Home";
-import Watercooler from "views/watercooler/Watercooler";
-import Lists from "views/lists/Lists";
-import TabPanel from 'views/TabPanel';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Hidden from '@material-ui/core/Hidden';
-import classes from './User.module.css';
+import {
+  AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Hidden,
+  Tabs,
+  Tab,
+  Toolbar
+} from '@material-ui/core';
 import {
   HOME,
   HOME_ICON,
-  WATERCOOLER,
-  WATERCOOLER_ICON,
   LISTS,
   LISTS_ICON,
+  WATERCOOLER,
+  WATERCOOLER_ICON
 } from 'config/user';
-
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-
+import classes from './User.module.css';
+import Home from "views/home/Home";
+import Lists from "views/lists/Lists";
+import Watercooler from "views/watercooler/Watercooler";
+import TabPanel from 'views/TabPanel';
+import { UserContext } from 'data/UserStore';
+import { UserMenu } from './UserMenu';
 
 
 const User = () => {
@@ -45,14 +44,7 @@ const User = () => {
         <Toolbar>
           <AppBar position="fixed" color="default">
             <Toolbar>
-               <IconButton
-                 edge="start"
-                 className={classes.menuButton}
-                 color="inherit"
-                 aria-label="open drawer"
-               >
-                 <MenuIcon />
-               </IconButton>
+              <UserMenu edge="start" />
             </Toolbar>
             <Hidden xsDown>
               <Tabs className={classes.tabs} value={active} centered onChange={onTabChange}>
