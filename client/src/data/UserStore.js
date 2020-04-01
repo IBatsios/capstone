@@ -1,7 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 import { userConfig } from '../config/user';
+
 // Acting as a call to the backend or some middleware.
-import { getUser, getUserPosts, getPosts } from './MockDataProvider';
+import {
+  getUser,
+  getUserPosts,
+  getPosts,
+  getLists
+} from './MockDataProvider';
 
 // No sure where this id will be coming from yet, but it's
 // time to start passing in more realistic user data.
@@ -12,15 +18,34 @@ const id = '5e7216fbacd4a42955b6450e';
 // the logic works for decided what is considered relevant.
 const posts = getPosts();
 
+const lists = getLists();
+
+// Allows for activating any given form.
+const activeForm = null;
+
+const postFormOpen = false;
+
 const user = getUser(id);
 const initialState = {
   ...userConfig,
   user,
-  posts
+  lists,
+  posts,
+  postFormOpen,
+  activeForm
 };
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'PostFormSave':
+      // Prints to the console, the submitted post data.
+      console.log(action.payload);
+    return { ...state };
+    // The next two case may be moved to a local state.
+    case 'PostFormOpen':
+      return { ...state, postFormOpen: true, activeForm: action.payload };
+    case 'PostFormClose':
+      return { ...state, postFormOpen: false, activeForm: null };
     // Need to add logic for these actions.  It's unclear
     // how it will be implemented.
     case 'likePost':

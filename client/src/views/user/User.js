@@ -1,26 +1,29 @@
 import React, { useContext, Fragment } from "react";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import AppBar from '@material-ui/core/AppBar';
-import { UserContext } from 'data/UserStore';
-import Home from "views/home/Home";
-import Watercooler from "views/watercooler/Watercooler";
-import Lists from "views/lists/Lists";
-import TabPanel from 'views/TabPanel';
-import Paper from '@material-ui/core/Paper';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Hidden from '@material-ui/core/Hidden';
-import classes from './User.module.css';
+import {
+  AppBar,
+  BottomNavigation,
+  BottomNavigationAction,
+  Hidden,
+  Tabs,
+  Tab,
+  Toolbar
+} from '@material-ui/core';
 import {
   HOME,
   HOME_ICON,
-  WATERCOOLER,
-  WATERCOOLER_ICON,
   LISTS,
   LISTS_ICON,
+  WATERCOOLER,
+  WATERCOOLER_ICON
 } from 'config/user';
-
+import classes from './User.module.css';
+import Home from "views/home/Home";
+import Lists from "views/lists/Lists";
+import Watercooler from "views/watercooler/Watercooler";
+import PostForm from 'views/post/PostForm';
+import TabPanel from 'views/TabPanel';
+import { UserContext } from 'data/UserStore';
+import { UserMenu } from './UserMenu';
 
 
 const User = () => {
@@ -37,28 +40,41 @@ const User = () => {
     });
   }
 
+  const handleAddPost = () => {
+    dispatch({
+      type: 'PostFormOpen',
+      payload: <PostForm />
+    });
+  };
+
   return (
      <Fragment>
-       <Hidden xsDown>
-         <AppBar position="static" color="default">
-           <Tabs value={active} centered onChange={onTabChange}>
-             <Tab label={HOME} {...a11yProps(0)} />
-             <Tab label={WATERCOOLER} {...a11yProps(1)} />
-             <Tab label={LISTS} {...a11yProps(2)} />
-           </Tabs>
-         </AppBar>
-       </Hidden> 
-       <Paper>
-         <TabPanel value={active} index={0} {...otherProps}>
-           <Home />
-         </TabPanel>
-         <TabPanel value={active} index={1} {...otherProps}>
-           <Watercooler />
-         </TabPanel>
-         <TabPanel value={active} index={2} {...otherProps}>
-           <Lists />
-         </TabPanel>
-       </Paper>
+        <Toolbar>
+          <AppBar position="fixed" color="default">
+            <Toolbar>
+              <UserMenu
+                edge="start"
+                onAddPost={() => handleAddPost()}
+              />
+            </Toolbar>
+            <Hidden xsDown>
+              <Tabs className={classes.tabs} value={active} centered onChange={onTabChange}>
+                <Tab label={HOME} {...a11yProps(0)} />
+                <Tab label={WATERCOOLER} {...a11yProps(1)} />
+                <Tab label={LISTS} {...a11yProps(2)} />
+              </Tabs>
+            </Hidden> 
+          </AppBar>
+        </Toolbar>
+       <TabPanel value={active} index={0} {...otherProps}>
+         <Home />
+       </TabPanel>
+       <TabPanel value={active} index={1} {...otherProps}>
+         <Watercooler />
+       </TabPanel>
+       <TabPanel value={active} index={2} {...otherProps}>
+         <Lists />
+       </TabPanel>
 
       <Hidden smUp>
         <BottomNavigation
@@ -85,6 +101,7 @@ const User = () => {
           />
         </BottomNavigation>
       </Hidden>
+      {state.activeForm}
     </Fragment>
   );
 }
