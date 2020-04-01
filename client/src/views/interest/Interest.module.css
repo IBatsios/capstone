@@ -1,5 +1,7 @@
 .interests {
   display: flex;
+  /* Full viewport height minus headers. */
+  min-height: calc(100vh - 64px - 48px);
 }
 
 .interests > .sidebar,

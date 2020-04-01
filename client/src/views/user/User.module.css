@@ -6,3 +6,7 @@
 .label {
   text-transform: uppercase;
 }
+.tabs {
+  width: min-content;
+  margin: -48px auto 0 auto;
+}
