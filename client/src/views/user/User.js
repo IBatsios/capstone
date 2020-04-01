@@ -20,6 +20,7 @@ import classes from './User.module.css';
 import Home from "views/home/Home";
 import Lists from "views/lists/Lists";
 import Watercooler from "views/watercooler/Watercooler";
+import PostForm from 'views/post/PostForm';
 import TabPanel from 'views/TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
@@ -39,12 +40,22 @@ const User = () => {
     });
   }
 
+  const handleAddPost = () => {
+    dispatch({
+      type: 'PostFormOpen',
+      payload: <PostForm />
+    });
+  };
+
   return (
      <Fragment>
         <Toolbar>
           <AppBar position="fixed" color="default">
             <Toolbar>
-              <UserMenu edge="start" />
+              <UserMenu
+                edge="start"
+                onAddPost={() => handleAddPost()}
+              />
             </Toolbar>
             <Hidden xsDown>
               <Tabs className={classes.tabs} value={active} centered onChange={onTabChange}>
@@ -90,6 +101,7 @@ const User = () => {
           />
         </BottomNavigation>
       </Hidden>
+      {state.activeForm}
     </Fragment>
   );
 }
