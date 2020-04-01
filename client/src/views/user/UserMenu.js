@@ -39,7 +39,7 @@ export const UserMenu = (props) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button>
+        <ListItem button onClick={() => props.onAddPost()}>
           <ListItemIcon>
             <PostAddIcon />
           </ListItemIcon>
