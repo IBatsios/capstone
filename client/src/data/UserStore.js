@@ -25,6 +25,8 @@ const activeForm = null;
 
 const postFormOpen = false;
 
+const listFormOpen = false;
+
 const user = getUser(id);
 const initialState = {
   ...userConfig,
@@ -32,6 +34,7 @@ const initialState = {
   lists,
   posts,
   postFormOpen,
+  listFormOpen,
   activeForm
 };
 
@@ -68,6 +71,14 @@ function reducer(state, action) {
       return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormClose':
       return { ...state, postFormOpen: false, activeForm: null };
+    case 'ListFormOpen':
+      return { ...state, listFormOpen: true, activeForm: action.payload };
+    case 'ListFormClose':
+      return { ...state, listFormOpen: false, activeForm: null };
+    case 'ListFormSave':
+      // Prints to the console, the submitted post data.
+      console.log(action.payload);
+    return { ...state };
     // Need to add logic for these actions.  It's unclear
     // how it will be implemented.
     case 'likePost':
