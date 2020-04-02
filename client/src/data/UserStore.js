@@ -37,6 +37,16 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'addCommentToPost':
+      return { ...state, commentFormOpen: true, activeForm: action.payload };
+    case 'CommentFormSave':
+      // Prints to the console, the submitted post data.
+      console.log(action.payload);
+    return { ...state };
+    case 'CommentFormClose':
+      // Prints to the console, the submitted post data.
+      return { ...state, commentFormOpen: false, activeForm: null };
+    return { ...state };
     case 'PostFormSave':
       // Prints to the console, the submitted post data.
       console.log(action.payload);
@@ -53,9 +63,6 @@ function reducer(state, action) {
       return { ...state };
     case 'dislikePost':
       console.log(`disliked postId: ${action.payload}`);
-      return { ...state };
-    case 'addCommentToPost':
-      console.log(`Want to add a comment to postId: ${action.payload}`);
       return { ...state };
     case 'newFriendRequest':
       
