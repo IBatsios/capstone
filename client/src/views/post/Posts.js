@@ -15,6 +15,7 @@ import styles from './Posts.module.css';
 import { ContextActions } from 'views/ContextActions';
 import { Comments } from 'views/post';
 import { CommentForm } from 'views/post/CommentForm';
+import PostForm from 'views/post/PostForm';
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -38,6 +39,15 @@ export const Posts = (props) => {
     // Toggle the display of the comments for the post
     // which is clicked on.
     setExpanded(expanded === index ? -1 : index);
+  };
+
+  const handleEditPost = (post) => {
+    const { id, title, content, interest, spoiler } = { ...post};
+    const postData = { id, title, content, interest, spoiler };
+    dispatch({
+      type: 'editPost',
+      payload: <PostForm {...postData} /> 
+    });
   };
 
   const handleLike = (postId) => {
@@ -93,8 +103,11 @@ export const Posts = (props) => {
               }
               action={
                 <ContextActions
+                  userId={state.user.id}
                   id={post.id}
+                  post={post}
                   author={post.author}
+                  onEditPost={(post) => handleEditPost(post)}
                   onLike={(postId) => handleLike(postId)}
                   onDislike={(postId) => handleDislike(postId)}
                   onAddComment={(postId) => handleAddComment(postId)}

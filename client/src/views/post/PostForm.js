@@ -32,6 +32,7 @@ export default function PostForm(props) {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
+    id: props.id,
     title: props.title || '',
     content: props.content || '',
     interest: props.interest || '',
@@ -46,10 +47,21 @@ export default function PostForm(props) {
   };
 
   const handleSave = () => {
+    // Remove properties with an undefined value.
+    // We want to be able to know the id of the post
+    // if it is being editted; but be don't want to pass
+    // around and id of undefined for new posts.
+    Object.keys(values).forEach(key => {
+      if (values[key] === undefined) {
+        delete values[key];
+      }
+    });
+
     dispatch({
       type: 'PostFormSave',
       payload: values
     });
+
     handleClose();
   };
 
@@ -67,10 +79,12 @@ export default function PostForm(props) {
         open={state.postFormOpen}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        fullWidth
       >
         <DialogTitle id="form-dialog-title">{ADD_POST}</DialogTitle>
         <DialogContent>
           <TextField
+            required
             value={values.title}
             onChange={handleChange("title")}
             autoFocus
@@ -81,16 +95,19 @@ export default function PostForm(props) {
             fullWidth
           />
           <TextField
+            required
             value={values.content}
             onChange={handleChange("content")}
             margin="dense"
             id={POST_CONTENT_TYPE}
             label={POST_CONTENT_LABEL}
             type={POST_CONTENT_TYPE}
+            rows="4"
             multiline
             fullWidth
           />
           <TextField
+            required
             onChange={handleChange("interest")}
             id={POST_INTEREST_ID}
             select

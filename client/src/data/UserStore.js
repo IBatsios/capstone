@@ -37,6 +37,8 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
+    case 'editPost':
+      return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'addCommentToPost':
       return { ...state, commentFormOpen: true, activeForm: action.payload };
     case 'CommentFormSave':
