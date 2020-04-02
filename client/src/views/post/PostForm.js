@@ -79,10 +79,12 @@ export default function PostForm(props) {
         open={state.postFormOpen}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        fullWidth
       >
         <DialogTitle id="form-dialog-title">{ADD_POST}</DialogTitle>
         <DialogContent>
           <TextField
+            required
             value={values.title}
             onChange={handleChange("title")}
             autoFocus
@@ -93,16 +95,19 @@ export default function PostForm(props) {
             fullWidth
           />
           <TextField
+            required
             value={values.content}
             onChange={handleChange("content")}
             margin="dense"
             id={POST_CONTENT_TYPE}
             label={POST_CONTENT_LABEL}
             type={POST_CONTENT_TYPE}
+            rows="4"
             multiline
             fullWidth
           />
           <TextField
+            required
             onChange={handleChange("interest")}
             id={POST_INTEREST_ID}
             select
