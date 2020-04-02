@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ReportIcon from '@material-ui/icons/Report';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
@@ -41,6 +42,10 @@ export const ContextActionsDrawer = (props) => {
   };
 
 
+  const matches = (props) => {
+    
+  }
+
   const fullList = side => (
     <div
       className={classes.fullList}
@@ -49,6 +54,12 @@ export const ContextActionsDrawer = (props) => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
+        <ListItem button>
+          <ListItemIcon>
+            <EditIcon />
+          </ListItemIcon>
+          <ListItemText primary="Edit Post" />
+        </ListItem>
         <ListItem button onClick={() => props.onLike(props.id)}>
           <ListItemIcon>
             <ThumbUpIcon />
@@ -112,6 +123,11 @@ export const ContextActionsMenu = (props) => {
     setAnchorEl(null);
   };
 
+  const handleEditPost = () => {
+    props.onEditPost(props.post);
+    handleClose();
+  };
+
   const handleLike = () => {
     props.onLike(props.id);
     handleClose();
@@ -151,6 +167,15 @@ export const ContextActionsMenu = (props) => {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
+      {/* Only allow this option for the author */}
+      { props.userId == props.post.author.id &&
+        <MenuItem onClick={handleEditPost}>
+          <ListItemIcon>
+            <EditIcon />
+          </ListItemIcon>
+          <ListItemText primary="Edit Post" />
+        </MenuItem>
+      }
       <MenuItem onClick={handleLike}>
         <ListItemIcon>
           <ThumbUpIcon />
