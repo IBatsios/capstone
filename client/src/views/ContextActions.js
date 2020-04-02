@@ -66,11 +66,11 @@ export const ContextActionsDrawer = (props) => {
   const isAuthor = () => {
     let author = false;
 
-    if (props.post && props.userId == props.post.author.id) {
+    if (props.post && props.userId === props.post.author.id) {
       author = true;
     }
 
-    if (props.comment && props.userId == props.comment.author.id) {
+    if (props.comment && props.userId === props.comment.author.id) {
       author = true;
     }
 
@@ -236,11 +236,11 @@ export const ContextActionsMenu = (props) => {
   const isAuthor = () => {
     let author = false;
 
-    if (props.post && props.userId == props.post.author.id) {
+    if (props.post && props.userId === props.post.author.id) {
       author = true;
     }
 
-    if (props.comment && props.userId == props.comment.author.id) {
+    if (props.comment && props.userId === props.comment.author.id) {
       author = true;
     }
 
