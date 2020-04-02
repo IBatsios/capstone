@@ -23,7 +23,9 @@ import {
   POST_INTEREST_ID,
   POST_INTEREST_LABEL,
   POST_INTEREST_TYPE,
-  POST_INTEREST_HELPER_TEXT
+  POST_INTEREST_HELPER_TEXT,
+  SPOILER_LABEL,
+  SPOILER_ID
 } from 'config/view/constants';
 
 export default function PostForm(props) {
@@ -33,7 +35,7 @@ export default function PostForm(props) {
     title: props.title || '',
     content: props.content || '',
     interest: props.interest || '',
-    spoiler: props.spoiler || 'no'
+    spoiler: props.spoiler || false 
   });
 
 
@@ -45,12 +47,18 @@ export default function PostForm(props) {
 
   const handleSave = () => {
     dispatch({
-      type: 'PostFormSubmit'
+      type: 'PostFormSave',
+      payload: values
     });
+    handleClose();
   };
 
   const handleChange = name => (event) => {
     setValues({ ...values, [name]: event.target.value });
+  };
+
+  const handleCheckbox = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.checked });
   };
 
   return (
@@ -99,10 +107,15 @@ export default function PostForm(props) {
           </TextField>
           <FormControl component="fieldset">
             <FormControlLabel
-              value="true"
-              control={<Checkbox />}
-              label="Mark as Spoiler"
-              labelPlacement="left"
+              control={
+                <Checkbox
+                  onChange={handleCheckbox}
+                  checked={values.spoiler}
+                  name={SPOILER_ID}
+                />
+              }
+              label={SPOILER_LABEL}
+              labelPlacement="start"
             />
           </FormControl>
         </DialogContent>
