@@ -14,6 +14,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
 import { ContextActions } from 'views/ContextActions';
 import { Comments } from 'views/post';
+import { CommentForm } from 'views/post/CommentForm';
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -56,7 +57,7 @@ export const Posts = (props) => {
   const handleAddComment = (postId) => {
     dispatch({
       type: 'addCommentToPost',
-      payload: postId 
+      payload: <CommentForm postId={postId} /> 
     });
   };
 
