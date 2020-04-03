@@ -2,7 +2,7 @@
   {
     "id": "1",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Movies",
+    "name": "Favorite Movies",
     "interest": "movies",
     "items": {
       "id": "101",
@@ -14,105 +14,105 @@
   {
     "id": "2",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Albums",
+    "name": "Favorite Albums",
     "interest": "music",
     "items": {}
   },
   {
     "id": "3",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Songs",
+    "name": "Favorite Songs",
     "interest": "music",
     "items": {}
   },
   {
     "id": "4",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Albums I Own",
+    "name": "Albums I Own",
     "interest": "music",
     "items": {}
   },
   {
     "id": "5",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Albums to Check Out",
+    "name": "Albums to Check Out",
     "interest": "music",
     "items": {}
   },
   {
     "id": "6",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Concerts I've Been To",
+    "name": "Concerts I've Been To",
     "interest": "music",
     "items": {}
   },
   {
     "id": "7",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Comedies",
+    "name": "Favorite Comedies",
     "interest": "movies",
     "items": {}
   },
   {
     "id": "8",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Horrors",
+    "name": "Favorite Horrors",
     "interest": "movies",
     "items": {}
   },
   {
     "id": "9",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Artists",
+    "name": "Favorite Artists",
     "interest": "music",
     "items": {}
   },
   {
     "id": "10",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Artors",
+    "name": "Favorite Artors",
     "interest": "movies",
     "items": {}
   },
   {
     "id": "11",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Places",
+    "name": "Favorite Places",
     "interest": "general",
     "items": {}
   },
   {
     "id": "12",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Places",
+    "name": "Favorite Places",
     "interest": "general",
     "items": {}
   },
   {
     "id": "13",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Smells",
+    "name": "Favorite Smells",
     "interest": "general",
     "items": {}
   },
   {
     "id": "14",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite foods",
+    "name": "Favorite foods",
     "interest": "general",
     "items": {}
   },
   {
     "id": "15",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Best restaurants",
+    "name": "Best restaurants",
     "interest": "general",
     "items": {}
   },
   {
     "id": "16",
     "user_id": "5e7216fbacd4a42955b6450e",
-    "title": "Favorite Concerts",
+    "name": "Favorite Concerts",
     "interest": "music",
     "items": {}
   }

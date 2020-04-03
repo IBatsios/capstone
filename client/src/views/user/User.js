@@ -25,6 +25,7 @@ import TabPanel from 'views/TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
 
+import { ListForm } from 'views/lists/ListForm';
 
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -39,6 +40,13 @@ const User = () => {
       payload: value 
     });
   }
+
+  const handleAddList = () => {
+    dispatch({
+      type: 'ListFormOpen',
+      payload: <ListForm />
+    });
+  };
 
   const handleAddPost = () => {
     dispatch({
@@ -55,6 +63,7 @@ const User = () => {
               <UserMenu
                 edge="start"
                 onAddPost={() => handleAddPost()}
+                onAddList={() => handleAddList()}
               />
             </Toolbar>
             <Hidden xsDown>
@@ -101,6 +110,7 @@ const User = () => {
           />
         </BottomNavigation>
       </Hidden>
+      <ListForm />
       {state.activeForm}
     </Fragment>
   );
