@@ -12,13 +12,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
 import {
+  ADD_LIST,
   LIST_INTEREST_ID,
   LIST_INTEREST_LABEL,
   LIST_INTEREST_TYPE,
-  LIST_INTEREST_HELPER_TEXT,
-  LIST_DESCRIPTION_LABEL,
-  LIST_URL_HELPER_TEXT,
-  ADD_LIST
+  LIST_INTEREST_HELPER_TEXT
 } from 'config/view/constants';
 
 export const ListForm = (props) => {
@@ -27,10 +25,8 @@ export const ListForm = (props) => {
   const [values, setValues] = React.useState({
     id: props.id,
     userId: state.user.id,
-    title: props.title || '',
-    url: props.url || '',
-    interest: props.interest || '',
-    description: props.description || '',
+    name: props.name || '',
+    interest: props.interest || ''
   });
 
 
@@ -63,30 +59,19 @@ export const ListForm = (props) => {
       <Dialog
         open={state.listFormOpen}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby="form-dialog-name"
         fullWidth
       >
-        <DialogTitle id="form-dialog-title">{ADD_LIST}</DialogTitle>
+        <DialogTitle id="form-dialog-listForm">{ADD_LIST}</DialogTitle>
         <DialogContent>
           <TextField
             required
-            value={values.title}
-            onChange={handleChange("title")}
+            value={values.name}
+            onChange={handleChange("name")}
             margin="dense"
-            id="title"
+            id="name"
             label="Name"
             type="text"
-            fullWidth
-          />
-          <TextField
-            required
-            value={values.url}
-            onChange={handleChange("url")}
-            margin="dense"
-            id="url"
-            label="URL"
-            type="text"
-            helperText={LIST_INTEREST_HELPER_TEXT}
             fullWidth
           />
           <TextField
@@ -105,17 +90,6 @@ export const ListForm = (props) => {
               </MenuItem>
             ))}
           </TextField>
-          <TextField
-            value={values.description}
-            onChange={handleChange("description")}
-            margin="dense"
-            id="description"
-            label={LIST_DESCRIPTION_LABEL}
-            type="text"
-            multiline
-            rows="4"
-            fullWidth
-          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
