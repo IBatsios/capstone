@@ -28,5 +28,7 @@ export const LIST_INTEREST_ID = "interest";
 export const LIST_INTEREST_LABEL = "Select";
 export const LIST_INTEREST_TYPE = "text";
 export const LIST_INTEREST_HELPER_TEXT = "Please select the post interest";
-export const LIST_DESCRIPTION_LABEL = "Description";
-export const LIST_URL_HELPER_TEXT = "The address located in the browser where you want to link to.";
+
+export const ADD_LIST_ITEM = "Add item to list";
+export const LIST_ITEM_DESCRIPTION_LABEL = "Description";
+export const LIST_ITEM_URL_HELPER_TEXT = "The address located in the browser where you want to link to.";
