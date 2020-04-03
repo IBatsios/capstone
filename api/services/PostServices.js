@@ -8,6 +8,7 @@ const Post = require(`../models/${modelName}`)
 /**
  * Post Services class
  * Contains functions to retrieve information from the database.
+ * TODO: Clean up code and finish documentation.
  * @author Jamie Weathers
  */
 
