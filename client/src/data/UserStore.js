@@ -79,8 +79,16 @@ function reducer(state, action) {
       // Prints to the console, the submitted post data.
       console.log(action.payload);
     return { ...state };
+    case 'editList':
+      return { ...state, listFormOpen: true, activeForm: action.payload };
     // Need to add logic for these actions.  It's unclear
     // how it will be implemented.
+    case 'addListItem':
+      return { ...state, listItemFormOpen: true, activeForm: action.payload };
+    case 'ListItemFormSave':
+      console.log(`Add items to list with id: ${action.payload.id}`);
+      console.log(action.payload);
+      return { ...state, listItemFormOpen: false, activeForm: null };
     case 'likePost':
       console.log(`liked postId: ${action.payload}`);
       return { ...state };
