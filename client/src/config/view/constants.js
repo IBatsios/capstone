@@ -14,3 +14,11 @@ export const POST_INTEREST_ID = "interest";
 export const POST_INTEREST_LABEL = "Select";
 export const POST_INTEREST_TYPE = "text";
 export const POST_INTEREST_HELPER_TEXT = "Please select the post interest";
+
+export const ADD_COMMENT = "Add Comment";
+export const COMMENT_CONTENT_ID = "comment";
+export const COMMENT_CONTENT_LABEL = "Comment";
+export const COMMENT_CONTENT_TYPE = "text";
+
+export const SPOILER_ID = "spoiler";
+export const SPOILER_LABEL = "Mark as Spoiler";
