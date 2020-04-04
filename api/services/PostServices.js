@@ -7,9 +7,10 @@ const Post = require(`../models/${modelName}`)
 
 /**
  * Post Services class
- * Contains functions to retrieve information from the database.
- * TODO: Clean up code and finish documentation.
+ * Contains functions to retrieve or modify information in the database.
+ * 
  * @author Jamie Weathers
+ * @since 1.0.0
  */
 
 class PostServices {
@@ -17,7 +18,7 @@ class PostServices {
   /**
    * Adds a new post to the database.
    * 
-   * @param {*} postDTO Post data transfer object.
+   * @param {Object} postDTO Post data transfer object.
    * @returns {Object|false} Post object or false if creating a new post unsuccessful
    * @author Jamie Weathers
    * @since 1.0.0
@@ -53,7 +54,7 @@ class PostServices {
 
     /**
      * 
-     * @param {*} postId 
+     * @param {string} postId Associated post reference identification to the intended post document.
      * @returns {Object|null|false} Returns the post Object if it is found, null if it is not found, and false if unsuccessful.
      * @author Jamie Weathers
      * @since 1.0.0
@@ -75,8 +76,8 @@ class PostServices {
     /**
      * Gets an array of posts based on the provided filter conditions.
      * If not filter defined, all posts will be returned.
-     * @param {object} filter 
-     * @returns {object|null|false} the post object if successful | null if no post found | false if unsuccessful
+     * @param {Object} filter 
+     * @returns {Object|null|false} the post object if successful | null if no post found | false if unsuccessful
      * @author Jamie Weathers
      * @since 1.0.0
      */
@@ -93,6 +94,15 @@ class PostServices {
         return allPosts;
     }
 
+    /**
+     * Updates a post given new data.
+     * 
+     * @param {string} postId Associated post reference identification to the intended post document.
+     * @param {Object} newData Dictionary containing the intended field changes.
+     * @returns {Object|null|false} Returns the updated post object if successful, null if the post does not exist, and false if unsuccessful.
+     * @author Jamie Weathers
+     * @since 1.0.0
+     */
     static async update(postId, newData) {
 
         const updatedPost = await connector.update(modelName, postId, newData);
@@ -110,7 +120,8 @@ class PostServices {
 
     /**
      * Changes the 'isActive' field of the post to false.
-     * @param {*} postId 
+     * 
+     * @param {*} postId Associated post reference identification to the intended post document.
      * @returns {boolean} true if succcessful, false if post is not found or already hidden.
      * @author Jamie Weathers
      * @since 1.0.0
@@ -125,8 +136,11 @@ class PostServices {
 
     /**
      * Changes the 'isActive' field of the post to true.
+     * 
      * @param {ObjectId|string} postId
      * @returns {boolean} true if successful, false if post not found or already showing.
+     * @author Jamie Weathers
+     * @since 1.0.0
      */
     static async show(postId) {
         const hideData = {'isActive' : 'true'};
