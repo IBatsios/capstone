@@ -10,8 +10,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import {
   ADD_POST,
+  ADD_LIST,
   PROFILE_SETTINGS,
   LOG_OUT
 } from 'config/view/constants';
@@ -44,6 +46,12 @@ export const UserMenu = (props) => {
             <PostAddIcon />
           </ListItemIcon>
           <ListItemText primary={ADD_POST} />
+        </ListItem>
+        <ListItem button onClick={() => props.onAddList()}>
+          <ListItemIcon>
+            <PlaylistAddIcon />
+          </ListItemIcon>
+          <ListItemText primary={ADD_LIST} />
         </ListItem>
         <ListItem button>
           <ListItemIcon>

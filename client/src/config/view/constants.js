@@ -22,3 +22,13 @@ export const COMMENT_CONTENT_TYPE = "text";
 
 export const SPOILER_ID = "spoiler";
 export const SPOILER_LABEL = "Mark as Spoiler";
+
+export const ADD_LIST = "Add List";
+export const LIST_INTEREST_ID = "interest";
+export const LIST_INTEREST_LABEL = "Select";
+export const LIST_INTEREST_TYPE = "text";
+export const LIST_INTEREST_HELPER_TEXT = "Please select the post interest";
+
+export const ADD_LIST_ITEM = "Add item to list";
+export const LIST_ITEM_DESCRIPTION_LABEL = "Description";
+export const LIST_ITEM_URL_HELPER_TEXT = "The address located in the browser where you want to link to.";
