@@ -54,7 +54,7 @@ class PostServices {
 
     /**
      * 
-     * @param {string} postId Associated post reference identification to the intended post document.
+     * @param {ObjectId|string} postId Associated post reference identification to the intended post document.
      * @returns {Object|null|false} Returns the post Object if it is found, null if it is not found, and false if unsuccessful.
      * @author Jamie Weathers
      * @since 1.0.0
@@ -97,7 +97,7 @@ class PostServices {
     /**
      * Updates a post given new data.
      * 
-     * @param {string} postId Associated post reference identification to the intended post document.
+     * @param {ObjectId|string} postId Associated post reference identification to the intended post document.
      * @param {Object} newData Dictionary containing the intended field changes.
      * @returns {Object|null|false} Returns the updated post object if successful, null if the post does not exist, and false if unsuccessful.
      * @author Jamie Weathers
@@ -121,7 +121,7 @@ class PostServices {
     /**
      * Changes the 'isActive' field of the post to false.
      * 
-     * @param {*} postId Associated post reference identification to the intended post document.
+     * @param {ObjectId|string} postId Associated post reference identification to the intended post document.
      * @returns {boolean} true if succcessful, false if post is not found or already hidden.
      * @author Jamie Weathers
      * @since 1.0.0
@@ -137,7 +137,7 @@ class PostServices {
     /**
      * Changes the 'isActive' field of the post to true.
      * 
-     * @param {ObjectId|string} postId
+     * @param {ObjectIdstring} postId
      * @returns {boolean} true if successful, false if post not found or already showing.
      * @author Jamie Weathers
      * @since 1.0.0
