@@ -1,6 +1,6 @@
 /**
  * This is the routes file for all actions related to posts.
- *
+ * TODO: Create form views.
  * @author Christopher Thacker
  * @author Jamie Weathers
  * @since 1.0.0
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 
 // NEW: renders the form to add a new post.
 router.get('/new', async (req, res) => {
-  res.render('posts/')
+  res.render('posts/newPost')
 })
 
 // SHOW: displays more information about an existing post.
@@ -52,7 +52,7 @@ router.get('/:id', async (req, res) => {
     return res.redirect('/posts')
   }
 
-  return res.send('posts/show', { post: postResult })
+  return res.send('posts/showPost', { post: postResult })
 })
 
 // EDIT: renders the form to edit an existing post.
