@@ -1,15 +1,13 @@
 /**
  * This is the routes file for all actions related to posts.
- * TODO: Figure out how to render new post form.
+ * 
  * @author Christopher Thacker
  * @author Jamie Weathers
  * @since 1.0.0
  */
 
 const router = require('express').Router()
-let Post = require('../models/post.model')
 const PostServices = require('../services/PostServices')
-
 
 // INDEX: show all posts.
 router.get('/', (req, res) => {
@@ -41,7 +39,7 @@ router.post('/', (req, res) => {
 
 // NEW: renders the form to add a new post.
 router.get('/new', (req, res) => {
-    res.send('This will eventually render the form for creating a new post!');
+    res.render('posts/');
 })
 
 // SHOW: displays more information about an existing post.
@@ -99,4 +97,4 @@ router.delete('/:id', (req, res) => {
     return res.send('Post hidden.');
 })
 
-module.exports = router
+module.exports = router;
