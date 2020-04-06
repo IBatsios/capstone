@@ -14,8 +14,15 @@ import { CommentForm } from 'views/post/CommentForm';
 export const Comment = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
+  const handleDelete = ({id}) => {
+    dispatch({
+      type: 'deleteComment',
+      payload: id
+    });
+  };
+
+
   const handleEditComment = (comment) => {
-    console.log(comment);
     const { id, content } = { ...comment};
     const commentData = { id, content };
     dispatch({
@@ -73,6 +80,7 @@ export const Comment = (props) => {
               comment={props.comment}
               author={props.comment.author}
               onEditComment={(comment) => handleEditComment(comment)}
+              onDelete={(comment) => handleDelete(comment)}
               onLike={(commentId) => handleLike(commentId)}
               onDislike={(commentId) => handleDislike(commentId)}
               onFriendRequest={(author) => handleFriendRequest(author)}
