@@ -22,6 +22,13 @@ export const Listing = (props) => {
     });
   }
 
+  const handleDelete = ({id}) => {
+    dispatch({
+      type: 'deleteList',
+      payload: id
+    });
+  };
+
   const handleEditList = (list) => {
     const { id, name, interest } = { ...list};
     const listData = { id, name, interest};
@@ -44,6 +51,7 @@ export const Listing = (props) => {
                 id={list.id}
                 list={list}
                 onAddListItem={(list) => handleAddListItem(list)}
+                onDelete={(list) => handleDelete(list)}
                 onEditList={(list) => handleEditList(list)}
               />
             </CardContent>

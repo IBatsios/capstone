@@ -8,6 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,6 +36,11 @@ export const ContextActions = (props) => {
 
   const handleAddListItem = () => {
     props.onAddListItem(props.list);
+    handleClose();
+  }
+
+  const handleDelete = () => {
+    props.onDelete(props.list);
     handleClose();
   }
 
@@ -68,6 +74,12 @@ export const ContextActions = (props) => {
           <AddIcon />
         </ListItemIcon>
         <ListItemText primary="Add Item" />
+      </MenuItem>
+      <MenuItem onClick={handleDelete}>
+        <ListItemIcon>
+          <DeleteIcon />
+        </ListItemIcon>
+        <ListItemText primary="Delete List" />
       </MenuItem>
     </Menu>
   </>
