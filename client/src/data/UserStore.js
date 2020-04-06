@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import { userConfig } from '../config/user';
-
 // Acting as a call to the backend or some middleware.
 import {
   getUser,
@@ -23,9 +22,12 @@ const lists = getLists();
 // Allows for activating any given form.
 const activeForm = null;
 
+
 const postFormOpen = false;
 
 const listFormOpen = false;
+const listOpen = false;
+const profileFormOpen = false;
 
 const user = getUser(id);
 const initialState = {
@@ -35,9 +37,10 @@ const initialState = {
   posts,
   postFormOpen,
   listFormOpen,
-  activeForm
+  listOpen,
+  activeForm,
+  profileFormOpen
 };
-
 function reducer(state, action) {
   switch (action.type) {
     case 'likeComment':
@@ -48,6 +51,9 @@ function reducer(state, action) {
       return { ...state };
     case 'addCommentToPost':
       return { ...state, commentFormOpen: true, activeForm: action.payload };
+    case 'deleteComment':
+        console.log(`User with id: ${state.user.id} wants to delete comment with id: ${action.payload}`);
+      return { ...state };
     case 'editComment':
       return { ...state, commentFormOpen: true, activeForm: action.payload };
     case 'CommentFormSave':
@@ -60,6 +66,9 @@ function reducer(state, action) {
     case 'CommentFormClose':
       // Prints to the console, the submitted post data.
       return { ...state, commentFormOpen: false, activeForm: null };
+    case 'deletePost':
+        console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
+      return { ...state};
     case 'editPost':
       return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormSave':
@@ -71,6 +80,8 @@ function reducer(state, action) {
       return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormClose':
       return { ...state, postFormOpen: false, activeForm: null };
+    case 'listOpen':
+      return { ...state, ...action.payload };
     case 'ListFormOpen':
       return { ...state, listFormOpen: true, activeForm: action.payload };
     case 'ListFormClose':
@@ -79,12 +90,26 @@ function reducer(state, action) {
       // Prints to the console, the submitted post data.
       console.log(action.payload);
     return { ...state };
+    case 'deleteList':
+      console.log(`User with id: ${state.user.id} wants to delete list with id: ${action.payload}`);
+      return { ...state };
     case 'editList':
       return { ...state, listFormOpen: true, activeForm: action.payload };
+    case 'profileFormClose':
+      return { ...state, profileFormOpen: false, activeForm: null };
+    case 'profileFormOpen':
+      return { ...state, profileFormOpen: true, activeForm: action.payload };
+    case 'profileFormSave':
+      console.log(`User with id: ${state.user.id} updated profile settings to`);
+      console.table(action.payload);
+      return { ...state };
     // Need to add logic for these actions.  It's unclear
     // how it will be implemented.
     case 'addListItem':
       return { ...state, listItemFormOpen: true, activeForm: action.payload };
+    case 'deleteListItem':
+      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.itemName} from list with id: ${action.payload.listId}`);
+      return { ...state}; 
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
@@ -105,7 +130,7 @@ function reducer(state, action) {
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     default:
-      throw new Error('Action type is not defined.');
+      throw new Error(`Action type: ${action.type} is not defined.`);
   }
 }
 
