@@ -14,7 +14,7 @@ import { UserContext } from 'data/UserStore';
 import classes from './ListItems.module.css';
 
 
-export const ListItems = ({id, name, items}) => {
+export const ListItems = ({id, author, name, items}) => {
   const [state, dispatch] = useContext(UserContext);
 
   const handleClose = () => {
@@ -45,6 +45,10 @@ export const ListItems = ({id, name, items}) => {
     }
 
     return name;
+  }
+
+  const isAuthor = () => {
+    return state.user.id === author.id;
   }
 
   return (
@@ -79,12 +83,14 @@ export const ListItems = ({id, name, items}) => {
                   }
                 />
 
-                <IconButton
-                  aria-label="delete"
-                  onClick={handleDeleteItem(item)}
-                >
-                  <CloseIcon />
-                </IconButton>
+                {isAuthor() &&
+                  <IconButton
+                    aria-label="delete"
+                    onClick={handleDeleteItem(item)}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                }
               </ListItem>
               <Divider />
             </React.Fragment>
