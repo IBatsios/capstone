@@ -14,7 +14,7 @@ import { UserContext } from 'data/UserStore';
 import classes from './ListItems.module.css';
 
 
-export const ListItems = ({name, items}) => {
+export const ListItems = ({id, name, items}) => {
   const [state, dispatch] = useContext(UserContext);
 
   const handleClose = () => {
@@ -23,6 +23,16 @@ export const ListItems = ({name, items}) => {
       payload: {
         listOpen: false,
         listItems: null
+      }
+    });
+  };
+
+  const handleDeleteItem = item => () => {
+    dispatch({
+      type: 'deleteListItem',
+      payload: {
+        listId: id,
+        itemName: item.name 
       }
     });
   };
@@ -68,6 +78,13 @@ export const ListItems = ({name, items}) => {
                     item.description
                   }
                 />
+
+                <IconButton
+                  aria-label="delete"
+                  onClick={handleDeleteItem(item)}
+                >
+                  <CloseIcon />
+                </IconButton>
               </ListItem>
               <Divider />
             </React.Fragment>
