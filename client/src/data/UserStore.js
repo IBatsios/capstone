@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import { userConfig } from '../config/user';
-
 // Acting as a call to the backend or some middleware.
 import {
   getUser,
@@ -23,9 +22,11 @@ const lists = getLists();
 // Allows for activating any given form.
 const activeForm = null;
 
+
 const postFormOpen = false;
 
 const listFormOpen = false;
+const profileFormOpen = false;
 
 const user = getUser(id);
 const initialState = {
@@ -35,9 +36,9 @@ const initialState = {
   posts,
   postFormOpen,
   listFormOpen,
-  activeForm
+  activeForm,
+  profileFormOpen
 };
-
 function reducer(state, action) {
   switch (action.type) {
     case 'likeComment':
@@ -90,6 +91,14 @@ function reducer(state, action) {
       return { ...state };
     case 'editList':
       return { ...state, listFormOpen: true, activeForm: action.payload };
+    case 'profileFormClose':
+      return { ...state, profileFormOpen: false, activeForm: null };
+    case 'profileFormOpen':
+      return { ...state, profileFormOpen: true, activeForm: action.payload };
+    case 'profileFormSave':
+      console.log(`User with id: ${state.user.id} updated profile settings to`);
+      console.table(action.payload);
+      return { ...state };
     // Need to add logic for these actions.  It's unclear
     // how it will be implemented.
     case 'addListItem':

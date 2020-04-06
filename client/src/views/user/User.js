@@ -24,6 +24,7 @@ import PostForm from 'views/post/PostForm';
 import TabPanel from 'views/TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
+import { ProfileForm } from './ProfileForm';
 
 import { ListForm } from 'views/lists/ListForm';
 
@@ -48,6 +49,14 @@ const User = () => {
     });
   };
 
+  const handleEditProfile = () => {
+    dispatch({
+      type: 'profileFormOpen',
+      payload: <ProfileForm />
+    });
+  };
+
+
   const handleAddPost = () => {
     dispatch({
       type: 'PostFormOpen',
@@ -64,6 +73,7 @@ const User = () => {
                 edge="start"
                 onAddPost={() => handleAddPost()}
                 onAddList={() => handleAddList()}
+                onEditProfile={() => handleEditProfile()}
               />
             </Toolbar>
             <Hidden xsDown>
