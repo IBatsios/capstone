@@ -107,6 +107,9 @@ function reducer(state, action) {
     // how it will be implemented.
     case 'addListItem':
       return { ...state, listItemFormOpen: true, activeForm: action.payload };
+    case 'deleteListItem':
+      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.itemName} from list with id: ${action.payload.listId}`);
+      return { ...state}; 
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
