@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { UserContext } from 'data/UserStore';
 import { ContextActions } from './ContextActions';
 import { ListForm } from './ListForm';
 import { ListItemForm } from './ListItemForm';
+import { ListItems } from './ListItems';
 import classes from './Listing.module.css';
 
 
@@ -38,10 +36,22 @@ export const Listing = (props) => {
     });
   }
 
+  const handleViewList = (list) => {
+    dispatch({
+      type: 'listOpen',
+      payload: {
+        listOpen: true,
+        listItems: <ListItems {...list} />
+      }
+    });
+  }
+
+
   return (
     <div className={classes.lists}>
-        {props.lists.map((list, index) => (
-          <Card key={index}>
+      {props.lists.map((list, index) => (
+        <React.Fragment key={index}>
+          <Card>
             <CardContent className={classes.list}>
               <Typography className={classes.title}>
                 {list.name}
@@ -53,11 +63,13 @@ export const Listing = (props) => {
                 onAddListItem={(list) => handleAddListItem(list)}
                 onDelete={(list) => handleDelete(list)}
                 onEditList={(list) => handleEditList(list)}
+                onViewList={(list) => handleViewList(list)}
               />
             </CardContent>
-
           </Card>
-        ))}
+        </React.Fragment>
+      ))}
+      {state.listItems}
     </div>
   );
 }

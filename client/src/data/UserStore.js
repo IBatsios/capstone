@@ -26,6 +26,7 @@ const activeForm = null;
 const postFormOpen = false;
 
 const listFormOpen = false;
+const listOpen = false;
 const profileFormOpen = false;
 
 const user = getUser(id);
@@ -36,6 +37,7 @@ const initialState = {
   posts,
   postFormOpen,
   listFormOpen,
+  listOpen,
   activeForm,
   profileFormOpen
 };
@@ -78,6 +80,8 @@ function reducer(state, action) {
       return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormClose':
       return { ...state, postFormOpen: false, activeForm: null };
+    case 'listOpen':
+      return { ...state, ...action.payload };
     case 'ListFormOpen':
       return { ...state, listFormOpen: true, activeForm: action.payload };
     case 'ListFormClose':
@@ -103,6 +107,9 @@ function reducer(state, action) {
     // how it will be implemented.
     case 'addListItem':
       return { ...state, listItemFormOpen: true, activeForm: action.payload };
+    case 'deleteListItem':
+      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.itemName} from list with id: ${action.payload.listId}`);
+      return { ...state}; 
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
@@ -123,7 +130,7 @@ function reducer(state, action) {
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     default:
-      throw new Error('Action type is not defined.');
+      throw new Error(`Action type: ${action.type} is not defined.`);
   }
 }
 
