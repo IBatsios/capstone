@@ -85,6 +85,9 @@ function reducer(state, action) {
       // Prints to the console, the submitted post data.
       console.log(action.payload);
     return { ...state };
+    case 'deleteList':
+      console.log(`User with id: ${state.user.id} wants to delete list with id: ${action.payload}`);
+      return { ...state };
     case 'editList':
       return { ...state, listFormOpen: true, activeForm: action.payload };
     // Need to add logic for these actions.  It's unclear
