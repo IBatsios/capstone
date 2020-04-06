@@ -63,6 +63,9 @@ function reducer(state, action) {
     case 'CommentFormClose':
       // Prints to the console, the submitted post data.
       return { ...state, commentFormOpen: false, activeForm: null };
+    case 'deletePost':
+        console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
+      return { ...state};
     case 'editPost':
       return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormSave':
