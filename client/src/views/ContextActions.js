@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ReportIcon from '@material-ui/icons/Report';
@@ -137,6 +138,16 @@ export const ContextActionsDrawer = (props) => {
         }
       </List>
       <Divider />
+      { isAuthor() &&
+        <List>
+          <ListItem button onClick={() => props.onDelete(props)}>
+            <ListItemIcon>
+              <DeleteIcon />
+            </ListItemIcon>
+            <ListItemText primary="Delete" />
+          </ListItem>
+        </List>
+      }
       { !isAuthor() &&
         <List>
           <ListItem button onClick={() => props.onReport(props.id)}>
@@ -175,6 +186,11 @@ export const ContextActionsMenu = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleDelete = () => {
+    props.onDelete(props);
+    handleClose();
+  }
 
   const handleEditComment = () => {
     props.onEditComment(props.comment);
@@ -320,6 +336,14 @@ export const ContextActionsMenu = (props) => {
             <ListItemText primary="Report" />
           </MenuItem>
         </div>
+      }
+      { isAuthor() &&
+        <MenuItem onClick={handleDelete}>
+          <ListItemIcon>
+            <DeleteIcon />
+          </ListItemIcon>
+          <ListItemText primary="Delete" />
+        </MenuItem>
       }
     </Menu>
   </>

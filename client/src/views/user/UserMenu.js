@@ -53,7 +53,7 @@ export const UserMenu = (props) => {
           </ListItemIcon>
           <ListItemText primary={ADD_LIST} />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={() => props.onEditProfile()}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>

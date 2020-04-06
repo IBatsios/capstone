@@ -41,6 +41,14 @@ export const Posts = (props) => {
     setExpanded(expanded === index ? -1 : index);
   };
 
+  const handleDelete = ({id}) => {
+    dispatch({
+      type: 'deletePost',
+      payload: id
+    });
+  };
+
+
   const handleEditPost = (post) => {
     const { id, title, content, interest, spoiler } = { ...post};
     const postData = { id, title, content, interest, spoiler };
@@ -107,6 +115,7 @@ export const Posts = (props) => {
                   id={post.id}
                   post={post}
                   author={post.author}
+                  onDelete={(post) => handleDelete(post)}
                   onEditPost={(post) => handleEditPost(post)}
                   onLike={(postId) => handleLike(postId)}
                   onDislike={(postId) => handleDislike(postId)}
