@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import CloseIcon from '@material-ui/icons/Close';
+import EditIcon from '@material-ui/icons/Edit';
 import {
   Dialog,
   DialogTitle,
@@ -11,6 +12,7 @@ import {
   ListItemText
 } from '@material-ui/core';
 import { UserContext } from 'data/UserStore';
+import { ListItemForm } from './ListItemForm';
 import classes from './ListItems.module.css';
 
 
@@ -32,10 +34,18 @@ export const ListItems = ({id, author, name, items}) => {
       type: 'deleteListItem',
       payload: {
         listId: id,
-        itemName: item.name 
+        item: item 
       }
     });
   };
+
+  const handleEditItem = item => () => {
+    dispatch({
+      type: 'editListItem',
+      payload: <ListItemForm listId={id} {...item} />
+    });
+  };
+
 
   const getItemName = (item) => {
     let name = item.name;
@@ -52,51 +62,60 @@ export const ListItems = ({id, author, name, items}) => {
   }
 
   return (
-    <Dialog
-      open={state.listOpen}
-      onClose={handleClose}
-      aria-labelledby="list-items-dialog"
-      fullWidth
-    >
-      <DialogTitle id="dialog-list-items">
-        {name}
-        {state.listOpen ? (
-          <IconButton
-            className={classes.closeButton}
-            aria-label="close"
-            onClick={handleClose}
-          >
-            <CloseIcon />
-          </IconButton>
-        ) : null}
-      </DialogTitle>
-      <Divider />
-      <DialogContent>
-        <List key={name}>
-          {items.map((item, index) => (
-            <React.Fragment key={item.name}>
-              <ListItem>
-                <ListItemText
-                  primary={getItemName(item)}
-                  secondary={
-                    item.description
-                  }
-                />
+    <>
+      <Dialog
+        open={state.listOpen}
+        onClose={handleClose}
+        aria-labelledby="list-items-dialog"
+        fullWidth
+      >
+        <DialogTitle id="dialog-list-items">
+          {name}
+            <IconButton
+              className={classes.closeButton}
+              aria-label="close"
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+        </DialogTitle>
+        <Divider />
+        <DialogContent>
+          <List key={name}>
+            {items.map((item, index) => (
+              <React.Fragment key={item.name}>
+                <ListItem>
+                  <ListItemText
+                    primary={getItemName(item)}
+                    secondary={
+                      item.description
+                    }
+                  />
 
-                {isAuthor() &&
-                  <IconButton
-                    aria-label="delete"
-                    onClick={handleDeleteItem(item)}
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                }
-              </ListItem>
-              <Divider />
-            </React.Fragment>
-          ))}
-        </List>
-      </DialogContent>
-    </Dialog>
+                  {isAuthor() &&
+                    <>
+                      <IconButton
+                        aria-label="edit"
+                        onClick={handleEditItem(item)}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete"
+                        onClick={handleDeleteItem(item)}
+                      >
+                        <CloseIcon />
+                      </IconButton>
+                    </>
+                  }
+                </ListItem>
+                <Divider />
+              </React.Fragment>
+            ))}
+          </List>
+        </DialogContent>
+      </Dialog>
+      {state.listItemForm}
+    </>
   );
 }
