@@ -24,7 +24,7 @@ export const ListItemForm = (props) => {
   const [values, setValues] = React.useState({
     id: props.id,
     userId: state.user.id,
-    title: props.title || '',
+    name: props.name || '',
     url: props.url || '',
     description: props.description || ''
   });
@@ -32,7 +32,7 @@ export const ListItemForm = (props) => {
 
   const handleClose = () => {
     dispatch({
-      type: 'ListFormClose'
+      type: 'ListItemFormClose',
     });
   };
 
@@ -58,18 +58,18 @@ export const ListItemForm = (props) => {
       <Dialog
         open={state.listItemFormOpen}
         onClose={handleClose}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby="form-dialog-name"
         fullWidth
       >
-        <DialogTitle id="form-dialog-title">{ADD_LIST_ITEM}</DialogTitle>
+        <DialogTitle id="form-dialog-name">List item</DialogTitle>
         <DialogContent>
           <TextField
             required
-            value={values.title}
-            onChange={handleChange("title")}
+            value={values.name}
+            onChange={handleChange("name")}
             margin="dense"
-            id="title"
-            label="title"
+            id="list-item-name"
+            label="name"
             type="text"
             fullWidth
           />
@@ -101,7 +101,7 @@ export const ListItemForm = (props) => {
             Cancel
           </Button>
           <Button onClick={handleAdd} color="primary">
-            Add 
+            Save 
           </Button>
         </DialogActions>
       </Dialog>
