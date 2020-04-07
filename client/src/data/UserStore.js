@@ -21,11 +21,12 @@ const lists = getLists();
 
 // Allows for activating any given form.
 const activeForm = null;
-
+const listItemForm = null;
 
 const postFormOpen = false;
 
 const listFormOpen = false;
+const listItemFormOpen = false;
 const listOpen = false;
 const profileFormOpen = false;
 
@@ -38,6 +39,8 @@ const initialState = {
   postFormOpen,
   listFormOpen,
   listOpen,
+  listItemFormOpen,
+  listItemForm,
   activeForm,
   profileFormOpen
 };
@@ -94,7 +97,9 @@ function reducer(state, action) {
       console.log(`User with id: ${state.user.id} wants to delete list with id: ${action.payload}`);
       return { ...state };
     case 'editList':
-      return { ...state, listFormOpen: true, activeForm: action.payload };
+      //return { ...state, listFormOpen: true, activeForm: action.payload };
+      console.log(action.payload);
+      return { ...state };
     case 'profileFormClose':
       return { ...state, profileFormOpen: false, activeForm: null };
     case 'profileFormOpen':
@@ -107,13 +112,17 @@ function reducer(state, action) {
     // how it will be implemented.
     case 'addListItem':
       return { ...state, listItemFormOpen: true, activeForm: action.payload };
+    case 'editListItem':
+      return { ...state, listItemFormOpen: true, activeForm: action.payload };
     case 'deleteListItem':
-      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.itemName} from list with id: ${action.payload.listId}`);
+      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.item.name} with id: ${action.payload.item.id} from list with id: ${action.payload.listId}`);
       return { ...state}; 
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
       return { ...state, listItemFormOpen: false, activeForm: null };
+    case 'ListItemFormClose':
+      return { ...state, listItemFormOpen: false, activeForm:null };
     case 'likePost':
       console.log(`liked postId: ${action.payload}`);
       return { ...state };
