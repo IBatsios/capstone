@@ -17,8 +17,8 @@ import {
   WATERCOOLER_ICON
 } from 'config/user';
 import classes from './User.module.css';
-import Home from "views/home/Home";
-import Lists from "views/lists/Lists";
+import Home from "home/Home";
+import Lists from "lists/Lists";
 import Watercooler from "views/watercooler/Watercooler";
 import PostForm from 'posts/PostForm';
 import TabPanel from 'views/TabPanel';
@@ -26,7 +26,7 @@ import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
 import { ProfileForm } from './ProfileForm';
 
-import { ListForm } from 'views/lists/ListForm';
+import { ListForm } from 'lists/ListForm';
 
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
