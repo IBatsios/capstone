@@ -20,11 +20,9 @@ import classes from './User.module.css';
 import Home from "home/Home";
 import Lists from "lists/Lists";
 import Watercooler from "watercooler/Watercooler";
-import PostForm from 'posts/PostForm';
 import TabPanel from 'TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
-import { ProfileForm } from './ProfileForm';
 
 import { ListForm } from 'lists/ListForm';
 
@@ -41,31 +39,6 @@ const User = () => {
       payload: value 
     });
   }
-
-/*
-  const handleAddList = () => {
-    dispatch({
-      type: 'ListFormOpen',
-      payload: <ListForm />
-    });
-  };
-  */
-
-  const handleEditProfile = () => {
-    dispatch({
-      type: 'profileFormOpen',
-      payload: <ProfileForm />
-    });
-  };
-
-/*
-  const handleAddPost = () => {
-    dispatch({
-      type: 'PostFormOpen',
-      payload: <PostForm />
-    });
-  };
-  */
 
   return (
      <Fragment>
