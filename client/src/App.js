@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import User from 'views/user';
+import User from 'user';
 
 
 class App extends Component {
