@@ -1,5 +1,4 @@
-import React, { useContext, Fragment } from "react";
-import { UserContext } from 'data/UserStore';
+import React, { Fragment } from "react";
 import { TabsUi } from 'tabs/Tabs';
 import { LISTS } from 'config/user';
 import { ListStore } from 'data/ListStore';
