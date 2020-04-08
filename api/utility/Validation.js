@@ -23,20 +23,24 @@ class Validation {
     static validateLoginInput(userData) {
         let errors = {};
 
-        // Convert empty fields to empty strings for Validator
-        userData.email = !isEmpty(userData.email) ? userData.email : '';
-        userData.password = !isEmpty(userData.password) ? userData.password : '';
+        try {
+            // Convert empty fields to empty strings for Validator
+            userData.email = !isEmpty(userData.email) ? userData.email : '';
+            userData.password = !isEmpty(userData.password) ? userData.password : '';
 
-        // Email validation
-        if (Validator.isEmpty(userData.email)) {
-            errors.email = 'Email field is required';
-        } else if (!Validator.isEmail(userData.email)) {
-            errors.email = 'Email is invalid';
-        }
+            // Email validation
+            if (Validator.isEmpty(userData.email)) {
+                errors.email = 'Email field is required';
+            } else if (!Validator.isEmail(userData.email)) {
+                errors.email = 'Email is invalid';
+            }
 
-        // Password validation
-        if (Validator.isEmpty(userData.password)) {
-            errors.password = 'Password field is required';
+            // Password validation
+            if (Validator.isEmpty(userData.password)) {
+                errors.password = 'Password field is required';
+            }
+        } catch (error) {
+            errors.exception = error.message;
         }
 
         return {
