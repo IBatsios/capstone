@@ -1,6 +1,6 @@
 import React, { useContext, Fragment } from "react";
 import { UserContext } from 'data/UserStore';
-import { TabsUi } from 'views/tabs/Tabs';
+import { TabsUi } from 'tabs/Tabs';
 import { LISTS } from 'config/user';
 import { ListStore } from 'data/ListStore';
 import { ListContext } from 'data/ListStore';
