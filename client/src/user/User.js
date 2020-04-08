@@ -21,7 +21,7 @@ import Home from "home/Home";
 import Lists from "lists/Lists";
 import Watercooler from "watercooler/Watercooler";
 import PostForm from 'posts/PostForm';
-import TabPanel from 'views/TabPanel';
+import TabPanel from 'TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
 import { ProfileForm } from './ProfileForm';
