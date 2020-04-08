@@ -19,7 +19,7 @@ import {
 import classes from './User.module.css';
 import Home from "home/Home";
 import Lists from "lists/Lists";
-import Watercooler from "views/watercooler/Watercooler";
+import Watercooler from "watercooler/Watercooler";
 import PostForm from 'posts/PostForm';
 import TabPanel from 'views/TabPanel';
 import { UserContext } from 'data/UserStore';
