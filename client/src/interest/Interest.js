@@ -9,7 +9,7 @@ import { renderBlocks } from 'utils';
 
 
 export const Interest = (props) => {
-  const [state, dispatch] = useContext(UserContext);
+  const [state] = useContext(UserContext);
 
   // The top-level navigation section for the site.
   const section = props.section;
