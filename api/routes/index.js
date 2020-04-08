@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('../config/auth');
 
 const UserServices = require('../services/UserServices');
 const User = require('../models/user.model');
@@ -95,7 +96,7 @@ router.get('/login', function (req, res, next) {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.post('/login', function(req, res, next) {
+router.post('/login', async function(req, res, next) {
     // Form validation
     const {errors, isValid} = Validation.validateLoginInput(req.body);
 
@@ -107,7 +108,48 @@ router.post('/login', function(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
 
+    const foundUser = await UserServices.getUserByEmail(email);
 
+    // Check if user exists
+    if (!foundUser) {
+        // return res.status(404).json({emailnotfound: 'Email not found'});
+        console.log('Email not found');
+        return res.render('login');
+    }
+
+    // Check password
+    bcrypt.compare(password, foundUser.password).then(isMatch => {
+        if (isMatch) {
+
+            // Create JWT Payload
+            const payload = {
+                id: foundUser.id,
+                username: foundUser.username
+            };
+
+            // Sign token
+            jwt.sign(
+                payload,
+                auth.secretOrKey,
+                {
+                    expiresIn: auth.tokenExp
+                },
+                (err, token) => {
+                    res.json({
+                        success: true,
+                        token: "Bearer " + token
+                    });
+                }
+            );
+        } else {
+            // return res.status(400).json({passwordincorrect: 'Password incorrect'});
+            console.log('Password incorrect');
+            return res.render('login');
+        }
+    }).catch(err => {
+        console.log(err.message);
+        return res.render('login');
+    });
 });
 
 /**
