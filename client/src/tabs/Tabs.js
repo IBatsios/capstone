@@ -8,7 +8,7 @@ import classes from './Tabs.module.css';
 
 
 export const TabsUi = (props) => {
-  const [state, dispatch] = useContext(props.context);
+  const [state] = useContext(props.context);
   const [active, setActive] = React.useState(0);
   const interests = state.interests;
   const changeTab = (value) => {
