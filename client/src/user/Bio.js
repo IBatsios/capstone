@@ -3,7 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { UserContext } from 'data/UserStore';
 import classes from './Bio.module.css';
 export const Bio = () => {
-  const [state, dispatch] = useContext(UserContext);
+  const [state] = useContext(UserContext);
 
   // TODO: Move this default image to a config file.
   return (
