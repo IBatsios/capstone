@@ -3,7 +3,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import { Bio } from 'user/Bio';
-import MovieCalendar from 'views/MovieCalendar/MovieCalendar';
+import MovieCalendar from 'MovieCalendar/MovieCalendar';
 
 
 // Names and icons for top-level navigation. 
