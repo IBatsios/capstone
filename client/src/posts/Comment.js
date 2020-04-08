@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import { ContextActions } from 'views/ContextActions';
 import classes from './Comment.module.css';
-import { CommentForm } from 'views/post/CommentForm';
+import { CommentForm } from 'posts/CommentForm';
 
 
 export const Comment = (props) => {

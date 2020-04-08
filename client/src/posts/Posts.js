@@ -13,9 +13,9 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
 import { ContextActions } from 'views/ContextActions';
-import { Comments } from 'views/post';
-import { CommentForm } from 'views/post/CommentForm';
-import PostForm from 'views/post/PostForm';
+import { Comments } from 'posts';
+import { CommentForm } from 'posts/CommentForm';
+import PostForm from 'posts/PostForm';
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const Posts = (props) => {
+const Posts = (props) => {
   const [state, dispatch] = useContext(UserContext);
   const classes = { ...useStyles(), ...styles};
   const [expanded, setExpanded] = React.useState(-1);
@@ -165,3 +165,5 @@ export const Posts = (props) => {
   
   return null;
 }
+
+export default Posts;
