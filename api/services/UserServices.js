@@ -37,7 +37,7 @@ class UserServices {
             });
 
             try {
-                const result = await newUser.save();
+                const result = await connector.create(modelName, newUser);
                 if (!result) {
                     console.log('Registration failed at UserServices');
                     return false;
