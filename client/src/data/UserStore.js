@@ -27,7 +27,6 @@ const postFormOpen = false;
 
 const listFormOpen = false;
 const listItemFormOpen = false;
-const listOpen = false;
 const profileFormOpen = false;
 
 const user = getUser(id);
@@ -38,7 +37,6 @@ const initialState = {
   posts,
   postFormOpen,
   listFormOpen,
-  listOpen,
   listItemFormOpen,
   listItemForm,
   activeForm,
@@ -46,60 +44,6 @@ const initialState = {
 };
 function reducer(state, action) {
   switch (action.type) {
-    case 'likeComment':
-      console.log(`liked commentId: ${action.payload}`);
-      return { ...state };
-    case 'dislikeComment':
-      console.log(`disliked commentId: ${action.payload}`);
-      return { ...state };
-    case 'addCommentToPost':
-      return { ...state, commentFormOpen: true, activeForm: action.payload };
-    case 'deleteComment':
-        console.log(`User with id: ${state.user.id} wants to delete comment with id: ${action.payload}`);
-      return { ...state };
-    case 'editComment':
-      return { ...state, commentFormOpen: true, activeForm: action.payload };
-    case 'CommentFormSave':
-      // Prints to the console, the submitted post data.
-      console.log(action.payload);
-      return { ...state };
-    case 'reportComment':
-      console.log(`commentId ${action.payload} has been reported`);
-      return { ...state };
-    case 'CommentFormClose':
-      // Prints to the console, the submitted post data.
-      return { ...state, commentFormOpen: false, activeForm: null };
-    case 'deletePost':
-        console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
-      return { ...state};
-    case 'editPost':
-      return { ...state, postFormOpen: true, activeForm: action.payload };
-    case 'PostFormSave':
-      // Prints to the console, the submitted post data.
-      console.log(action.payload);
-    return { ...state };
-    // The next two case may be moved to a local state.
-    case 'PostFormOpen':
-      return { ...state, postFormOpen: true, activeForm: action.payload };
-    case 'PostFormClose':
-      return { ...state, postFormOpen: false, activeForm: null };
-    case 'listOpen':
-      return { ...state, ...action.payload };
-    case 'ListFormOpen':
-      return { ...state, listFormOpen: true, activeForm: action.payload };
-    case 'ListFormClose':
-      return { ...state, listFormOpen: false, activeForm: null };
-    case 'ListFormSave':
-      // Prints to the console, the submitted post data.
-      console.log(action.payload);
-    return { ...state };
-    case 'deleteList':
-      console.log(`User with id: ${state.user.id} wants to delete list with id: ${action.payload}`);
-      return { ...state };
-    case 'editList':
-      //return { ...state, listFormOpen: true, activeForm: action.payload };
-      console.log(action.payload);
-      return { ...state };
     case 'profileFormClose':
       return { ...state, profileFormOpen: false, activeForm: null };
     case 'profileFormOpen':
@@ -108,33 +52,8 @@ function reducer(state, action) {
       console.log(`User with id: ${state.user.id} updated profile settings to`);
       console.table(action.payload);
       return { ...state };
-    // Need to add logic for these actions.  It's unclear
-    // how it will be implemented.
-    case 'addListItem':
-      return { ...state, listItemFormOpen: true, activeForm: action.payload };
-    case 'editListItem':
-      return { ...state, listItemFormOpen: true, activeForm: action.payload };
-    case 'deleteListItem':
-      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.item.name} with id: ${action.payload.item.id} from list with id: ${action.payload.listId}`);
-      return { ...state}; 
-    case 'ListItemFormSave':
-      console.log(`Add items to list with id: ${action.payload.id}`);
-      console.log(action.payload);
-      return { ...state, listItemFormOpen: false, activeForm: null };
-    case 'ListItemFormClose':
-      return { ...state, listItemFormOpen: false, activeForm:null };
-    case 'likePost':
-      console.log(`liked postId: ${action.payload}`);
-      return { ...state };
-    case 'dislikePost':
-      console.log(`disliked postId: ${action.payload}`);
-      return { ...state };
     case 'newFriendRequest':
-      
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
-      return { ...state };
-    case 'reportPost':
-      console.log(`postId ${action.payload} has been reported`);
       return { ...state };
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
