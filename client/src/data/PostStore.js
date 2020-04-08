@@ -23,10 +23,24 @@ const initialState = {
   activeForm
 };
 
-function reducer(state, action) {
+export function postReducer(state, action) {
+  console.log(action);
   switch (action.type) {
+    case 'CommentFormClose':
+      // Prints to the console, the submitted post data.
+      console.log(action.payload);
+      return { ...state, commentFormOpen: false, activeForm: null };
+    case 'CommentFormSave':
+      // Prints to the console, the submitted post data.
+      console.log(action.payload);
+      return { ...state, commentFormOpen: false, activeForm: null };
     case 'addCommentToPost':
       return { ...state, commentFormOpen: true, activeForm: action.payload };
+    case 'editComment':
+      return { ...state, commentFormOpen: true, activeForm: action.payload };
+    case 'deleteComment':
+      console.log("delete comment");
+      return state;
     case 'deletePost':
         console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
       return { ...state};
@@ -50,15 +64,17 @@ function reducer(state, action) {
     case 'reportPost':
       console.log(`postId ${action.payload} has been reported`);
       return { ...state };
+    case 'addPost':
+      return { ...state, postFormOpen: true, activeForm: action.payload };
     default:
-      throw new Error(`Action type: ${action.type} is not defined.`);
+      return {...state};
   }
 }
 
 export const PostContext = createContext([{}, function(){}]);
 
 export const PostStore = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(postReducer, initialState);
 
   return(
     <PostContext.Provider value={[state, dispatch]}>
@@ -66,3 +82,8 @@ export const PostStore = ({children}) => {
     </PostContext.Provider>
   )
 }
+
+export function usePosts() {
+  return useReducer(postReducer, posts);
+}
+
