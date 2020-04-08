@@ -77,20 +77,6 @@ router.post('/register', async function (req, res, next) {
             res.render('register');
         }
     }
-
-    // const newUser = req.body;
-
-    // try {
-    //     const result = await UserServices.addUser(newUser);
-    //     if (result) {
-    //         return res.redirect('/');
-    //     }
-    //     console.log('Add user failed');
-    //     return res.render('register');
-    // } catch (error) {
-    //     console.log(error);
-    //     return res.render('register');
-    // }
 });
 
 /**
@@ -109,12 +95,9 @@ router.get('/login', function (req, res, next) {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.post('/login', passport.authenticate('local',
-    {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    }), function (req, res, next) {
-    });
+router.post('/login', function(req, res, next) {
+//writing new logic
+});
 
 /**
  * Logs the user out using PassportJS.
