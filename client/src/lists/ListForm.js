@@ -32,6 +32,7 @@ export const ListForm = (props) => {
 
   const handleClose = () => {
     dispatch({
+      store: 'ListStore',
       type: 'ListFormClose'
     });
   };
@@ -44,6 +45,7 @@ export const ListForm = (props) => {
       }
     });
     dispatch({
+      store: 'ListStore',
       type: 'ListFormSave',
       payload: values
     });

@@ -21,6 +21,7 @@ export const ListItems = ({id, author, name, items}) => {
 
   const handleClose = () => {
     dispatch({
+      store: 'ListStore',
       type: 'listOpen',
       payload: {
         listOpen: false,
@@ -31,6 +32,7 @@ export const ListItems = ({id, author, name, items}) => {
 
   const handleDeleteItem = item => () => {
     dispatch({
+      store: 'ListStore',
       type: 'deleteListItem',
       payload: {
         listId: id,
@@ -41,6 +43,7 @@ export const ListItems = ({id, author, name, items}) => {
 
   const handleEditItem = item => () => {
     dispatch({
+      store: 'ListStore', 
       type: 'editListItem',
       payload: <ListItemForm listId={id} {...item} />
     });

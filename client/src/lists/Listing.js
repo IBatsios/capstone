@@ -15,6 +15,7 @@ export const Listing = (props) => {
 
   const handleAddListItem = (list) => {
     dispatch({
+      store: 'ListStore',
       type: 'addListItem',
       payload: <ListItemForm id={list.id} />
     });
@@ -22,6 +23,7 @@ export const Listing = (props) => {
 
   const handleDelete = ({id}) => {
     dispatch({
+      store: 'ListStore',
       type: 'deleteList',
       payload: id
     });
@@ -31,6 +33,7 @@ export const Listing = (props) => {
     const { id, name, interest } = { ...list};
     const listData = { id, name, interest};
     dispatch({
+      store: 'ListStore',
       type: 'editList',
       payload: <ListForm {...listData} />
     });
@@ -38,6 +41,7 @@ export const Listing = (props) => {
 
   const handleViewList = (list) => {
     dispatch({
+      store: 'ListStore',
       type: 'listOpen',
       payload: {
         listOpen: true,
