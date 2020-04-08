@@ -8,6 +8,9 @@ import {
   getLists
 } from './MockDataProvider';
 
+import { listReducer } from 'data/ListStore';
+import { postReducer } from 'data/PostStore';
+
 // No sure where this id will be coming from yet, but it's
 // time to start passing in more realistic user data.
 const id = '5e7216fbacd4a42955b6450e';
@@ -42,8 +45,17 @@ const initialState = {
   activeForm,
   profileFormOpen
 };
-function reducer(state, action) {
+export function userReducer(state, action) {
+  switch (action.store) {
+    case 'ListStore':
+      return listReducer(state, action);
+    case 'PostStore':
+      return postReducer(state, action);
+  }
   switch (action.type) {
+    case 'addPost':
+      console.log('addPost');
+      return { ...state };
     case 'profileFormClose':
       return { ...state, profileFormOpen: false, activeForm: null };
     case 'profileFormOpen':
@@ -52,20 +64,24 @@ function reducer(state, action) {
       console.log(`User with id: ${state.user.id} updated profile settings to`);
       console.table(action.payload);
       return { ...state };
+    case 'logout':
+      console.log('Logging out');
+    return null;
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     default:
-      throw new Error(`Action type: ${action.type} is not defined.`);
+      return {...state};
   }
+
 }
 
 export const UserContext = createContext({});
 
 export const UserStore = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(userReducer, initialState);
 
   return(
     <UserContext.Provider value={[state, dispatch]}>
