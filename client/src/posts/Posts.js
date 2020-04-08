@@ -43,6 +43,7 @@ const Posts = (props) => {
 
   const handleDelete = ({id}) => {
     dispatch({
+      store: 'PostStore',
       type: 'deletePost',
       payload: id
     });
@@ -53,6 +54,7 @@ const Posts = (props) => {
     const { id, title, content, interest, spoiler } = { ...post};
     const postData = { id, title, content, interest, spoiler };
     dispatch({
+      store: 'PostStore',
       type: 'editPost',
       payload: <PostForm {...postData} /> 
     });
@@ -60,6 +62,7 @@ const Posts = (props) => {
 
   const handleLike = (postId) => {
     dispatch({
+      store: 'PostStore',
       type: 'likePost',
       payload: postId 
     });
@@ -67,6 +70,7 @@ const Posts = (props) => {
 
   const handleDislike = (postId) => {
     dispatch({
+      store: 'PostStore',
       type: 'dislikePost',
       payload: postId 
     });
@@ -74,6 +78,7 @@ const Posts = (props) => {
 
   const handleAddComment = (postId) => {
     dispatch({
+      store: 'PostStore',
       type: 'addCommentToPost',
       payload: <CommentForm postId={postId} /> 
     });
@@ -81,6 +86,7 @@ const Posts = (props) => {
 
   const handleFriendRequest = (author) => {
     dispatch({
+      store: 'PostStore',
       type: 'newFriendRequest',
       payload: {
         userId: state.user.id,
@@ -91,6 +97,7 @@ const Posts = (props) => {
 
   const handleReport = (postId) => {
     dispatch({
+      store: 'PostStore',
       type: 'reportPost',
       payload: postId 
     });
