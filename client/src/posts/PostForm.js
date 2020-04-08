@@ -42,6 +42,7 @@ export default function PostForm(props) {
 
   const handleClose = () => {
     dispatch({
+      store: 'PostStore',
       type: 'PostFormClose'
     });
   };
@@ -58,6 +59,7 @@ export default function PostForm(props) {
     });
 
     dispatch({
+      store: 'PostStore',
       type: 'PostFormSave',
       payload: values
     });
