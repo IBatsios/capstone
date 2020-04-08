@@ -1,4 +1,4 @@
-import React, { useContext, Fragment } from "react";
+import React, { useContext } from "react";
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -18,6 +18,8 @@ import {
   LOG_OUT
 } from 'config/view/constants';
 import { UserContext } from 'data/UserStore';
+import PostForm from 'posts/PostForm';
+import { ProfileForm } from 'user/ProfileForm';
 
 export const UserMenu = (props) => {
   const [state, dispatch] = useContext(UserContext);
@@ -36,8 +38,32 @@ export const UserMenu = (props) => {
     setValues({ ...values, 'menu': open });
   };
 
-  const handleAddPost = () => {
-    console.log('handleAddPost');
+  const addList = () => {
+    dispatch({
+      store: 'ListStore',
+      type: 'addList'
+    });
+  };
+
+  const addPost = () => {
+    dispatch({
+      store: 'PostStore',
+      type: 'addPost',
+      payload: <PostForm /> 
+    });
+  }
+
+  const profileForm = () => {
+    dispatch({
+      type: 'profileFormOpen',
+      payload: <ProfileForm />
+    });
+  }
+
+  const logout = () => {
+    dispatch({
+      type: 'logout'
+    });
   }
 
   const userMenuOptions = () => (
@@ -47,19 +73,19 @@ export const UserMenu = (props) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button onClick={handleAddPost}>
+        <ListItem button onClick={addPost}>
           <ListItemIcon>
             <PostAddIcon />
           </ListItemIcon>
           <ListItemText primary={ADD_POST} />
         </ListItem>
-        <ListItem button onClick={() => props.onAddList()}>
+        <ListItem button onClick={addList}>
           <ListItemIcon>
             <PlaylistAddIcon />
           </ListItemIcon>
           <ListItemText primary={ADD_LIST} />
         </ListItem>
-        <ListItem button onClick={() => props.onEditProfile()}>
+        <ListItem button onClick={profileForm}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
@@ -68,7 +94,7 @@ export const UserMenu = (props) => {
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={logout}>
           <ExitToAppIcon />
           <ListItemText primary={LOG_OUT} />
         </ListItem>
