@@ -6,7 +6,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
-import { ContextActions } from 'views/ContextActions';
+import { ContextActions } from 'ContextActions';
 import classes from './Comment.module.css';
 import { CommentForm } from 'posts/CommentForm';
 
