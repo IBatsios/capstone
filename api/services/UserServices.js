@@ -99,6 +99,24 @@ class UserServices {
     }
 
     /**
+     * Finds a user with an email matching the specified one.
+     * 
+     * @param {string} email 
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    static async getUserByEmail(email) {
+        const user = await this.getManyUsers({email: email});
+
+        if (!user) {
+            console.log('Could not find user with that email.');
+        }
+
+        return user;
+    }
+
+    /**
      * Contacts the database connector to update a user that matches the ID passed in.
      * 
      * @param {ObjectId|string} userId 
