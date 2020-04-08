@@ -45,7 +45,7 @@ router.post('/register', async function (req, res, next) {
         return res.status(400).json(errors);
     }
 
-    const foundUser = await UserServices.getManyUsers({ email: req.body.email });
+    const foundUser = await UserServices.getUserByEmail(req.body.email);
 
     if (foundUser) {
         return res.status(400).json({ email: 'Email already exists' });
@@ -90,13 +90,24 @@ router.get('/login', function (req, res, next) {
 });
 
 /**
- * Authenticates the user using PassportJS.
+ * Authenticates the user using PassportJS and JWTs.
  * 
  * @author Christopher Thacker
  * @since 1.0.0
  */
 router.post('/login', function(req, res, next) {
-//writing new logic
+    // Form validation
+    const {errors, isValid} = Validation.validateLoginInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+
 });
 
 /**
