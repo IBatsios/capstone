@@ -1,9 +1,10 @@
 'use strict'
+const modelName = 'user.model';
+const User = require(`../models/${modelName}`);
 
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
-const modelName = 'user.model';
-const User = require(`../models/${modelName}`);
+
 
 /**
  * User Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -26,6 +27,7 @@ class UserServices {
             // TODO: make a separate user building function.
             const newUser = new User({
                 email: userDTO.email,
+                password: userDTO.password,
                 firstName: userDTO.firstName,
                 lastName: userDTO.lastName,
                 username: userDTO.username,
@@ -33,10 +35,9 @@ class UserServices {
                 phone: userDTO.phone,
                 isActive: true
             });
-            const userPassword = userDTO.password;
 
             try {
-                const result = await User.register(newUser, userPassword) // Passport function; if time permits, look into a way to abstract this out.
+                const result = await newUser.save();
                 if (!result) {
                     console.log('Registration failed at UserServices');
                     return false;
