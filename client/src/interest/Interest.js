@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { UserContext } from 'data/UserStore';
 import Hidden from '@material-ui/core/Hidden';
 import classes from './Interest.module.css';
-import { Posts } from 'views/post';
-import { Listing } from 'views/lists/Listing';
+import Posts from 'posts/Posts';
+import { Listing } from 'lists/Listing';
 import { HOME, WATERCOOLER, LISTS } from 'config/user';
 import { renderBlocks } from 'utils';
 
