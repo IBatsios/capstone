@@ -23,7 +23,8 @@ const initialState = {
   listItemForm,
   activeForm
 };
-function reducer(state, action) {
+
+export function listReducer(state, action) {
   switch (action.type) {
     case 'listOpen':
       return { ...state, ...action.payload };
@@ -36,12 +37,17 @@ function reducer(state, action) {
       console.log(action.payload);
     return { ...state };
     case 'deleteList':
+      console.log(state);
       return { ...state };
     case 'editList':
-      //return { ...state, listFormOpen: true, activeForm: action.payload };
-      console.log(action.payload);
-      return { ...state };
+      console.log('editList');
+      return { ...state, listFormOpen: true, activeForm: action.payload };
+    case 'addList':
+      console.log('addList');
+      console.log(state);
+      return { ...state, listFormOpen: true, activeForm: action.payload };
     case 'addListItem':
+      console.log(state);
       return { ...state, listItemFormOpen: true, activeForm: action.payload };
     case 'editListItem':
       return { ...state, listItemFormOpen: true, activeForm: action.payload };
@@ -50,19 +56,17 @@ function reducer(state, action) {
       return { ...state}; 
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
-      console.log(action.payload);
       return { ...state, listItemFormOpen: false, activeForm: null };
     case 'ListItemFormClose':
       return { ...state, listItemFormOpen: false, activeForm:null };
     default:
-      throw new Error(`Action type: ${action.type} is not defined.`);
+      return state;
   }
 }
 
-export const ListContext = createContext([{}, function(){}]);
-
+export const ListContext = createContext([{lists: lists}, function(){}]);
 export const ListStore = ({children}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(listReducer, initialState);
 
   return(
     <ListContext.Provider value={[state, dispatch]}>
@@ -70,3 +74,4 @@ export const ListStore = ({children}) => {
     </ListContext.Provider>
   )
 }
+
