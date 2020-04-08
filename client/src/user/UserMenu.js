@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, Fragment } from "react";
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -17,9 +17,11 @@ import {
   PROFILE_SETTINGS,
   LOG_OUT
 } from 'config/view/constants';
+import { UserContext } from 'data/UserStore';
 
 export const UserMenu = (props) => {
-  const [state, setState] = React.useState({
+  const [state, dispatch] = useContext(UserContext);
+  const [values, setValues] = React.useState({
     menu: false
   });
 
@@ -31,8 +33,12 @@ export const UserMenu = (props) => {
       return;
     }
 
-    setState({ ...state, 'menu': open });
+    setValues({ ...values, 'menu': open });
   };
+
+  const handleAddPost = () => {
+    console.log('handleAddPost');
+  }
 
   const userMenuOptions = () => (
     <div
@@ -41,7 +47,7 @@ export const UserMenu = (props) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button onClick={() => props.onAddPost()}>
+        <ListItem button onClick={handleAddPost}>
           <ListItemIcon>
             <PostAddIcon />
           </ListItemIcon>
@@ -80,7 +86,7 @@ export const UserMenu = (props) => {
       </IconButton>
       <Drawer
         anchor={menuAnchor}
-        open={state.menu}
+        open={values.menu}
         onClose={toggleDrawer(false)}
        >
         {userMenuOptions()}

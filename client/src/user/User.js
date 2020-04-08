@@ -20,7 +20,7 @@ import classes from './User.module.css';
 import Home from "views/home/Home";
 import Lists from "views/lists/Lists";
 import Watercooler from "views/watercooler/Watercooler";
-import PostForm from 'views/post/PostForm';
+import PostForm from 'posts/PostForm';
 import TabPanel from 'views/TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
@@ -42,12 +42,14 @@ const User = () => {
     });
   }
 
+/*
   const handleAddList = () => {
     dispatch({
       type: 'ListFormOpen',
       payload: <ListForm />
     });
   };
+  */
 
   const handleEditProfile = () => {
     dispatch({
@@ -56,13 +58,14 @@ const User = () => {
     });
   };
 
-
+/*
   const handleAddPost = () => {
     dispatch({
       type: 'PostFormOpen',
       payload: <PostForm />
     });
   };
+  */
 
   return (
      <Fragment>
@@ -71,9 +74,11 @@ const User = () => {
             <Toolbar>
               <UserMenu
                 edge="start"
+                /*
                 onAddPost={() => handleAddPost()}
                 onAddList={() => handleAddList()}
                 onEditProfile={() => handleEditProfile()}
+                */
               />
             </Toolbar>
             <Hidden xsDown>
@@ -84,7 +89,7 @@ const User = () => {
               </Tabs>
             </Hidden> 
           </AppBar>
-        </Toolbar>
+       </Toolbar>
        <TabPanel value={active} index={0} {...otherProps}>
          <Home />
        </TabPanel>
