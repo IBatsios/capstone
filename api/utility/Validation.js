@@ -56,50 +56,54 @@ class Validation {
     static validateRegisterInput(userData) {
         let errors = {};
 
-        // Convert empty fields to empty strings for Validator
-        userData.email = !isEmpty(userData.email) ? userData.email : '';
-        userData.password = !isEmpty(userData.password) ? userData.password : '';
-        userData.firstName = !isEmpty(userData.firstName) ? userData.firstName : '';
-        userData.lastName = !isEmpty(userData.lastName) ? userData.lastName : '';
-        userData.username = !isEmpty(userData.username) ? userData.username : '';
+        try {
+            // Convert empty fields to empty strings for Validator
+            userData.email = !isEmpty(userData.email) ? userData.email : '';
+            userData.password = !isEmpty(userData.password) ? userData.password : '';
+            userData.firstName = !isEmpty(userData.firstName) ? userData.firstName : '';
+            userData.lastName = !isEmpty(userData.lastName) ? userData.lastName : '';
+            userData.username = !isEmpty(userData.username) ? userData.username : '';
 
-        // Email validation
-        if (Validator.isEmpty(userData.email)) {
-            errors.email = 'Email field is required';
-        } else if (!Validator.isEmail(userData.email)) {
-            errors.email = 'Email is invalid';
-        }
+            // Email validation
+            if (Validator.isEmpty(userData.email)) {
+                errors.email = 'Email field is required';
+            } else if (!Validator.isEmail(userData.email)) {
+                errors.email = 'Email is invalid';
+            }
 
-        // Password validation
-        if (Validator.isEmpty(userData.password)) {
-            errors.password = "Password field is required";
-        }
+            // Password validation
+            if (Validator.isEmpty(userData.password)) {
+                errors.password = "Password field is required";
+            }
 
-        if (Validator.isEmpty(userData.password2)) {
-            errors.password2 = "Confirm password field is required";
-        }
+            if (Validator.isEmpty(userData.password2)) {
+                errors.password2 = "Confirm password field is required";
+            }
 
-        if (!Validator.isLength(userData.password, { min: MIN_PASS_LENGTH, max: MAX_PASS_LENGTH })) {
-            errors.password = "Password must be at least 6 characters";
-        }
+            if (!Validator.isLength(userData.password, { min: MIN_PASS_LENGTH, max: MAX_PASS_LENGTH })) {
+                errors.password = "Password must be at least 6 characters";
+            }
 
-        if (!Validator.equals(userData.password, userData.password2)) {
-            errors.password2 = "Passwords must match";
-        }
+            if (!Validator.equals(userData.password, userData.password2)) {
+                errors.password2 = "Passwords must match";
+            }
 
-        // First name validation
-        if (Validator.isEmpty(userData.firstName)) {
-            errors.firstName = "First name field is required";
-        }
+            // First name validation
+            if (Validator.isEmpty(userData.firstName)) {
+                errors.firstName = "First name field is required";
+            }
 
-        // Last name validation
-        if (Validator.isEmpty(userData.lastName)) {
-            errors.lastName = "Last name field is required";
-        }
+            // Last name validation
+            if (Validator.isEmpty(userData.lastName)) {
+                errors.lastName = "Last name field is required";
+            }
 
-        // Username validation
-        if (Validator.isEmpty(userData.username)) {
-            errors.username = "Username field is required";
+            // Username validation
+            if (Validator.isEmpty(userData.username)) {
+                errors.username = "Username field is required";
+            }
+        } catch (error) {
+            errors.exception = error.message;
         }
 
         return {
