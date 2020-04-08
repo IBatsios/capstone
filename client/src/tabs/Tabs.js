@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Swipeable } from "react-swipeable";
-import TabPanel from 'views/TabPanel';
-import { Interest } from 'views/interest';
+import TabPanel from 'TabPanel';
+import { Interest } from 'interest';
 import classes from './Tabs.module.css';
 
 
