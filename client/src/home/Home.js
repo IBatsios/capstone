@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TabsUi } from 'views/tabs/Tabs';
 import { HOME } from 'config/user';
+import { PostStore } from 'data/PostStore';
+import { PostContext } from 'data/PostStore';
 
 const Home = () => {
   return (
-    <TabsUi section={ HOME } />
+    <PostStore>
+      <TabsUi context={PostContext} section={ HOME } />
+    </PostStore>
   );
 }
 
