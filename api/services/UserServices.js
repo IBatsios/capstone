@@ -93,6 +93,7 @@ class UserServices {
 
         if (!allUsers) {
             console.log('Could not find any users with provided query.');
+            return false;
         }
 
         return allUsers;
@@ -113,7 +114,7 @@ class UserServices {
             console.log('Could not find user with that email.');
         }
 
-        return user;
+        return user[0];
     }
 
     /**
