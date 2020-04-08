@@ -16,6 +16,7 @@ export const Comment = (props) => {
 
   const handleDelete = ({id}) => {
     dispatch({
+      store: 'PostStore',
       type: 'deleteComment',
       payload: id
     });
@@ -26,6 +27,7 @@ export const Comment = (props) => {
     const { id, content } = { ...comment};
     const commentData = { id, content };
     dispatch({
+      store: 'PostStore',
       type: 'editComment',
       payload: <CommentForm {...commentData} /> 
     });
@@ -33,6 +35,7 @@ export const Comment = (props) => {
 
   const handleLike = (commentId) => {
     dispatch({
+      store: 'PostStore',
       type: 'likeComment',
       payload: commentId 
     });
@@ -40,6 +43,7 @@ export const Comment = (props) => {
 
   const handleDislike = (commentId) => {
     dispatch({
+      store: 'PostStore',
       type: 'dislikeComment',
       payload: commentId 
     });
@@ -57,6 +61,7 @@ export const Comment = (props) => {
 
   const handleReport = (commentId) => {
     dispatch({
+      store: 'PostStore',
       type: 'reportComment',
       payload: commentId 
     });

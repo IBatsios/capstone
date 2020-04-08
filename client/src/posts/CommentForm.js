@@ -29,12 +29,14 @@ export const CommentForm = (props) => {
 
   const handleClose = () => {
     dispatch({
+      store: 'PostStore',
       type: 'CommentFormClose'
     });
   };
 
   const handleSave = () => {
     dispatch({
+      store: 'PostStore',
       type: 'CommentFormSave',
       payload: values
     });
