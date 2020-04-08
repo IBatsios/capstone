@@ -1,5 +1,5 @@
 import React from "react";
-import { TabsUi } from 'views/tabs/Tabs';
+import { TabsUi } from 'tabs/Tabs';
 import { WATERCOOLER } from 'config/user';
 import { PostStore } from 'data/PostStore';
 import { PostContext } from 'data/PostStore';

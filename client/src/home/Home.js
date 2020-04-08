@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { TabsUi } from 'views/tabs/Tabs';
+import { TabsUi } from 'tabs/Tabs';
 import { HOME } from 'config/user';
 import { PostStore } from 'data/PostStore';
 import { PostContext } from 'data/PostStore';
