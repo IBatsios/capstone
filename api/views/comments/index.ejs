@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Comments</title>
+  </head>
+  <body>
+    <div>
+      <h1>All Comments</h1>
+      <h2>Developer Test</h2>
+      <a href="/">Go Back</a> | <a href="/comments/new">New Comment</a>
+    </div>
+    <hr />
+    <% comments.forEach(function(comment) { %>
+    <div style="border: 1px solid red;">
+      <div><b>Author:</b> <%= comment.author %></div>
+      <div><b>Content:</b> <%= comment.title %></div>
+      <div><b>Mongo ID:</b> <%= comment._id %></div>
+      <div><b></b><a href="/comments/<%= comment._id %>">See More</a></div>
+    </div>
+    <% }); %>
+  </body>
+</html>
