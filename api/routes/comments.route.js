@@ -8,80 +8,79 @@
 const router = require('express').Router()
 const CommentServices = require('../services/CommentServices')
 // INDEX: show all comments.
-router.get('/', (req, res) => {
-    const filter = req.body
-    const allComments = await CommentServices.getMany(filter)
+router.get('/', async (req, res) => {
+  const filter = req.body
+  const allComments = await CommentServices.getMany(filter)
 
-    if (!allComments) {
-        return res.redirect('/comments/new')
-    }
+  if (!allComments) {
+    return res.redirect('/comments/new')
+  }
 
-    res.render('comments', {comments: allComments} )
+  res.render('comments', { comments: allComments })
 })
 
 // CREATE: add a new comment.
-router.post('/', (req, res) => {
-    const commentDTO = req.body
-    const result = await CommentServices.addNew(commentDTO)
+router.post('/', async (req, res) => {
+  const commentDTO = req.body
+  const result = await CommentServices.addNew(commentDTO)
 
-    var response;
-    if (!result) {
-        response = 'Post was unsuccessful'
-    } else {
-        response = 'Post was successful'
-    }
+  var response
+  if (!result) {
+    response = 'Post was unsuccessful'
+  } else {
+    response = 'Post was successful'
+  }
 
-    res.send(response)
+  res.send(response)
 })
 
 // NEW: renders the form to add a new comment.
-router.get('/new', (req, res) => {
+router.get('/new', async (req, res) => {
   res.render('comments/newComment')
 })
 
 // SHOW: displays more information about an existing comment.
-router.get('/:id', (req, res) => {
-    const commentId = req.params.id
-    const commentResult = await commentServices.getById(commentId)
-  
-    if (!commentResult) {
-      console.log('Error attempting to get comment.')
-      return res.redirect('/comments')
-    }
-  
-    return res.render('comments/showcomment', { comment: commentResult })
+router.get('/:id', async (req, res) => {
+  const commentId = req.params.id
+  const commentResult = await commentServices.getById(commentId)
+
+  if (!commentResult) {
+    console.log('Error attempting to get comment.')
+    return res.redirect('/comments')
+  }
+
+  return res.render('comments/showcomment', { comment: commentResult })
 })
 
 // EDIT: renders the form to edit an existing comment.
-router.get('/:id/edit', (req, res) => {
-    const commentId = req.params.id
-    const commentResult = await commentServices.getById(commentId)
-  
-    if (!commentResult) {
-      console.log('Error when attempting to render edit comment form.')
-      return res.render('/comments')
-    }
-  
-    return res.render('comments/editcomment', { comment: commentResult })
+router.get('/:id/edit', async (req, res) => {
+  const commentId = req.params.id
+  const commentResult = await commentServices.getById(commentId)
+
+  if (!commentResult) {
+    console.log('Error when attempting to render edit comment form.')
+    return res.render('/comments')
+  }
+
+  return res.render('comments/editcomment', { comment: commentResult })
 })
 
 // PUT: updates a post in the database.
-router.put('/:id', (req, res) => {
-    const newCommentData = req.body
-    const commentId = req.params.id
-    const updatedComment = await CommentServices.update(commentId, newCommentData)
-  
-    if (!updatedComment) {
-      console.log('Error when updating comment.')
-      return res.redirect('/comments')
-    }
-  
-    return res.redirect(`comments/${commentId}`)
+router.put('/:id', async (req, res) => {
+  const newCommentData = req.body
+  const commentId = req.params.id
+  const updatedComment = await CommentServices.update(commentId, newCommentData)
+
+  if (!updatedComment) {
+    console.log('Error when updating comment.')
+    return res.redirect('/comments')
+  }
+
+  return res.redirect(`comments/${commentId}`)
 })
 
 // DELETE: turns off a certain comment within the database (NOT permanent deletion).
-router.delete('/:id', (req, res) => {
-
+router.delete('/:id', async (req, res) => {
   const commentId = req.params.id
   const hiddenComment = await CommentServices.hide(commentId)
 
