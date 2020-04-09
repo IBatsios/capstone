@@ -21,12 +21,22 @@ router.get('/', (req, res) => {
 
 // CREATE: add a new comment.
 router.post('/', (req, res) => {
-  res.send('This will eventually add a new comment to the database!')
+    const commentDTO = req.body
+    const result = await CommentServices.addNew(commentDTO)
+
+    var response;
+    if (!result) {
+        response = 'Post was unsuccessful'
+    } else {
+        response = 'Post was successful'
+    }
+
+    res.send(response)
 })
 
 // NEW: renders the form to add a new comment.
 router.get('/new', (req, res) => {
-  res.send('This will eventually render the form for creating a new comment!')
+  res.render('comments/newComment')
 })
 
 // SHOW: displays more information about an existing comment.
