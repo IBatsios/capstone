@@ -21,16 +21,24 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static async connect(uri) {
-        console.log("Connecting to MongoDB...");
         var isConnected = false;
+        console.log("Connecting to MongoDB...");
+
         if (uri) {
-            await mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
-            .then(() => {
-                console.log("MongoDB connected!"),
-                isConnected = true
-            })
-            .catch(error => console.log(`MongoDB connection error: ${error.message}`));
-            return isConnected;
+            try {
+                await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+                    .then(() => {
+                        console.log("MongoDB connected!");
+                        isConnected = true;
+                    })
+                    .catch(error => console.log(`MongoDB connection error: ${error.message}`));
+                // return isConnected;
+            } catch (error) {
+                console.log(error);
+                // return isConnected;
+            } finally {
+                return isConnected;
+            }
         }
         console.log('No MongoDB URI provided.');
         return isConnected;
@@ -43,10 +51,22 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static async close() {
+        var isDisconnected = false;
         console.log("Closing MongoDB connection...");
-        mongoose.disconnect();
+        try {
+            await mongoose.disconnect()
+                .then(() => {
+                    console.log('MongoDB disconnected.');
+                    isDisconnected = true;
+                })
+                .catch(error => console.log(`Could not disconnect from MongoDB: ${error.message}`));
+        } catch (error) {
+            console.log(error);
+        } finally {
+            return isDisconnected;
+        }
     }
-    
+
     /**
      * Create in MongoDB: utilizes mongoosejs to store data in a MongoDB database.
      *  
@@ -60,21 +80,22 @@ class MongoTranslator {
      */
     static async create(modelName, data) {
         const Model = require(`../models/${modelName}`);
+
         if (this.mongoIsConnected()) {
             try {
-                const newModel = Model.create(data)
+                const newModel = await Model.create(data)
                     .catch((error) => {
                         console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
                         return false;
-                    }); 
+                    });
                 return newModel;
             } catch (error) {
                 console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
+                return false;
             }
-        } else {
-            console.log('MongoDB is not connected.');
-            return false;
         }
+        console.log('MongoDB is not connected.');
+        return false;
     }
 
     /**
@@ -90,11 +111,10 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static async readOne(modelName, id) {
-        // Require the object's corresponding model (TODO: look into a better way of doing this)
         const Model = require(`../models/${modelName}`);
 
         if (this.mongoIsConnected()) {
-            try {                
+            try {
                 if (!this.isValidId(id)) {
                     return false;
                 }
@@ -106,11 +126,11 @@ class MongoTranslator {
                 return response;
             } catch (error) {
                 console.log('Fatal error when making readOne() request to MongoDB.');
+                return false;
             }
-        } else {
-            console.log('MongoDB is not connected.');
-            return false;
-        }  
+        }
+        console.log('MongoDB is not connected.');
+        return false;
     }
 
     /**
@@ -126,7 +146,6 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static async readMany(modelName, filter) {
-        // Require the object's corresponding model (TODO: look into a better way of doing this)
         const Model = require(`../models/${modelName}`);
 
         if (this.mongoIsConnected()) {
@@ -137,14 +156,15 @@ class MongoTranslator {
                         return false; // Fatal error.
                     }
                 }); // find() returns an empty array if nothing is found.
-        
+
                 if (!results.length) {
                     return null; // Return null instead of empty array.
                 }
-        
+
                 return results;
             } catch (error) {
                 console.log('Fatal error when making readMany() request to MongoDB.');
+                return false;
             }
         } else {
             console.log('MongoDB is not connected.');
@@ -168,23 +188,23 @@ class MongoTranslator {
         const Model = require(`../models/${modelName}`);
 
         if (this.mongoIsConnected()) {
-            try {                
+            try {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const newModel = await Model.findByIdAndUpdate(id, {$set: data})
+                const newModel = await Model.findByIdAndUpdate(id, { $set: data })
                     .catch((error) => {
                         console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
                         return false;
                     });
-                
+
                 if (newModel === null) {
                     console.log('No object found to update.');
                     return null;
                 }
 
                 return newModel;
-                
+
             } catch (error) {
                 console.log('Fatal error when making update() request to MongoDB.');
                 return false;
@@ -208,11 +228,11 @@ class MongoTranslator {
         const Model = require(`../models/${modelName}`);
 
         if (this.mongoIsConnected()) {
-            try {                
+            try {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const response = await Model.findOneAndRemove(id) // remove the entire data for now, switch to boolean later
+                const response = await Model.findByIdAndRemove(id)
                     .catch((error) => {
                         console.log(`Error: ${error.message}`);
                     });
@@ -242,12 +262,18 @@ class MongoTranslator {
             return false;
         }
 
-        var castedId = new mongoose.Types.ObjectId(id);
-        
-        if (mongoose.Types.ObjectId.isValid(castedId)) {
-            return true;
+        try {
+            var castedId = new mongoose.Types.ObjectId(id);
+
+            if (mongoose.Types.ObjectId.isValid(castedId)) {
+                return true;
+            }
+            return false;
+            
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        return false;
     }
 
     /**
@@ -258,7 +284,15 @@ class MongoTranslator {
      * @since 1.0.0
      */
     static mongoIsConnected() {
-        return (mongoose.connection.readyState === 1);
+        var isConnected = false;
+
+        try {
+            isConnected = (mongoose.connection.readyState === 1);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            return isConnected;
+        }
     }
 }
 
