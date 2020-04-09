@@ -40,7 +40,7 @@ router.put('/:id', (req, res) => {
   res.send('This will eventually update a comment inside the database!')
 })
 
-// DELETE: turns off a certain post within the database (NOT permanent deletion).
+// DELETE: turns off a certain comment within the database (NOT permanent deletion).
 router.delete('/:id', (req, res) => {
   res.send(
     "This will eventually turn off a single comment so it isn't displayed in the application! \nNOTE: DO NOT USE A PERMANENT DELETE METHOD."
