@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import User from 'views/user';
-
+import User from "views/user";
 
 class App extends Component {
   render() {
-    return (
-        <User />
-    );
+    return <User />;
   }
 }
 
