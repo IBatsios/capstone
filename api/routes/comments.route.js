@@ -42,7 +42,7 @@ router.get('/new', async (req, res) => {
 // SHOW: displays more information about an existing comment.
 router.get('/:id', async (req, res) => {
   const commentId = req.params.id
-  const commentResult = await commentServices.getById(commentId)
+  const commentResult = await CommentServices.getById(commentId)
 
   if (!commentResult) {
     console.log('Error attempting to get comment.')
@@ -55,7 +55,7 @@ router.get('/:id', async (req, res) => {
 // EDIT: renders the form to edit an existing comment.
 router.get('/:id/edit', async (req, res) => {
   const commentId = req.params.id
-  const commentResult = await commentServices.getById(commentId)
+  const commentResult = await CommentServices.getById(commentId)
 
   if (!commentResult) {
     console.log('Error when attempting to render edit comment form.')
