@@ -1,0 +1,6 @@
+.closeButton {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  padding: 1.2rem;
+}

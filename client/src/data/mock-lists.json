@@ -1,119 +1,165 @@
 [
   {
     "id": "1",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Movies",
     "interest": "movies",
-    "items": {
-      "id": "101",
-      "name": "Unforgiven",
-      "url": "https://www.imdb.com/title/tt0105695/?ref_=nv_sr_srsg_0",
-      "description": "This is my favorite movie of all time. When Clint Eastwood says, 'He should have armed himself if he was gonna decorate his saloon with the body of my friend', I jumped for joy."
-    }
+    "items": [
+      {
+        "id": "10",
+        "name": "Unforgiven",
+        "url": "https://www.imdb.com/title/tt0105695/?ref_=nv_sr_srsg_0",
+        "description": "This is my favorite movie of all time. When Clint Eastwood says, 'He should have armed himself if he was gonna decorate his saloon with the body of my friend', I jumped for joy."
+      },
+      {
+        "id": "11",
+        "name":"Eternal Sunshine of the Spotless Mind",
+        "url": "https://en.wikipedia.org/wiki/Eternal_Sunshine_of_the_Spotless_Mind",
+        "description": "An older favorite movie."
+      },
+      {
+        "id": "12",
+        "name":"Alita: Battle Angel",
+        "url": "https://en.wikipedia.org/wiki/Alita:_Battle_Angel",
+        "description": "Very cool!"
+      }
+    ]
   },
   {
     "id": "2",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Albums",
     "interest": "music",
-    "items": {}
+    "items": []
   },
   {
     "id": "3",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Songs",
     "interest": "music",
-    "items": {}
+    "items": []
   },
   {
     "id": "4",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Albums I Own",
     "interest": "music",
-    "items": {}
+    "items": []
   },
   {
     "id": "5",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Albums to Check Out",
     "interest": "music",
-    "items": {}
+    "items": []
   },
   {
     "id": "6",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Concerts I've Been To",
     "interest": "music",
-    "items": {}
+    "items": []
   },
   {
     "id": "7",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Comedies",
     "interest": "movies",
-    "items": {}
+    "items": []
   },
   {
     "id": "8",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Horrors",
     "interest": "movies",
-    "items": {}
+    "items": []
   },
   {
     "id": "9",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Artists",
     "interest": "music",
-    "items": {}
+    "items": []
   },
   {
     "id": "10",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Artors",
     "interest": "movies",
-    "items": {}
+    "items": []
   },
   {
     "id": "11",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Places",
     "interest": "general",
-    "items": {}
+    "items": []
   },
   {
     "id": "12",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Places",
     "interest": "general",
-    "items": {}
+    "items": []
   },
   {
     "id": "13",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Smells",
     "interest": "general",
-    "items": {}
+    "items": []
   },
   {
     "id": "14",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite foods",
     "interest": "general",
-    "items": {}
+    "items": []
   },
   {
     "id": "15",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Best restaurants",
     "interest": "general",
-    "items": {}
+    "items": []
   },
   {
     "id": "16",
-    "user_id": "5e7216fbacd4a42955b6450e",
+    "author": {
+      "id": "5e7216fbacd4a42955b6450e"
+    },
     "name": "Favorite Concerts",
     "interest": "music",
-    "items": {}
+    "items": []
   }
 ]
