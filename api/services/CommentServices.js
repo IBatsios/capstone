@@ -22,7 +22,25 @@ class CommentServices {
    * @author Jamie Weathers
    * @since 1.0.0
    */
-  static async addNew(commentDTO) {}
+  static async addNew(commentDTO) {
+    try {
+      const newComment = new Comment({
+        content: commentDTO.content,
+        author: commentDTO.author,
+        isActive: commentDTO.isActive,
+      })
+      const result = await connector.create(modelName, newComment)
+
+      if (!result) {
+        console.log(`New comment failed at CommentServices`)
+        return false
+      }
+      return result
+    } catch (error) {
+      console.log(error)
+      return false
+    }
+  }
 
   /**
    * Gets a Comment object from the database given the comment id.
