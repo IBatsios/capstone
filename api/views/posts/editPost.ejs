@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Post</title>
+  </head>
+  <body>
+    <h1>Edit Existing Post</h1>
+    <h2>Developer Test</h2>
+    <a href="/posts">Return to list</a>
+    <form action="/posts/<%= post._id%>?_method=PUT" method="POST">
+      <div>
+        <label for="title">Title</label>
+        <input
+          type="text"
+          name="email"
+          id="title"
+          placeholder="Title"
+          value="<% post.title %>"
+        />
+      </div>
+      <div>
+        <label for="content">Content</label>
+        <input
+          type="text"
+          name="content"
+          id="content"
+          placeholder="Content"
+          value="<% post.content%>"
+        />
+      </div>
+      <div>
+        <label for="topic">Topic</label>
+        <input
+          type="topic"
+          name="topic"
+          id="topic"
+          placeholder="Topic"
+          value="<% post.topic %>"
+        />
+      </div>
+      <div>
+        <label for="likecount">LikeCount</label>
+        <input
+          type="likecount"
+          name="likecount"
+          id="likecount"
+          placeholder="0"
+          value="<% post.likeCount %>"
+        />
+      </div>
+      <div>
+        <label for="author">Author</label>
+        <input
+          type="author"
+          name="author"
+          id="author"
+          placeholder="author"
+          value="<% post.author %>"
+        />
+      </div>
+      <div>
+        <label for="isactive">Is Active</label>
+        <input type="checkbox" name="isactive" id="isactive" checked value="<% post.isActive %>/>
+      </div>
+      <div>
+        <button>Submit</button>
+      </div>
+    </form>
+  </body>
+</html>
