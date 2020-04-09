@@ -27,6 +27,17 @@
             <input type="description" name="description" id="description" placeholder="Description" value="<%= item.description %>">   
         </div>
         <div>
+        <script>
+            var i = "<%= item.likeCount %>";
+            function buttonClick() {
+                i++;
+                document.getElementById('likeCount').value = i;
+            }
+        </script>
+        <button for="likeCount" onclick="buttonClick();">Like</button>
+        <input type="number" name="likeCount" id="likeCount" value="<%= item.likeCount %>"></input>
+        </div>
+        <div>
             <button>Submit</button>
         </div>
     </form>

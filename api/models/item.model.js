@@ -24,6 +24,11 @@ var itemSchema = new Schema({
         type: String,
         required: true
     },
+    likeCount: {
+        type: Number,
+        default: 0,
+        required: false
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
@@ -35,6 +40,7 @@ var itemSchema = new Schema({
         type: Boolean,
         required: true
     }
+    
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
 module.exports = mongoose.model('Item', itemSchema);
