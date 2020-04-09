@@ -6,11 +6,17 @@
  */
 
 const router = require('express').Router()
-let Post = require('../models/comment.model')
-
+const CommentServices = require('../services/CommentServices')
 // INDEX: show all comments.
 router.get('/', (req, res) => {
-  res.send('This will eventually show ALL comments by users!')
+    const filter = req.body
+    const allComments = await CommentServices.getMany(filter)
+
+    if (!allComments) {
+        return res.redirect('/comments/new')
+    }
+
+    res.render('comments', {comments: allComments} )
 })
 
 // CREATE: add a new comment.
