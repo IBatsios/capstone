@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Posts</title>
+  </head>
+  <body>
+    <div>
+      <h1>All Posts</h1>
+      <h2>Developer Test</h2>
+      <a href="/">Go Back</a> | <a href="/posts/new">New Post</a>
+    </div>
+    <hr />
+    <% posts.forEach(function(post) { %>
+    <div style="border: 1px solid red;">
+      <div><b>Title:</b> <%= post.title %></div>
+      <div><b>Topic:</b> <%= post.topic %></div>
+      <div><b>Author:</b> <%= post.author %></div>
+      <div><b>Mongo ID:</b> <%= post._id %></div>
+      <div><b></b><a href="/posts/<%= post._id %>">See More</a></div>
+    </div>
+    <% }); %>
+  </body>
+</html>
