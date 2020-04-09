@@ -31,7 +31,19 @@ class CommentServices {
    * @author Jamie Weathers
    * @since 1.0.0
    */
-  static async getById(commentId) {}
+  static async getById(commentId) {
+    const commentResult = await connector.readOne(modelName, commentId)
+
+    if (commentResult === false) {
+      console.log(`Error: Bad Comment ID [${commentId}]`)
+    }
+
+    if (commentResult === null) {
+      console.log(`Error: Comment with ID [${commentId} not found]`)
+    }
+
+    return commentResult
+  }
 
   /**
    * Gets an array of comments based on the provided filter conditions.
@@ -39,7 +51,16 @@ class CommentServices {
    * @param {Object} filter Filter defining matching field conditions.
    * @returns {Object|null|false} The comment object if successful | null if no comment found | false if unsuccessful.
    */
-  static async getMany(filter) {}
+  static async getMany(filter) {
+    // TODO: We need a filter utility.
+    const allComments = await connector.readMany(modelName, filter)
+
+    if (!allComments) {
+      console.log(`Could not find any posts with provided filter.`)
+    }
+
+    return allComments
+  }
 
   /**
    * Upates an existing comment given new data and it's reference identification.
