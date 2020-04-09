@@ -49,7 +49,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async connect() {
-        return await Translator.connect(uri);
+        try {
+            return await Translator.connect(uri);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -59,7 +64,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async close() {
-        return await Translator.close();
+        try {
+            return await Translator.close();
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -69,7 +79,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async create(modelName, data) {
-        return await Translator.create(modelName, data);
+        try {
+            return await Translator.create(modelName, data);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -79,7 +94,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async readOne(modelName, id) {
-        return await Translator.readOne(modelName, id);
+        try {
+            return await Translator.readOne(modelName, id);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -89,7 +109,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async readMany(modelName, filter) {
-        return await Translator.readMany(modelName, filter);
+        try {
+            return await Translator.readMany(modelName, filter);     
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -99,7 +124,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async update(modelName, id, data) {
-        return await Translator.update(modelName, id, data);
+        try {
+            return await Translator.update(modelName, id, data);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -109,7 +139,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async delete(modelName, id) {
-        return await Translator.delete(modelName, id);
+        try {
+            return await Translator.delete(modelName, id);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 }
 
