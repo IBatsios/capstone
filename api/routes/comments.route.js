@@ -8,29 +8,29 @@
 const router = require('express').Router()
 let Post = require('../models/comment.model')
 
-// INDEX: show all posts.
+// INDEX: show all comments.
 router.get('/', (req, res) => {
   res.send('This will eventually show ALL comments by users!')
 })
 
-// CREATE: add a new post.
+// CREATE: add a new comment.
 router.post('/', (req, res) => {
   res.send('This will eventually add a new comment to the database!')
 })
 
-// NEW: renders the form to add a new post.
+// NEW: renders the form to add a new comment.
 router.get('/new', (req, res) => {
   res.send('This will eventually render the form for creating a new comment!')
 })
 
-// SHOW: displays more information about an existing post.
+// SHOW: displays more information about an existing comment.
 router.get('/:id', (req, res) => {
   res.send(
     'This will eventually show more detailed information about a single comment!'
   )
 })
 
-// EDIT: renders the form to edit an existing post.
+// EDIT: renders the form to edit an existing comment.
 router.get('/:id/edit', (req, res) => {
   res.send('This will eventually render the form to edit a comment!')
 })
