@@ -2,7 +2,7 @@
 
 const DatabaseConnector = require('../database/DatabaseConnector')
 const connector = new DatabaseConnector()
-const modelName = 'post.comment'
+const modelName = 'comment.model'
 const Comment = require(`../models/${modelName}`)
 
 /**
