@@ -50,7 +50,19 @@ class CommentServices {
    * @author Jamie Weathers
    * @since 1.0.0
    */
-  static async update(commentId, newData) {}
+  static async update(commentId, newData) {
+    const updatedComment = await connector.update(modelName, commentId, newData)
+
+    if (updatedComment == null) {
+      console.log(`Could not find comment ID [${commentId}] to update.`)
+    }
+
+    if (updatedComment == false) {
+      console.log(`Update comment ID [${commentId}] failed.`)
+    }
+
+    return updatedComment
+  }
 
   /**
    * Changes the 'isActive' field of the comment to false.
@@ -58,14 +70,23 @@ class CommentServices {
    * @returns {boolean} True if successful, false if post not found or already hidden.
    * @param {ObjectId|string}
    */
-  static async hide(commentId) {}
+  static async hide(commentId) {
+    const hideData = { isActive: 'false' }
+    const getComment = await this.update(commentId, hideData)
+    return getComment
+  }
 
   /**
    * Changes the 'isActive' field of the comment to true.
    * @param {ObjectId|string} commentId Associated comment reference identification to the intended comment document.
    * @returns {boolean} True if successful, false if post not found or already showing.
    */
-  static async show(commentId) {}
+  static async show(commentId) {
+    const showData = { isActive: 'true' }
+    const getComment = await this.update(commentId, showData)
+
+    return getComment
+  }
 }
 
 module.exports = CommentServices
