@@ -79,17 +79,7 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async readOne(modelName, id) {
-        var response = await Translator.readOne(modelName, id);
-
-        if (response === null) {
-            console.log(`Object in ${modelName} with ID ${id} not found.`);
-        }
-
-        if(response === false) {
-            console.log(`Invalid database object ID provided [${id}].`);
-        }
-
-        return response;
+        return await Translator.readOne(modelName, id);
     }
 
     /**
@@ -99,13 +89,7 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async readMany(modelName, filter) {
-        var response = await Translator.readMany(modelName, filter);
-
-        if (!response) {
-            console.log('No results found.');
-        }
-
-        return response;
+        return await Translator.readMany(modelName, filter);
     }
 
     /**
@@ -115,8 +99,7 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async update(modelName, id, data) {
-        var response = await Translator.update(modelName, id, data);
-        return response;
+        return await Translator.update(modelName, id, data);
     }
 
     /**
