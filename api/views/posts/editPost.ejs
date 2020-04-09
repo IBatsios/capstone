@@ -17,7 +17,7 @@
           type="text"
           name="email"
           id="title"
-          placeholder="Title"
+          placeholder="<% post.title %>"
           value="<% post.title %>"
         />
       </div>
@@ -27,7 +27,7 @@
           type="text"
           name="content"
           id="content"
-          placeholder="Content"
+          placeholder="<% post.content%>"
           value="<% post.content%>"
         />
       </div>
@@ -37,17 +37,17 @@
           type="topic"
           name="topic"
           id="topic"
-          placeholder="Topic"
+          placeholder="<% post.topic %>"
           value="<% post.topic %>"
         />
       </div>
       <div>
-        <label for="likecount">LikeCount</label>
+        <label for="likeCount">LikeCount</label>
         <input
-          type="likecount"
-          name="likecount"
-          id="likecount"
-          placeholder="0"
+          type="likeCount"
+          name="likeCount"
+          id="likeCount"
+          placeholder="<% post.likeCount %>"
           value="<% post.likeCount %>"
         />
       </div>
@@ -57,13 +57,18 @@
           type="author"
           name="author"
           id="author"
-          placeholder="author"
+          placeholder="<% post.author %>"
           value="<% post.author %>"
         />
       </div>
       <div>
-        <label for="isactive">Is Active</label>
-        <input type="checkbox" name="isactive" id="isactive" checked value="<% post.isActive %>/>
+        <label for="isActive">Is Active</label><br />
+        <input type="radio" name="isActive" id="isActive" value="true" />
+        <label>True</label>
+        <br />
+        <input type="radio" name="isActive" id="isActive" value="false" />
+        <label>False</label>
+        <br />
       </div>
       <div>
         <button>Submit</button>

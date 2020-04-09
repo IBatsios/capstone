@@ -45,14 +45,15 @@ router.get('/new', async (req, res) => {
 // SHOW: displays more information about an existing post.
 router.get('/:id', async (req, res) => {
   const postId = req.params.id
-  const postResult = PostServices.getById(postId)
+  const postResult = await PostServices.getById(postId)
 
   if (!postResult) {
     console.log('Error attempting to get post.')
     return res.redirect('/posts')
   }
+  console.log(postId)
 
-  return res.send('posts/showPost', { post: postResult })
+  return res.render('posts/showPost', { post: postResult })
 })
 
 // EDIT: renders the form to edit an existing post.
@@ -65,7 +66,7 @@ router.get('/:id/edit', async (req, res) => {
     return res.render('/posts')
   }
 
-  return res.render('posts/edit', { post: postResult })
+  return res.render('posts/editPost', { post: postResult })
 })
 
 // PUT: updates a post in the database.

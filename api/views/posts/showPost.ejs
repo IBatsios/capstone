@@ -11,12 +11,14 @@
     <a href="/posts">Go back</a>
     <hr />
     <div style="border: 1px solid red;">
-      <p><b>Title: </b><% post.title %></p>
-      <p><b>Content: </b><% post.content %></p>
-      <p><b>Topic: </b><% post.topic %></p>
-      <p><b>LikeCount: </b><% post.likeCount %></p>
-      <p><b>Author: </b><% post.author %></p>
-      <p><b>IsActive:</b><% post.isActive %></p>
+      <p><b>Title: </b><%= post.title %></p>
+      <p><b>Content: </b><%= post.content %></p>
+      <p><b>Topic: </b><%= post.topic %></p>
+      <p><b>LikeCount: </b><%= post.likeCount %></p>
+      <p><b>Author: </b><%= post.author %></p>
+      <p><b>IsActive:</b><%= post.isActive %></p>
     </div>
+    <br />
+    <a href="/posts/<%= post._id %>/edit">Edit Post</a>
   </body>
 </html>

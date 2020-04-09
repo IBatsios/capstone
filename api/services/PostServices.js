@@ -32,7 +32,7 @@ class PostServices {
         arrayLike: postDTO.arrayLike,
         comments: postDTO.comments,
         author: postDTO.author,
-        isActive: postDTO.isActive
+        isActive: postDTO.isActive,
       })
 
       const result = await connector.create(modelName, newPost)
@@ -64,6 +64,8 @@ class PostServices {
     if (postResult === null) {
       console.log(`Error: post with ID [${postId} not found.]`)
     }
+
+    console.log(postResult.title)
 
     return postResult
   }

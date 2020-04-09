@@ -13,7 +13,7 @@
   <form action="/posts" method="POST">
     <div>
       <label for="title">Title</label>
-      <input type="text" name="email" id="title" placeholder="Title" />
+      <input type="text" name="title" id="title" placeholder="Title" />
     </div>
     <div>
       <label for="content">Content</label>
@@ -24,16 +24,21 @@
       <input type="text" name="topic" id="topic" placeholder="Topic" />
     </div>
     <div>
-      <label for="likecount">LikeCount</label>
-      <input type="number" name="likecount" id="likecount" placeholder="0" />
+      <label for="likeCount">LikeCount</label>
+      <input type="number" name="likeCount" id="likeCount" placeholder="0" />
     </div>
     <div>
       <label for="author">Author</label>
       <input type="text" name="author" id="author" placeholder="author" />
     </div>
     <div>
-      <label for="isactive">Is Active</label>
-      <input type="checkbox" name="isactive" id="isactive" checked />
+      <label for="isActive">Is Active</label><br />
+      <input type="radio" name="isActive" id="isActive" value="true" />
+      <label>True</label>
+      <br />
+      <input type="radio" name="isActive" id="isActive" value="false" />
+      <label>False</label>
+      <br />
     </div>
     <div>
       <button>Submit</button>
