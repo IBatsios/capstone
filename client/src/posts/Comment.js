@@ -14,11 +14,11 @@ import { CommentForm } from 'posts/CommentForm';
 export const Comment = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
-  const handleDelete = ({id}) => {
+  const handleDelete = (comment) => {
     dispatch({
       store: 'PostStore',
       type: 'deleteComment',
-      payload: id
+      payload: comment
     });
   };
 

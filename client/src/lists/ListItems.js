@@ -16,8 +16,9 @@ import { ListItemForm } from './ListItemForm';
 import classes from './ListItems.module.css';
 
 
-export const ListItems = ({id, author, name, items}) => {
+export const ListItems = () => {
   const [state, dispatch] = useContext(UserContext);
+  const {id, author, name, items} = {...state.activeList};
 
   const handleClose = () => {
     dispatch({

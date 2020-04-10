@@ -51,8 +51,9 @@ const Posts = (props) => {
 
 
   const handleEditPost = (post) => {
-    const { id, title, content, interest, spoiler } = { ...post};
-    const postData = { id, title, content, interest, spoiler };
+    console.log(post);
+    const { id, author, title, content, interest, spoiler } = { ...post};
+    const postData = { id, author, title, content, interest, spoiler };
     dispatch({
       store: 'PostStore',
       type: 'editPost',

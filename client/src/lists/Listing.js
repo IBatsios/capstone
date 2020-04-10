@@ -42,10 +42,16 @@ export const Listing = (props) => {
   const handleViewList = (list) => {
     dispatch({
       store: 'ListStore',
+      type: 'activeList',
+      payload: list
+    });
+
+    dispatch({
+      store: 'ListStore',
       type: 'listOpen',
       payload: {
         listOpen: true,
-        listItems: <ListItems {...list} />
+        listItems: <ListItems />
       }
     });
   }

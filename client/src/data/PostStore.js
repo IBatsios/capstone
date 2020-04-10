@@ -7,6 +7,7 @@ import {
 } from './MockDataProvider';
 
 const posts = getPosts();
+let updatedPosts;
 
 // Allows for activating any given form.
 const activeForm = null;
@@ -33,6 +34,18 @@ export function postReducer(state, action) {
     case 'CommentFormSave':
       // Prints to the console, the submitted post data.
       console.log(action.payload);
+      const author = { id: state.user.id, username: state.user.username, avatar: state.user.avatar };
+      if (action.payload.postId) {
+        updatedPosts = state.posts.map(post => {
+          if (post.id === action.payload.postId) {
+            const commentId = post.comments.length;
+            post.comments.push({ id: commentId, author: author, ...action.payload});
+          }
+          return post;
+        });
+      }
+      console.log(updatedPosts);
+      state.posts = updatedPosts;
       return { ...state, commentFormOpen: false, activeForm: null };
     case 'addCommentToPost':
       return { ...state, commentFormOpen: true, activeForm: action.payload };
@@ -40,15 +53,38 @@ export function postReducer(state, action) {
       return { ...state, commentFormOpen: true, activeForm: action.payload };
     case 'deleteComment':
       console.log("delete comment");
-      return state;
+      // A temporary means to remove a comment from a post.
+      state.posts  = state.posts.map(post => {
+        if (post.id === action.payload.comment.postId) {
+          post.comments = post.comments.filter(comment => comment.id !== action.payload.comment.id);
+        } 
+        return post;
+      });
+      return {...state};
     case 'deletePost':
-        console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
+      console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
+      // A temporary means to remove a post.
+      state.posts = state.posts.filter(post =>  post.id !== action.payload);
       return { ...state};
     case 'editPost':
       return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormSave':
       // Prints to the console, the submitted post data.
+      // A temporary means to save  a post.
       console.log(action.payload);
+      if (action.payload.id) {
+        state.posts = state.posts.map(post => {
+          if (post.id === action.payload.id) {
+            post = {...post, ...action.payload};
+          }
+          return post;
+        });
+      } else {
+        const author = { id: state.user.id, username: state.user.username, avatar: state.user.avatar };
+        const postId = state.posts.length;
+        const post = { id: postId, author: author, comments: [], ...action.payload };
+        state.posts.unshift(post);
+      }
     return { ...state };
     // The next two case may be moved to a local state.
     case 'PostFormOpen':
