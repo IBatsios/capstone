@@ -32,8 +32,7 @@ export const ListForm = (props) => {
 
   const handleClose = () => {
     dispatch({
-      store: 'ListStore',
-      type: 'ListFormClose'
+      type: 'popBlock'
     });
   };
 
@@ -59,7 +58,7 @@ export const ListForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.listFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-name"
         fullWidth

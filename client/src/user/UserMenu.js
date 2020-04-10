@@ -19,6 +19,7 @@ import {
 } from 'config/view/constants';
 import { UserContext } from 'data/UserStore';
 import PostForm from 'posts/PostForm';
+import { ListForm } from 'lists/ListForm';
 import { ProfileForm } from 'user/ProfileForm';
 
 export const UserMenu = (props) => {
@@ -40,15 +41,23 @@ export const UserMenu = (props) => {
 
   const addList = () => {
     dispatch({
-      store: 'ListStore',
-      type: 'addList'
+      type: 'pushBlock',
+      payload: <ListForm />
     });
   };
 
+  /*
   const addPost = () => {
     dispatch({
       store: 'PostStore',
       type: 'addPost',
+      payload: <PostForm /> 
+    });
+  }
+  */
+  const addPost = () => {
+    dispatch({
+      type: 'pushBlock',
       payload: <PostForm /> 
     });
   }

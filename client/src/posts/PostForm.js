@@ -42,8 +42,7 @@ export default function PostForm(props) {
 
   const handleClose = () => {
     dispatch({
-      store: 'PostStore',
-      type: 'PostFormClose'
+      type: 'popBlock'
     });
   };
 
@@ -63,6 +62,7 @@ export default function PostForm(props) {
       type: 'PostFormSave',
       payload: values
     });
+    handleClose();
 
     handleClose();
   };
@@ -78,7 +78,7 @@ export default function PostForm(props) {
   return (
     <div>
       <Dialog
-        open={state.postFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth

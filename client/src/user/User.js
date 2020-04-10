@@ -98,8 +98,10 @@ const User = () => {
           />
         </BottomNavigation>
       </Hidden>
-      <ListForm />
       {state.activeForm}
+      {state.dynamicContent &&
+        state.dynamicContent[0]
+      }
     </Fragment>
   );
 }

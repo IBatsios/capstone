@@ -31,6 +31,7 @@ const postFormOpen = false;
 const listFormOpen = false;
 const listItemFormOpen = false;
 const profileFormOpen = false;
+const dynamicContent = [];
 
 const user = getUser(id);
 const initialState = {
@@ -43,7 +44,8 @@ const initialState = {
   listItemFormOpen,
   listItemForm,
   activeForm,
-  profileFormOpen
+  profileFormOpen,
+  dynamicContent
 };
 export function userReducer(state, action) {
   switch (action.store) {
@@ -72,6 +74,12 @@ export function userReducer(state, action) {
       return { ...state };
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
+    case 'popBlock':
+      state.dynamicContent.pop();
+      return { ...state };
+    case 'pushBlock':
+      state.dynamicContent.push(action.payload);
+      return { ...state };
     default:
       return {...state};
   }
