@@ -22,15 +22,8 @@ const posts = getPosts();
 
 const lists = getLists();
 
-// Allows for activating any given form.
-const activeForm = null;
-const listItemForm = null;
-
-const postFormOpen = false;
-
-const listFormOpen = false;
-const listItemFormOpen = false;
-const profileFormOpen = false;
+// Used to add and remove content on-the-fly.
+// TODO: Rework configured blocks and integrate this functionality.
 const dynamicContent = [];
 
 const user = getUser(id);
@@ -39,12 +32,6 @@ const initialState = {
   user,
   lists,
   posts,
-  postFormOpen,
-  listFormOpen,
-  listItemFormOpen,
-  listItemForm,
-  activeForm,
-  profileFormOpen,
   dynamicContent
 };
 export function userReducer(state, action) {
@@ -55,30 +42,23 @@ export function userReducer(state, action) {
       return postReducer(state, action);
   }
   switch (action.type) {
-    case 'addPost':
-      console.log('addPost');
-      return { ...state };
-    case 'profileFormClose':
-      return { ...state, profileFormOpen: false, activeForm: null };
-    case 'profileFormOpen':
-      return { ...state, profileFormOpen: true, activeForm: action.payload };
-    case 'profileFormSave':
-      console.log(`User with id: ${state.user.id} updated profile settings to`);
-      console.table(action.payload);
-      return { ...state };
     case 'logout':
       console.log('Logging out');
-    return null;
+      return null;
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     case 'popBlock':
-      state.dynamicContent.pop();
+      state.dynamicContent.shift();
+      console.log(`popBlock (length): ${state.dynamicContent.length}`);
+      console.log(state.dynamicContent);
       return { ...state };
     case 'pushBlock':
-      state.dynamicContent.push(action.payload);
+      state.dynamicContent.unshift(action.payload);
+      console.log(`pushBlock (length): ${state.dynamicContent.length}`);
+      console.log(state.dynamicContent);
       return { ...state };
     default:
       return {...state};
