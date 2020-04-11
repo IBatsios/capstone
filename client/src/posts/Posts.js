@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { UserContext } from 'data/UserStore';
+import React from "react";
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -12,10 +11,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
-import { ContextActions } from 'ContextActions';
+import { ContextActions } from './ContextActions';
 import { Comments } from 'comment/Comments';
-import { CommentForm } from 'comment/CommentForm';
-import PostForm from 'posts/PostForm';
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -31,7 +28,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Posts = (props) => {
-  const [state, dispatch] = useContext(UserContext);
   const classes = { ...useStyles(), ...styles};
   const [expanded, setExpanded] = React.useState(-1);
 
@@ -40,67 +36,6 @@ const Posts = (props) => {
     // which is clicked on.
     setExpanded(expanded === index ? -1 : index);
   };
-
-  const handleDelete = ({id}) => {
-    dispatch({
-      store: 'PostStore',
-      type: 'deletePost',
-      payload: id
-    });
-  };
-
-
-  const handleEditPost = (post) => {
-    console.log(post);
-    const { id, author, title, content, interest, spoiler } = { ...post};
-    const postData = { id, author, title, content, interest, spoiler };
-    dispatch({
-      type: 'pushBlock',
-      payload: <PostForm {...postData} /> 
-    });
-  };
-
-  const handleLike = (postId) => {
-    dispatch({
-      store: 'PostStore',
-      type: 'likePost',
-      payload: postId 
-    });
-  };
-
-  const handleDislike = (postId) => {
-    dispatch({
-      store: 'PostStore',
-      type: 'dislikePost',
-      payload: postId 
-    });
-  };
-
-  const handleAddComment = (postId) => {
-    dispatch({
-      type: 'pushBlock',
-      payload: <CommentForm postId={postId} /> 
-    });
-  };
-
-  const handleFriendRequest = (author) => {
-    dispatch({
-      store: 'PostStore',
-      type: 'newFriendRequest',
-      payload: {
-        userId: state.user.id,
-        friendId: author.id
-      }
-    });
-  };
-
-  const handleReport = (postId) => {
-    dispatch({
-      store: 'PostStore',
-      type: 'reportPost',
-      payload: postId 
-    });
-  }
 
   // Only render markup for posts that exist.
   if (props.posts.length > 0) {
@@ -116,19 +51,7 @@ const Posts = (props) => {
                 />
               }
               action={
-                <ContextActions
-                  userId={state.user.id}
-                  id={post.id}
-                  post={post}
-                  author={post.author}
-                  onDelete={(post) => handleDelete(post)}
-                  onEditPost={(post) => handleEditPost(post)}
-                  onLike={(postId) => handleLike(postId)}
-                  onDislike={(postId) => handleDislike(postId)}
-                  onAddComment={(postId) => handleAddComment(postId)}
-                  onFriendRequest={(author) => handleFriendRequest(author)}
-                  onReport={(postId) => handleReport(postId)}
-                />
+                <ContextActions {...post} />
               }
               title={
                 post.author.username
