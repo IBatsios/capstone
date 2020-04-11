@@ -46,15 +46,6 @@ export const UserMenu = (props) => {
     });
   };
 
-  /*
-  const addPost = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'addPost',
-      payload: <PostForm /> 
-    });
-  }
-  */
   const addPost = () => {
     dispatch({
       type: 'pushBlock',
@@ -64,7 +55,7 @@ export const UserMenu = (props) => {
 
   const profileForm = () => {
     dispatch({
-      type: 'profileFormOpen',
+      type: 'pushBlock',
       payload: <ProfileForm />
     });
   }

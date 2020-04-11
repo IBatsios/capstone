@@ -32,12 +32,11 @@ export const ListItemForm = (props) => {
 
   const handleClose = () => {
     dispatch({
-      store: 'ListStore',
-      type: 'ListItemFormClose',
+      type: 'popBlock',
     });
   };
 
-  const handleAdd = () => {
+  const handleSave = () => {
     // Remove properties with an undefined value.
     Object.keys(values).forEach(key => {
       if (values[key] === undefined) {
@@ -49,6 +48,7 @@ export const ListItemForm = (props) => {
       type: 'ListItemFormSave',
       payload: values
     });
+    handleClose();
   };
 
   const handleChange = name => (event) => {
@@ -58,7 +58,7 @@ export const ListItemForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.listItemFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-name"
         fullWidth
@@ -102,7 +102,7 @@ export const ListItemForm = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleAdd} color="primary">
+          <Button onClick={handleSave} color="primary">
             Save 
           </Button>
         </DialogActions>

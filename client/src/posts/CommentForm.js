@@ -29,8 +29,7 @@ export const CommentForm = (props) => {
 
   const handleClose = () => {
     dispatch({
-      store: 'PostStore',
-      type: 'CommentFormClose'
+      type: 'popBlock'
     });
   };
 
@@ -50,7 +49,7 @@ export const CommentForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.commentFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth

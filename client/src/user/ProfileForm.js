@@ -12,7 +12,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
 
+/**
+ * Allows user to modify their profile.
+ * @param {object} [props] Could contain user settings.
+ */
 export const ProfileForm = (props) => {
+   console.log(props);
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
@@ -28,7 +33,7 @@ export const ProfileForm = (props) => {
 
   const handleClose = () => {
     dispatch({
-      type: 'profileFormClose'
+      type: 'popBlock'
     });
   };
 
@@ -53,7 +58,7 @@ export const ProfileForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.profileFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-profile"
         fullWidth

@@ -55,8 +55,7 @@ const Posts = (props) => {
     const { id, author, title, content, interest, spoiler } = { ...post};
     const postData = { id, author, title, content, interest, spoiler };
     dispatch({
-      store: 'PostStore',
-      type: 'editPost',
+      type: 'pushBlock',
       payload: <PostForm {...postData} /> 
     });
   };
@@ -79,8 +78,7 @@ const Posts = (props) => {
 
   const handleAddComment = (postId) => {
     dispatch({
-      store: 'PostStore',
-      type: 'addCommentToPost',
+      type: 'pushBlock',
       payload: <CommentForm postId={postId} /> 
     });
   };

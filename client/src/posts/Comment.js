@@ -27,8 +27,7 @@ export const Comment = (props) => {
     const { id, content } = { ...comment};
     const commentData = { id, content };
     dispatch({
-      store: 'PostStore',
-      type: 'editComment',
+      type: 'pushBlock',
       payload: <CommentForm {...commentData} /> 
     });
   };
