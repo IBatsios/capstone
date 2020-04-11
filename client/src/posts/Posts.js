@@ -13,8 +13,8 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
 import { ContextActions } from 'ContextActions';
-import { Comments } from 'posts';
-import { CommentForm } from 'posts/CommentForm';
+import { Comments } from 'comment/Comments';
+import { CommentForm } from 'comment/CommentForm';
 import PostForm from 'posts/PostForm';
 
 const useStyles = makeStyles(theme => ({
