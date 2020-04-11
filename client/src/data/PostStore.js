@@ -48,8 +48,8 @@ export function postReducer(state, action) {
     case 'deleteComment':
       // A temporary means to remove a comment from a post.
       state.posts  = state.posts.map(post => {
-        if (post.id === action.payload.comment.postId) {
-          post.comments = post.comments.filter(comment => comment.id !== action.payload.comment.id);
+        if (post.id === action.payload.postId) {
+          post.comments = post.comments.filter(comment => comment.id !== action.payload.id);
         } 
         return post;
       });
