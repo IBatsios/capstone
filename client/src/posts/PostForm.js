@@ -28,7 +28,7 @@ import {
   SPOILER_ID
 } from 'config/view/constants';
 
-export default function PostForm(props) {
+export const  PostForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
@@ -42,7 +42,7 @@ export default function PostForm(props) {
 
   const handleClose = () => {
     dispatch({
-      type: 'PostFormClose'
+      type: 'popBlock'
     });
   };
 
@@ -58,9 +58,11 @@ export default function PostForm(props) {
     });
 
     dispatch({
+      store: 'PostStore',
       type: 'PostFormSave',
       payload: values
     });
+    handleClose();
 
     handleClose();
   };
@@ -76,7 +78,7 @@ export default function PostForm(props) {
   return (
     <div>
       <Dialog
-        open={state.postFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth

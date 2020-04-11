@@ -9,42 +9,34 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
 import {
-  ADD_LIST,
-  LIST_INTEREST_ID,
-  LIST_INTEREST_LABEL,
-  LIST_INTEREST_TYPE,
-  LIST_INTEREST_HELPER_TEXT
+  ADD_COMMENT,
+  COMMENT_CONTENT_ID,
+  COMMENT_CONTENT_LABEL,
+  COMMENT_CONTENT_TYPE
 } from 'config/view/constants';
 
-export const ListForm = (props) => {
+export const CommentForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
-    id: props.id,
-    userId: state.user.id,
-    name: props.name || '',
-    interest: props.interest || ''
+    authorId: state.user.id || '',
+    content: props.content || '',
+    postId: props.postId
   });
 
 
   const handleClose = () => {
     dispatch({
-      type: 'ListFormClose'
+      type: 'popBlock'
     });
   };
 
   const handleSave = () => {
-    // Remove properties with an undefined value.
-    Object.keys(values).forEach(key => {
-      if (values[key] === undefined) {
-        delete values[key];
-      }
-    });
     dispatch({
-      type: 'ListFormSave',
+      store: 'PostStore',
+      type: 'CommentFormSave',
       payload: values
     });
     handleClose();
@@ -57,39 +49,23 @@ export const ListForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.listFormOpen}
+        open={true}
         onClose={handleClose}
-        aria-labelledby="form-dialog-name"
+        aria-labelledby="form-dialog-title"
         fullWidth
       >
-        <DialogTitle id="form-dialog-listForm">{ADD_LIST}</DialogTitle>
+        <DialogTitle id="form-dialog-title">{ADD_COMMENT}</DialogTitle>
         <DialogContent>
           <TextField
-            required
-            value={values.name}
-            onChange={handleChange("name")}
+            value={values.content}
+            onChange={handleChange("content")}
             margin="dense"
-            id="name"
-            label="Name"
-            type="text"
+            id={COMMENT_CONTENT_TYPE}
+            label={COMMENT_CONTENT_LABEL}
+            type={COMMENT_CONTENT_TYPE}
+            multiline
             fullWidth
           />
-          <TextField
-            required
-            onChange={handleChange("interest")}
-            id={LIST_INTEREST_ID}
-            select
-            label={LIST_INTEREST_LABEL}
-            value={values.interest}
-            helperText={LIST_INTEREST_HELPER_TEXT}
-            fullWidth
-          >
-            {state.interests.map((interest) => (
-              <MenuItem key={interest} value={interest}>
-                {interest}
-              </MenuItem>
-            ))}
-          </TextField>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

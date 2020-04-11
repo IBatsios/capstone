@@ -11,24 +11,28 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
+import {
+  ADD_LIST_ITEM,
+  LIST_ITEM_TITLE,
+  LIST_ITEM_DESCRIPTION_LABEL,
+  LIST_ITEM_URL_HELPER_TEXT
+} from 'config/view/constants';
 
-export const ProfileForm = (props) => {
+export const ListItemForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
-    id: props.id || state.user.id || '',
-    avatar: props.avatar || state.user.avatar || '',
-    bio: props.bio || state.user.bio || '',
-    email: props.email || state.user.email || '',
-    firstName: props.firstName || state.user.firstName || '',
-    lastName: props.lastName || state.user.lastName || '',
-    phone: props.phone || state.user.phone || ''
+    id: props.id,
+    userId: state.user.id,
+    name: props.name || '',
+    url: props.url || '',
+    description: props.description || ''
   });
 
 
   const handleClose = () => {
     dispatch({
-      type: 'profileFormClose'
+      type: 'popBlock',
     });
   };
 
@@ -40,7 +44,8 @@ export const ProfileForm = (props) => {
       }
     });
     dispatch({
-      type: 'profileFormSave',
+      store: 'ListStore',
+      type: 'ListItemFormSave',
       payload: values
     });
     handleClose();
@@ -53,67 +58,43 @@ export const ProfileForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.profileFormOpen}
+        open={true}
         onClose={handleClose}
-        aria-labelledby="form-dialog-profile"
+        aria-labelledby="form-dialog-name"
         fullWidth
       >
-        <DialogTitle id="form-dialog-profileForm">Profile Settings</DialogTitle>
+        <DialogTitle id="form-dialog-name">List item</DialogTitle>
         <DialogContent>
           <TextField
-            value={values.firstName}
-            onChange={handleChange("firstName")}
+            required
+            value={values.name}
+            onChange={handleChange("name")}
             margin="dense"
-            id="edit-profile-form-firstname"
-            label="First Name"
+            id="list-item-name"
+            label="name"
             type="text"
             fullWidth
           />
           <TextField
-            value={values.lastName}
-            onChange={handleChange("lastName")}
+            required
+            value={values.url}
+            onChange={handleChange("url")}
             margin="dense"
-            id="edit-profile-form-lastname"
-            label="Last Name"
+            id="url"
+            label="URL"
             type="text"
+            helperText={LIST_ITEM_URL_HELPER_TEXT}
             fullWidth
           />
           <TextField
-            value={values.email}
-            onChange={handleChange("email")}
+            value={values.description}
+            onChange={handleChange("description")}
             margin="dense"
-            id="edit-profile-form-email"
-            label="Email"
+            id="description"
+            label={LIST_ITEM_DESCRIPTION_LABEL}
             type="text"
-            fullWidth
-          />
-          <TextField
-            value={values.phone}
-            onChange={handleChange("phone")}
-            margin="dense"
-            id="edit-profile-form-phone"
-            label="Phone"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            value={values.avatar}
-            onChange={handleChange("avatar")}
-            margin="dense"
-            id="edit-profile-form-avatar"
-            label="Avatar URL"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            value={values.bio}
-            onChange={handleChange("bio")}
-            margin="dense"
-            id="edit-profile-form-bio"
-            label="Bio"
-            type="text"
-            rows="4"
             multiline
+            rows="4"
             fullWidth
           />
         </DialogContent>
@@ -129,4 +110,3 @@ export const ProfileForm = (props) => {
     </div>
   );
 }
-

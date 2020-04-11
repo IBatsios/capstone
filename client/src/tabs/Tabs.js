@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
-import { UserContext } from 'data/UserStore';
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { Swipeable } from "react-swipeable";
-import TabPanel from 'views/TabPanel';
-import { Interest } from 'views/interest';
+import TabPanel from 'TabPanel';
+import { Interest } from 'interest';
 import classes from './Tabs.module.css';
 
+
 export const TabsUi = (props) => {
-  const [state, dispatch] = useContext(UserContext);
+  const [state] = useContext(props.context);
   const [active, setActive] = React.useState(0);
   const interests = state.interests;
-
   const changeTab = (value) => {
     setActive(value);
   }
@@ -34,17 +33,18 @@ export const TabsUi = (props) => {
     }
 
   }
+
   const tabs = interests.map((interest, index) => (
     <Tab label={interest} value={index} key={index} />
   ));
 
   const section = props.section;
+
   const tabPanels = interests.map((interest, index) => (
     <TabPanel value={active} index={index} key={index}>
       {getInterest({section, interest, index})}
     </TabPanel>
   ));
-
   return (
     <>
       <Tabs className={classes.tabs} position="fixed" value={active} onChange={handleTabClick}>

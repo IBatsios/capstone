@@ -12,31 +12,31 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
 import {
-  ADD_LIST_ITEM,
-  LIST_ITEM_TITLE,
-  LIST_ITEM_DESCRIPTION_LABEL,
-  LIST_ITEM_URL_HELPER_TEXT
+  ADD_LIST,
+  LIST_INTEREST_ID,
+  LIST_INTEREST_LABEL,
+  LIST_INTEREST_TYPE,
+  LIST_INTEREST_HELPER_TEXT
 } from 'config/view/constants';
 
-export const ListItemForm = (props) => {
+export const ListForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
     id: props.id,
     userId: state.user.id,
     name: props.name || '',
-    url: props.url || '',
-    description: props.description || ''
+    interest: props.interest || ''
   });
 
 
   const handleClose = () => {
     dispatch({
-      type: 'ListItemFormClose',
+      type: 'popBlock'
     });
   };
 
-  const handleAdd = () => {
+  const handleSave = () => {
     // Remove properties with an undefined value.
     Object.keys(values).forEach(key => {
       if (values[key] === undefined) {
@@ -44,9 +44,11 @@ export const ListItemForm = (props) => {
       }
     });
     dispatch({
-      type: 'ListItemFormSave',
+      store: 'ListStore',
+      type: 'ListFormSave',
       payload: values
     });
+    handleClose();
   };
 
   const handleChange = name => (event) => {
@@ -56,51 +58,45 @@ export const ListItemForm = (props) => {
   return (
     <div>
       <Dialog
-        open={state.listItemFormOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="form-dialog-name"
         fullWidth
       >
-        <DialogTitle id="form-dialog-name">List item</DialogTitle>
+        <DialogTitle id="form-dialog-listForm">{ADD_LIST}</DialogTitle>
         <DialogContent>
           <TextField
             required
             value={values.name}
             onChange={handleChange("name")}
             margin="dense"
-            id="list-item-name"
-            label="name"
+            id="name"
+            label="Name"
             type="text"
             fullWidth
           />
           <TextField
             required
-            value={values.url}
-            onChange={handleChange("url")}
-            margin="dense"
-            id="url"
-            label="URL"
-            type="text"
-            helperText={LIST_ITEM_URL_HELPER_TEXT}
+            onChange={handleChange("interest")}
+            id={LIST_INTEREST_ID}
+            select
+            label={LIST_INTEREST_LABEL}
+            value={values.interest}
+            helperText={LIST_INTEREST_HELPER_TEXT}
             fullWidth
-          />
-          <TextField
-            value={values.description}
-            onChange={handleChange("description")}
-            margin="dense"
-            id="description"
-            label={LIST_ITEM_DESCRIPTION_LABEL}
-            type="text"
-            multiline
-            rows="4"
-            fullWidth
-          />
+          >
+            {state.interests.map((interest) => (
+              <MenuItem key={interest} value={interest}>
+                {interest}
+              </MenuItem>
+            ))}
+          </TextField>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleAdd} color="primary">
+          <Button onClick={handleSave} color="primary">
             Save 
           </Button>
         </DialogActions>
@@ -108,3 +104,4 @@ export const ListItemForm = (props) => {
     </div>
   );
 }
+

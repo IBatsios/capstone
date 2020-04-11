@@ -16,33 +16,30 @@ import { ListItemForm } from './ListItemForm';
 import classes from './ListItems.module.css';
 
 
-export const ListItems = ({id, author, name, items}) => {
+export const ListItems = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const handleClose = () => {
     dispatch({
-      type: 'listOpen',
-      payload: {
-        listOpen: false,
-        listItems: null
-      }
+      type: 'popBlock'
     });
   };
 
   const handleDeleteItem = item => () => {
     dispatch({
+      store: 'ListStore',
       type: 'deleteListItem',
       payload: {
-        listId: id,
-        item: item 
+        listId: props.id,
+        item: item
       }
     });
   };
 
   const handleEditItem = item => () => {
     dispatch({
-      type: 'editListItem',
-      payload: <ListItemForm listId={id} {...item} />
+      type: 'pushBlock',
+      payload: <ListItemForm listId={props.id} {...item} />
     });
   };
 
@@ -58,19 +55,19 @@ export const ListItems = ({id, author, name, items}) => {
   }
 
   const isAuthor = () => {
-    return state.user.id === author.id;
+    return state.user.id === props.author.id;
   }
 
   return (
     <>
       <Dialog
-        open={state.listOpen}
+        open={true}
         onClose={handleClose}
         aria-labelledby="list-items-dialog"
         fullWidth
       >
         <DialogTitle id="dialog-list-items">
-          {name}
+          {props.name}
             <IconButton
               className={classes.closeButton}
               aria-label="close"
@@ -81,8 +78,8 @@ export const ListItems = ({id, author, name, items}) => {
         </DialogTitle>
         <Divider />
         <DialogContent>
-          <List key={name}>
-            {items.map((item, index) => (
+          <List key={props.name}>
+            {props.items.map((item, index) => (
               <React.Fragment key={item.name}>
                 <ListItem>
                   <ListItemText
@@ -115,7 +112,6 @@ export const ListItems = ({id, author, name, items}) => {
           </List>
         </DialogContent>
       </Dialog>
-      {state.listItemForm}
     </>
   );
 }

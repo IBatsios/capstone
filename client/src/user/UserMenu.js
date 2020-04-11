@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from "react";
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -17,9 +17,14 @@ import {
   PROFILE_SETTINGS,
   LOG_OUT
 } from 'config/view/constants';
+import { UserContext } from 'data/UserStore';
+import { PostForm } from 'posts/PostForm';
+import { ListForm } from 'lists/ListForm';
+import { ProfileForm } from 'user/ProfileForm';
 
 export const UserMenu = (props) => {
-  const [state, setState] = React.useState({
+  const [state, dispatch] = useContext(UserContext);
+  const [values, setValues] = React.useState({
     menu: false
   });
 
@@ -31,8 +36,35 @@ export const UserMenu = (props) => {
       return;
     }
 
-    setState({ ...state, 'menu': open });
+    setValues({ ...values, 'menu': open });
   };
+
+  const addList = () => {
+    dispatch({
+      type: 'pushBlock',
+      payload: <ListForm />
+    });
+  };
+
+  const addPost = () => {
+    dispatch({
+      type: 'pushBlock',
+      payload: <PostForm /> 
+    });
+  }
+
+  const profileForm = () => {
+    dispatch({
+      type: 'pushBlock',
+      payload: <ProfileForm />
+    });
+  }
+
+  const logout = () => {
+    dispatch({
+      type: 'logout'
+    });
+  }
 
   const userMenuOptions = () => (
     <div
@@ -41,19 +73,19 @@ export const UserMenu = (props) => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        <ListItem button onClick={() => props.onAddPost()}>
+        <ListItem button onClick={addPost}>
           <ListItemIcon>
             <PostAddIcon />
           </ListItemIcon>
           <ListItemText primary={ADD_POST} />
         </ListItem>
-        <ListItem button onClick={() => props.onAddList()}>
+        <ListItem button onClick={addList}>
           <ListItemIcon>
             <PlaylistAddIcon />
           </ListItemIcon>
           <ListItemText primary={ADD_LIST} />
         </ListItem>
-        <ListItem button onClick={() => props.onEditProfile()}>
+        <ListItem button onClick={profileForm}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
@@ -62,7 +94,7 @@ export const UserMenu = (props) => {
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button onClick={logout}>
           <ExitToAppIcon />
           <ListItemText primary={LOG_OUT} />
         </ListItem>
@@ -80,7 +112,7 @@ export const UserMenu = (props) => {
       </IconButton>
       <Drawer
         anchor={menuAnchor}
-        open={state.menu}
+        open={values.menu}
         onClose={toggleDrawer(false)}
        >
         {userMenuOptions()}

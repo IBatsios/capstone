@@ -17,17 +17,16 @@ import {
   WATERCOOLER_ICON
 } from 'config/user';
 import classes from './User.module.css';
-import Home from "views/home/Home";
-import Lists from "views/lists/Lists";
-import Watercooler from "views/watercooler/Watercooler";
-import PostForm from 'views/post/PostForm';
-import TabPanel from 'views/TabPanel';
+import Home from "home/Home";
+import Lists from "lists/Lists";
+import Watercooler from "watercooler/Watercooler";
+import TabPanel from 'TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
-import { ProfileForm } from './ProfileForm';
 
-import { ListForm } from 'views/lists/ListForm';
-
+/**
+ * The user-interface for an authenticated user. 
+ */
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
   const active = state.activeHeaderTab;
@@ -42,39 +41,12 @@ const User = () => {
     });
   }
 
-  const handleAddList = () => {
-    dispatch({
-      type: 'ListFormOpen',
-      payload: <ListForm />
-    });
-  };
-
-  const handleEditProfile = () => {
-    dispatch({
-      type: 'profileFormOpen',
-      payload: <ProfileForm />
-    });
-  };
-
-
-  const handleAddPost = () => {
-    dispatch({
-      type: 'PostFormOpen',
-      payload: <PostForm />
-    });
-  };
-
   return (
      <Fragment>
         <Toolbar>
           <AppBar position="fixed" color="default">
             <Toolbar>
-              <UserMenu
-                edge="start"
-                onAddPost={() => handleAddPost()}
-                onAddList={() => handleAddList()}
-                onEditProfile={() => handleEditProfile()}
-              />
+              <UserMenu edge="start" />
             </Toolbar>
             <Hidden xsDown>
               <Tabs className={classes.tabs} value={active} centered onChange={onTabChange}>
@@ -84,7 +56,7 @@ const User = () => {
               </Tabs>
             </Hidden> 
           </AppBar>
-        </Toolbar>
+       </Toolbar>
        <TabPanel value={active} index={0} {...otherProps}>
          <Home />
        </TabPanel>
@@ -120,8 +92,9 @@ const User = () => {
           />
         </BottomNavigation>
       </Hidden>
-      <ListForm />
-      {state.activeForm}
+      {state.dynamicContent &&
+        state.dynamicContent[0]
+      }
     </Fragment>
   );
 }
