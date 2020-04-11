@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -13,6 +13,10 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { UserContext } from 'data/UserStore';
+import { ListForm } from './ListForm';
+import { ListItemForm } from './ListItemForm';
+import { ListItems } from './ListItems';
 
 const useStyles = makeStyles({
   list: {
@@ -23,8 +27,12 @@ const useStyles = makeStyles({
   },
 });
 
-
+/**
+ * Actions that can be taken on a list.
+ * @param {Object} props - A list object.
+ */
 export const ContextActions = (props) => {
+  const [state, dispatch] = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleContextMenuClick = event => {
@@ -36,22 +44,35 @@ export const ContextActions = (props) => {
   };
 
   const handleAddListItem = () => {
-    props.onAddListItem(props.list);
+    dispatch({
+      type: 'pushBlock',
+      payload: <ListItemForm id={props.list.id} />
+    });
     handleClose();
   }
 
   const handleDelete = () => {
-    props.onDelete(props.list);
+    dispatch({
+      store: 'ListStore',
+      type: 'deleteList',
+      payload: props.list.id
+    });
     handleClose();
   }
 
   const handleEditList = () => {
-    props.onEditList(props.list);
+    dispatch({
+      type: 'pushBlock',
+      payload: <ListForm {...props.list} />
+    });
     handleClose();
   }
 
   const handleViewList = () => {
-    props.onViewList(props.list);
+    dispatch({
+      type: 'pushBlock',
+      payload: <ListItems {...props.list} />
+    });
     handleClose();
   }
 

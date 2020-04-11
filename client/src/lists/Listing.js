@@ -1,62 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { UserContext } from 'data/UserStore';
 import { ContextActions } from './ContextActions';
-import { ListForm } from './ListForm';
-import { ListItemForm } from './ListItemForm';
-import { ListItems } from './ListItems';
 import classes from './Listing.module.css';
 
-
+/**
+ * Creates a view for listing a users lists and provides a context
+ * menu for users to take actions on a list.
+ * @param {list[]} props - An array of list objects.
+ */
 export const Listing = (props) => {
-  const [state, dispatch] = useContext(UserContext);
-
-  const handleAddListItem = (list) => {
-    dispatch({
-      store: 'ListStore',
-      type: 'addListItem',
-      payload: <ListItemForm id={list.id} />
-    });
-  }
-
-  const handleDelete = ({id}) => {
-    dispatch({
-      store: 'ListStore',
-      type: 'deleteList',
-      payload: id
-    });
-  };
-
-  const handleEditList = (list) => {
-    const { id, name, interest } = { ...list};
-    const listData = { id, name, interest};
-    dispatch({
-      store: 'ListStore',
-      type: 'editList',
-      payload: <ListForm {...listData} />
-    });
-  }
-
-  const handleViewList = (list) => {
-    dispatch({
-      store: 'ListStore',
-      type: 'activeList',
-      payload: list
-    });
-
-    dispatch({
-      store: 'ListStore',
-      type: 'listOpen',
-      payload: {
-        listOpen: true,
-        listItems: <ListItems />
-      }
-    });
-  }
-
-
   return (
     <div className={classes.lists}>
       {props.lists.map((list, index) => (
@@ -67,19 +21,12 @@ export const Listing = (props) => {
                 {list.name}
               </Typography>
               <ContextActions
-                userId={state.user.id}
-                id={list.id}
                 list={list}
-                onAddListItem={(list) => handleAddListItem(list)}
-                onDelete={(list) => handleDelete(list)}
-                onEditList={(list) => handleEditList(list)}
-                onViewList={(list) => handleViewList(list)}
               />
             </CardContent>
           </Card>
         </React.Fragment>
       ))}
-      {state.listItems}
     </div>
   );
 }
