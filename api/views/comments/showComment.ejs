@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Comment</title>
+  </head>
+  <body>
+    <h1>Show 1 Comment</h1>
+    <h2>Developer Test</h2>
+    <a href="/comments">Go back</a>
+    <hr />
+    <div style="border: 1px solid red;">
+      <p><b>Author: </b><%= comment.author %></p>
+      <p><b>Content: </b><%= comment.content %></p>
+      <p><b>IsActive:</b><%= comment.isActive %></p>
+    </div>
+    <br />
+    <a href="/comments/<%= comment._id %>/edit">Edit Comment</a>
+  </body>
+</html>
