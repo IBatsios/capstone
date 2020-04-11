@@ -9,29 +9,23 @@ import {
 const posts = getPosts();
 let updatedPosts;
 
-// Allows for activating any given form.
-const activeForm = null;
-const postFormOpen = false;
-
 // No sure where this id will be coming from yet, but it's
 // time to start passing in more realistic user data.
 const id = '5e7216fbacd4a42955b6450e';
 
 const initialState = {
+  // TODO: Remove userConfig from this initialState, it should be onlyin
+  // UserStore.  Removing from here causes an error and needs to be 
+  // fixed.
   ...userConfig,
-  posts,
-  postFormOpen,
-  activeForm
+  posts
 };
 
 export function postReducer(state, action) {
   console.log(action);
   switch (action.type) {
-    case 'CommentFormClose':
-      // Prints to the console, the submitted post data.
-      console.log(action.payload);
-      return { ...state, commentFormOpen: false, activeForm: null };
     case 'CommentFormSave':
+      console.log('CommentFormSave');
       // Prints to the console, the submitted post data.
       console.log(action.payload);
       const author = { id: state.user.id, username: state.user.username, avatar: state.user.avatar };
@@ -46,13 +40,12 @@ export function postReducer(state, action) {
       }
       console.log(updatedPosts);
       state.posts = updatedPosts;
-      return { ...state, commentFormOpen: false, activeForm: null };
+      return { ...state };
     case 'addCommentToPost':
-      return { ...state, commentFormOpen: true, activeForm: action.payload };
+      return { ...state };
     case 'editComment':
-      return { ...state, commentFormOpen: true, activeForm: action.payload };
+      return { ...state };
     case 'deleteComment':
-      console.log("delete comment");
       // A temporary means to remove a comment from a post.
       state.posts  = state.posts.map(post => {
         if (post.id === action.payload.comment.postId) {
@@ -66,9 +59,8 @@ export function postReducer(state, action) {
       // A temporary means to remove a post.
       state.posts = state.posts.filter(post =>  post.id !== action.payload);
       return { ...state};
-    case 'editPost':
-      return { ...state, postFormOpen: true, activeForm: action.payload };
     case 'PostFormSave':
+      console.log('PostFormSave');
       // Prints to the console, the submitted post data.
       // A temporary means to save  a post.
       console.log(action.payload);
@@ -87,10 +79,6 @@ export function postReducer(state, action) {
       }
     return { ...state };
     // The next two case may be moved to a local state.
-    case 'PostFormOpen':
-      return { ...state, postFormOpen: true, activeForm: action.payload };
-    case 'PostFormClose':
-      return { ...state, postFormOpen: false, activeForm: null };
     case 'likePost':
       console.log(`liked postId: ${action.payload}`);
       return { ...state };
@@ -100,8 +88,6 @@ export function postReducer(state, action) {
     case 'reportPost':
       console.log(`postId ${action.payload} has been reported`);
       return { ...state };
-    case 'addPost':
-      return { ...state, postFormOpen: true, activeForm: action.payload };
     default:
       return {...state};
   }
