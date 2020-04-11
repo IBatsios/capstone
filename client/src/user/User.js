@@ -24,8 +24,9 @@ import TabPanel from 'TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
 
-import { ListForm } from 'lists/ListForm';
-
+/**
+ * The user-interface for an authenticated user. 
+ */
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
   const active = state.activeHeaderTab;
@@ -45,14 +46,7 @@ const User = () => {
         <Toolbar>
           <AppBar position="fixed" color="default">
             <Toolbar>
-              <UserMenu
-                edge="start"
-                /*
-                onAddPost={() => handleAddPost()}
-                onAddList={() => handleAddList()}
-                onEditProfile={() => handleEditProfile()}
-                */
-              />
+              <UserMenu edge="start" />
             </Toolbar>
             <Hidden xsDown>
               <Tabs className={classes.tabs} value={active} centered onChange={onTabChange}>
@@ -98,7 +92,6 @@ const User = () => {
           />
         </BottomNavigation>
       </Hidden>
-      {state.activeForm}
       {state.dynamicContent &&
         state.dynamicContent[0]
       }
