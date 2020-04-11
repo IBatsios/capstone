@@ -18,7 +18,7 @@ import {
   LOG_OUT
 } from 'config/view/constants';
 import { UserContext } from 'data/UserStore';
-import PostForm from 'posts/PostForm';
+import { PostForm } from 'posts/PostForm';
 import { ListForm } from 'lists/ListForm';
 import { ProfileForm } from 'user/ProfileForm';
 
