@@ -28,7 +28,7 @@ import {
   SPOILER_ID
 } from 'config/view/constants';
 
-export default function PostForm(props) {
+export const  PostForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
