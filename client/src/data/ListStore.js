@@ -43,17 +43,16 @@ export function listReducer(state, action) {
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
-      if (action.payload.id) {
-        state.lists = state.lists.map(list => {
-          list.items = list.items.map(item => {
-            if (item.id === action.payload.id) {
-              item = {...item, ...action.payload};
-            }
-            return item;
-          });
-          return list;
+      state.lists = state.lists.map(list => {
+        list.items = list.items.map(item => {
+          if (item.id === action.payload.id) {
+            item = {...item, ...action.payload};
+          }
+          return item;
         });
-      } 
+        return list;
+      });
+      state.activeList = state.lists.find(list => list.id === '1');
       return { ...state };
     default:
       return state;
