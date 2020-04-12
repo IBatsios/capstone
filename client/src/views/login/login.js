@@ -17,8 +17,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="http://featurama.com">
+        Featurama
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInSide() {
+export default function App() {
   const classes = useStyles();
 
   return (
@@ -72,7 +72,7 @@ export default function SignInSide() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign in to Featurama
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -117,7 +117,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -130,4 +130,4 @@ export default function SignInSide() {
       </Grid>
     </Grid>
   );
-  }
+}
