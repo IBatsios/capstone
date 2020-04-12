@@ -15,7 +15,7 @@ export const Interest = (props) => {
   const section = props.section;
 
   // The category of the post.
-  const interest = props.interest.component;
+  const interest = props.interest;
 
   // Blocks of content configured to appear in  a given section
   // and interest category.

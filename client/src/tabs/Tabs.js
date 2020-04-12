@@ -43,7 +43,7 @@ export const TabsUi = (props) => {
 
   const tabPanels = interests.map((interest, index) => (
     <TabPanel value={active} index={index} key={index}>
-      {getInterest({section, interest, index})}
+      <Interest section={section} interest={interest} key={index} />
     </TabPanel>
   ));
   return (
@@ -57,15 +57,3 @@ export const TabsUi = (props) => {
     </>
   );
 }
-
-const getInterest = (props) => {
-  return React.createElement(Interest, {
-    key: props.interest.toString(),
-    section: props.section,
-    interest: {
-      id: props.index,
-      component: props.interest 
-    }
-  });
-}
-
