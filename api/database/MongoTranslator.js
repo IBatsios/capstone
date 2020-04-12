@@ -212,7 +212,7 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const response = await Model.findOneAndRemove(id) // remove the entire data for now, switch to boolean later
+                const response = await Model.findByIdAndRemove(id) // remove the entire data for now, switch to boolean later
                     .catch((error) => {
                         console.log(`Error: ${error.message}`);
                     });
