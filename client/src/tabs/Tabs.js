@@ -4,11 +4,12 @@ import Tab from "@material-ui/core/Tab";
 import { Swipeable } from "react-swipeable";
 import TabPanel from 'TabPanel';
 import { Interest } from 'interest';
+import { UserContext } from 'data/UserStore';
 import classes from './Tabs.module.css';
 
 
 export const TabsUi = (props) => {
-  const [state] = useContext(props.context);
+  const [state] = useContext(UserContext);
   const [active, setActive] = React.useState(0);
   const interests = state.interests;
   const changeTab = (value) => {
