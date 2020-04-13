@@ -1,0 +1,31 @@
+.interests > .sidebar,
+.interests > .content,
+.interests > .ads {
+  overflow-y: auto;
+}
+
+.sidebar,
+.ads {
+  display: none;
+  flex: 1;
+}
+
+.wrapper {
+  padding: 64px 1.2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar,
+  .ads {
+    display: initial;
+  }
+
+  .interests {
+    margin-top: 48px;
+  }
+
+  .wrapper {
+    padding: 24px 1.2rem;
+  }
+
+}
