@@ -57,7 +57,18 @@ const userConfig = {
   blocks: blocks,
   interests: INTERESTS,
   headerTabs: [ HOME, WATERCOOLER, LISTS ],
-  activeHeaderTab: 0
+  activeHeaderTab: 0,
+  section: {
+    home: {
+      interest: 0
+    },
+     watercooler: {
+      interest: 0
+    },
+    lists: {
+      interest: 0
+    }
+  }
 }
 
 
