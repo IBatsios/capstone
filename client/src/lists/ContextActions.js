@@ -69,6 +69,13 @@ export const ContextActions = (props) => {
   }
 
   const handleViewList = () => {
+    // TODO: Refactor to remove activeList from state.  It here because
+    // the view of list items doesn't re-render when an item is changed.
+    // It's a work-around!
+    dispatch({
+      type: 'activeList',
+      payload: props.list
+    });
     dispatch({
       type: 'pushBlock',
       payload: <ListItems {...props.list} />

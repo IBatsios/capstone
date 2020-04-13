@@ -20,7 +20,7 @@ import classes from './User.module.css';
 import Home from "home/Home";
 import Lists from "lists/Lists";
 import Watercooler from "watercooler/Watercooler";
-import TabPanel from 'TabPanel';
+import TabPanel from 'tabs/TabPanel';
 import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
 

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from "react";
+import { UserContext } from 'data/UserStore';
 
 export const renderBlocks = (blocks) => {
-  if (blocks) {
+  if (blocks && blocks.length > 0) {
     return (
       blocks.map((Block, index) => {
         // If a block is of type string it is potentially text
@@ -16,4 +17,13 @@ export const renderBlocks = (blocks) => {
       })
     )
   }
+}
+
+
+export const Blocks = ({section, interest, location}) => {
+  const [state] = useContext(UserContext);
+  // The below uses optional chaining, so there is not need to check
+  // if each section, interest, and location values are null or undefined.
+  // URL: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+  return state.blocks?.[section]?.[interest]?.[location];
 }

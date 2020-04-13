@@ -21,6 +21,7 @@ const id = '5e7216fbacd4a42955b6450e';
 const posts = getPosts();
 
 const lists = getLists();
+const activeList = {};
 
 // Used to add and remove content on-the-fly.
 // TODO: Rework configured blocks and integrate this functionality.
@@ -28,6 +29,7 @@ const dynamicContent = [];
 
 const user = getUser(id);
 const initialState = {
+  activeList,
   ...userConfig,
   user,
   lists,
@@ -42,6 +44,14 @@ export function userReducer(state, action) {
       return postReducer(state, action);
   }
   switch (action.type) {
+    case 'changeTab':
+      state.section[action.payload.section].interest = action.payload.interest;
+      return {...state};
+    // TODO: Refactor to not require activeList.  It's a work-around
+    // to cause ListItems to re-render when items have been updated.
+    case 'activeList':
+      console.log(action.payload);
+      return {...state, activeList: {...action.payload}};
     case 'logout':
       console.log('Logging out');
       return null;
@@ -53,7 +63,6 @@ export function userReducer(state, action) {
     case 'popBlock':
       state.dynamicContent.shift();
       console.log(`popBlock (length): ${state.dynamicContent.length}`);
-      console.log(state.dynamicContent);
       return { ...state };
     case 'pushBlock':
       state.dynamicContent.unshift(action.payload);
