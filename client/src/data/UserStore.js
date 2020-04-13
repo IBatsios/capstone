@@ -44,6 +44,9 @@ export function userReducer(state, action) {
       return postReducer(state, action);
   }
   switch (action.type) {
+    case 'changeTab':
+      state.section[action.payload.section].interest = action.payload.interest;
+      return {...state};
     // TODO: Refactor to not require activeList.  It's a work-around
     // to cause ListItems to re-render when items have been updated.
     case 'activeList':
