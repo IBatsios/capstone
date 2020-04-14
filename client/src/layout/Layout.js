@@ -2,6 +2,21 @@ import React from "react";
 import { Blocks, renderBlocks } from 'utils';
 import classes from './Layout.module.css';
 import Hidden from '@material-ui/core/Hidden';
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
+
+export const Copyright = ({className}) => {
+  return (
+    <Typography className={className} variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="http://featurama.com">
+        Featurama
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 export const ContentHeader = ({section, interest}) => {
   let blocks = Blocks({section, interest, location: 'content'});
