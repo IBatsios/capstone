@@ -1,16 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
+import { useAuth } from 'data/NoAuthStore';
+import { NoAuthStore } from 'data/NoAuthStore';
+import { NoAuth } from 'user/NoAuth';
 import User from 'user';
 import { Copyright } from 'layout/Layout';
 
-class App extends Component {
-  render() {
-    return (
-      <>
-        <User />
-        <Copyright className="copyright" />
-      </>
-    );
-  }
+function App() {
+  const [state, dispatch] = useAuth();
+
+  return (
+    <>
+      {state.authenticated
+       ? <> 
+           <User />
+           <Copyright className="copyright" />
+         </>
+       : <>
+           <NoAuthStore>
+             <NoAuth />
+           </NoAuthStore>
+         </>
+      }
+    </>
+  );
 }
 
 export default App;
