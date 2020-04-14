@@ -10,7 +10,7 @@ const router = require('express').Router()
 const PostServices = require('../services/PostServices')
 
 // INDEX: show all posts.
-router.get('/dev/', async (req, res) => {
+router.get('/', async (req, res) => {
   const filter = req.body
 
   const allPosts = await PostServices.getMany(filter)
@@ -23,7 +23,7 @@ router.get('/dev/', async (req, res) => {
 })
 
 // CREATE: add a new post.
-router.post('/dev/', async (req, res) => {
+router.post('/', async (req, res) => {
   const postDTO = req.body
   const result = await PostServices.addNew(postDTO)
 
@@ -38,7 +38,7 @@ router.post('/dev/', async (req, res) => {
 })
 
 // NEW: renders the form to add a new post.
-router.get('/dev/new', async (req, res) => {
+router.get('/new', async (req, res) => {
   res.render('posts/newPost')
 })
 
@@ -57,7 +57,7 @@ router.get('/dev/:id', async (req, res) => {
 })
 
 // EDIT: renders the form to edit an existing post.
-router.get('/dev/:id/edit', async (req, res) => {
+router.get('/:id/edit', async (req, res) => {
   const postId = req.params.id
   const postResult = await PostServices.getById(postId)
 
@@ -70,7 +70,7 @@ router.get('/dev/:id/edit', async (req, res) => {
 })
 
 // PUT: updates a post in the database.
-router.put('/dev/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   const newPostData = req.body
   const postId = req.params.id
   const updatedPost = await PostServices.update(postId, newPostData)
@@ -84,7 +84,7 @@ router.put('/dev/:id', async (req, res) => {
 })
 
 // DELETE: turns off a certain post within the database (NOT permanent deletion).
-router.delete('/dev/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   // Set is active to false.
 
   const postId = req.params.id
