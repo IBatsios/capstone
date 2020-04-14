@@ -9,7 +9,7 @@
     <div>
       <h1>All Comments</h1>
       <h2>Developer Test</h2>
-      <a href="/">Go Back</a> | <a href="/comments/new">New Comment</a>
+      <a href="/">Go Back</a> | <a href="/dev/comments/new">New Comment</a>
     </div>
     <hr />
     <% comments.forEach(function(comment) { %>
@@ -17,7 +17,7 @@
       <div><b>Author:</b> <%= comment.author %></div>
       <div><b>Content:</b> <%= comment.content %></div>
       <div><b>Mongo ID:</b> <%= comment._id %></div>
-      <div><b></b><a href="/comments/<%= comment._id %>">See More</a></div>
+      <div><b></b><a href="/dev/comments/<%= comment._id %>">See More</a></div>
     </div>
     <% }); %>
   </body>
