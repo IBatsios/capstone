@@ -8,7 +8,7 @@
   <body>
     <h1>Show 1 Post</h1>
     <h2>Developer Test</h2>
-    <a href="/posts/dev">Go back</a>
+    <a href="/dev/posts">Go back</a>
     <hr />
     <div style="border: 1px solid red;">
       <p><b>Title: </b><%= post.title %></p>
@@ -19,6 +19,6 @@
       <p><b>IsActive:</b><%= post.isActive %></p>
     </div>
     <br />
-    <a href="/posts/dev/<%= post._id %>/edit">Edit Post</a>
+    <a href="/dev/posts<%= post._id %>/edit">Edit Post</a>
   </body>
 </html>

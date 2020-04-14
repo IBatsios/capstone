@@ -9,7 +9,7 @@
     <div>
       <h1>All Posts</h1>
       <h2>Developer Test</h2>
-      <a href="/">Go Back</a> | <a href="/posts/dev/new">New Post</a>
+      <a href="/">Go Back</a> | <a href="/dev/posts/new">New Post</a>
     </div>
     <hr />
     <% posts.forEach(function(post) { %>
@@ -18,7 +18,7 @@
       <div><b>Topic:</b> <%= post.topic %></div>
       <div><b>Author:</b> <%= post.author %></div>
       <div><b>Mongo ID:</b> <%= post._id %></div>
-      <div><b></b><a href="/posts/dev/<%= post._id %>">See More</a></div>
+      <div><b></b><a href="/dev/posts/<%= post._id %>">See More</a></div>
     </div>
     <% }); %>
   </body>

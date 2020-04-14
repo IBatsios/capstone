@@ -20,6 +20,8 @@ const postsRouter = require('./routes/posts.route')
 const itemsRouter = require('./routes/items.route')
 const listsRouter = require('./routes/lists.route')
 const commentsRouter = require('./routes/comments.route')
+const devCommentsRouter = require('./routes/dev.comments.route')
+const devPostsRouter = require('./routes/dev.posts.route')
 
 // Environment Variables Access
 require('dotenv').config()
@@ -68,6 +70,10 @@ app.use('/posts', postsRouter)
 app.use('/items', itemsRouter)
 app.use('/lists', listsRouter)
 app.use('/comments', commentsRouter)
+
+// Dev routes
+app.use('/dev/comments/', devCommentsRouter)
+app.use('/dev/posts/', devPostsRouter)
 
 // Connect to Database
 let connection = new DatabaseConnector()
