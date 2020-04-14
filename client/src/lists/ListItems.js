@@ -18,6 +18,7 @@ import classes from './ListItems.module.css';
 
 export const ListItems = (props) => {
   const [state, dispatch] = useContext(UserContext);
+  const activeList = state.activeList || props;
 
   const handleClose = () => {
     dispatch({
@@ -42,7 +43,6 @@ export const ListItems = (props) => {
       payload: <ListItemForm listId={props.id} {...item} />
     });
   };
-
 
   const getItemName = (item) => {
     let name = item.name;
@@ -78,8 +78,8 @@ export const ListItems = (props) => {
         </DialogTitle>
         <Divider />
         <DialogContent>
-          <List key={props.name}>
-            {props.items.map((item, index) => (
+          <List key={activeList.name}>
+            {activeList.items.map((item, index) => (
               <React.Fragment key={item.name}>
                 <ListItem>
                   <ListItemText
