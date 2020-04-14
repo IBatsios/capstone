@@ -16,10 +16,10 @@ router.get('/', async (req, res) => {
   const allPosts = await PostServices.getMany(filter)
 
   if (!allPosts) {
-    return res.redirect('/posts/new')
+    return res.status(404).send({ error: 'No posts were found' })
   }
 
-  res.render('posts', { posts: allPosts })
+  res.status(200).send(allPosts)
 })
 
 // CREATE: add a new post.
@@ -27,19 +27,11 @@ router.post('/', async (req, res) => {
   const postDTO = req.body
   const result = await PostServices.addNew(postDTO)
 
-  var response
   if (!result) {
-    response = 'Post was unsuccessful.'
-  } else {
-    response = 'Post successful.'
+    return res.status(404).send({ error: `Create Post unsuccessful` })
   }
 
-  res.send(response)
-})
-
-// NEW: renders the form to add a new post.
-router.get('/new', async (req, res) => {
-  res.render('posts/newPost')
+  res.status(200).send()
 })
 
 // SHOW: displays more information about an existing post.
@@ -48,25 +40,12 @@ router.get('/:id', async (req, res) => {
   const postResult = await PostServices.getById(postId)
 
   if (!postResult) {
-    console.log('Error attempting to get post.')
-    return res.redirect('/posts')
-  }
-  console.log(postId)
-
-  return res.render('posts/showPost', { post: postResult })
-})
-
-// EDIT: renders the form to edit an existing post.
-router.get('/:id/edit', async (req, res) => {
-  const postId = req.params.id
-  const postResult = await PostServices.getById(postId)
-
-  if (!postResult) {
-    console.log('Error when attempting to render edit post form.')
-    return res.render('/posts')
+    return res
+      .status(404)
+      .send({ error: `Error attempting to get post by ID ${[postId]}.` })
   }
 
-  return res.render('posts/editPost', { post: postResult })
+  return res.status(200).send(postResult)
 })
 
 // PUT: updates a post in the database.
@@ -76,11 +55,12 @@ router.put('/:id', async (req, res) => {
   const updatedPost = await PostServices.update(postId, newPostData)
 
   if (!updatedPost) {
-    console.log('Error when updating post.')
-    return res.redirect('/posts')
+    return res
+      .status(404)
+      .send({ error: `Error attempting to update post by ID ${[postId]}.` })
   }
 
-  return res.redirect(`posts/${postId}`)
+  return res.status(200).send({ updatedPost })
 })
 
 // DELETE: turns off a certain post within the database (NOT permanent deletion).
@@ -91,10 +71,11 @@ router.delete('/:id', async (req, res) => {
   const hiddenPost = await PostServices.hide(postId)
 
   if (!hiddenPost) {
-    console.log('Error when deleting post.')
-    return res.redirect('/posts')
+    return res
+      .status(404)
+      .send({ error: `Error attempting to delete post by ID ${[postId]}.` })
   }
-  return res.send('Post hidden.')
+  return res.status(200).send()
 })
 
 module.exports = router
