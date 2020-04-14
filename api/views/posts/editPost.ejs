@@ -10,7 +10,7 @@
     <h1>Edit Existing Post</h1>
     <h2>Developer Test</h2>
     <a href="/dev/post">Return to list</a>
-    <form action="/dev/posts<%= post._id%>?_method=PUT" method="POST">
+    <form action="/dev/posts/<%= post._id%>?_method=PUT" method="POST">
       <div>
         <label for="title">Title</label>
         <input
