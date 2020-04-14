@@ -43,7 +43,7 @@ router.get('/new', async (req, res) => {
 })
 
 // SHOW: displays more information about an existing post.
-router.get('/dev/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const postId = req.params.id
   const postResult = await PostServices.getById(postId)
 

@@ -53,7 +53,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // EDIT: renders the form to edit an existing comment.
-router.get(':id/edit', async (req, res) => {
+router.get('/:id/edit', async (req, res) => {
   const commentId = req.params.id
   const commentResult = await CommentServices.getById(commentId)
 
@@ -66,7 +66,7 @@ router.get(':id/edit', async (req, res) => {
 })
 
 // PUT: updates a post in the database.
-router.put(':id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   const newCommentData = req.body
   const commentId = req.params.id
   const updatedComment = await CommentServices.update(commentId, newCommentData)
