@@ -21,3 +21,6 @@ code {
   background: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
 }
+.copyright {
+  margin-top: -25px !important;
+}

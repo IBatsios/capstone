@@ -39,6 +39,8 @@
   }
 
   .wrapper {
-    padding: 24px 1.2rem;
+    padding: 24px 1.2rem 0;
+    margin-bottom: 48px;
+    background: #FFFFFF; 
   }
 }
