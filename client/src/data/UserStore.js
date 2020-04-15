@@ -7,12 +7,15 @@ import {
   getPosts,
   getLists
 } from './MockDataProvider';
+import { Login } from 'login/login';
 
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
 
 // No sure where this id will be coming from yet, but it's
 // time to start passing in more realistic user data.
+const authenticated = false;
+const login = true;
 const id = '5e7216fbacd4a42955b6450e';
 
 // This represents posts which are relevant to the authenticated user.
@@ -29,6 +32,8 @@ const dynamicContent = [];
 
 const user = getUser(id);
 const initialState = {
+  login,
+  authenticated,
   activeList,
   ...userConfig,
   user,
@@ -44,6 +49,21 @@ export function userReducer(state, action) {
       return postReducer(state, action);
   }
   switch (action.type) {
+    case 'login':
+      console.log('login');
+      state.login = true;
+      return {...state};
+    case 'signIn':
+      console.log('signIn');
+      console.log(action.payload);
+      // TODO: Check if sign-in was successful.
+        state.authenticated = true;
+      return {...state};
+    case 'register':
+      state.login = false;
+      console.log(action.payload);
+      // TODO: Check if registration was successful.
+      return {...state};
     case 'changeTab':
       state.section[action.payload.section].interest = action.payload.interest;
       return {...state};
