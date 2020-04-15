@@ -25,9 +25,11 @@ import { UserContext } from 'data/UserStore';
 import { UserMenu } from './UserMenu';
 import { Login } from 'login/login';
 import { Register } from 'register/register';
+import { Copyright } from 'layout/Layout';
 
 /**
- * The user-interface for an authenticated user. 
+ * Manages the authenticated user-interface or directs a visitor
+ * to login or create an account.
  */
 const User = () => {
   const [state, dispatch] = useContext(UserContext);
@@ -98,6 +100,7 @@ const User = () => {
             {state.dynamicContent &&
               state.dynamicContent[0]
             }
+            <Copyright className="copyright" />
           </>
         : <>
            { state.login
