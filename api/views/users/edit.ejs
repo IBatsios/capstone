@@ -8,8 +8,8 @@
 <body>
     <h1>Edit Existing User</h1>
     <h2>Developer Test</h2>
-    <a href="/users">Return to list</a><br><br>
-    <form action="/users/<%= user._id %>?_method=PUT" method="POST">
+    <a href="/dev/users">Return to list</a><br><br>
+    <form action="/dev/users/<%= user._id %>?_method=PUT" method="POST">
         <div>
             <label for="email">Email</label>
             <input type="email" name="email" id="email" placeholder="Email" value="<%= user.email %>">   
@@ -40,7 +40,7 @@
     </form>
     <br>
     <br>
-    <form action="/users/<%= user._id %>?_method=DELETE" method="POST">
+    <form action="/dev/users/<%= user._id %>?_method=DELETE" method="POST">
         <button style="color: red;">Permanently Delete</button>
     </form>
 </body>
