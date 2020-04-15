@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Copyright } from 'layout/Layout';
-import { NoAuthContext } from 'data/NoAuthStore';
+import { UserContext } from 'data/UserStore';
 import { Login } from 'login/login';
 
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const Register = () => {
   const classes = useStyles();
-  const [state, dispatch] = useContext(NoAuthContext);
+  const [state, dispatch] = useContext(UserContext);
   const [values, setValues] = React.useState({
     email: '',
     firstName: '',
@@ -152,7 +152,11 @@ export const Register = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link onClick={handleLogin} variant="body2">
+              <Link
+                onClick={handleLogin}
+                component="button"
+                variant="body2"
+              >
                 Already have an account? Sign in
               </Link>
             </Grid>

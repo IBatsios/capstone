@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Copyright } from 'layout/Layout';
 import { Register } from 'register/register';
-import { NoAuthContext } from 'data/NoAuthStore';
+import { UserContext } from 'data/UserStore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const Login = () => {
-  const [state, dispatch] = useContext(NoAuthContext);
+  const [state, dispatch] = useContext(UserContext);
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
@@ -68,7 +68,7 @@ export const Login = () => {
 
   const handleRegister = () => {
     dispatch({
-      type: 'pushBlock',
+      type: 'register',
       payload: <Register />
     });
   }
