@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,19 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="http://featurama.com">
-        Featurama
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { Copyright } from 'layout/Layout';
+import { Register } from 'register/register';
+import { UserContext } from 'data/UserStore';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,19 +44,47 @@ const useStyles = makeStyles((theme) => ({
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  formContainer: {
+    height: '100vh',
+    overflow: 'auto',
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
 }));
 
-export default function App() {
+export const Login = () => {
+  const [state, dispatch] = useContext(UserContext);
   const classes = useStyles();
+
+  const [values, setValues] = React.useState({
+    email: '',
+    password: ''
+  });
+
+  const handleChange = name => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  const handleRegister = () => {
+    dispatch({
+      type: 'register',
+      payload: <Register />
+    });
+  }
+
+  const handleSignIn = () => {
+    dispatch({
+      type: 'signIn',
+      payload: values
+    });
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid className={classes.formContainer} item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -74,8 +92,10 @@ export default function App() {
           <Typography component="h1" variant="h5">
             Sign in to Featurama
           </Typography>
-          <form className={classes.form} noValidate>
+          <div className={classes.form}>
             <TextField
+              value={values.email}
+              onChange={handleChange("email")}
               variant="outlined"
               margin="normal"
               required
@@ -87,6 +107,8 @@ export default function App() {
               autoFocus
             />
             <TextField
+              value={values.password}
+              onChange={handleChange("password")}
               variant="outlined"
               margin="normal"
               required
@@ -102,6 +124,7 @@ export default function App() {
               label="Remember me"
             />
             <Button
+              onClick={handleSignIn}
               type="submit"
               fullWidth
               variant="contained"
@@ -117,7 +140,11 @@ export default function App() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/register" variant="body2">
+                <Link
+                  onClick={handleRegister}
+                  component='button'
+                  variant="body2"
+                 >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -125,7 +152,7 @@ export default function App() {
             <Box mt={5}>
               <Copyright />
             </Box>
-          </form>
+          </div>
         </div>
       </Grid>
     </Grid>
