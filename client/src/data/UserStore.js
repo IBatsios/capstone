@@ -16,31 +16,27 @@ import { postReducer } from 'data/PostStore';
 // time to start passing in more realistic user data.
 const authenticated = false;
 const login = true;
-const id = '5e7216fbacd4a42955b6450e';
-
-// This represents posts which are relevant to the authenticated user.
-// They contain both there posts and other users, I'm not sure of how
-// the logic works for decided what is considered relevant.
-const posts = getPosts();
+const id = '5e971574a9cf0a2af1421606';
 
 const lists = getLists();
 const activeList = {};
-
 // Used to add and remove content on-the-fly.
 // TODO: Rework configured blocks and integrate this functionality.
 const dynamicContent = [];
-
 const user = getUser(id);
+
 const initialState = {
+  isFetchingPosts: false,
   login,
   authenticated,
   activeList,
   ...userConfig,
   user,
   lists,
-  posts,
+  posts: [],
   dynamicContent
 };
+
 export function userReducer(state, action) {
   switch (action.store) {
     case 'ListStore':
@@ -49,6 +45,28 @@ export function userReducer(state, action) {
       return postReducer(state, action);
   }
   switch (action.type) {
+    case 'setPostData':
+      // This would not be necessary if the properties of the backend
+      // model were implemented based on the documentation.
+      const posts = action.payload.posts.map(post => {
+        return {
+          id: post._id,
+          title: post.title,
+          content: post.content,
+          interest: post.topic,
+          arrayLike: post.arrayLike,
+          likeCount: post.likeCount,
+          isActive: post.isActive,
+          createdAt: post.createdAt,
+          updatedAt: post.updatedAt,
+          author: post.author,
+          comments: post.comments
+        }
+      });
+      return {...state, posts: posts, isFetchingPosts: false};
+    case 'isFetchingPosts':
+      console.log('isFetchingPosts');
+      return {...state, isFetchingPosts: true};
     case 'login':
       console.log('login');
       state.login = true;
