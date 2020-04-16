@@ -23,11 +23,13 @@ const Watercooler = () => {
         <div className="content">
           <div className="wrapper">
             {ContentHeader({section, interest})}
-            <Posts posts={
-              state.posts.filter(post => {
-                return post.interest === interest
-              })
-            } />
+            {state.posts &&
+              <Posts posts={
+                state.posts.filter(post => {
+                  return post.interest === interest
+                })
+              } />
+            }
           </div>
         </div>
         {Ads({section, interest})}
