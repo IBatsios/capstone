@@ -7,49 +7,57 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// var passportLocalMongoose = require('passport-local-mongoose');
+var passportLocalMongoose = require('passport-local-mongoose');
 
 var userSchema = new Schema({
     email: {
         type: String,
-        required: true
+        required: true,
+        default: ''
     },
-    password: {
-        type: String,
-        required: true
-    },
+    // LEAVE COMMENTED OUT TO AVOID STORING PLAIN TEXT PASSWORDS! PASSPORTJS HANDLES THIS! 
+    // password: { 
+    //     type: String,
+    //     required: true,
+    //     default: ''
+    // },
     firstName: {
         type: String,
-        required: true
+        required: true,
+        default: ''
     },
     lastName: {
         type: String,
-        required: true
+        required: true,
+        default: ''
     },
     username: {
         type: String,
-        required: true
+        required: true,
+        default: ''
+    },
+    avatar : {
+        type: String,
+        required: true,
+        default: 'avatar.png'
     },
     bio: {
         type: String,
-        required: false
+        required: false,
+        default: ''
     },
     phone: {
         type: Number,
-        required: false
+        required: false,
+        default: null
     },
     isActive: {
         type: Boolean,
         default: true,
         required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-        required: true
     }
-});
+}, {timestamps: true});
 
-// userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', userSchema);
