@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import User from 'user';
 
-class App extends Component {
-  render() {
-    return <User />;
-  }
+function App() {
+  return (
+    <User />
+  );
 }
 
 export default App;
