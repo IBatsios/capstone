@@ -12,12 +12,12 @@
     <hr />
     <div style="border: 1px solid red;">
       <p><b>Author: </b>
-        <br>Id: <%= post.author.id %>
-        </br>Username: <%= post.author.username %>
-        </br>Avatar: <%= post.author.avata r%></p>
+        <br>Id: <%= comment.author.id %>
+        </br>Username: <%= comment.author.username %>
+        </br>Avatar: <%= comment.author.avatar %></p>
       <p><b>Content: </b><%= comment.content %></p>
       <p><b>IsActive:</b><%= comment.isActive %></p>
-      <p><b>IsActive:</b><%= comment.spoiler %></p>
+      <p><b>Spoiler:</b><%= comment.spoiler %></p>
     </div>
     <br />
     <a href="/dev/comments/<%= comment._id %>/edit">Edit Comment</a>

@@ -17,19 +17,19 @@
           type="text"
           name="email"
           id="title"
-          placeholder="<% post.title %>"
-          value="<% post.title %>"
+          placeholder="<%= post.title %>"
+          value="<%= post.title %>"
         />
       </div>
       <div>
-        <label for="content">Content</label>
-        <input
+        <label for="content">Content</label></br>
+        <textarea
           type="text"
           name="content"
           id="content"
-          placeholder="<% post.content %>"
-          value="<% post.content %>"
-        />
+          placeholder="<%= post.content %>"
+          value="<%= post.content %>"
+        ></textarea>
       </div>
       <div>
         <label for="topic">Topic</label>
@@ -37,8 +37,8 @@
           type="topic"
           name="topic"
           id="topic"
-          placeholder="<% post.topic %>"
-          value="<% post.topic %>"
+          placeholder="<%= post.topic %>"
+          value="<%= post.topic %>"
         />
       </div>
       <div>
@@ -47,33 +47,33 @@
           type="likeCount"
           name="likeCount"
           id="likeCount"
-          placeholder="<% post.likeCount %>"
-          value="<% post.likeCount %>"
+          placeholder="<%= post.likeCount %>"
+          value="<%= post.likeCount %>"
         />
       </div>
       <div>
-        <label for="author">Author</label>
+        <label for="author">Author</label></br>
         <input
           type="author"
           name="author"
           id="author"
-          placeholder="<% post.author.id %>"
-          value="<% post.author.id %>"
-        />
+          placeholder="<%= post.author.id %>"
+          value="<%= post.author.id %>"
+        /></br>
         <input
           type="text"
           name="author.username"
           id="author.username"
-          placeholder="<% post.author.username %>"
-          value="<% post.author.username %>"
-        />
+          placeholder="<%= post.author.username %>"
+          value="<%= post.author.username %>"
+        /></br>
         <input
           type="text"
           name="author.avatar"
           id="author.avatar"
-          placeholder="<% post.author.avatar %>"
-          value="<% post.author.avatar %>"
-        />
+          placeholder="<%= post.author.avatar %>"
+          value="<%= post.author.avatar %>"
+        /></br>
       </div>
       <div>
         <label for="isActive">Is Active</label><br />

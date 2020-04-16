@@ -21,7 +21,6 @@ var commentSchema = new Schema(
       },
       username: String,
       avatar: String,
-      required: true,
     },
     spoiler: {
       type: Boolean,
