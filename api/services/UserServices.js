@@ -30,13 +30,15 @@ class UserServices {
                 firstName: userDTO.firstName,
                 lastName: userDTO.lastName,
                 username: userDTO.username,
+                avatar: userDTO.avatar,
                 bio: userDTO.bio,
                 phone: userDTO.phone,
                 isActive: true
             });
 
             try {
-                const result = await connector.create(modelName, newUser);
+                // const result = await connector.create(modelName, newUser);
+                const result = await User.register(newUser, newUser.password);
                 if (!result) {
                     console.log('Registration failed at UserServices');
                     return false;
