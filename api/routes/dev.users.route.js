@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 
     if (!allUsers) {
         // return res.send('No users found.');
-        return res.redirect('/users/new');
+        return res.redirect('/dev/users/new');
     }
 
     return res.render('users', {users: allUsers});
@@ -121,7 +121,7 @@ router.delete('/:id', async (req, res) => {
     if (!response) {
         console.log('Error when deleting user.'); // TODO: Send error message to view.
     }
-    return res.redirect('/users'); //TODO: Send success message to view.
+    return res.redirect('/dev/users'); //TODO: Send success message to view.
 });
 
 module.exports = router;
