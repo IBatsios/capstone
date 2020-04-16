@@ -78,23 +78,10 @@ export function postReducer(state, action) {
     case 'setPostData':
       // This would not be necessary if the properties of the backend
       // model were implemented based on the documentation.
-      posts = action.payload.posts.map(post => {
+      action.payload.posts.map(post => {
         postMap.set(post);
-        return {
-          id: post._id,
-          title: post.title,
-          content: post.content,
-          interest: post.topic,
-          arrayLike: post.arrayLike,
-          likeCount: post.likeCount,
-          isActive: post.isActive,
-          createdAt: post.createdAt,
-          updatedAt: post.updatedAt,
-          author: post.author,
-          comments: post.comments
-        }
       });
-      return {...state, posts, isFetchingPosts: false};
+      return {...state, posts: postMap.getAll(), isFetchingPosts: false};
     case 'CommentFormSave':
       console.log('CommentFormSave');
       // Prints to the console, the submitted post data.
