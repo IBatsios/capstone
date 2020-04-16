@@ -57,8 +57,22 @@
           type="author"
           name="author"
           id="author"
-          placeholder="<% post.author %>"
-          value="<% post.author %>"
+          placeholder="<% post.author.id %>"
+          value="<% post.author.id %>"
+        />
+        <input
+          type="text"
+          name="author.username"
+          id="author.username"
+          placeholder="<% post.author.username %>"
+          value="<% post.author.username %>"
+        />
+        <input
+          type="text"
+          name="author.avatar"
+          id="author.avatar"
+          placeholder="<% post.author.avatar %>"
+          value="<% post.author.avatar %>"
         />
       </div>
       <div>
@@ -67,6 +81,15 @@
         <label>True</label>
         <br />
         <input type="radio" name="isActive" id="isActive" value="false" />
+        <label>False</label>
+        <br />
+      </div>
+      <div>
+        <label for="Spoiler">Spoiler</label><br />
+        <input type="radio" name="spoiler" id="spoiler" value="true" />
+        <label>True</label>
+        <br />
+        <input type="radio" name="spoiler" id="spoiler" value="false" />
         <label>False</label>
         <br />
       </div>
