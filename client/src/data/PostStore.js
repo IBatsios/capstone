@@ -1,45 +1,104 @@
 import React, { createContext, useReducer } from 'react';
-import { userConfig } from '../config/user';
 // Acting as a call to the backend or some middleware.
 import {
   getUserPosts,
   getPosts
 } from './MockDataProvider';
 
-const posts = getPosts();
-let updatedPosts;
+let posts;
 
-// No sure where this id will be coming from yet, but it's
-// time to start passing in more realistic user data.
-const id = '5e7216fbacd4a42955b6450e';
 
-const initialState = {
-  // TODO: Remove userConfig from this initialState, it should be onlyin
-  // UserStore.  Removing from here causes an error and needs to be 
-  // fixed.
-  ...userConfig,
-  posts
-};
+const initialState = {};
+
+/**
+ * postMap stores the request for posts from the server and handles any
+ * differences in property names between the front and back-ends.  
+ **/
+const postMap = {
+  map: new Map(),
+  // Returns a post in the format of the front-end.
+  get(post) {
+    const { _id, topic, ...other } = this.map.get(post.id);
+    return {
+      id: _id,
+      interest: topic,
+      ...other
+    }
+  },
+  // Saves the post as provide by the backend.
+  set(post) {
+    this.map.set(post._id, post);
+  },
+  // Returns all the posts in the format the frontend expects.
+  getAll() {
+    let allPosts = [];
+    for (let post of this.map.values()) {
+      const { _id, topic, ...other } = {...post};
+      allPosts.push({ id: _id, interest: topic, ...other});
+    }
+    return allPosts;
+  },
+  getById(id) {
+    const {_id, topic, ...other} = this.map.get(id);
+    return {
+      id: _id,
+      interest: topic,
+      ...other
+    }
+  },
+  like(id) {
+    const post = this.map.get(id);
+    console.log(post);
+    post.likeCount = post.likeCount++;
+    //post.likeCount = 1;
+    console.log(post);
+    this.map.set(post._id, post);
+    console.log(this.map.get(post._id));
+    // Add something to the arrayLike property, maybe the authorId of
+    // who liked it.
+  },
+  // Update an entry in the map from the frontend format.
+  save(post) {
+    const { id, interest, ...other } = {...post};
+    this.map.set(id, {
+      _id: id,
+      topic: interest,
+      ...other 
+    });
+  }
+}
 
 export function postReducer(state, action) {
   console.log(action);
+  let post;
   switch (action.type) {
+    case 'isFetchingPosts':
+      console.log('isFetchingPosts');
+      return {...state, isFetchingPosts: true};
+    case 'setPostData':
+      // This would not be necessary if the properties of the backend
+      // model were implemented based on the documentation.
+      posts = action.payload.posts.map(post => {
+        postMap.set(post);
+        return {
+          id: post._id,
+          title: post.title,
+          content: post.content,
+          interest: post.topic,
+          arrayLike: post.arrayLike,
+          likeCount: post.likeCount,
+          isActive: post.isActive,
+          createdAt: post.createdAt,
+          updatedAt: post.updatedAt,
+          author: post.author,
+          comments: post.comments
+        }
+      });
+      return {...state, posts, isFetchingPosts: false};
     case 'CommentFormSave':
       console.log('CommentFormSave');
       // Prints to the console, the submitted post data.
       console.log(action.payload);
-      const author = { id: state.user.id, username: state.user.username, avatar: state.user.avatar };
-      if (action.payload.postId) {
-        updatedPosts = state.posts.map(post => {
-          if (post.id === action.payload.postId) {
-            const commentId = post.comments.length;
-            post.comments.push({ id: commentId, author: author, ...action.payload});
-          }
-          return post;
-        });
-      }
-      console.log(updatedPosts);
-      state.posts = updatedPosts;
       return { ...state };
     case 'addCommentToPost':
       return { ...state };
@@ -56,35 +115,44 @@ export function postReducer(state, action) {
       return {...state};
     case 'deletePost':
       console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
+
       // A temporary means to remove a post.
-      state.posts = state.posts.filter(post =>  post.id !== action.payload);
-      return { ...state};
+      postMap.map.delete(action.payload);
+
+      // Send the deleted post information to the  server.
+      return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
-      console.log('PostFormSave');
+
       // Prints to the console, the submitted post data.
       // A temporary means to save  a post.
-      console.log(action.payload);
       if (action.payload.id) {
-        state.posts = state.posts.map(post => {
-          if (post.id === action.payload.id) {
-            post = {...post, ...action.payload};
-          }
-          return post;
-        });
+        const post = {...postMap.get(action.payload), ...action.payload};
+        postMap.save(post);
+        // Send a request to the server to updated the database.
+        return {...state, posts: postMap.getAll() };
       } else {
-        const author = { id: state.user.id, username: state.user.username, avatar: state.user.avatar };
-        const postId = state.posts.length;
-        const post = { id: postId, author: author, comments: [], ...action.payload };
-        state.posts.unshift(post);
+        // Send the new post to the backend and add it to the state. 
       }
-    return { ...state };
+
+      return { ...state };
+
     // The next two case may be moved to a local state.
     case 'likePost':
       console.log(`liked postId: ${action.payload}`);
-      return { ...state };
+      post = postMap.getById(action.payload);
+      post.likeCount++;
+      postMap.save(post);
+      // Send updated information to the server.
+      return { ...state, posts: postMap.getAll() };
     case 'dislikePost':
       console.log(`disliked postId: ${action.payload}`);
-      return { ...state };
+      post = postMap.getById(action.payload);
+      // This seems wrong.  There is a like count and an arrayLike;
+      // but nothing to store dislikes.  So, I've just decremented the
+      // like counter.
+      post.likeCount--;
+      postMap.save(post);
+      return { ...state, posts: postMap.getAll() };
     case 'reportPost':
       console.log(`postId ${action.payload} has been reported`);
       return { ...state };
