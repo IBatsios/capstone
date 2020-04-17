@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Copyright } from 'layout/Layout';
 import { UserContext } from 'data/UserStore';
+import { URL } from 'config/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,12 +75,11 @@ export const Login = () => {
   }
 
   const handleSignIn = () => {
-    axios.post('http://localhost:9000/login', {
+    axios.post(URL.LOGIN, {
       username: values.username,
       password: values.password
     })
     .then(function (response) {
-      console.log(response);
       dispatch({
         type: 'signIn',
         payload: response.data 
