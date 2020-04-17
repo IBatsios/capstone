@@ -97,17 +97,17 @@ const User = () => {
                 />
               </BottomNavigation>
             </Hidden>
-            {state.dynamicContent &&
-              state.dynamicContent[0]
-            }
             <Copyright className="copyright" />
           </>
         : <>
-           { state.login
-             ? <Login />
-             : <Register />
+           { state.register
+             ? <Register />
+             : <Login />
            }
           </>
+       }
+       {state.dynamicContent &&
+         state.dynamicContent[0]
        }
      </>
   );

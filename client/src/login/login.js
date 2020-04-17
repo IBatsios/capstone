@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,7 +14,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Copyright } from 'layout/Layout';
-import { Register } from 'register/register';
 import { UserContext } from 'data/UserStore';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,7 +58,6 @@ export const Login = () => {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
-    email: '',
     username: '',
     password: ''
   });
@@ -70,14 +69,24 @@ export const Login = () => {
   const handleRegister = () => {
     dispatch({
       type: 'register',
-      payload: <Register />
+      payload: true 
     });
   }
 
   const handleSignIn = () => {
-    dispatch({
-      type: 'signIn',
-      payload: values
+    axios.post('http://localhost:9000/login', {
+      username: values.username,
+      password: values.password
+    })
+    .then(function (response) {
+      console.log(response);
+      dispatch({
+        type: 'signIn',
+        payload: response.data 
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   }
 
