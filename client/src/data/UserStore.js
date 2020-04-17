@@ -1,40 +1,40 @@
 import React, { createContext, useReducer } from 'react';
 import { userConfig } from '../config/user';
 // Acting as a call to the backend or some middleware.
+// TODO: Remove me!
 import {
-  getUser,
-  getUserPosts,
-  getPosts,
   getLists
 } from './MockDataProvider';
-import { Login } from 'login/login';
 
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
 
-// No sure where this id will be coming from yet, but it's
-// time to start passing in more realistic user data.
-const authenticated = false;
-const login = true;
-const id = '5e971574a9cf0a2af1421606';
+const userMap = {
+  map: new Map(),
+  // Returns a user in the format of the front-end.
+  get(user) {
+    const { _id, ...other } = this.map.get(user.id);
+    return { id: _id, ...other }
+  },
+  // Saves the user as provide by the backend.
+  set(user) {
+    this.map.set(user._id, user);
+  },
+  getById(id) {
+    const {_id, ...other} = this.map.get(id);
+    return { id: _id, ...other };
+  },
+  // Update an entry in the map from the frontend format.
+  save(user) {
+    const { id, ...other } = {...user};
+    this.map.set(id, { _id: id, ...other });
+  }
+}
 
 const lists = getLists();
 const activeList = {};
-// Used to add and remove content on-the-fly.
-// TODO: Rework configured blocks and integrate this functionality.
-const dynamicContent = [];
-const user = getUser(id);
-
 const initialState = {
-  isFetchingPosts: false,
-  login,
-  authenticated,
-  activeList,
-  ...userConfig,
-  user,
-  lists,
-  posts: [],
-  dynamicContent
+  authenticated: false
 };
 
 export function userReducer(state, action) {
@@ -50,20 +50,27 @@ export function userReducer(state, action) {
     case 'isFetchingPosts':
       return postReducer(state, action);
     case 'login':
-      console.log('login');
-      state.login = true;
-      return {...state};
+      console.log({...initialState});
+      console.log(state);
+      return { ...initialState};
     case 'signIn':
-      console.log('signIn');
       console.log(action.payload);
-      // TODO: Check if sign-in was successful.
-        state.authenticated = true;
-      return {...state};
+      userMap.set(action.payload);
+      return {
+        user: userMap.getById(action.payload._id),
+        authenticated: true,
+        isFetchingPosts: false,
+        login: true,
+        activeList,
+        ...userConfig,
+        lists,
+        posts: [],
+        dynamicContent: []
+      }
     case 'register':
-      state.login = false;
+      console.log('register');
       console.log(action.payload);
-      // TODO: Check if registration was successful.
-      return {...state};
+      return {...state, register: action.payload};
     case 'changeTab':
       state.section[action.payload.section].interest = action.payload.interest;
       return {...state};
@@ -74,7 +81,7 @@ export function userReducer(state, action) {
       return {...state, activeList: {...action.payload}};
     case 'logout':
       console.log('Logging out');
-      return null;
+      return { ...initialState};
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };

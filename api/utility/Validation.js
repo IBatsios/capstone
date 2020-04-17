@@ -18,6 +18,7 @@ class Validation {
      * @param {object} userData
      * 
      * @author Christopher Thacker
+     * @author Michael McCulloch
      * @since 1.0.0
      */
     static validateLoginInput(userData) {
@@ -25,14 +26,12 @@ class Validation {
 
         try {
             // Convert empty fields to empty strings for Validator
-            userData.email = !isEmpty(userData.email) ? userData.email : '';
+            userData.username = !isEmpty(userData.username) ? userData.username : '';
             userData.password = !isEmpty(userData.password) ? userData.password : '';
 
-            // Email validation
-            if (Validator.isEmpty(userData.email)) {
-                errors.email = 'Email field is required';
-            } else if (!Validator.isEmail(userData.email)) {
-                errors.email = 'Email is invalid';
+            // Check for username
+            if (Validator.isEmpty(userData.username)) {
+                errors.username = 'Username field is required';
             }
 
             // Password validation

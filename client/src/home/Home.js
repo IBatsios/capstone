@@ -6,7 +6,7 @@ import { Ads, ContentHeader, Sidebar } from 'layout/Layout';
 import { Tabs } from "interest/Tabs";
 import TabPanel from 'tabs/TabPanel';
 import Posts from 'posts/Posts';
-import { POSTS_REQUEST_URL } from 'config/user';
+import { URL } from 'config/user';
 import 'interest/interest.css';
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
                 type:'isFetchingPosts',
                 payload: true
               });
-              const response = await axios.get(POSTS_REQUEST_URL);
+              const response = await axios.get(URL.POSTS);
               dispatch({
                 type:'setPostData',
                 payload: {
