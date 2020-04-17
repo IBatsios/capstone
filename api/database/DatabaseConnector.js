@@ -49,7 +49,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async connect() {
-        return await Translator.connect(uri);
+        try {
+            return await Translator.connect(uri);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -59,7 +64,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async close() {
-        return await Translator.close();
+        try {
+            return await Translator.close();
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -69,7 +79,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async create(modelName, data) {
-        return await Translator.create(modelName, data);
+        try {
+            return await Translator.create(modelName, data);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -79,17 +94,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async readOne(modelName, id) {
-        var response = await Translator.readOne(modelName, id);
-
-        if (response === null) {
-            console.log(`Object in ${modelName} with ID ${id} not found.`);
+        try {
+            return await Translator.readOne(modelName, id);
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-
-        if(response === false) {
-            console.log(`Invalid database object ID provided [${id}].`);
-        }
-
-        return response;
     }
 
     /**
@@ -99,13 +109,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async readMany(modelName, filter) {
-        var response = await Translator.readMany(modelName, filter);
-
-        if (!response) {
-            console.log('No results found.');
+        try {
+            return await Translator.readMany(modelName, filter);     
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-
-        return response;
     }
 
     /**
@@ -115,8 +124,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async update(modelName, id, data) {
-        var response = await Translator.update(modelName, id, data);
-        return response;
+        try {
+            return await Translator.update(modelName, id, data);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     /**
@@ -126,7 +139,12 @@ class DatabaseConnector {
      * @since 1.0.0
      */
     async delete(modelName, id) {
-        return await Translator.delete(modelName, id);
+        try {
+            return await Translator.delete(modelName, id);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 }
 
