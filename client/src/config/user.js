@@ -70,13 +70,15 @@ const userConfig = {
     }
   }
 }
+// Replace backend url with the hosting domain or address in production.
 const BACKEND_URL = 'http://localhost:9000';
-const POSTS_REQUEST_URL = `${BACKEND_URL}/posts`;
-
-
+const URL = {
+  POSTS: `${BACKEND_URL}/posts`,
+  REGISTER: `${BACKEND_URL}/register`,
+  LOGIN: `${BACKEND_URL}/login`
+};
 
 export {
-  POSTS_REQUEST_URL,
   HOME,
   HOME_ICON,
   LISTS,
@@ -84,5 +86,6 @@ export {
   WATERCOOLER,
   WATERCOOLER_ICON,
   INTERESTS,
-  userConfig
+  userConfig,
+  URL
 }
