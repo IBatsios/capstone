@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const auth = require('../config/auth');
 
-const UserServices = require('../services/UserServices');
 const User = require('../models/user.model');
 const Middleware = require('../utility/Middleware');
 const Validation = require('../utility/Validation');
@@ -37,6 +33,14 @@ router.get('/register', function (req, res, next) {
  * @since 1.0.0
  */
 router.post('/register', async function (req, res, next) {
+    const { errors, isValid } = Validation.validateRegisterInput(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+        // console.log(errors);
+        // return false;
+    }
+
     const newUser = new User({
         email: req.body.email,
         password: req.body.password,
@@ -48,13 +52,18 @@ router.post('/register', async function (req, res, next) {
         phone: req.body.phone,
         isActive: true
     });
-    User.register(newUser, req.body.password, function (err, user) { // TODO: abstract this out.
+
+    // Handles password encryption and adding the user to the DB.
+    User.register(newUser, req.body.password, function (err, user) { // This is a function from Passport and they have made it difficult to abstract out.
         if (err) {
             console.log(err);
             return false;
         }
-        passport.authenticate('local')(req, res, function () {
-            // res.redirect('/');
+        passport.authenticate('local')(req, res, function () { // This function isn't easy to abstract out. It may make the most sense to keep it in the route, contrary to the architecture.
+            // So the password information isn't passed back to the front-end
+            req.user.salt = undefined;
+            req.user.hash = undefined;
+
             res.status(200).json(req.user);
         });
     });
@@ -76,13 +85,25 @@ router.get('/login', function (req, res, next) {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.post('/login', passport.authenticate('local',
-    {
-        // successRedirect: '/',
-        // failureRedirect: '/login'
-    }), function (req, res) {
-        return res.status(200).json(req.user);
+router.post('/login', function (req, res, next) {
+    const {errors, isValid} = Validation.validateLoginInput(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
+        // console.log(errors);
+        // return false;
+    }
+
+    passport.authenticate('local')(req, res, function () { // This function isn't easy to abstract out. It may make the most sense to keep it in the route, contrary to the architecture.
+
+        // So the password information isn't passed back to the front-end
+        req.user.salt = undefined;
+        req.user.hash = undefined;
+
+        res.status(200).json(req.user);
     });
+});
+
 
 /**
  * Logs the user out using PassportJS.
@@ -91,8 +112,12 @@ router.post('/login', passport.authenticate('local',
  * @since 1.0.0
  */
 router.get('/logout', Middleware.isLoggedIn, function (req, res, next) {
-    req.logout();
-    res.redirect('/');
+    try {
+        req.logout();
+        return true;
+    } catch (err) {
+        return false;
+    }
 });
 
 module.exports = router;
