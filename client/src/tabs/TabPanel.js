@@ -1,6 +1,7 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import classes from './TabPanel.module.css';
 
 function TabPanel(props) {
   const { children, value, index, prefix, ...other } = props;
@@ -8,6 +9,7 @@ function TabPanel(props) {
   return (
     <Typography
       component="div"
+      className={classes.tabpanel}
       role="tabpanel"
       hidden={value !== index}
       id={`${prefix}-tabpanel-${index}`}

@@ -57,12 +57,26 @@ const userConfig = {
   blocks: blocks,
   interests: INTERESTS,
   headerTabs: [ HOME, WATERCOOLER, LISTS ],
-  activeHeaderTab: 0
+  activeHeaderTab: 0,
+  section: {
+    home: {
+      interest: 0
+    },
+     watercooler: {
+      interest: 0
+    },
+    lists: {
+      interest: 0
+    }
+  }
 }
+const BACKEND_URL = 'http://localhost:9000';
+const POSTS_REQUEST_URL = `${BACKEND_URL}/posts`;
 
 
 
 export {
+  POSTS_REQUEST_URL,
   HOME,
   HOME_ICON,
   LISTS,

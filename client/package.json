@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
+    "axios": "^0.19.2",
     "express-session": "^1.17.0",
     "npx": "^10.2.2",
     "passport": "^0.4.1",
@@ -25,7 +26,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proxy": "http://localhost:9000"
   },
   "eslintConfig": {
     "extends": "react-app"

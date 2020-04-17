@@ -1,0 +1,46 @@
+.tabpanel {
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+.interests {
+  display: flex;
+  /* Full viewport height minus headers. */
+  min-height: calc(100vh - 64px - 48px);
+}
+
+.content {
+  flex: 3;
+}
+
+.wrapper {
+  padding: 64px 1.2rem;
+}
+
+.tabs {
+  position: fixed;
+  top: 48px;
+  width: 100%;
+  height: 48px;
+  z-index: 5;
+  background: white;
+}
+
+@media screen and (min-width: 600px) {
+  .tabs {
+    position: fixed;
+    top: 64px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .interests {
+    margin-top: 48px;
+  }
+
+  .wrapper {
+    padding: 24px 1.2rem 0;
+    margin-bottom: 48px;
+    background: #FFFFFF; 
+  }
+}

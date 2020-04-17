@@ -9,14 +9,14 @@
     <div>
         <h1>All Users</h1>
         <h2>Developer Test</h2> 
-        <a href="/">Go Back</a> | <a href="/users/new">New User</a>
+        <a href="/">Go Back</a> | <a href="/dev/users/new">New User</a>
     </div>
     <hr />
     <% users.forEach(function(user) { %>
         <div style="border: 1px solid red;">
             <div><b>Username:</b> <%= user.username %></div>
             <div><b>Mongo ID:</b> <%= user._id %></div>
-            <div><b></b><a href="/users/<%= user._id %>">See More</a></div>
+            <div><b></b><a href="/dev/users/<%= user._id %>">See More</a></div>
         </div>
     <% }); %>
 </body>
