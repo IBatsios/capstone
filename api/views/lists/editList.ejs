@@ -17,15 +17,32 @@
         <div>
             <label for="itemList">Choose Items:</label>
             <select id="itemList">
-                <option value="item1">Item1</option>
-                <option value="item2">Item2</option>
-                <option value="item3">Item3</option>
-                <option value="item4">Item4</option>
+                <option value="default">default</option>
             </select>
+            <script>
+            
+                var select = document.getElementById("itemList"),
+                         arr = ["html","css","java","javascript","php","c++","node.js","ASP","JSP","SQL"];
+                 
+                 for(var i = 0; i < arr.length; i++)
+                 {
+                     var option = document.createElement("OPTION"),
+                         txt = document.createTextNode(arr[i]);
+                     option.appendChild(txt);
+                     option.setAttribute("value",arr[i]);
+                     select.insertBefore(option,select.lastChild);
+                 }
+                 
+            </script>
+    
         </div>
         <div>
             <label for="topic">Topic</label>
             <input type="topic" name="topic" id="topic" placeholder="Topic" value="<%= list.topic %>">   
+        </div>
+        <div>
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" placeholder="author" value="<%= list.author %>" >
         </div>
         <div>
             <button>Submit</button>

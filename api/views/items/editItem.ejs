@@ -27,6 +27,10 @@
             <input type="description" name="description" id="description" placeholder="Description" value="<%= item.description %>">   
         </div>
         <div>
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" placeholder="author" value="<%= item.author %>" >
+        </div>
+        <div>
         <script>
             var i = "<%= item.likeCount %>";
             function buttonClick() {
