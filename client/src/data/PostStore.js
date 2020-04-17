@@ -1,9 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 // Acting as a call to the backend or some middleware.
-import {
-  getUserPosts,
-  getPosts
-} from './MockDataProvider';
 
 let posts;
 
@@ -50,21 +46,14 @@ const postMap = {
     const post = this.map.get(id);
     console.log(post);
     post.likeCount = post.likeCount++;
-    //post.likeCount = 1;
-    console.log(post);
     this.map.set(post._id, post);
-    console.log(this.map.get(post._id));
-    // Add something to the arrayLike property, maybe the authorId of
+    // TODO: Add something to the arrayLike property, maybe the authorId of
     // who liked it.
   },
   // Update an entry in the map from the frontend format.
   save(post) {
     const { id, interest, ...other } = {...post};
-    this.map.set(id, {
-      _id: id,
-      topic: interest,
-      ...other 
-    });
+    this.map.set(id, { _id: id, topic: interest, ...other });
   }
 }
 
