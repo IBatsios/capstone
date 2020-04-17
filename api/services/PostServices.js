@@ -31,7 +31,8 @@ class PostServices {
         likeCount: postDTO.likeCount,
         arrayLike: postDTO.arrayLike,
         comments: postDTO.comments,
-        author: postDTO.author,
+        // Work-around until forms and json responses are fixed.
+        author: JSON.parse(postDTO.author),
         isActive: postDTO.isActive,
       })
 

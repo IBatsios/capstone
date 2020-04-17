@@ -26,7 +26,8 @@ class CommentServices {
     try {
       const newComment = new Comment({
         content: commentDTO.content,
-        author: commentDTO.author,
+        // Work-around to insert the expected author properties.
+        author: JSON.parse(commentDTO.author),
         isActive: commentDTO.isActive,
       })
       const result = await connector.create(modelName, newComment)

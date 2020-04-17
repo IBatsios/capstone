@@ -20,6 +20,7 @@ var commentSchema = new Schema({
         },
         username: String
     },
+    postId: String,
     isActive: {
         type: Boolean,
         required: true
