@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Copyright } from 'layout/Layout';
 import { UserContext } from 'data/UserStore';
-import { Login } from 'login/login';
+import { URL } from 'config/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,9 +44,11 @@ export const Register = () => {
   const [state, dispatch] = useContext(UserContext);
   const [values, setValues] = React.useState({
     email: '',
+    username: '',
     firstName: '',
     lastName: '',
-    password: ''
+    password: '',
+    password2: ''
   });
 
   const handleChange = name => (event) => {
@@ -54,22 +57,28 @@ export const Register = () => {
 
   const handleLogin = () => {
     dispatch({
-      type: 'login'
+      type: 'register',
+      payload: false
     });
   }
 
   const handleRegister = () => {
-    // Remove properties with an undefined value.
-    Object.keys(values).forEach(key => {
-      if (values[key] === undefined) {
-        delete values[key];
-      }
-    });
-    console.log('Registering');
-    console.log(values);
-    dispatch({
-      type: 'register',
-      payload: values
+    axios.post(URL.REGISTER, {
+      email: values.email,
+      username: values.username,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      password: values.password,
+      password2: values.password2
+    })
+    .then(function (response) {
+      dispatch({
+        type: 'signIn',
+        payload: response.data 
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   }
 
@@ -127,6 +136,19 @@ export const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={values.username}
+                onChange={handleChange("username")}
+                variant="outlined"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
                 value={values.password}
                 onChange={handleChange("password")}
                 variant="outlined"
@@ -136,6 +158,20 @@ export const Register = () => {
                 label="Password"
                 type="password"
                 id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                value={values.password2}
+                onChange={handleChange("password2")}
+                variant="outlined"
+                required
+                fullWidth
+                name="password2"
+                label="Confirm Password"
+                type="password"
+                id="password2"
                 autoComplete="current-password"
               />
             </Grid>

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,8 +14,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Copyright } from 'layout/Layout';
-import { Register } from 'register/register';
 import { UserContext } from 'data/UserStore';
+import { URL } from 'config/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,7 +59,7 @@ export const Login = () => {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
-    email: '',
+    username: '',
     password: ''
   });
 
@@ -69,14 +70,23 @@ export const Login = () => {
   const handleRegister = () => {
     dispatch({
       type: 'register',
-      payload: <Register />
+      payload: true 
     });
   }
 
   const handleSignIn = () => {
-    dispatch({
-      type: 'signIn',
-      payload: values
+    axios.post(URL.LOGIN, {
+      username: values.username,
+      password: values.password
+    })
+    .then(function (response) {
+      dispatch({
+        type: 'signIn',
+        payload: response.data 
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
   }
 
@@ -94,16 +104,16 @@ export const Login = () => {
           </Typography>
           <div className={classes.form}>
             <TextField
-              value={values.email}
-              onChange={handleChange("email")}
+              value={values.username}
+              onChange={handleChange("username")}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
