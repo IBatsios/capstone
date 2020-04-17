@@ -46,27 +46,9 @@ export function userReducer(state, action) {
   }
   switch (action.type) {
     case 'setPostData':
-      // This would not be necessary if the properties of the backend
-      // model were implemented based on the documentation.
-      const posts = action.payload.posts.map(post => {
-        return {
-          id: post._id,
-          title: post.title,
-          content: post.content,
-          interest: post.topic,
-          arrayLike: post.arrayLike,
-          likeCount: post.likeCount,
-          isActive: post.isActive,
-          createdAt: post.createdAt,
-          updatedAt: post.updatedAt,
-          author: post.author,
-          comments: post.comments
-        }
-      });
-      return {...state, posts: posts, isFetchingPosts: false};
+      return postReducer(state, action);
     case 'isFetchingPosts':
-      console.log('isFetchingPosts');
-      return {...state, isFetchingPosts: true};
+      return postReducer(state, action);
     case 'login':
       console.log('login');
       state.login = true;
