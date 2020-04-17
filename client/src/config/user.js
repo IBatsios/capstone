@@ -75,6 +75,7 @@ const BACKEND_URL = 'http://localhost:9000';
 const URL = {
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
+  LOGOUT: `${BACKEND_URL}/logout`,
   LOGIN: `${BACKEND_URL}/login`
 };
 

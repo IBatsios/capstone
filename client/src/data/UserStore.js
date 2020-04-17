@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react';
+import axios from 'axios';
 import { userConfig } from '../config/user';
 // Acting as a call to the backend or some middleware.
 // TODO: Remove me!
@@ -8,6 +9,25 @@ import {
 
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
+
+/*
+axios({
+  withCredentials: true,
+  method: 'post',
+  url: 'http://localhost:9000/login',
+  data: {
+    username: 'jsmith',
+    password: 'password' 
+  }
+})
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+});
+*/
+
 
 const userMap = {
   map: new Map(),
@@ -49,6 +69,29 @@ export function userReducer(state, action) {
       return postReducer(state, action);
     case 'isFetchingPosts':
       return postReducer(state, action);
+    case 'isFetchingUser':
+      console.log('isFetchingUser');
+      return {...state, isFetchingUser: true};
+    case 'setUser':
+      // FIXME: This is a work-around.
+      // This serves to auto-login in the user defined in the
+      // login form.  It seems to me there ought to be a way
+      // to allow a user with a valid session on the backend to 
+      // avoid sending there username and password with each 
+      // request.
+      userMap.set(action.payload.user);
+      return {
+        ...state,
+        authenticated: true,
+        login: true,
+        activeList,
+        ...userConfig,
+        lists,
+        posts: [],
+        dynamicContent: [],
+        user: userMap.getById(action.payload.user._id),
+        isFetchingUser: false
+      };
     case 'login':
       console.log({...initialState});
       console.log(state);
@@ -81,7 +124,8 @@ export function userReducer(state, action) {
       return {...state, activeList: {...action.payload}};
     case 'logout':
       console.log('Logging out');
-      return { ...initialState};
+      //return { ...initialState};
+      return {...state};
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };
@@ -96,6 +140,9 @@ export function userReducer(state, action) {
       console.log(`pushBlock (length): ${state.dynamicContent.length}`);
       console.log(state.dynamicContent);
       return { ...state };
+    case 'updateUserProfile':
+      console.log(action.payload);
+      return {...state};
     default:
       return {...state};
   }

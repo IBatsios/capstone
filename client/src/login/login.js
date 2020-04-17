@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -75,11 +75,16 @@ export const Login = () => {
   }
 
   const handleSignIn = () => {
-    axios.post(URL.LOGIN, {
-      username: values.username,
-      password: values.password
+    axios({
+      method: 'post',
+      url: URL.LOGIN,
+      data: {
+        username: values.username,
+        password: values.password
+      }
     })
     .then(function (response) {
+      console.log(response);
       dispatch({
         type: 'signIn',
         payload: response.data 
@@ -90,6 +95,37 @@ export const Login = () => {
     });
   }
 
+  useEffect(() => {
+      const fetchUser = async () => {
+          try {
+              dispatch({
+                type:'isFetchingUser',
+                payload: true
+              });
+              //const response = await axios.post(URL.LOGIN);
+              const response = await axios({
+                method: 'post',
+                url: URL.LOGIN,
+                data: {
+                  username: 'jsmith',
+                  password: 'password'
+                }
+              });
+              dispatch({
+                type:'setUser',
+                payload: {
+                  user: response.data
+                }
+              });
+          } catch (e) {
+              dispatch({
+                user: state.user,
+                isFetchingUser: false
+              });
+          }
+      };
+      fetchUser();
+  }, []);
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
