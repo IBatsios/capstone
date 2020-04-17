@@ -70,10 +70,13 @@ const userConfig = {
     }
   }
 }
+const BACKEND_URL = 'http://localhost:9000';
+const POSTS_REQUEST_URL = `${BACKEND_URL}/posts`;
 
 
 
 export {
+  POSTS_REQUEST_URL,
   HOME,
   HOME_ICON,
   LISTS,
