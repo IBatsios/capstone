@@ -43,9 +43,11 @@ export const Register = () => {
   const [state, dispatch] = useContext(UserContext);
   const [values, setValues] = React.useState({
     email: '',
+    username: '',
     firstName: '',
     lastName: '',
-    password: ''
+    password: '',
+    password2: ''
   });
 
   const handleChange = name => (event) => {
@@ -127,6 +129,19 @@ export const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                value={values.username}
+                onChange={handleChange("username")}
+                variant="outlined"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
                 value={values.password}
                 onChange={handleChange("password")}
                 variant="outlined"
@@ -136,6 +151,20 @@ export const Register = () => {
                 label="Password"
                 type="password"
                 id="password"
+                autoComplete="current-password"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                value={values.password2}
+                onChange={handleChange("password2")}
+                variant="outlined"
+                required
+                fullWidth
+                name="password2"
+                label="Confirm Password"
+                type="password"
+                id="password2"
                 autoComplete="current-password"
               />
             </Grid>
