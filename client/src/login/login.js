@@ -59,6 +59,7 @@ export const Login = () => {
 
   const [values, setValues] = React.useState({
     email: '',
+    username: '',
     password: ''
   });
 
@@ -94,7 +95,7 @@ export const Login = () => {
           </Typography>
           <div className={classes.form}>
             <TextField
-              value={values.email}
+              value={values.username}
               onChange={handleChange("username")}
               variant="outlined"
               margin="normal"
