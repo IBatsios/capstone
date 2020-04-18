@@ -51,6 +51,7 @@ var postSchema = new Schema(
     },
     spoiler: {
       type: Boolean,
+      required: true,
     },
     isActive: {
       type: Boolean,

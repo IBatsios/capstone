@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   const allPosts = await PostServices.getMany(filter)
 
   if (!allPosts) {
-    return res.redirect('/posts/new')
+    return res.redirect('/dev/posts/new')
   }
 
   res.render('posts', { posts: allPosts })

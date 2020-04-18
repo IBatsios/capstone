@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   const allComments = await CommentServices.getMany(filter)
 
   if (!allComments) {
-    return res.redirect('/comments/new')
+    return res.redirect('/dev/comments/new')
   }
 
   res.render('comments', { comments: allComments })
@@ -23,15 +23,15 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   const commentDTO = req.body
   const result = await CommentServices.addNew(commentDTO)
+  console.log(result)
 
   var response
   if (!result) {
     response = 'Post was unsuccessful'
+    res.send(response)
   } else {
-    response = 'Post was successful'
+    res.redirect('/dev/comments')
   }
-
-  res.send(response)
 })
 
 // NEW: renders the form to add a new comment.

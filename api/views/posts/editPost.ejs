@@ -10,12 +10,12 @@
     <h1>Edit Existing Post</h1>
     <h2>Developer Test</h2>
     <a href="/dev/posts">Return to list</a>
-    <form action="/dev/posts/<%= post._id%>?_method=PUT" method="POST">
+    <form action="/dev/posts/<%= post._id %>?_method=PUT" method="PUT">
       <div>
         <label for="title">Title</label>
         <input
           type="text"
-          name="email"
+          name="title"
           id="title"
           placeholder="<%= post.title %>"
           value="<%= post.title %>"
@@ -23,13 +23,13 @@
       </div>
       <div>
         <label for="content">Content</label></br>
-        <textarea
+        <input
           type="text"
           name="content"
           id="content"
           placeholder="<%= post.content %>"
           value="<%= post.content %>"
-        ></textarea>
+        />
       </div>
       <div>
         <label for="topic">Topic</label>
@@ -55,22 +55,22 @@
         <label for="author">Author</label></br>
         <input
           type="author"
-          name="author"
-          id="author"
+          name="authorId"
+          id="authorId"
           placeholder="<%= post.author.id %>"
           value="<%= post.author.id %>"
         /></br>
         <input
           type="text"
-          name="author.username"
-          id="author.username"
+          name="authorUsername"
+          id="authorUsername"
           placeholder="<%= post.author.username %>"
           value="<%= post.author.username %>"
         /></br>
         <input
           type="text"
-          name="author.avatar"
-          id="author.avatar"
+          name="authorAvatar"
+          id="authorAvatar"
           placeholder="<%= post.author.avatar %>"
           value="<%= post.author.avatar %>"
         /></br>
@@ -85,7 +85,7 @@
         <br />
       </div>
       <div>
-        <label for="Spoiler">Spoiler</label><br />
+        <label for="spoiler">Spoiler</label><br />
         <input type="radio" name="spoiler" id="spoiler" value="true" />
         <label>True</label>
         <br />
