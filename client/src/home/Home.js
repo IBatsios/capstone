@@ -14,6 +14,30 @@ const Home = () => {
   const section = 'home';
 
   useEffect(() => {
+      const fetchLists = async () => {
+          try {
+              dispatch({
+                type:'isFetchingLists',
+                payload: true
+              });
+              const response = await axios.get(URL.LISTS);
+              dispatch({
+                type:'setListData',
+                payload: {
+                  lists: response.data
+                }
+              });
+          } catch (e) {
+              dispatch({
+                lists: state.lists,
+                isFetchingLists: false
+              });
+          }
+      };
+      fetchLists();
+  }, []);
+
+  useEffect(() => {
       const fetchPosts = async () => {
           try {
               dispatch({
