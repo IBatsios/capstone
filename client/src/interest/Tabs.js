@@ -27,13 +27,13 @@ export const Tabs = (props) => {
   // Don't allow swiping out-of-bounds.
   const handleSwipe = (event) => {
     if (event.dir === "Right") {
-      if (state[props.section].interest > 0) {
-        changeTab(state[props.section].interest-1);
+      if (state.section[props.section].interest > 0) {
+        changeTab(state.section[props.section].interest-1);
       }
     }
     if (event.dir === "Left") {
-      if (state[props.section].interest + 1 < props.interests.length) {
-        changeTab(state[props.section].interest+1);
+      if (state.section[props.section].interest + 1 < state.interests.length) {
+        changeTab(state.section[props.section].interest+1);
       }
     }
 
