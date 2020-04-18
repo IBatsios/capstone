@@ -1,65 +1,80 @@
 import React, { createContext, useReducer } from 'react';
-import { userConfig } from '../config/user';
-// Acting as a call to the backend or some middleware.
-import {
-  getLists
-} from './MockDataProvider';
-
-const lists = getLists();
 
 const initialState = {
-  // TODO: Remove userConfig from this initialState, it should be onlyin
-  // UserStore.  Removing from here causes an error and needs to be 
-  // fixed.
-  ...userConfig,
-  lists
+  lists: []
 };
+
+/**
+ * listMap stores the lists requested from the server and handles any
+ * differences in property names between the front and back-ends.  
+ **/
+const listMap = {
+  map: new Map(),
+  // Returns a list in the format of the front-end.
+  get(list) {
+    return this.map.get(list.id);
+  },
+  // Saves the list as provide by the backend.
+  set(list) {
+    this.map.set(list.id, list);
+  },
+  // Returns all the lists in the format the frontend expects.
+  getAll() {
+    let allLists = [];
+    for (let list of this.map.values()) {
+      allLists.push({...list});
+    }
+    return allLists;
+  },
+  getById(id) {
+    return this.map.get(id);
+  },
+  delete(id) {
+    this.map.delete(id);
+  }
+}
 
 export function listReducer(state, action) {
   switch (action.type) {
+    case 'isFetchingLists':
+      console.log('isFetchingLists');
+      return {...state, isFetchingLists: true};
+    case 'setListData':
+      console.log('setListData');
+      action.payload.lists.map(list => {
+        listMap.set(list);
+      });
+      return {...state, lists: listMap.getAll(), isFetchingLists: false};
     case 'ListFormSave':
       // Prints to the console, the submitted post data.
       console.log(action.payload);
       if (action.payload.id) {
-        state.lists = state.lists.map(list => {
-          if (list.id === action.payload.id) {
-            list = {...list, ...action.payload};
-          }
-          return list;
-        });
+        const list = {...listMap.get(action.payload), ...action.payload};
+        listMap.set(list);
+        return {...state, lists: listMap.getAll() };
+        // Send a the new list information to the server.
       } else {
-        const listId = state.posts.length + 100;
-        const list = { id: listId, items: [], ...action.payload };
-        state.lists.unshift(list);
+        // Send a the new list information to the server.
       }
       return { ...state };
     case 'deleteList':
       console.log(action.payload);
-      state.lists = state.lists.filter(list =>  list.id !== action.payload);
-      return { ...state };
+      listMap.delete(action.payload);
+      return { ...state, lists: listMap.getAll() };
     case 'deleteListItem':
-      console.log(`User with id: ${state.user.id} wants to delete the item named ${action.payload.item.name} with id: ${action.payload.item.id} from list with id: ${action.payload.listId}`);
+      // TODO: Implement delete of an item from a list.
       return { ...state}; 
     case 'ListItemFormSave':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
-      state.lists = state.lists.map(list => {
-        list.items = list.items.map(item => {
-          if (item.id === action.payload.id) {
-            item = {...item, ...action.payload};
-          }
-          return item;
-        });
-        return list;
-      });
-      state.activeList = state.lists.find(list => list.id === '1');
+      // TODO: Implement saving an item to a list.
       return { ...state };
     default:
       return state;
   }
 }
 
-export const ListContext = createContext([{lists: lists}, function(){}]);
+export const ListContext = createContext([{}, function(){}]);
 export const ListStore = ({children}) => {
   const [state, dispatch] = useReducer(listReducer, initialState);
 

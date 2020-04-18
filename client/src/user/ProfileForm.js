@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -17,7 +18,6 @@ import { UserContext } from 'data/UserStore';
  * @param {object} [props] Could contain user settings.
  */
 export const ProfileForm = (props) => {
-   console.log(props);
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
@@ -44,11 +44,31 @@ export const ProfileForm = (props) => {
         delete values[key];
       }
     });
-    dispatch({
-      type: 'profileFormSave',
-      payload: values
+    console.log({ data: { avatar: values.avatar, bio: values.bio, email: values.email, firstName: values.firstName, lastName: values.lastName, phone: values.phone }});
+    axios({
+      method: 'put',
+      url: `http://localhost:9000/user/${state.user.id}`,
+      data: {
+        _id: state.user.id,
+        avatar: values.avatar, 
+        bio: values.bio,
+        email: values.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        phone: values.phone
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+      dispatch({
+        type: 'updateUserProfile',
+        payload: response.data 
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-    handleClose();
+    //handleClose();
   };
 
   const handleChange = name => (event) => {
