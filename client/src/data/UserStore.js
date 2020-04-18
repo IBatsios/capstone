@@ -1,34 +1,12 @@
 import React, { createContext, useReducer } from 'react';
-import axios from 'axios';
-import { userConfig } from '../config/user';
-// Acting as a call to the backend or some middleware.
-// TODO: Remove me!
-import {
-  getLists
-} from './MockDataProvider';
-
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
+import { userConfig } from '../config/user';
 
-/*
-axios({
-  withCredentials: true,
-  method: 'post',
-  url: 'http://localhost:9000/login',
-  data: {
-    username: 'jsmith',
-    password: 'password' 
-  }
-})
-.then(function (response) {
-  console.log(response);
-})
-.catch(function (error) {
-  console.log(error);
-});
-*/
-
-
+/**
+ * userMap stores the users requested from the server and handles any
+ * differences in property names between the front and back-ends.  
+ **/
 const userMap = {
   map: new Map(),
   // Returns a user in the format of the front-end.
@@ -51,7 +29,6 @@ const userMap = {
   }
 }
 
-const lists = getLists();
 const activeList = {};
 const initialState = {
   authenticated: false
@@ -69,6 +46,10 @@ export function userReducer(state, action) {
       return postReducer(state, action);
     case 'isFetchingPosts':
       return postReducer(state, action);
+    case 'isFetchingLists':
+      return listReducer(state, action);
+    case 'setListData':
+      return listReducer(state, action);
     case 'isFetchingUser':
       console.log('isFetchingUser');
       return {...state, isFetchingUser: true};
@@ -86,7 +67,7 @@ export function userReducer(state, action) {
         login: true,
         activeList,
         ...userConfig,
-        lists,
+        lists: [],
         posts: [],
         dynamicContent: [],
         user: userMap.getById(action.payload.user._id),
@@ -106,7 +87,7 @@ export function userReducer(state, action) {
         login: true,
         activeList,
         ...userConfig,
-        lists,
+        lists: [],
         posts: [],
         dynamicContent: []
       }
