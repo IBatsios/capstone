@@ -25,8 +25,30 @@ class ItemServices {
 
         // TODO: validate item DTO.
 
-        const itemId = connector.create(modelName, itemDTO);
-        return itemId;
+        
+        try {
+            const newItem = new Item({
+              itemName: itemDTO.itemName,
+              URL: itemDTO.URL,
+              topic: itemDTO.topic,
+              description: itemDTO.description,
+              likeCount: itemDTO.likeCount,
+              arrayLike: itemDTO.arrayLike,
+              author: itemDTO.author,
+              isActive: itemDTO.isActive,
+            })
+      
+            const result = connector.create(modelName, newItem)
+            if (!result) {
+              console.log('New item failed at ItemServices')
+              return false
+            }
+            return result
+          } catch (error) {
+            console.log(error)
+            return false
+          }
+        
     }
 
     /**

@@ -25,9 +25,27 @@ class ListServices {
 
         // TODO: validate list DTO.
 
-        const listId = connector.create(modelName, listDTO);
-        return listId;
-    }
+        try {
+            const newList = new List({
+              listName: listDTO.listName,
+              topic: listDTO.topic,
+              itemList: listDTO.itemList,
+              author: listDTO.author,
+              isActive: listDTO.isActive,
+            })
+      
+            const result = connector.create(modelName, newList)
+            if (!result) {
+              console.log('New list failed at ListServices')
+              return false
+            }
+            return result
+          } catch (error) {
+            console.log(error)
+            return false
+          }
+        }
+    
 
     /**
      * Service method to find a single list in the database.
