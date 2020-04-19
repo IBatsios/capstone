@@ -73,13 +73,9 @@ export function userReducer(state, action) {
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
-    case 'login':
-      console.log({...initialState});
-      console.log(state);
-      return { ...initialState};
     case 'signIn':
-      console.log(action.payload);
       userMap.set(action.payload);
+      sessionStorage.setItem('userId', action.payload._id);
       return {
         user: userMap.getById(action.payload._id),
         authenticated: true,
@@ -105,8 +101,8 @@ export function userReducer(state, action) {
       return {...state, activeList: {...action.payload}};
     case 'logout':
       console.log('Logging out');
-      //return { ...initialState};
-      return {...state};
+      sessionStorage.removeItem('userId');
+      return { ...initialState, authenticated: false};
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };

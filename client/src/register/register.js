@@ -62,25 +62,29 @@ export const Register = () => {
     });
   }
 
-  const handleRegister = () => {
-    axios.post(URL.REGISTER, {
-      email: values.email,
-      username: values.username,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      password: values.password,
-      password2: values.password2
-    })
-    .then(function (response) {
+  const handleRegister = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'post',
+        url: URL.REGISTER,
+        data: {
+          email: values.email,
+          username: values.username,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          password: values.password,
+          password2: values.password2
+        }
+      });
       dispatch({
         type: 'signIn',
         payload: response.data 
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Container className={classes.root} component="main" maxWidth="xs">

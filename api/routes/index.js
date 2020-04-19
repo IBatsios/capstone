@@ -109,14 +109,17 @@ router.post('/login', function (req, res, next) {
  * Logs the user out using PassportJS.
  * 
  * @author Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 router.get('/logout', Middleware.isLoggedIn, function (req, res, next) {
     try {
         req.logout();
-        return true;
+        // The client requires a JSON response in order to logout
+        // properly.
+        return res.send({ success: true });
     } catch (err) {
-        return false;
+        return res.send({ success: false });
     }
 });
 
