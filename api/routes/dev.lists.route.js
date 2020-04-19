@@ -19,9 +19,9 @@ const ListServices = require('../services/ListServices');
 router.get('/', async (req, res) => {
     const filter = req.body
 
-  const allPosts = await PostServices.getMany(filter)
+  const allLists = await ListServices.getManyLists(filter)
 
-  if (!allPosts) {
+  if (!allLists) {
     return res.redirect('/lists/newList')
   }
 
@@ -34,16 +34,19 @@ router.get('/', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.post('/', async (req, res) => {
+router.post('/', async (req, res) => {   
     req.body.isActive = true;
     const listDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
     var newList = await ListServices.addList(listDTO);
+    var response
     if (!newList) {
-        return res.redirect('/lists/newList');
-    }
-
-    return res.render('lists/showList', {list: newList});
-});
+        response = 'unsuccessful.'
+      } else {
+        response = 'successful.'
+      }
+    
+      res.send(response)
+    })
 
 /**
  * NEW: renders the form to register a new List.
@@ -68,6 +71,7 @@ router.get('/:id', async (req, res) => {
         console.log('Error when retrieving list.');
         return res.redirect('/lists');
     }
+    console.log(listId)
     return res.render('lists/showList', {list: foundList});
 });
 
@@ -78,9 +82,15 @@ router.get('/:id', async (req, res) => {
  * @since 1.0.0
  */
 router.get('/:id/edit', async (req, res) => {
-    const foundList = await ListServices.getList(req.params.id);
-    return res.render('lists/editList', {list: foundList});
-});
+    const listId = req.params.id
+    const foundList = await ListServices.getList(listId);
+    if (!foundList) {
+        console.log('Error when attempting to render edit list form.')
+        return res.render('/lists')
+      }
+    
+      return res.render('lists/editList', { list: foundList })
+    })
 
 /**
  * PUT: updates a List in the database.
@@ -111,8 +121,9 @@ router.delete('/:id', async (req, res) => {
     console.log(response);
     if (!response) {
         console.log('Error when deleting list.'); // TODO: Send error message to view.
+        return res.redirect('/lists'); //TODO: Send success message to view.
     }
-    return res.redirect('/lists'); //TODO: Send success message to view.
+    return res.send('list delete.')
 });
 
 module.exports = router;

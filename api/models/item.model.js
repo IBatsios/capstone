@@ -24,20 +24,6 @@ var itemSchema = new Schema({
         type: String,
         required: true
     },
-    likeCount: {
-        type: Number,
-        default: 0,
-        required: false
-    },
-    arrayLike: [
-        {
-          id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-          },
-          username: String
-        }
-      ],
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

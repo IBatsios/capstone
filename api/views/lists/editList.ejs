@@ -8,8 +8,8 @@
 <body>
     <h1>Edit Existing List</h1>
     <h2>Developer Test</h2>
-    <a href="/lists">Return to list</a><br><br>
-    <form action="/lists/<%= list._id %>?_method=PUT" method="POST">
+    <a href="/dev/lists">Return to list</a><br><br>
+    <form action="/dev/lists/<%= list._id %>?_method=PUT" method="POST">
         <div>
             <label for="listName">ListName</label>
             <input type="listName" name="listName" id="listName" placeholder="ListName" value="<%= list.listName %>">   
@@ -37,8 +37,8 @@
     
         </div>
         <div>
-            <label for="topic">Topic</label>
-            <input type="topic" name="topic" id="topic" placeholder="Topic" value="<%= list.topic %>">   
+            <label for="interest">Interest</label>
+            <input type="interest" name="interest" id="interest" placeholder="Interest" value="<%= list.interest %>">   
         </div>
         <div>
             <label for="author">Author</label>
@@ -50,7 +50,7 @@
     </form>
     <br>
     <br>
-    <form action="/lists/<%= list._id %>?_method=DELETE" method="POST">
+    <form action="/dev/lists/<%= list._id %>?_method=DELETE" method="POST">
         <button style="color: red;">Permanently Delete</button>
     </form>
 </body>

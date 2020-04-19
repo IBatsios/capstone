@@ -8,15 +8,14 @@
 <body>
     <h1>Show 1 List</h1>
     <h2>Developer Test</h2>
-    <a href="/lists">Go Back</a>
+    <a href="/dev/lists">Go Back</a>
     <hr />
     <div style="border: 1px solid red;">
         <p><b>Listname: </b><%= list.listName %></p>
         <p><b>List of Item: </b><%= list.itemList %></p>
-        <p><b>Topic: </b><%= list.topic %></p>
         <p><b>Author: </b><%= list.author %></p>
     </div>
     <br>
-    <a href="/lists/<%= list._id %>/edit">Edit List</a>
+    <a href="/dev/lists/<%= list._id %>/edit">Edit List</a>
 </body>
 </html>

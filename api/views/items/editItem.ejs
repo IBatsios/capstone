@@ -8,8 +8,8 @@
 <body>
     <h1>Edit Existing Item</h1>
     <h2>Developer Test</h2>
-    <a href="/items">Return to list</a><br><br>
-    <form action="/items/<%= item._id %>?_method=PUT" method="POST">
+    <a href="/dev/items">Return to list</a><br><br>
+    <form action="/dev/items/<%= item._id %>?_method=PUT" method="POST">
         <div>
             <label for="itemName">ItemName</label>
             <input type="itemName" name="itemName" id="itemName" placeholder="ItemName" value="<%= item.itemName %>">   
@@ -31,23 +31,12 @@
             <input type="text" name="author" id="author" placeholder="author" value="<%= item.author %>" >
         </div>
         <div>
-        <script>
-            var i = "<%= item.likeCount %>";
-            function buttonClick() {
-                i++;
-                document.getElementById('likeCount').value = i;
-            }
-        </script>
-        <button for="likeCount" onclick="buttonClick();">Like</button>
-        <input type="number" name="likeCount" id="likeCount" value="<%= item.likeCount %>"></input>
-        </div>
-        <div>
             <button>Submit</button>
         </div>
     </form>
     <br>
     <br>
-    <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
+    <form action="/dev/items/<%= item._id %>?_method=DELETE" method="POST">
         <button style="color: red;">Permanently Delete</button>
     </form>
 </body>
