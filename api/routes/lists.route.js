@@ -19,6 +19,9 @@ const mockLists = require('../data/mock-lists.json');
  */
 router.get('/', async (req, res) => {
     // const filter = req.body; // Optional TODO: Outsource to a ListServices function to build filter.
+    // FIXME: This is a work-aournd to prevent master from crashing.  This route is going to be json at 
+    // some point anyway.  Also a filter which is always empty can be commented-out (personal justification).
+    /*
     const filter = {};
 
     var allLists = await ListServices.getManyLists(filter);
@@ -27,6 +30,7 @@ router.get('/', async (req, res) => {
         // return res.send('No Lists found.');
         return res.redirect('/lists/newList');
     }
+    */
 
     // FIXME: Workaround until json is returning expected data.
     //return res.render('lists', {lists: allLists});
