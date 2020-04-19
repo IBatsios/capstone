@@ -2,8 +2,8 @@
 
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
-
 const modelName = 'item.model';
+const Item = require(`../models/${modelName}`)
 
 /**
  * item Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -21,12 +21,32 @@ class ItemServices {
      * @author Hieu Vo ref Christopher Thacker
      * @since 1.0.0
      */
-    static addItem(itemDTO) {
+    static async addItem(itemDTO) {
 
         // TODO: validate item DTO.
 
-        const itemId = connector.create(modelName, itemDTO);
-        return itemId;
+        
+        try {
+            const newItem = new Item({
+              itemName: itemDTO.itemName,
+              URL: itemDTO.URL,
+              topic: itemDTO.topic,
+              description: itemDTO.description,
+              author: itemDTO.author,
+              isActive: itemDTO.isActive,
+            })
+      
+            const result = await connector.create(modelName, newItem)
+            if (!result) {
+              console.log('New item failed at ItemServices')
+              return false
+            }
+            return result
+          } catch (error) {
+            console.log(error)
+            return false
+          }
+        
     }
 
     /**

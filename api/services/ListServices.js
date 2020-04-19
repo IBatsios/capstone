@@ -2,8 +2,8 @@
 
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
-
 const modelName = 'list.model';
+const List = require(`../models/${modelName}`)
 
 /**
  * list Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -21,13 +21,31 @@ class ListServices {
      * @author Hieu Vo ref Christopher Thacker
      * @since 1.0.0
      */
-    static addList(listDTO) {
+    static async addList(listDTO) {
 
         // TODO: validate list DTO.
 
-        const listId = connector.create(modelName, listDTO);
-        return listId;
-    }
+        try {
+            const newList = new List({
+              listName: listDTO.listName,
+              interest: listDTO.interest,
+              itemList: listDTO.itemList,
+              author: listDTO.author,
+              isActive: listDTO.isActive,
+            })
+      
+            const result = await connector.create(modelName, newList)
+            if (!result) {
+              console.log('New list failed at ListServices')
+              return false
+            }
+            return result
+          } catch (error) {
+            console.log(error)
+            return false
+          }
+        }
+    
 
     /**
      * Service method to find a single list in the database.

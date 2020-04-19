@@ -12,7 +12,7 @@ var listSchema = new Schema({
         type: String,
         required: true
     },
-    topic: {
+    interest: {
         type: String,
         required: true
     },
