@@ -15,7 +15,7 @@
         <label for="title">Title</label>
         <input
           type="text"
-          name="email"
+          name="title"
           id="title"
           value="<%= post.title %>"
         />
@@ -68,6 +68,9 @@
       <div>
         <button>Submit</button>
       </div>
+    </form>
+    <form action="/dev/posts/<%= post._id %>?_method=DELETE" method="POST">
+        <button style="color: red;">Permanently Delete</button>
     </form>
   </body>
 </html>
