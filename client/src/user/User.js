@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import axios from 'axios';
 import {
   AppBar,
   BottomNavigation,
@@ -26,6 +27,7 @@ import { UserMenu } from './UserMenu';
 import { Login } from 'login/login';
 import { Register } from 'register/register';
 import { Copyright } from 'layout/Layout';
+import { URL } from 'config/user';
 
 /**
  * Manages the authenticated user-interface or directs a visitor
@@ -44,6 +46,28 @@ const User = () => {
       payload: value 
     });
   }
+  useEffect(() => {
+    const userId = sessionStorage.getItem('userId');
+
+    if (userId) {
+      const fetchUser = async () => {
+        try {
+          const response = await axios({
+            withCredentials: true,
+            method: 'get',
+            url: `${URL.USERS}/${userId}`
+          });
+          dispatch({
+            type: 'setUser',
+            payload: response.data 
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchUser();
+    }
+  }, []);
 
   return (
     <>

@@ -62,14 +62,19 @@ export const UserMenu = (props) => {
     });
   }
 
-  const logout = () => {
-    axios.get(URL.LOGOUT)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  const logout = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'get',
+        url: URL.LOGOUT
+      });
+      dispatch({
+        type: 'logout'
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const userMenuOptions = () => (
