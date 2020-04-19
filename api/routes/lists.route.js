@@ -9,6 +9,7 @@
 
 const router = require('express').Router();
 const ListServices = require('../services/ListServices');
+const mockLists = require('../data/mock-lists.json');
 
 /**
  * INDEX: show all Lists.
@@ -27,7 +28,9 @@ router.get('/', async (req, res) => {
         return res.redirect('/lists/newList');
     }
 
-    return res.render('lists', {lists: allLists});
+    // FIXME: Workaround until json is returning expected data.
+    //return res.render('lists', {lists: allLists});
+    return res.status(200).send(mockLists);
 });
 
 /**
@@ -39,6 +42,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     req.body.isActive = true;
     const listDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
+    console.log(listDTO);
     var newList = await ListServices.addList(listDTO);
     if (!newList) {
         return res.redirect('/lists/newList');
@@ -64,6 +68,7 @@ router.get('/newList', (req, res) => {
  * @since 1.0.0
  */
 router.get('/:id', async (req, res) => {
+    console.log(req);
     const listId = req.params.id;
     var foundList = await ListServices.getList(listId);
     if (!foundList) {
