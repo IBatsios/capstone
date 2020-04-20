@@ -21,11 +21,6 @@ const userMap = {
   getById(id) {
     const {_id, ...other} = this.map.get(id);
     return { id: _id, ...other };
-  },
-  // Update an entry in the map from the frontend format.
-  save(user) {
-    const { id, ...other } = {...user};
-    this.map.set(id, { _id: id, ...other });
   }
 }
 
@@ -51,15 +46,8 @@ export function userReducer(state, action) {
     case 'setListData':
       return listReducer(state, action);
     case 'isFetchingUser':
-      console.log('isFetchingUser');
       return {...state, isFetchingUser: true};
     case 'setUser':
-      // FIXME: This is a work-around.
-      // This serves to auto-login in the user defined in the
-      // login form.  It seems to me there ought to be a way
-      // to allow a user with a valid session on the backend to 
-      // avoid sending there username and password with each 
-      // request.
       userMap.set(action.payload.user);
       return {
         ...state,
@@ -72,6 +60,12 @@ export function userReducer(state, action) {
         dynamicContent: [],
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
+      };
+    case 'updateUser':
+      userMap.set(action.payload.user);
+      return {
+        ...state,
+        user: userMap.getById(action.payload.user._id)
       };
     case 'signIn':
       userMap.set(action.payload);
@@ -88,8 +82,6 @@ export function userReducer(state, action) {
         dynamicContent: []
       }
     case 'register':
-      console.log('register');
-      console.log(action.payload);
       return {...state, register: action.payload};
     case 'changeTab':
       state.section[action.payload.section].interest = action.payload.interest;
@@ -100,7 +92,6 @@ export function userReducer(state, action) {
       console.log(action.payload);
       return {...state, activeList: {...action.payload}};
     case 'logout':
-      console.log('Logging out');
       sessionStorage.removeItem('userId');
       return { ...initialState, authenticated: false};
     case 'newFriendRequest':
@@ -110,16 +101,10 @@ export function userReducer(state, action) {
       return { ...state, activeHeaderTab: action.payload };
     case 'popBlock':
       state.dynamicContent.shift();
-      console.log(`popBlock (length): ${state.dynamicContent.length}`);
       return { ...state };
     case 'pushBlock':
       state.dynamicContent.unshift(action.payload);
-      console.log(`pushBlock (length): ${state.dynamicContent.length}`);
-      console.log(state.dynamicContent);
       return { ...state };
-    case 'updateUserProfile':
-      console.log(action.payload);
-      return {...state};
     default:
       return {...state};
   }
