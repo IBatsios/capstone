@@ -73,6 +73,12 @@ export function userReducer(state, action) {
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
+    case 'updateUser':
+      userMap.set(action.payload.user);
+      return {
+        ...state,
+        user: userMap.getById(action.payload.user._id)
+      };
     case 'signIn':
       userMap.set(action.payload);
       sessionStorage.setItem('userId', action.payload._id);
@@ -117,9 +123,6 @@ export function userReducer(state, action) {
       console.log(`pushBlock (length): ${state.dynamicContent.length}`);
       console.log(state.dynamicContent);
       return { ...state };
-    case 'updateUserProfile':
-      console.log(action.payload);
-      return {...state};
     default:
       return {...state};
   }
