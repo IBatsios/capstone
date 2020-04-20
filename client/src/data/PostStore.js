@@ -98,20 +98,8 @@ export function postReducer(state, action) {
       // Send the deleted post information to the  server.
       return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
-
-      // Prints to the console, the submitted post data.
-      // A temporary means to save  a post.
-      if (action.payload.id) {
-        const post = {...postMap.get(action.payload), ...action.payload};
-        postMap.save(post);
-        // Send a request to the server to updated the database.
-        return {...state, posts: postMap.getAll() };
-      } else {
-        // Send the new post to the backend and add it to the state. 
-      }
-
-      return { ...state };
-
+      postMap.set(action.payload);
+      return {...state, posts: postMap.getAll()};
     // The next two case may be moved to a local state.
     case 'likePost':
       console.log(`liked postId: ${action.payload}`);
