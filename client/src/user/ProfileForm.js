@@ -47,7 +47,7 @@ export const ProfileForm = (props) => {
     console.log({ data: { avatar: values.avatar, bio: values.bio, email: values.email, firstName: values.firstName, lastName: values.lastName, phone: values.phone }});
     axios({
       method: 'put',
-      url: `http://localhost:9000/user/${state.user.id}`,
+      url: `http://localhost:9000/users/${state.user.id}`,
       data: {
         _id: state.user.id,
         avatar: values.avatar, 
