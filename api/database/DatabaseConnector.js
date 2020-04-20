@@ -110,6 +110,7 @@ class DatabaseConnector {
      */
     async readMany(modelName, filter) {
         try {
+            filter.isActive = true;
             return await Translator.readMany(modelName, filter);     
         } catch (error) {
             console.log(error);
