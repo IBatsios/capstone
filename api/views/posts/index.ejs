@@ -15,7 +15,7 @@
     <% posts.forEach(function(post) { %>
     <div style="border: 1px solid red;">
       <div><b>Title:</b> <%= post.title %></div>
-      <div><b>Topic:</b> <%= post.topic %></div>
+      <div><b>Interest:</b> <%= post.interest %></div>
       <div><b>Author:</b> <%= post.author %></div>
       <div><b>Mongo ID:</b> <%= post._id %></div>
       <div><b></b><a href="/dev/posts/<%= post._id %>">See More</a></div>

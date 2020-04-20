@@ -16,7 +16,7 @@ var itemSchema = new Schema({
         type: String,
         required: true
     },
-    topic: {
+    interest: {
         type: String,
         required: true
     },
