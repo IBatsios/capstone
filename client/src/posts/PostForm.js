@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -27,6 +28,7 @@ import {
   SPOILER_LABEL,
   SPOILER_ID
 } from 'config/view/constants';
+import { URL } from 'config/user';
 
 export const  PostForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
@@ -46,25 +48,37 @@ export const  PostForm = (props) => {
     });
   };
 
-  const handleSave = () => {
-    // Remove properties with an undefined value.
-    // We want to be able to know the id of the post
-    // if it is being editted; but be don't want to pass
-    // around and id of undefined for new posts.
-    Object.keys(values).forEach(key => {
-      if (values[key] === undefined) {
-        delete values[key];
-      }
-    });
+  const handleSave = async () => {
+    // Send the updated post data to the server.
+    try {
+      let response = await axios({
+        withCredentials: true,
+        method: 'put',
+        url: `${URL.POSTS}/${values.id}`,
+        data: {
+          title: values.title,
+          content: values.content,
+          interest: values.interest,
+          spoiler: values.spoiler
+        }
+      });
+      // Use the response url to fetch the updated resource.
+      const updatedDataUrl = response.request.responseURL;
+      response = await axios({
+        withCredentials: true,
+        method: 'get',
+        url: updatedDataUrl,
+      });
 
-    dispatch({
-      store: 'PostStore',
-      type: 'PostFormSave',
-      payload: values
-    });
-    handleClose();
-
-    handleClose();
+      dispatch({
+        store: 'PostStore',
+        type: 'PostFormSave',
+        payload: response.data 
+      });
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = name => (event) => {
