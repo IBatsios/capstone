@@ -103,7 +103,7 @@ class DatabaseConnector {
     }
 
     /**
-     * Read connector method: calls the translator's matching "readMany()" method.
+     * Retrieves all ACTIVE objects for a database model.
      * 
      * @author Christopher Thacker
      * @since 1.0.0
@@ -111,6 +111,21 @@ class DatabaseConnector {
     async readMany(modelName, filter) {
         try {
             filter.isActive = true;
+            return await Translator.readMany(modelName, filter);     
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves all data about a specific model; objects can be active or inactive.
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    async readAll(modelName, filter) {
+        try {
             return await Translator.readMany(modelName, filter);     
         } catch (error) {
             console.log(error);
