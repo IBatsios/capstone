@@ -30,7 +30,7 @@ class ItemServices {
             const newItem = new Item({
               itemName: itemDTO.itemName,
               URL: itemDTO.URL,
-              topic: itemDTO.topic,
+              interest: itemDTO.interest,
               description: itemDTO.description,
               author: itemDTO.author,
               isActive: itemDTO.isActive,

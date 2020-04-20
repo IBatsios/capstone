@@ -27,7 +27,7 @@ class PostServices {
       const newPost = new Post({
         title: postDTO.title,
         content: postDTO.content,
-        topic: postDTO.topic,
+        interest: postDTO.interest,
         likeCount: postDTO.likeCount,
         arrayLike: postDTO.arrayLike,
         comments: postDTO.comments,
