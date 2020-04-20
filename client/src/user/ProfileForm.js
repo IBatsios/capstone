@@ -12,6 +12,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
+import { URL } from 'config/user';
 
 /**
  * Allows user to modify their profile.
@@ -37,38 +38,40 @@ export const ProfileForm = (props) => {
     });
   };
 
-  const handleSave = () => {
-    // Remove properties with an undefined value.
-    Object.keys(values).forEach(key => {
-      if (values[key] === undefined) {
-        delete values[key];
-      }
-    });
-    console.log({ data: { avatar: values.avatar, bio: values.bio, email: values.email, firstName: values.firstName, lastName: values.lastName, phone: values.phone }});
-    axios({
-      method: 'put',
-      url: `http://localhost:9000/users/${state.user.id}`,
-      data: {
-        _id: state.user.id,
-        avatar: values.avatar, 
-        bio: values.bio,
-        email: values.email,
-        firstName: values.firstName,
-        lastName: values.lastName,
-        phone: values.phone
-      }
-    })
-    .then(function (response) {
-      console.log(response);
+  const handleSave = async () => {
+    // Send the updated user profile information to the server.
+    try {
+      let response = await axios({
+        withCredentials: true,
+        method: 'put',
+        url: `${URL.USERS}/${state.user.id}`,
+        data: {
+          _id: state.user.id,
+          avatar: values.avatar, 
+          bio: values.bio,
+          email: values.email,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          phone: values.phone
+        }
+      });
+      // Use the response url to fetch the updated resource.
+      const updatedUserDataUrl = response.request.responseURL;
+      response = await axios({
+        withCredentials: true,
+        method: 'get',
+        url: updatedUserDataUrl,
+      });
+      // Update the state of the user with the new profile information.
       dispatch({
-        type: 'updateUserProfile',
+        type: 'updateUser',
         payload: response.data 
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-    //handleClose();
+
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = name => (event) => {
