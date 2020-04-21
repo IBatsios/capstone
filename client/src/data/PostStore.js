@@ -1,4 +1,7 @@
 import React, { createContext, useReducer } from 'react';
+import axios from 'axios';
+import { URL } from 'config/user';
+
 // Acting as a call to the backend or some middleware.
 
 let posts;
@@ -57,6 +60,20 @@ const postMap = {
   }
 }
 
+const deletePost = async (id) => {
+  postMap.map.delete(id);
+
+  try {
+    const response = await axios({
+      withCredentials: true,
+      method: 'delete',
+      url: `${URL.POSTS}/${id}`
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export function postReducer(state, action) {
   console.log(action);
   let post;
@@ -90,12 +107,9 @@ export function postReducer(state, action) {
       });
       return {...state};
     case 'deletePost':
-      console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
+      // Tell the server which post to delete.
+      deletePost(action.payload);
 
-      // A temporary means to remove a post.
-      postMap.map.delete(action.payload);
-
-      // Send the deleted post information to the  server.
       return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
       postMap.set(action.payload);
