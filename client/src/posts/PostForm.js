@@ -51,10 +51,11 @@ export const  PostForm = (props) => {
   const handleSave = async () => {
     // Send the updated post data to the server.
     try {
+      const postId = values.id || '';
       let response = await axios({
         withCredentials: true,
         method: 'put',
-        url: `${URL.POSTS}/${values.id}`,
+        url: `${URL.POSTS}/${postId}`,
         data: {
           title: values.title,
           content: values.content,
