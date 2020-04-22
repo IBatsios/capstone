@@ -21,7 +21,7 @@ class ItemServices {
      * @author Hieu Vo ref Christopher Thacker
      * @since 1.0.0
      */
-    static async addItem(itemDTO) {
+    static async addItem(user, itemDTO) {
 
         // TODO: validate item DTO.
 
@@ -32,8 +32,8 @@ class ItemServices {
               URL: itemDTO.URL,
               interest: itemDTO.interest,
               description: itemDTO.description,
-              author: itemDTO.author,
-              isActive: itemDTO.isActive,
+              author: user,
+              isActive: true,
             })
       
             const result = await connector.create(modelName, newItem)
@@ -139,6 +139,28 @@ class ItemServices {
 
         return deleteResponse;
     }
+        /**
+     * @author Hieu Vo ref Jamie Weathers
+     * @since 1.0.0
+     */
+    static async hide(itemId) {
+        const hideData = { isActive: 'false' }
+        const getItem = await this.update(itemId, hideData)
+    
+        return getItem
+      }
+    
+      /**
+       * @author Hieu Vo ref Jamie Weathers
+       * @since 1.0.0
+       */
+      static async show(itemId) {
+        const hideData = { isActive: 'true' }
+        const getItem = await this.update(itemId, hideData)
+    
+        return getItem
+      }
+
 }
 
 module.exports = ItemServices;

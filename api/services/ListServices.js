@@ -21,17 +21,18 @@ class ListServices {
      * @author Hieu Vo ref Christopher Thacker
      * @since 1.0.0
      */
-    static async addList(listDTO) {
+    static async addList(user,listDTO) {
 
         // TODO: validate list DTO.
 
         try {
             const newList = new List({
-              listName: listDTO.listName,
-              interest: listDTO.interest,
-              itemList: listDTO.itemList,
-              author: listDTO.author,
-              isActive: listDTO.isActive,
+                listName: listDTO.listName,           
+                interest: listDTO.interest,
+                itemList: [],              
+                author: user,
+                isActive: true,
+              
             })
       
             const result = await connector.create(modelName, newList)
@@ -137,6 +138,27 @@ class ListServices {
 
         return deleteResponse;
     }
+    /**
+     * @author Hieu Vo ref Jamie Weathers
+     * @since 1.0.0
+     */
+    static async hide(listId) {
+        const hideData = { isActive: 'false' }
+        const getList = await this.update(listId, hideData)
+    
+        return getList
+      }
+    
+      /**
+       * @author Hieu Vo ref Jamie Weathers
+       * @since 1.0.0
+       */
+      static async show(listId) {
+        const hideData = { isActive: 'true' }
+        const getList = await this.update(listId, hideData)
+    
+        return getList
+      }
 }
 
 module.exports = ListServices;

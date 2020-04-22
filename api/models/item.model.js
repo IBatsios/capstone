@@ -26,11 +26,12 @@ var itemSchema = new Schema({
     },
     author: {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
         },
-        username: String
-    },
+        username: String,
+        avatar: String
+      },
     isActive: {
         type: Boolean,
         required: true
