@@ -129,6 +129,8 @@ export function postReducer(state, action) {
       deleteComment(action.payload);
       return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
+      // Add the new post the local store.
+      postMap.set(action.payload);
       return {...state, posts: postMap.getAll()};
     // The next two case may be moved to a local state.
     case 'likePost':
