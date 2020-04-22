@@ -70,13 +70,26 @@ const userConfig = {
     }
   }
 }
+
+const DOMAIN_NAME = 'localhost';
+const FRONTEND_PORT = '3000';
+const BACKEND_PORT = '9000';
+const PROTOCOL = 'http';
 // Replace backend url with the hosting domain or address in production.
-const BACKEND_URL = 'http://localhost:9000';
+const BACKEND_URL = `${PROTOCOL}://${DOMAIN_NAME}:${BACKEND_PORT}`;
+const FRONTEND_URL = `${PROTOCOL}://${DOMAIN_NAME}:${FRONTEND_PORT}`;
 const URL = {
+  COMMENTS: `${BACKEND_URL}/comments`,
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
-  LOGIN: `${BACKEND_URL}/login`
+  LISTS: `${BACKEND_URL}/lists`,
+  LOGOUT: `${BACKEND_URL}/logout`,
+  LOGIN: `${BACKEND_URL}/login`,
+  USERS: `${BACKEND_URL}/users`,
+  FRONTEND: `${FRONTEND_URL}`
 };
+
+const SITE_NAME = 'Featurama';
 
 export {
   HOME,
@@ -87,5 +100,6 @@ export {
   WATERCOOLER_ICON,
   INTERESTS,
   userConfig,
-  URL
+  URL,
+  SITE_NAME
 }

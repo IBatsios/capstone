@@ -9,7 +9,7 @@
     <div>
         <h1>All Lists</h1>
         <h2>Developer Test</h2> 
-        <a href="/">Go Back</a> | <a href="/lists/newList">New List</a>
+        <a href="/">Go Back</a> | <a href="/dev/lists/newList">New List</a>
     </div>
     <hr />
     <% lists.forEach(function(list) { %>
@@ -17,7 +17,8 @@
             <div><b>Listname:</b> <%= list.listName %></div>
             <div><b>List of Item:</b> <%= list.itemList %></div>
             <div><b>Mongo ID:</b> <%= list._id %></div>
-            <div><b></b><a href="/lists/<%= list._id %>">See More</a></div>
+            <div><b>Author:</b> <%= list.author %></div>
+            <div><b></b><a href="/dev/lists/<%= list._id %>">See More</a></div>
         </div>
     <% }); %>
 </body>

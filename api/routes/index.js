@@ -100,6 +100,13 @@ router.post('/login', function (req, res, next) {
         req.user.salt = undefined;
         req.user.hash = undefined;
 
+        // Pass the user id, username, and avatar with the session.
+        req.session.user = {
+          id: req.user._id,
+          username: req.user.username,
+          avatar: req.user.avatar
+        };
+
         res.status(200).json(req.user);
     });
 });
@@ -109,14 +116,17 @@ router.post('/login', function (req, res, next) {
  * Logs the user out using PassportJS.
  * 
  * @author Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 router.get('/logout', Middleware.isLoggedIn, function (req, res, next) {
     try {
         req.logout();
-        return true;
+        // The client requires a JSON response in order to logout
+        // properly.
+        return res.send({ success: true });
     } catch (err) {
-        return false;
+        return res.send({ success: false });
     }
 });
 

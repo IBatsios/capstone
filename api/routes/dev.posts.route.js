@@ -80,7 +80,7 @@ router.put('/:id', async (req, res) => {
     return res.redirect('/posts')
   }
 
-  return res.redirect(`posts/${postId}`)
+  return res.redirect(`/posts/${postId}`)
 })
 
 // DELETE: turns off a certain post within the database (NOT permanent deletion).

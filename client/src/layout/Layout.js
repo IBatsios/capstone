@@ -4,13 +4,14 @@ import classes from './Layout.module.css';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+import { SITE_NAME, URL } from 'config/user';
 
 export const Copyright = ({className}) => {
   return (
     <Typography className={className} variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="http://featurama.com">
-        Featurama
+      <Link color="inherit" href={URL.FRONTEND}>
+        {SITE_NAME}
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}

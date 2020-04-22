@@ -74,21 +74,25 @@ export const Login = () => {
     });
   }
 
-  const handleSignIn = () => {
-    axios.post(URL.LOGIN, {
-      username: values.username,
-      password: values.password
-    })
-    .then(function (response) {
+  const handleSignIn = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'post',
+        url: URL.LOGIN,
+        data: {
+          username: values.username,
+          password: values.password
+        }
+      });
       dispatch({
         type: 'signIn',
         payload: response.data 
       });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Grid container component="main" className={classes.root}>

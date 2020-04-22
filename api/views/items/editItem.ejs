@@ -8,8 +8,8 @@
 <body>
     <h1>Edit Existing Item</h1>
     <h2>Developer Test</h2>
-    <a href="/items">Return to list</a><br><br>
-    <form action="/items/<%= item._id %>?_method=PUT" method="POST">
+    <a href="/dev/items">Return to list</a><br><br>
+    <form action="/dev/items/<%= item._id %>?_method=PUT" method="POST">
         <div>
             <label for="itemName">ItemName</label>
             <input type="itemName" name="itemName" id="itemName" placeholder="ItemName" value="<%= item.itemName %>">   
@@ -19,12 +19,16 @@
             <input type="URL" name="URL" id="URL" placeholder="URL" value="<%= item.URL %>">   
         </div>
         <div>
-            <label for="topic">Topic</label>
-            <input type="topic" name="topic" id="topic" placeholder="Topic" value="<%= item.topic %>">   
+            <label for="interest">Interest</label>
+            <input type="interest" name="interest" id="interest" placeholder="Interest" value="<%= item.interest %>">   
         </div>
         <div>
             <label for="description">Description</label>
             <input type="description" name="description" id="description" placeholder="Description" value="<%= item.description %>">   
+        </div>
+        <div>
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" placeholder="author" value="<%= item.author %>" >
         </div>
         <div>
             <button>Submit</button>
@@ -32,7 +36,7 @@
     </form>
     <br>
     <br>
-    <form action="/items/<%= item._id %>?_method=DELETE" method="POST">
+    <form action="/dev/items/<%= item._id %>?_method=DELETE" method="POST">
         <button style="color: red;">Permanently Delete</button>
     </form>
 </body>

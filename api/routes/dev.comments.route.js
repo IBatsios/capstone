@@ -49,7 +49,7 @@ router.get('/:id', async (req, res) => {
     return res.redirect('/comments')
   }
 
-  return res.render('comments/showcomment', { comment: commentResult })
+  return res.render('comments/showComment', { comment: commentResult })
 })
 
 // EDIT: renders the form to edit an existing comment.
@@ -62,7 +62,7 @@ router.get('/:id/edit', async (req, res) => {
     return res.render('/comments')
   }
 
-  return res.render('comments/editcomment', { comment: commentResult })
+  return res.render('comments/editComment', { comment: commentResult })
 })
 
 // PUT: updates a post in the database.
@@ -76,7 +76,7 @@ router.put('/:id', async (req, res) => {
     return res.redirect('/comments')
   }
 
-  return res.redirect(`comments/${commentId}`)
+  return res.redirect(`/comments/${commentId}`)
 })
 
 // DELETE: turns off a certain comment within the database (NOT permanent deletion).

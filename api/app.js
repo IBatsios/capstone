@@ -25,7 +25,8 @@ const commentsRouter = require('./routes/comments.route')
 const devUsersRouter = require('./routes/dev.users.route')
 const devCommentsRouter = require('./routes/dev.comments.route')
 const devPostsRouter = require('./routes/dev.posts.route')
-
+const devListsRouter = require('./routes/dev.lists.route')
+const devItemsRouter = require('./routes/dev.items.route')
 // Environment Variables Access
 require('dotenv').config()
 
@@ -34,7 +35,13 @@ const app = express()
 
 // Use Dependencies
 app.use(methodOverride('_method')) // IMPORTANT: Keep as first
-app.use(cors())
+const corsConfig = {
+  origin: true,
+  credentials: true
+};
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
+
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -80,6 +87,9 @@ app.use('/comments', commentsRouter)
 app.use('/dev/users/', devUsersRouter)
 app.use('/dev/comments/', devCommentsRouter)
 app.use('/dev/posts/', devPostsRouter)
+app.use('/dev/lists/', devListsRouter)
+app.use('/dev/items/', devItemsRouter)
+
 
 // Connect to Database
 let connection = new DatabaseConnector()

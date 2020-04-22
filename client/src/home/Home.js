@@ -14,26 +14,58 @@ const Home = () => {
   const section = 'home';
 
   useEffect(() => {
-      const fetchPosts = async () => {
-          try {
-              dispatch({
-                type:'isFetchingPosts',
-                payload: true
-              });
-              const response = await axios.get(URL.POSTS);
-              dispatch({
-                type:'setPostData',
-                payload: {
-                  posts: response.data
-                }
-              });
-          } catch (e) {
-              dispatch({
-                posts: state.posts,
-                isFetchingPosts: false
-              });
+    const fetchLists = async () => {
+      try {
+        dispatch({
+          type:'isFetchingLists',
+          payload: true
+        });
+        const response = await axios({
+          withCredentials: true,
+          method: 'get',
+          url: URL.LISTS
+        });
+        dispatch({
+          type:'setListData',
+          payload: {
+            lists: response.data
           }
-      };
+        });
+      } catch (e) {
+        dispatch({
+          lists: state.lists,
+          isFetchingLists: false
+        });
+      }
+    };
+      fetchLists();
+  }, []);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        dispatch({
+          type:'isFetchingPosts',
+          payload: true
+        });
+        const response = await axios({
+          withCredentials: true,
+          method: 'get',
+          url: URL.POSTS
+        });
+        dispatch({
+          type:'setPostData',
+          payload: {
+            posts: response.data
+          }
+        });
+      } catch (e) {
+        dispatch({
+          posts: state.posts,
+          isFetchingPosts: false
+        });
+      }
+    };
       fetchPosts();
   }, []);
   // Despite the following warning message—which can be seen in the web console, "React Hook useEffect has missing dependencies: 'dispatch' and 'state.posts'. Either include them or remove the dependency array  react-hooks/exhaustive-deps", do not remove the empty array above.  It will create an infinite loop, making requests to the backend.

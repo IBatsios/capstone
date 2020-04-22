@@ -2,8 +2,8 @@
 
 const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
-
 const modelName = 'list.model';
+const List = require(`../models/${modelName}`)
 
 /**
  * list Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -21,13 +21,32 @@ class ListServices {
      * @author Hieu Vo ref Christopher Thacker
      * @since 1.0.0
      */
-    static addList(listDTO) {
+    static async addList(user,listDTO) {
 
         // TODO: validate list DTO.
 
-        const listId = connector.create(modelName, listDTO);
-        return listId;
-    }
+        try {
+            const newList = new List({
+                listName: listDTO.listName,           
+                interest: listDTO.interest,
+                itemList: [],              
+                author: user,
+                isActive: true,
+              
+            })
+      
+            const result = await connector.create(modelName, newList)
+            if (!result) {
+              console.log('New list failed at ListServices')
+              return false
+            }
+            return result
+          } catch (error) {
+            console.log(error)
+            return false
+          }
+        }
+    
 
     /**
      * Service method to find a single list in the database.
@@ -119,6 +138,27 @@ class ListServices {
 
         return deleteResponse;
     }
+    /**
+     * @author Hieu Vo ref Jamie Weathers
+     * @since 1.0.0
+     */
+    static async hide(listId) {
+        const hideData = { isActive: 'false' }
+        const getList = await this.update(listId, hideData)
+    
+        return getList
+      }
+    
+      /**
+       * @author Hieu Vo ref Jamie Weathers
+       * @since 1.0.0
+       */
+      static async show(listId) {
+        const hideData = { isActive: 'true' }
+        const getList = await this.update(listId, hideData)
+    
+        return getList
+      }
 }
 
 module.exports = ListServices;

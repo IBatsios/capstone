@@ -16,7 +16,7 @@ var itemSchema = new Schema({
         type: String,
         required: true
     },
-    topic: {
+    interest: {
         type: String,
         required: true
     },
@@ -26,15 +26,17 @@ var itemSchema = new Schema({
     },
     author: {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
         },
-        username: String
-    },
+        username: String,
+        avatar: String
+      },
     isActive: {
         type: Boolean,
         required: true
     }
+    
 }, {timestamps: true}); // Mongoose automatically keeps track of "created" and "edited" dates.
 
 module.exports = mongoose.model('Item', itemSchema);

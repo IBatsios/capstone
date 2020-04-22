@@ -134,8 +134,7 @@ class MongoTranslator {
     }
 
     /**
-     * Read from DB: used to retrieve data from the MongoDB database. Must be generic so that 
-     * no matter what gets passed in something will be returned.
+     * Read from DB: used to retrieve data from the MongoDB database.
      * 
      * @param {string} modelName
      * @param {Object} filter 
@@ -269,7 +268,7 @@ class MongoTranslator {
                 return true;
             }
             return false;
-            
+
         } catch (error) {
             console.log(error);
             return false;

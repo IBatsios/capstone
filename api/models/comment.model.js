@@ -22,8 +22,11 @@ var commentSchema = new Schema(
       username: String,
       avatar: String,
     },
-    spoiler: {
-      type: Boolean,
+    // TODO: Maybe try and make this a reference. It wasn't
+    // working that way.
+    postId: {
+      type: String,
+      required: true,
     },
     isActive: {
       type: Boolean,

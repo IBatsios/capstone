@@ -1,4 +1,7 @@
 import React, { createContext, useReducer } from 'react';
+import axios from 'axios';
+import { URL } from 'config/user';
+
 // Acting as a call to the backend or some middleware.
 
 let posts;
@@ -57,6 +60,41 @@ const postMap = {
   }
 }
 
+const deletePost = async (id) => {
+  postMap.map.delete(id);
+
+  try {
+    const response = await axios({
+      withCredentials: true,
+      method: 'delete',
+      url: `${URL.POSTS}/${id}`
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const deleteComment = async (comment) => {
+  try {
+    const response = await axios({
+      withCredentials: true,
+      method: 'delete',
+      url: `${URL.COMMENTS}/${comment._id}`
+    });
+
+    const updatedPost = await axios({
+      withCredentials: true,
+      method: 'get',
+      url: `${URL.POSTS}/${comment.postId}`
+    });
+    console.log(updatedPost);
+    console.log(updatedPost.data);
+    postMap.set(updatedPost);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export function postReducer(state, action) {
   console.log(action);
   let post;
@@ -81,37 +119,19 @@ export function postReducer(state, action) {
     case 'editComment':
       return { ...state };
     case 'deleteComment':
-      // A temporary means to remove a comment from a post.
-      state.posts  = state.posts.map(post => {
-        if (post.id === action.payload.postId) {
-          post.comments = post.comments.filter(comment => comment.id !== action.payload.id);
-        } 
-        return post;
-      });
-      return {...state};
+      //deleteComment(action.payload);
+      //console.log(postMap.map.get(action.payload.postId));
+      console.log('deleteComment');
+      return {...state, posts: postMap.getAll()};
     case 'deletePost':
-      console.log(`User with id: ${state.user.id} wants to delete post with id: ${action.payload}`);
-
-      // A temporary means to remove a post.
+      // Tell the server which post to delete.
+      // Remove the post from the local state.
       postMap.map.delete(action.payload);
-
-      // Send the deleted post information to the  server.
       return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
-
-      // Prints to the console, the submitted post data.
-      // A temporary means to save  a post.
-      if (action.payload.id) {
-        const post = {...postMap.get(action.payload), ...action.payload};
-        postMap.save(post);
-        // Send a request to the server to updated the database.
-        return {...state, posts: postMap.getAll() };
-      } else {
-        // Send the new post to the backend and add it to the state. 
-      }
-
-      return { ...state };
-
+      // Add the new post the local store.
+      postMap.set(action.payload);
+      return {...state, posts: postMap.getAll()};
     // The next two case may be moved to a local state.
     case 'likePost':
       console.log(`liked postId: ${action.payload}`);

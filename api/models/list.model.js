@@ -12,22 +12,25 @@ var listSchema = new Schema({
         type: String,
         required: true
     },
-    topic: {
+    interest: {
         type: String,
         required: true
     },
     author: {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
         },
-        username: String
-    },
-    itemList: [
-        {
+        username: String,
+        avatar: String
+      },
+    itemList: [{
+        id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Item'
-        }
+            ref: 'Comment'
+        },
+        author: Object
+      }
     ],
     isActive: {
         type: Boolean,

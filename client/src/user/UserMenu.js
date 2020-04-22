@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -21,6 +22,7 @@ import { UserContext } from 'data/UserStore';
 import { PostForm } from 'posts/PostForm';
 import { ListForm } from 'lists/ListForm';
 import { ProfileForm } from 'user/ProfileForm';
+import { URL } from 'config/user';
 
 export const UserMenu = (props) => {
   const [state, dispatch] = useContext(UserContext);
@@ -60,10 +62,19 @@ export const UserMenu = (props) => {
     });
   }
 
-  const logout = () => {
-    dispatch({
-      type: 'logout'
-    });
+  const logout = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'get',
+        url: URL.LOGOUT
+      });
+      dispatch({
+        type: 'logout'
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   const userMenuOptions = () => (

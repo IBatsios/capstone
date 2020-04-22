@@ -8,8 +8,8 @@
 <body>
     <h1>Add New List</h1>
     <h2>Developer Test</h2>
-    <p><a href="/lists">Go Back</a></p>
-    <form action="/lists" method="POST">
+    <p><a href="/dev/lists">Go Back</a></p>
+    <form action="/dev/lists" method="POST">
         <div>
             <label for="listName">ListName</label>
             <input type="listName" name="listName" id="listName" placeholder="ListName">   
@@ -24,9 +24,22 @@
             </select>
         </div>
         <div>
-            <label for="topic">Topic</label>
-            <input type="topic" name="topic" id="topic" placeholder="Topic">   
+            <label for="interest">Interest</label>
+            <input type="interest" name="interest" id="interest" placeholder="Interest">   
         </div>
+        <div>
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" placeholder="author" />
+        </div>
+        <div>
+            <label for="isActive">Is Active</label><br />
+            <input type="radio" name="isActive" id="isActive" value="true" />
+            <label>True</label>
+            <br />
+            <input type="radio" name="isActive" id="isActive" value="false" />
+            <label>False</label>
+            <br />
+          </div>
         <div>
             <button>Submit</button>
         </div>

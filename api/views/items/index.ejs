@@ -9,15 +9,18 @@
     <div>
         <h1>All Items</h1>
         <h2>Developer Test</h2> 
-        <a href="/">Go Back</a> | <a href="/items/newItem">New Item</a>
+        <a href="/">Go Back</a> | <a href="/dev/items/newItem">New Item</a>
     </div>
     <hr />
     <% items.forEach(function(item) { %>
         <div style="border: 1px solid red;">
             <div><b>Itemname:</b> <%= item.itemName %></div>
             <div><b>URL:</b> <%= item.URL %></div>
+            <div><b>likeCount:</b> <%= item.likeCount %></div>
             <div><b>Mongo ID:</b> <%= item._id %></div>
-            <div><b></b><a href="/items/<%= item._id %>">See More</a></div>
+            <div><b>Author:</b> <%= item.author %></div>
+            
+            <div><b></b><a href="/dev/items/<%= item._id %>">See More</a></div>
         </div>
     <% }); %>
 </body>

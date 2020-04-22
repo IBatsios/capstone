@@ -1,14 +1,12 @@
 import React, { createContext, useReducer } from 'react';
-import { userConfig } from '../config/user';
-// Acting as a call to the backend or some middleware.
-// TODO: Remove me!
-import {
-  getLists
-} from './MockDataProvider';
-
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
+import { userConfig } from '../config/user';
 
+/**
+ * userMap stores the users requested from the server and handles any
+ * differences in property names between the front and back-ends.  
+ **/
 const userMap = {
   map: new Map(),
   // Returns a user in the format of the front-end.
@@ -23,15 +21,9 @@ const userMap = {
   getById(id) {
     const {_id, ...other} = this.map.get(id);
     return { id: _id, ...other };
-  },
-  // Update an entry in the map from the frontend format.
-  save(user) {
-    const { id, ...other } = {...user};
-    this.map.set(id, { _id: id, ...other });
   }
 }
 
-const lists = getLists();
 const activeList = {};
 const initialState = {
   authenticated: false
@@ -49,13 +41,35 @@ export function userReducer(state, action) {
       return postReducer(state, action);
     case 'isFetchingPosts':
       return postReducer(state, action);
-    case 'login':
-      console.log({...initialState});
-      console.log(state);
-      return { ...initialState};
+    case 'isFetchingLists':
+      return listReducer(state, action);
+    case 'setListData':
+      return listReducer(state, action);
+    case 'isFetchingUser':
+      return {...state, isFetchingUser: true};
+    case 'setUser':
+      userMap.set(action.payload.user);
+      return {
+        ...state,
+        authenticated: true,
+        login: true,
+        activeList,
+        ...userConfig,
+        lists: [],
+        posts: [],
+        dynamicContent: [],
+        user: userMap.getById(action.payload.user._id),
+        isFetchingUser: false
+      };
+    case 'updateUser':
+      userMap.set(action.payload.user);
+      return {
+        ...state,
+        user: userMap.getById(action.payload.user._id)
+      };
     case 'signIn':
-      console.log(action.payload);
       userMap.set(action.payload);
+      sessionStorage.setItem('userId', action.payload._id);
       return {
         user: userMap.getById(action.payload._id),
         authenticated: true,
@@ -63,13 +77,11 @@ export function userReducer(state, action) {
         login: true,
         activeList,
         ...userConfig,
-        lists,
+        lists: [],
         posts: [],
         dynamicContent: []
       }
     case 'register':
-      console.log('register');
-      console.log(action.payload);
       return {...state, register: action.payload};
     case 'changeTab':
       state.section[action.payload.section].interest = action.payload.interest;
@@ -80,8 +92,8 @@ export function userReducer(state, action) {
       console.log(action.payload);
       return {...state, activeList: {...action.payload}};
     case 'logout':
-      console.log('Logging out');
-      return { ...initialState};
+      sessionStorage.removeItem('userId');
+      return { ...initialState, authenticated: false};
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };
@@ -89,12 +101,9 @@ export function userReducer(state, action) {
       return { ...state, activeHeaderTab: action.payload };
     case 'popBlock':
       state.dynamicContent.shift();
-      console.log(`popBlock (length): ${state.dynamicContent.length}`);
       return { ...state };
     case 'pushBlock':
       state.dynamicContent.unshift(action.payload);
-      console.log(`pushBlock (length): ${state.dynamicContent.length}`);
-      console.log(state.dynamicContent);
       return { ...state };
     default:
       return {...state};

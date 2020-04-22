@@ -9,7 +9,6 @@
 
 const router = require('express').Router();
 const ListServices = require('../services/ListServices');
-const mockLists = require('../data/mock-lists.json');
 
 /**
  * INDEX: show all Lists.
@@ -18,23 +17,15 @@ const mockLists = require('../data/mock-lists.json');
  * @since 1.0.0
  */
 router.get('/', async (req, res) => {
-    // const filter = req.body; // Optional TODO: Outsource to a ListServices function to build filter.
-    // FIXME: This is a work-aournd to prevent master from crashing.  This route is going to be json at 
-    // some point anyway.  Also a filter which is always empty can be commented-out (personal justification).
-    /*
-    const filter = {};
+    const filter = req.body
 
-    var allLists = await ListServices.getManyLists(filter);
+  const allLists = await ListServices.getManyLists(filter)
 
-    if (!allLists) {
-        // return res.send('No Lists found.');
-        return res.redirect('/lists/newList');
-    }
-    */
+  if (!allLists) {
+    return res.redirect('/lists/newList')
+  }
 
-    // FIXME: Workaround until json is returning expected data.
-    //return res.render('lists', {lists: allLists});
-    return res.status(200).send(mockLists);
+  res.render('lists', {lists: allLists});
 });
 
 /**
@@ -43,17 +34,18 @@ router.get('/', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.post('/', async (req, res) => {
-    req.body.isActive = true;
+router.post('/', async (req, res) => {   
     const listDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
-    console.log(listDTO);
     var newList = await ListServices.addList(listDTO);
+    var response
     if (!newList) {
-        return res.redirect('/lists/newList');
-    }
-
-    return res.render('lists/showList', {list: newList});
-});
+        response = 'unsuccessful.'
+      } else {
+        response = 'successful.'
+      }
+    
+      res.send(response)
+    })
 
 /**
  * NEW: renders the form to register a new List.
@@ -72,13 +64,13 @@ router.get('/newList', (req, res) => {
  * @since 1.0.0
  */
 router.get('/:id', async (req, res) => {
-    console.log(req);
     const listId = req.params.id;
     var foundList = await ListServices.getList(listId);
     if (!foundList) {
         console.log('Error when retrieving list.');
         return res.redirect('/lists');
     }
+    console.log(listId)
     return res.render('lists/showList', {list: foundList});
 });
 
@@ -89,9 +81,15 @@ router.get('/:id', async (req, res) => {
  * @since 1.0.0
  */
 router.get('/:id/edit', async (req, res) => {
-    const foundList = await ListServices.getList(req.params.id);
-    return res.render('lists/editList', {list: foundList});
-});
+    const listId = req.params.id
+    const foundList = await ListServices.getList(listId);
+    if (!foundList) {
+        console.log('Error when attempting to render edit list form.')
+        return res.render('/lists')
+      }
+    
+      return res.render('lists/editList', { list: foundList })
+    })
 
 /**
  * PUT: updates a List in the database.
@@ -102,6 +100,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const listId = req.params.id;
+    const itemList = req.itemList;
     const updatedList = await ListServices.updateList(listId, newData, itemList);
     if (!updatedList) {
         console.log('Error when updating list.');
@@ -122,8 +121,9 @@ router.delete('/:id', async (req, res) => {
     console.log(response);
     if (!response) {
         console.log('Error when deleting list.'); // TODO: Send error message to view.
+        return res.redirect('/lists'); //TODO: Send success message to view.
     }
-    return res.redirect('/lists'); //TODO: Send success message to view.
+    return res.send('list delete.')
 });
 
 module.exports = router;
