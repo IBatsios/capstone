@@ -22,6 +22,7 @@ class CommentServices {
    * @param {Object} commentDTO Comment data transfer object.
    * @returns {Object|false} Comment object | false if creating new comment unsuccessful.
    * @author Jamie Weathers
+   * @author Michael McCullloch
    * @since 1.0.0
    */
   static async addNew(user, commentDTO) {
@@ -99,7 +100,11 @@ class CommentServices {
    * @since 1.0.0
    */
   static async update(commentId, newData) {
-    const updatedComment = await connector.update(modelName, commentId, newData)
+    await connector.update(modelName, commentId, newData)
+
+    // Get the comment by id, rather than use the return value of,
+    // connector update to avoid an asynchronous issue.
+    const updatedComment = await this.getById(commentId);
 
     // Get the post to update the comments.
     const post = await PostServices.getById(updatedComment.postId);
@@ -113,6 +118,7 @@ class CommentServices {
     });
 
     post.comments = comments;
+
     // Update the post.
     PostServices.update(updatedComment.postId, post);
 
@@ -135,10 +141,14 @@ class CommentServices {
    */
   static async hide(commentId) {
     const hideData = { isActive: 'false' }
-    const getComment = await this.update(commentId, hideData)
+
+    // Get the comment by id, rather than use the return value of,
+    // update to avoid an asynchronous issue.
+    await this.update(commentId, hideData)
+    const updatedComment = await CommentServices.getById(commentId);
     
     // Get the post to update the comments.
-    const post = await PostServices.getById(getComment.postId);
+    const post = await PostServices.getById(updatedComment.postId);
 
     // FIXME: This is a work-around to update the comments on a post.
     const comments = post.comments.filter(comment => comment._id != commentId);
@@ -146,9 +156,9 @@ class CommentServices {
     post.comments = comments;
     
     // Update the post.
-    PostServices.update(getComment.postId, post);
+    PostServices.update(updatedComment.postId, post);
 
-    return getComment
+    return updatedComment;
   }
 
   /**

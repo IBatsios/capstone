@@ -152,8 +152,11 @@ export const ContextActions = (props) => {
         url: `${URL.POSTS}/${props.id}`
       });
 
-      console.log(response);
-      console.log(response.data);
+      dispatch({
+        store: 'PostStore',
+        type: 'deletePost',
+        payload: props.id
+      });
     } catch (e) {
       console.log(e);
     }

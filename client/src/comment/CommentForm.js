@@ -49,18 +49,16 @@ export const CommentForm = (props) => {
           postId: values.postId
         }
       });
-      // Use the response url to fetch the updated resource.
-      const updatedDataUrl = response.request.responseURL;
+
+      // Get the post with the updated comment.
       response = await axios({
         withCredentials: true,
         method: 'get',
-        url: updatedDataUrl,
+        url: `${URL.POSTS}/${values.postId}`
       });
-      console.log(response);
-      console.log(response.data);
       dispatch({
         store: 'PostStore',
-        type: 'CommentFormSave',
+        type: 'PostFormSave',
         payload: response.data 
       });
       handleClose();

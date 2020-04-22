@@ -122,13 +122,15 @@ export function postReducer(state, action) {
       //deleteComment(action.payload);
       //console.log(postMap.map.get(action.payload.postId));
       console.log('deleteComment');
-      console.log(action.payload);
       return {...state, posts: postMap.getAll()};
     case 'deletePost':
       // Tell the server which post to delete.
-      deleteComment(action.payload);
+      // Remove the post from the local state.
+      postMap.map.delete(action.payload);
       return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
+      // Add the new post the local store.
+      postMap.set(action.payload);
       return {...state, posts: postMap.getAll()};
     // The next two case may be moved to a local state.
     case 'likePost':
