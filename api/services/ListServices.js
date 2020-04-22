@@ -27,7 +27,7 @@ class ListServices {
 
         try {
             const newList = new List({
-              listName: listDTO.listName,
+              name: listDTO.name,
               interest: listDTO.interest,
               itemList: listDTO.itemList,
               author: listDTO.author,

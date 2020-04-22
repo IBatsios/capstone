@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var listSchema = new Schema({
-    listName: {
+    name: {
         type: String,
         required: true
     },
