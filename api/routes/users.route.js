@@ -84,7 +84,13 @@ router.get('/:id', async (req, res) => {
     var errors = {};
 
     try {
+        // Pass the user id, username, and avatar with the session.
         foundUser = await UserServices.getUser(userId);
+        req.session.user = {
+          id: foundUser._id,
+          username: foundUser.username,
+          avatar: foundUser.avatar
+        };
     } catch (err) {
         errors.exception = err.message;
     } finally {
