@@ -18,7 +18,14 @@ var commentSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         },
-        username: String
+        username: String,
+        avatar: String
+    },
+    // TODO: Maybe try and make this a reference. It wasn't
+    // working that way.
+    postId: {
+      type: String,
+      required: true
     },
     isActive: {
         type: Boolean,

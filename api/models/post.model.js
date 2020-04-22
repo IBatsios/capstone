@@ -1,7 +1,9 @@
 /**
  * This is the schema for user posts that will be displayed on the web application.
  *
- * @author Hieu Vo and Christopher Thacker
+ * @author Hieu Vo
+ * @author Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 
@@ -37,8 +39,12 @@ var postSchema = new Schema(
     ],
     comments: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment'
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Comment'
+        },
+        content: String,
+        author: Object
       }
     ],
     author: {
@@ -46,7 +52,8 @@ var postSchema = new Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       },
-      username: String
+      username: String,
+      avatar: String
     },
 
     isActive: {

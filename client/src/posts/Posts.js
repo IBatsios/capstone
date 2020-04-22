@@ -83,7 +83,7 @@ const Posts = (props) => {
             </CardActions>
             <Collapse in={expanded === index} timeout="auto" unmountOnExit>
               <CardContent>
-                <Comments comments={post.comments} />
+                <Comments postId={post.id} comments={post.comments} />
               </CardContent>
             </Collapse>
           </Card>
