@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
     return res.status(404).send({ error: `Create Post unsuccessful` })
   }
 
-  res.status(200).send()
+  res.status(200).send(result)
 })
 
 // SHOW: displays more information about an existing post.
