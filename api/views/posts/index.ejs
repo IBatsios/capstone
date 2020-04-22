@@ -15,13 +15,8 @@
     <% posts.forEach(function(post) { console.log(post) %>
     <div style="border: 1px solid red;">
       <div><b>Title:</b> <%= post.title %></div>
-<<<<<<< HEAD
-      <div><b>Topic:</b> <%= post.topic %></div>
-      <div><b>Author:</b> <%= post.author.username %></div>
-=======
       <div><b>Interest:</b> <%= post.interest %></div>
-      <div><b>Author:</b> <%= post.author %></div>
->>>>>>> 8a81f0d34da1fed0529709d989fcc39c7bc94315
+      <div><b>Author:</b> <%= post.author.username %></div>
       <div><b>Mongo ID:</b> <%= post._id %></div>
       <div><b></b><a href="/dev/posts/<%= post._id %>">See More</a></div>
     </div>
