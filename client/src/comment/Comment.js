@@ -24,6 +24,7 @@ export const Comment = (props) => {
           action={
             <ContextActions
               {...props.comment}
+              postId={props.postId}
             />
           }
           title={

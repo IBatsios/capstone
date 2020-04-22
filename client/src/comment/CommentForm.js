@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -16,6 +17,7 @@ import {
   COMMENT_CONTENT_LABEL,
   COMMENT_CONTENT_TYPE
 } from 'config/view/constants';
+import { URL } from 'config/user';
 
 export const CommentForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
@@ -23,6 +25,7 @@ export const CommentForm = (props) => {
   const [values, setValues] = React.useState({
     authorId: state.user.id || '',
     content: props.content || '',
+    id: props._id,
     postId: props.postId
   });
 
@@ -33,13 +36,37 @@ export const CommentForm = (props) => {
     });
   };
 
-  const handleSave = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'CommentFormSave',
-      payload: values
-    });
-    handleClose();
+  const handleSave = async () => {
+    // Send the updated comment data to the server.
+    try {
+      const commentId = values.id || '';
+      let response = await axios({
+        withCredentials: true,
+        method: 'put',
+        url: `${URL.COMMENTS}/${commentId}`,
+        data: {
+          content: values.content,
+          postId: values.postId
+        }
+      });
+      // Use the response url to fetch the updated resource.
+      const updatedDataUrl = response.request.responseURL;
+      response = await axios({
+        withCredentials: true,
+        method: 'get',
+        url: updatedDataUrl,
+      });
+      console.log(response);
+      console.log(response.data);
+      dispatch({
+        store: 'PostStore',
+        type: 'CommentFormSave',
+        payload: response.data 
+      });
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = name => (event) => {
