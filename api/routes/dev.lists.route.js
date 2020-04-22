@@ -101,7 +101,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const listId = req.params.id;
-    const updatedList = await ListServices.updateList(listId, newData, itemList);
+    const updatedList = await ListServices.updateList(listId, newData, items);
     if (!updatedList) {
         console.log('Error when updating list.');
         return res.redirect('/lists');

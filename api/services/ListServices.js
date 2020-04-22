@@ -29,7 +29,7 @@ class ListServices {
             const newList = new List({
               name: listDTO.name,
               interest: listDTO.interest,
-              itemList: listDTO.itemList,
+              items: listDTO.items,
               author: listDTO.author,
               isActive: listDTO.isActive,
             })

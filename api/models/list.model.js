@@ -23,7 +23,7 @@ var listSchema = new Schema({
         },
         username: String
     },
-    itemList: [
+    items: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Item'

@@ -34,6 +34,7 @@ router.get('/', async (req, res) => {
 
     // FIXME: Workaround until json is returning expected data.
     //return res.render('lists', {lists: allLists});
+    console.log(req.session);
     return res.status(200).send(mockLists);
 });
 
@@ -72,7 +73,6 @@ router.get('/newList', (req, res) => {
  * @since 1.0.0
  */
 router.get('/:id', async (req, res) => {
-    console.log(req);
     const listId = req.params.id;
     var foundList = await ListServices.getList(listId);
     if (!foundList) {
@@ -102,7 +102,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const listId = req.params.id;
-    const updatedList = await ListServices.updateList(listId, newData, itemList);
+    const updatedList = await ListServices.updateList(listId, newData, items);
     if (!updatedList) {
         console.log('Error when updating list.');
         return res.redirect('/lists');

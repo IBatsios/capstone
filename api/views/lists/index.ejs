@@ -15,7 +15,7 @@
     <% lists.forEach(function(list) { %>
         <div style="border: 1px solid red;">
             <div><b>Listname:</b> <%= list.name %></div>
-            <div><b>List of Item:</b> <%= list.itemList %></div>
+            <div><b>List of Item:</b> <%= list.items %></div>
             <div><b>Mongo ID:</b> <%= list._id %></div>
             <div><b>Author:</b> <%= list.author %></div>
             <div><b></b><a href="/dev/lists/<%= list._id %>">See More</a></div>
