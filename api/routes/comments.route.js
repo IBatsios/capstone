@@ -2,6 +2,7 @@
  * This is the routes file for all actions related to comments.
  *
  * @author Jamie Weathers
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 
@@ -21,9 +22,10 @@ router.get('/', async (req, res) => {
 })
 
 // CREATE: add a new comment.
-router.post('/', async (req, res) => {
+router.put('/', async (req, res) => {
   const commentDTO = req.body
-  const result = await CommentServices.addNew(commentDTO)
+  const user = req.session.user;
+  const result = await CommentServices.addNew(user, commentDTO)
 
   if (!result) {
     return res
@@ -31,7 +33,7 @@ router.post('/', async (req, res) => {
       .send({ error: `Error attempting to add new comment.` })
   }
 
-  res.status(200).send(result)
+  res.status(200).redirect(`${result._id}`)
 })
 
 // SHOW: displays more information about an existing comment.
@@ -48,7 +50,7 @@ router.get('/:id', async (req, res) => {
   return res.status(200).send(commentResult)
 })
 
-// PUT: updates a post in the database.
+// PUT: updates a comment in the database.
 router.put('/:id', async (req, res) => {
   const newCommentData = req.body
   const commentId = req.params.id
