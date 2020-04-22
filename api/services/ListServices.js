@@ -19,32 +19,34 @@ class ListServices {
      * @param {*} listDTO Data Transfer Object for list.
      * 
      * @author Hieu Vo ref Christopher Thacker
+     * @author Michael McCulloch
      * @since 1.0.0
      */
-    static async addList(listDTO) {
+    static async addList(user, listDTO) {
 
         // TODO: validate list DTO.
 
-        try {
-            const newList = new List({
-              name: listDTO.name,
-              interest: listDTO.interest,
-              items: listDTO.items,
-              author: listDTO.author,
-              isActive: listDTO.isActive,
-            })
+      try {
+        const newList = new List({
+          name: listDTO.name,
+          interest: listDTO.interest,
+          items: [],
+          author: user, 
+          isActive: true
+        })
       
-            const result = await connector.create(modelName, newList)
-            if (!result) {
-              console.log('New list failed at ListServices')
-              return false
-            }
-            return result
-          } catch (error) {
-            console.log(error)
-            return false
-          }
+        const result = await connector.create(modelName, newList)
+        if (!result) {
+          console.log('New list failed at ListServices')
+          return false
         }
+
+        return result
+      } catch (error) {
+        console.log(error)
+        return false
+      }
+    }
     
 
     /**
