@@ -24,10 +24,15 @@ var listSchema = new Schema({
         username: String
     },
     items: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Item'
-        }
+      {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Item'
+        },
+        name: String,
+        description: String,
+        url: String
+      }
     ],
     isActive: {
         type: Boolean,
