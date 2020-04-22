@@ -70,7 +70,6 @@ export const  PostForm = (props) => {
         method: 'get',
         url: updatedDataUrl,
       });
-
       dispatch({
         store: 'PostStore',
         type: 'PostFormSave',

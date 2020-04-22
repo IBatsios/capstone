@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,6 +22,7 @@ import Hidden from '@material-ui/core/Hidden';
 import { UserContext } from 'data/UserStore';
 import { PostForm } from './PostForm';
 import { CommentForm } from 'comment/CommentForm';
+import { URL } from 'config/user';
 
 /**
  * Context action menu for comments on mobile devices.
@@ -142,12 +144,19 @@ export const ContextActions = (props) => {
     setAnchorEl(null);
   };
 
-  const handleDelete = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'deletePost',
-      payload: props.id
-    });
+  const handleDelete = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'delete',
+        url: `${URL.POSTS}/${props.id}`
+      });
+
+      console.log(response);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
     handleClose();
   }
 
