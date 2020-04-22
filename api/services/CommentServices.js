@@ -4,12 +4,14 @@ const DatabaseConnector = require('../database/DatabaseConnector')
 const connector = new DatabaseConnector()
 const modelName = 'comment.model'
 const Comment = require(`../models/${modelName}`)
+const PostServices = require('../services/PostServices')
 
 /**
  * Comment Services Class
  * Contains functions to retrieve or modify information of comments documents in the database.
  *
  * @author Jamie Weathers
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 
@@ -22,14 +24,20 @@ class CommentServices {
    * @author Jamie Weathers
    * @since 1.0.0
    */
-  static async addNew(commentDTO) {
+  static async addNew(user, commentDTO) {
     try {
       const newComment = new Comment({
         content: commentDTO.content,
-        author: commentDTO.author,
-        isActive: commentDTO.isActive,
+        postId: commentDTO.postId,
+        author: user,
+        isActive: true,
       })
       const result = await connector.create(modelName, newComment)
+
+      // Add the comment to the post.
+      const post = await PostServices.getById(commentDTO.postId);
+      post.comments.push(result);
+      PostServices.update(commentDTO.postId, post);
 
       if (!result) {
         console.log(`New comment failed at CommentServices`)
@@ -87,10 +95,26 @@ class CommentServices {
    * @param {Object} newData Dictionary containing the intended field changes.
    * @returns {Object|null|false} Returns the updated comment object if successful | null if comment does not exist | false if unsuccessful
    * @author Jamie Weathers
+   * @author Michael McCulloch
    * @since 1.0.0
    */
   static async update(commentId, newData) {
     const updatedComment = await connector.update(modelName, commentId, newData)
+
+    // Get the post to update the comments.
+    const post = await PostServices.getById(updatedComment.postId);
+
+    // FIXME: This is a work-around to update the comments on a post.
+    const comments = post.comments.map(comment => {
+      if (comment._id == commentId){
+        return updatedComment;
+      }
+      return comment;
+    });
+
+    post.comments = comments;
+    // Update the post.
+    PostServices.update(updatedComment.postId, post);
 
     if (updatedComment == null) {
       console.log(`Could not find comment ID [${commentId}] to update.`)
@@ -112,6 +136,18 @@ class CommentServices {
   static async hide(commentId) {
     const hideData = { isActive: 'false' }
     const getComment = await this.update(commentId, hideData)
+    
+    // Get the post to update the comments.
+    const post = await PostServices.getById(getComment.postId);
+
+    // FIXME: This is a work-around to update the comments on a post.
+    const comments = post.comments.filter(comment => comment._id != commentId);
+
+    post.comments = comments;
+    
+    // Update the post.
+    PostServices.update(getComment.postId, post);
+
     return getComment
   }
 
