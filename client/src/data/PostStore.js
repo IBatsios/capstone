@@ -74,6 +74,27 @@ const deletePost = async (id) => {
   }
 };
 
+const deleteComment = async (comment) => {
+  try {
+    const response = await axios({
+      withCredentials: true,
+      method: 'delete',
+      url: `${URL.COMMENTS}/${comment._id}`
+    });
+
+    const updatedPost = await axios({
+      withCredentials: true,
+      method: 'get',
+      url: `${URL.POSTS}/${comment.postId}`
+    });
+    console.log(updatedPost);
+    console.log(updatedPost.data);
+    postMap.set(updatedPost);
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export function postReducer(state, action) {
   console.log(action);
   let post;
@@ -98,21 +119,16 @@ export function postReducer(state, action) {
     case 'editComment':
       return { ...state };
     case 'deleteComment':
-      // A temporary means to remove a comment from a post.
-      state.posts  = state.posts.map(post => {
-        if (post.id === action.payload.postId) {
-          post.comments = post.comments.filter(comment => comment.id !== action.payload.id);
-        } 
-        return post;
-      });
-      return {...state};
+      //deleteComment(action.payload);
+      //console.log(postMap.map.get(action.payload.postId));
+      console.log('deleteComment');
+      console.log(action.payload);
+      return {...state, posts: postMap.getAll()};
     case 'deletePost':
       // Tell the server which post to delete.
-      deletePost(action.payload);
-
+      deleteComment(action.payload);
       return { ...state, posts: postMap.getAll()};
     case 'PostFormSave':
-      postMap.set(action.payload);
       return {...state, posts: postMap.getAll()};
     // The next two case may be moved to a local state.
     case 'likePost':
