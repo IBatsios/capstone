@@ -16,11 +16,14 @@ var commentSchema = new Schema({
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         },
-        username: String,
-        avatar: String,
-        required: true
+        username: {
+            type: String,
+            required: true
+        },
+        avatar: String
     },
     // TODO: Maybe try and make this a reference. It wasn't
     // working that way.
