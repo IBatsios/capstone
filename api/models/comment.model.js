@@ -19,7 +19,8 @@ var commentSchema = new Schema({
             ref: 'User'
         },
         username: String,
-        avatar: String
+        avatar: String,
+        required: true
     },
     // TODO: Maybe try and make this a reference. It wasn't
     // working that way.
