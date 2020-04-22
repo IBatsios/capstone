@@ -25,8 +25,7 @@ router.get('/', async (req, res) => {
     const allLists = await ListServices.getManyLists(filter);
 
     if (!allLists) {
-        // return res.send('No Lists found.');
-        return res.redirect('/lists/newList');
+      return res.status(404).send({ error: 'No lists were found' })
     }
 
     return res.status(200).send(allLists);
