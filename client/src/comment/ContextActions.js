@@ -150,17 +150,17 @@ export const ContextActions = (props) => {
         method: 'get',
         url: `${URL.POSTS}/${props.postId}`
       });
-      console.log(updatedPost);
-      console.log(updatedPost.data);
+
       dispatch({
         store: 'PostStore',
-        type: 'deleteComment',
+        type: 'PostFormSave',
         payload: updatedPost.data
       });
+
+      handleClose();
     } catch (e) {
       console.log(e);
     }
-    handleClose();
   }
 
   const handleEdit = () => {
