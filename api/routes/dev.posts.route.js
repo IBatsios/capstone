@@ -1,8 +1,6 @@
 /**
  * This is the routes file for all actions related to posts.
- * TODO: Create form views.
- * @author Christopher Thacker
- * @author Jamie Weathers
+ * @author Jamie Weathers ref Christopher Thacker
  * @since 1.0.0
  */
 

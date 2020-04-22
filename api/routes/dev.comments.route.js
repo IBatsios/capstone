@@ -1,7 +1,7 @@
 /**
  * This is the routes file for all actions related to comments.
  *
- * @author Jamie Weathers
+ * @author Jamie Weathers ref Christopher Thacker
  * @since 1.0.0
  */
 
