@@ -48,7 +48,7 @@ export const ContextActions = (props) => {
   const handleAddListItem = () => {
     dispatch({
       type: 'pushBlock',
-      payload: <ListItemForm id={props.list.id} />
+      payload: <ListItemForm listId={props.list.id} />
     });
     handleClose();
   }
