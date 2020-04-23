@@ -29,7 +29,7 @@ class CommentServices {
       const newComment = new Comment({
         content: commentDTO.content,
         postId: commentDTO.postId,
-        author: { id: user._id, username: user.username, avatar: user.avatar },
+        author: { id: user.id, username: user.username, avatar: user.avatar },
         isActive: true,
       })
       const result = await connector.create(modelName, newComment)

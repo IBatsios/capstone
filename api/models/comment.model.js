@@ -24,7 +24,10 @@ var commentSchema = new Schema(
         type: String,
         required: true,
       },
-      avatar: String,
+      avatar: {
+        type: String,
+        required: true,
+      },
     },
     // TODO: Maybe try and make this a reference. It wasn't
     // working that way.

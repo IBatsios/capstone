@@ -32,7 +32,7 @@ class PostServices {
         likeCount: 0,
         arrayLike: [],
         comments: [],
-        author: { id: user._id, username: user.username, avatar: user.avatar },
+        author: { id: user.id, username: user.username, avatar: user.avatar },
         isActive: true,
         spoiler: postDTO.spoiler,
       })
