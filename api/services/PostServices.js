@@ -32,8 +32,9 @@ class PostServices {
         likeCount: 0,
         arrayLike: [],
         comments: [],
-        author: user, 
-        isActive: true
+        author: { id: user.id, username: user.username, avatar: user.avatar },
+        isActive: true,
+        spoiler: postDTO.spoiler,
       })
 
       const result = await connector.create(modelName, newPost)

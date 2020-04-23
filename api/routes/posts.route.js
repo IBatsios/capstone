@@ -1,9 +1,6 @@
 /**
  * This is the routes file for all actions related to posts.
- * TODO: Create form views.
- * @author Christopher Thacker
- * @author Jamie Weathers
- * @author Michael McCulloch
+ * @author Jamie Weathers ref Christopher Thacker
  * @since 1.0.0
  */
 
@@ -26,7 +23,7 @@ router.get('/', async (req, res) => {
 // CREATE: add a new post.
 router.put('/', async (req, res) => {
   const postDTO = req.body
-  const user = req.session.user;
+  const user = req.session.user
   const result = await PostServices.addNew(user, postDTO)
 
   if (!result) {
@@ -34,7 +31,7 @@ router.put('/', async (req, res) => {
   }
 
   // Provides the url of the new post in the request response.
-  return res.status(200).redirect(`${result._id}`);
+  return res.status(200).redirect(`${result._id}`)
 })
 
 // SHOW: displays more information about an existing post.

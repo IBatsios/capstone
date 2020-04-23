@@ -15,8 +15,12 @@
       <p><b>Content: </b><%= post.content %></p>
       <p><b>Interest: </b><%= post.interest %></p>
       <p><b>LikeCount: </b><%= post.likeCount %></p>
-      <p><b>Author: </b><%= post.author %></p>
+      <p><b>Author: </b>
+      <br>Id: <%= post.author.id %>
+      </br>Username: <%= post.author.username %>
+      </br>Avatar: <%= post.author.avatar %></p>
       <p><b>IsActive:</b><%= post.isActive %></p>
+      <p><b>Spoiler:</b><%= post.spoiler %></p>
     </div>
     <br />
     <a href="/dev/posts/<%= post._id %>/edit">Edit Post</a>

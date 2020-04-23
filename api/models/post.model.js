@@ -14,52 +14,55 @@ var postSchema = new Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     content: {
       type: String,
-      required: true
+      required: true,
     },
     interest: {
       type: String,
-      required: true
+      required: true,
     },
     likeCount: {
       type: Number,
-      required: true
+      required: true,
     },
     arrayLike: [
       {
         id: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
+          ref: 'User',
         },
-        username: String
-      }
+        username: String,
+      },
     ],
     comments: [
       {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Comment',
         },
         content: String,
-        author: Object
-      }
+        author: Object,
+      },
     ],
     author: {
       id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
       },
       username: String,
-      avatar: String
+      avatar: String,
     },
-
+    spoiler: {
+      type: Boolean,
+      required: true,
+    },
     isActive: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   { timestamps: true }
 ) // Mongoose automatically keeps track of "created" and "edited" dates.

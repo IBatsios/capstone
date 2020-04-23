@@ -1,8 +1,7 @@
 /**
  * This is the routes file for all actions related to comments.
  *
- * @author Jamie Weathers
- * @author Michael McCulloch
+ * @author Jamie Weathers ref Christopher Thacker
  * @since 1.0.0
  */
 
@@ -24,7 +23,7 @@ router.get('/', async (req, res) => {
 // CREATE: add a new comment.
 router.put('/', async (req, res) => {
   const commentDTO = req.body
-  const user = req.session.user;
+  const user = req.session.user
   const result = await CommentServices.addNew(user, commentDTO)
 
   if (!result) {

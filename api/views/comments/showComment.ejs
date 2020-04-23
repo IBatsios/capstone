@@ -11,9 +11,14 @@
     <a href="/dev/comments">Go back</a>
     <hr />
     <div style="border: 1px solid red;">
-      <p><b>Author: </b><%= comment.author %></p>
+      <p><b>Author: </b>
+        <br>Id: <%= comment.author.id %>
+        </br>Username: <%= comment.author.username %>
+        </br>Avatar: <%= comment.author.avatar %></p>
       <p><b>Content: </b><%= comment.content %></p>
+      <p><b>PostId: </b><%= comment.postId %></b></p>
       <p><b>IsActive:</b><%= comment.isActive %></p>
+      <p><b>Spoiler:</b><%= comment.spoiler %></p>
     </div>
     <br />
     <a href="/dev/comments/<%= comment._id %>/edit">Edit Comment</a>

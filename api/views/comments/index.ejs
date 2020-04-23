@@ -14,7 +14,7 @@
     <hr />
     <% comments.forEach(function(comment) { %>
     <div style="border: 1px solid red;">
-      <div><b>Author:</b> <%= comment.author %></div>
+      <div><b>Author:</b> <%= comment.author.username %></div>
       <div><b>Content:</b> <%= comment.content %></div>
       <div><b>Mongo ID:</b> <%= comment._id %></div>
       <div><b></b><a href="/dev/comments/<%= comment._id %>">See More</a></div>

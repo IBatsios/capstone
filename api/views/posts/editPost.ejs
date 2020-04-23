@@ -10,7 +10,7 @@
     <h1>Edit Existing Post</h1>
     <h2>Developer Test</h2>
     <a href="/dev/posts">Return to list</a>
-    <form action="/dev/posts/<%= post._id%>?_method=PUT" method="POST">
+    <form action="/dev/posts/<%= post._id %>?_method=PUT" method="PUT">
       <div>
         <label for="title">Title</label>
         <input
@@ -21,7 +21,7 @@
         />
       </div>
       <div>
-        <label for="content">Content</label>
+        <label for="content">Content</label></br>
         <input
           type="text"
           name="content"
@@ -48,13 +48,28 @@
         />
       </div>
       <div>
-        <label for="author">Author</label>
+        <label for="author">Author</label></br>
         <input
           type="author"
-          name="author"
-          id="author"
-          value="<%= post.author %>"
-        />
+          name="authorId"
+          id="authorId"
+          placeholder="<%= post.author.id %>"
+          value="<%= post.author.id %>"
+        /></br>
+        <input
+          type="text"
+          name="authorUsername"
+          id="authorUsername"
+          placeholder="<%= post.author.username %>"
+          value="<%= post.author.username %>"
+        /></br>
+        <input
+          type="text"
+          name="authorAvatar"
+          id="authorAvatar"
+          placeholder="<%= post.author.avatar %>"
+          value="<%= post.author.avatar %>"
+        /></br>
       </div>
       <div>
         <label for="isActive">Is Active</label><br />
@@ -62,6 +77,15 @@
         <label>True</label>
         <br />
         <input type="radio" name="isActive" id="isActive" value="false" />
+        <label>False</label>
+        <br />
+      </div>
+      <div>
+        <label for="spoiler">Spoiler</label><br />
+        <input type="radio" name="spoiler" id="spoiler" value="true" />
+        <label>True</label>
+        <br />
+        <input type="radio" name="spoiler" id="spoiler" value="false" />
         <label>False</label>
         <br />
       </div>

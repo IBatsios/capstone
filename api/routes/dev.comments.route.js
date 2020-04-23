@@ -1,19 +1,21 @@
 /**
  * This is the routes file for all actions related to comments.
  *
- * @author Jamie Weathers
+ * @author Jamie Weathers ref Christopher Thacker
  * @since 1.0.0
  */
 
 const router = require('express').Router()
 const CommentServices = require('../services/CommentServices')
+const UserServices = require('../services/UserServices')
+
 // INDEX: show all comments.
 router.get('/', async (req, res) => {
   const filter = req.body
   const allComments = await CommentServices.getMany(filter)
 
   if (!allComments) {
-    return res.redirect('/comments/new')
+    return res.redirect('/dev/comments/new')
   }
 
   res.render('comments', { comments: allComments })
@@ -22,16 +24,17 @@ router.get('/', async (req, res) => {
 // CREATE: add a new comment.
 router.post('/', async (req, res) => {
   const commentDTO = req.body
-  const result = await CommentServices.addNew(commentDTO)
+  const userObj = await UserServices.getUser(commentDTO.authorId)
+  console.log(userObj)
+  const result = await CommentServices.addNew(userObj, commentDTO)
 
   var response
   if (!result) {
-    response = 'Comment was unsuccessful'
+    response = 'Post was unsuccessful'
+    res.send(response)
   } else {
-    response = 'Comment was successful'
+    res.redirect('/dev/comments')
   }
-
-  res.send(response)
 })
 
 // NEW: renders the form to add a new comment.

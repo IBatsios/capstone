@@ -10,15 +10,24 @@
     <h1>Edit Existing Comment</h1>
     <h2>Developer Test</h2>
     <a href="/dev/comments">Return to list</a>
-    <form action="/dev/comments/<%= comment._id%>?_method=PUT" method="POST">
+    <form action="/dev/comments/<%= comment._id%>?_method=PUT" method="PUT">
       <div>
         <label for="author">Author</label>
         <input
-          type="author"
-          name="author"
-          id="author"
-          placeholder="<%= comment.author %>"
-          value="<%= comment.author %>"
+          type="text"
+          name="authorId"
+          id="authorId"
+          placeholder="<%= comment.author.id %>"
+          value="<%= comment.author.id %>"
+        />
+      </div>
+      <div>
+        <label for="postId">Parent Post ID</label>
+        <input
+          type="text"
+          name="postId"
+          id="postId"
+          value="<%= comment.postId %>"
         />
       </div>
       <div>
@@ -37,6 +46,15 @@
         <label>True</label>
         <br />
         <input type="radio" name="isActive" id="isActive" value="false" />
+        <label>False</label>
+        <br />
+      </div>
+      <div>
+        <label for="spoiler">Is Spoiler</label><br />
+        <input type="radio" name="spoiler" id="spoiler" value="true" />
+        <label>True</label>
+        <br />
+        <input type="radio" name="spoiler" id="spoiler" value="false" />
         <label>False</label>
         <br />
       </div>

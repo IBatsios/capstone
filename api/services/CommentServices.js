@@ -22,7 +22,6 @@ class CommentServices {
    * @param {Object} commentDTO Comment data transfer object.
    * @returns {Object|false} Comment object | false if creating new comment unsuccessful.
    * @author Jamie Weathers
-   * @author Michael McCullloch
    * @since 1.0.0
    */
   static async addNew(user, commentDTO) {
@@ -30,15 +29,15 @@ class CommentServices {
       const newComment = new Comment({
         content: commentDTO.content,
         postId: commentDTO.postId,
-        author: user,
+        author: { id: user.id, username: user.username, avatar: user.avatar },
         isActive: true,
       })
       const result = await connector.create(modelName, newComment)
 
       // Add the comment to the post.
-      const post = await PostServices.getById(commentDTO.postId);
-      post.comments.push(result);
-      PostServices.update(commentDTO.postId, post);
+      const post = await PostServices.getById(commentDTO.postId)
+      post.comments.push(result)
+      PostServices.update(commentDTO.postId, post)
 
       if (!result) {
         console.log(`New comment failed at CommentServices`)
@@ -104,23 +103,23 @@ class CommentServices {
 
     // Get the comment by id, rather than use the return value of,
     // connector update to avoid an asynchronous issue.
-    const updatedComment = await this.getById(commentId);
+    const updatedComment = await this.getById(commentId)
 
     // Get the post to update the comments.
-    const post = await PostServices.getById(updatedComment.postId);
+    const post = await PostServices.getById(updatedComment.postId)
 
     // FIXME: This is a work-around to update the comments on a post.
-    const comments = post.comments.map(comment => {
-      if (comment._id == commentId){
-        return updatedComment;
+    const comments = post.comments.map((comment) => {
+      if (comment._id == commentId) {
+        return updatedComment
       }
-      return comment;
-    });
+      return comment
+    })
 
-    post.comments = comments;
+    post.comments = comments
 
     // Update the post.
-    PostServices.update(updatedComment.postId, post);
+    PostServices.update(updatedComment.postId, post)
 
     if (updatedComment == null) {
       console.log(`Could not find comment ID [${commentId}] to update.`)
@@ -145,20 +144,20 @@ class CommentServices {
     // Get the comment by id, rather than use the return value of,
     // update to avoid an asynchronous issue.
     await this.update(commentId, hideData)
-    const updatedComment = await CommentServices.getById(commentId);
-    
+    const updatedComment = await CommentServices.getById(commentId)
+
     // Get the post to update the comments.
-    const post = await PostServices.getById(updatedComment.postId);
+    const post = await PostServices.getById(updatedComment.postId)
 
     // FIXME: This is a work-around to update the comments on a post.
-    const comments = post.comments.filter(comment => comment._id != commentId);
+    const comments = post.comments.filter((comment) => comment._id != commentId)
 
-    post.comments = comments;
-    
+    post.comments = comments
+
     // Update the post.
-    PostServices.update(updatedComment.postId, post);
+    PostServices.update(updatedComment.postId, post)
 
-    return updatedComment;
+    return updatedComment
   }
 
   /**
