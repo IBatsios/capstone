@@ -58,7 +58,7 @@ class ListServices {
      * @since 1.0.0
      */
     static async getList(listId) {
-        var foundList = await connector.readOne(modelName, listId);
+        const foundList = await connector.readOne(modelName, listId);
 
         if (foundList === false) {
             console.log(`Error: bad list ID [${listId}].`);
@@ -101,13 +101,15 @@ class ListServices {
      * @returns {object|null|false} the updated object if successful | null if no list found | false if failed
      * 
      * @author Hieu Vo ref Christopher Thacker
+     * @author Michael McCulloch
      * @since 1.0.0
      */
     static async updateList(listId, newData) {
 
         // TODO: validate newData
 
-        const updatedList = await connector.update(modelName, listId, newData);
+        await connector.update(modelName, listId, newData);
+        const updatedList = await this.getList(newData._id);
 
         if (updatedList === null) {
             console.log('Could not find List to update.');
