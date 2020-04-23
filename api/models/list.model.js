@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var listSchema = new Schema({
-    listName: {
+    name: {
         type: String,
         required: true
     },
@@ -21,15 +21,19 @@ var listSchema = new Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
         },
-        username: String,
-        avatar: String
-      },
-    itemList: [{
+
+        username: String
+    },
+    items: [
+      {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Item'
         },
-        author: Object
+        name: String,
+        description: String,
+        url: String
+
       }
     ],
     isActive: {

@@ -18,8 +18,12 @@ var commentSchema = new Schema(
       id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
       },
-      username: String,
+      username: {
+        type: String,
+        required: true,
+      },
       avatar: String,
     },
     // TODO: Maybe try and make this a reference. It wasn't

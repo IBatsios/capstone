@@ -20,6 +20,7 @@ class PostServices {
    * @param {Object} postDTO Post data transfer object.
    * @returns {Object|false} Post object or false if creating a new post unsuccessful
    * @author Jamie Weathers
+   * @author Michael McCulloch
    * @since 1.0.0
    */
   static async addNew(user, postDTO) {

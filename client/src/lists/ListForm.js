@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,13 +19,13 @@ import {
   LIST_INTEREST_TYPE,
   LIST_INTEREST_HELPER_TEXT
 } from 'config/view/constants';
+import { URL } from 'config/user';
 
 export const ListForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
     id: props.id,
-    userId: state.user.id,
     name: props.name || '',
     interest: props.interest || ''
   });
@@ -36,19 +37,36 @@ export const ListForm = (props) => {
     });
   };
 
-  const handleSave = () => {
-    // Remove properties with an undefined value.
-    Object.keys(values).forEach(key => {
-      if (values[key] === undefined) {
-        delete values[key];
-      }
-    });
-    dispatch({
-      store: 'ListStore',
-      type: 'ListFormSave',
-      payload: values
-    });
-    handleClose();
+  const handleSave = async () => {
+    // Send the updated or new list data to the server.
+    try {
+      const listId = values.id || '';
+      let response = await axios({
+        withCredentials: true,
+        method: 'put',
+        url: `${URL.LISTS}/${listId}`,
+        data: {
+          name: values.name,
+          interest: values.interest
+        }
+      });
+
+      // Use the response url to fetch the updated resource.
+      const updatedDataUrl = response.request.responseURL;
+      response = await axios({
+        withCredentials: true,
+        method: 'get',
+        url: updatedDataUrl,
+      });
+      dispatch({
+        store: 'ListStore',
+        type: 'saveList',
+        payload: response.data 
+      });
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleChange = name => (event) => {
