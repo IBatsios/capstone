@@ -33,7 +33,7 @@ router.put('/', async (req, res) => {
       .send({ error: `Error attempting to add new comment.` })
   }
 
-  res.status(200).redirect(`${result._id}`)
+  return res.status(200).send();
 })
 
 // SHOW: displays more information about an existing comment.
