@@ -14,6 +14,7 @@ const ItemServices = require('../services/ItemServices');
  * INDEX: show all items.
  * 
  * @author Hieu Vo ref Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 router.get('/', async (req, res) => {
@@ -22,31 +23,37 @@ router.get('/', async (req, res) => {
 
     var allItems = await ItemServices.getManyItems(filter);
 
-    if (!allItems) {
-        // return res.send('No items found.');
-        return res.redirect('/items/newItem');
-    }
+  if (!allItems) {
+    return res.status(404).send({ error: 'No list items were found' })
+  }
 
-    return res.render('items', {items: allItems});
+    return res.status(200).send(allItems);
 });
 
 /**
  * CREATE: add a new Item.
  * 
  * @author Hieu Vo ref Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
-router.post('/', async (req, res) => {
-    req.body.isActive = true;
+router.put('/', async (req, res) => {
+    const user = req.session.user;
     const itemDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
+    console.log('itemDTO');
+    console.log(itemDTO);
 
-    var newItem = await ItemServices.addItem(itemDTO);
+    const result = await ItemServices.addItem(itemDTO);
+    console.log('result');
+    console.log(result);
 
-    if (!newItem) {
-        return res.redirect('/items/newItem');
+    if (!result) {
+      return res.status(404).send({ error: `Create list item  unsuccessful` })
     }
 
-    return res.render('items/showItem', {item: newItem});
+  // Provides the url of the new list item in the request response.
+  //res.status(200).redirect(`${result._id}`);
+  return res.status(200).send();
 });
 
 /**
@@ -63,16 +70,19 @@ router.get('/newItem', (req, res) => {
  * SHOW: displays item page for an existing item.
  * 
  * @author Hieu Vo ref Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 router.get('/:id', async (req, res) => {
     const itemId = req.params.id;
-    var foundItem = await ItemServices.getItem(itemId);
+    const foundItem = await ItemServices.getItem(itemId);
     if (!foundItem) {
-        console.log('Error when retrieving item.');
-        return res.redirect('/items');
+      return res
+        .status(404)
+        .send({ error: `Error finding list item with ID ${[itemId]}.` })
     }
-    return res.render('items/showItem', {item: foundItem});
+
+    return res.status(200).send(foundItem)
 });
 
 /**
@@ -97,10 +107,12 @@ router.put('/:id', async (req, res) => {
     const itemId = req.params.id;
     const updatedItem = await ItemServices.updateItem(itemId, newData);
     if (!updatedItem) {
-        console.log('Error when updating item.');
-        return res.redirect('/items');
+      return res
+        .status(404)
+        .send({ error: `Error attempting to update item with ID ${itemId}.` })
     }
-    return res.redirect(`/items/${itemId}`);
+
+    return res.status(200).send(updatedItem)
 });
 
 /**
@@ -113,10 +125,15 @@ router.delete('/:id', async (req, res) => {
     const itemId = req.params.id;
     const response = await ItemServices.deleteItem(itemId); // TODO: Currently deletes the item in the DB, but eventually will need to update isActive flag.
     console.log(response);
+
     if (!response) {
-        console.log('Error when deleting item.'); // TODO: Send error message to view.
+      return res
+        .status(404)
+        .send({ error: `Error attempting to delete item with ID ${[itemId]}.` })
     }
-    return res.redirect('/items'); //TODO: Send success message to view.
+
+    // Don't return anything upon delete.
+    return res.status(200).send();
 });
 
 module.exports = router;
