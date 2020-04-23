@@ -83,6 +83,7 @@ const URL = {
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
   LISTS: `${BACKEND_URL}/lists`,
+  LIST_ITEMS: `${BACKEND_URL}/items`,
   LOGOUT: `${BACKEND_URL}/logout`,
   LOGIN: `${BACKEND_URL}/login`,
   USERS: `${BACKEND_URL}/users`,
