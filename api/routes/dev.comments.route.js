@@ -7,6 +7,8 @@
 
 const router = require('express').Router()
 const CommentServices = require('../services/CommentServices')
+const UserServices = require('../services/UserServices')
+
 // INDEX: show all comments.
 router.get('/', async (req, res) => {
   const filter = req.body
@@ -22,8 +24,9 @@ router.get('/', async (req, res) => {
 // CREATE: add a new comment.
 router.post('/', async (req, res) => {
   const commentDTO = req.body
-  const result = await CommentServices.addNew(commentDTO)
-  console.log(result)
+  const userObj = await UserServices.getUser(commentDTO.authorId)
+  console.log(userObj)
+  const result = await CommentServices.addNew(userObj, commentDTO)
 
   var response
   if (!result) {

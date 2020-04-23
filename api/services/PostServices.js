@@ -24,7 +24,6 @@ class PostServices {
    * @since 1.0.0
    */
   static async addNew(user, postDTO) {
-    console.log(postDTO)
     try {
       const newPost = new Post({
         title: postDTO.title,
@@ -33,7 +32,7 @@ class PostServices {
         likeCount: 0,
         arrayLike: [],
         comments: [],
-        author: user,
+        author: { id: user._id, username: user.username, avatar: user.avatar },
         isActive: true,
         spoiler: postDTO.spoiler,
       })

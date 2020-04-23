@@ -48,7 +48,7 @@ var postSchema = new Schema(
       },
     ],
     author: {
-      _id: {
+      id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },

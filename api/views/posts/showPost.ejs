@@ -11,13 +11,12 @@
     <a href="/dev/posts">Go back</a>
     <hr />
     <div style="border: 1px solid red;">
-      <p><%= post.author %></p>
       <p><b>Title: </b><%= post.title %></p>
       <p><b>Content: </b><%= post.content %></p>
       <p><b>Interest: </b><%= post.interest %></p>
       <p><b>LikeCount: </b><%= post.likeCount %></p>
       <p><b>Author: </b>
-      <br>Id: <%= post.author._id %>
+      <br>Id: <%= post.author.id %>
       </br>Username: <%= post.author.username %>
       </br>Avatar: <%= post.author.avatar %></p>
       <p><b>IsActive:</b><%= post.isActive %></p>

@@ -17,22 +17,17 @@
           type="text"
           name="authorId"
           id="authorId"
-          placeholder="<%= post.author.id %>"
-          value="<%= post.author.id %>"
+          placeholder="<%= comment.author.id %>"
+          value="<%= comment.author.id %>"
         />
+      </div>
+      <div>
+        <label for="postId">Parent Post ID</label>
         <input
           type="text"
-          name="authorUsername"
-          id="authorUsername"
-          placeholder="<%= post.author.username %>"
-          value="<%= post.author.username %>"
-        />
-        <input
-          type="text"
-          name="authorAvatar"
-          id="authorAvatar"
-          placeholder="<%= post.author.avatar %>"
-          value="<%= post.author.avatar %>"
+          name="postId"
+          id="postId"
+          value="<%= comment.postId %>"
         />
       </div>
       <div>
