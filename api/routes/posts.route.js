@@ -34,7 +34,7 @@ router.put('/', async (req, res) => {
   }
 
   // Provides the url of the new post in the request response.
-  res.status(200).redirect(`${result._id}`)
+  return res.status(200).redirect(`${result._id}`);
 })
 
 // SHOW: displays more information about an existing post.

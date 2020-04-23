@@ -16,13 +16,14 @@ const listMap = {
   },
   // Saves the list as provide by the backend.
   set(list) {
-    this.map.set(list.id, list);
+    this.map.set(list._id, list);
   },
   // Returns all the lists in the format the frontend expects.
   getAll() {
     let allLists = [];
     for (let list of this.map.values()) {
-      allLists.push({...list});
+      const {_id, ...other} = {...list};
+      allLists.push({id: _id, ...other});
     }
     return allLists;
   },
@@ -40,23 +41,13 @@ export function listReducer(state, action) {
       console.log('isFetchingLists');
       return {...state, isFetchingLists: true};
     case 'setListData':
-      console.log('setListData');
       action.payload.lists.map(list => {
         listMap.set(list);
       });
       return {...state, lists: listMap.getAll(), isFetchingLists: false};
-    case 'ListFormSave':
-      // Prints to the console, the submitted post data.
-      console.log(action.payload);
-      if (action.payload.id) {
-        const list = {...listMap.get(action.payload), ...action.payload};
-        listMap.set(list);
-        return {...state, lists: listMap.getAll() };
-        // Send a the new list information to the server.
-      } else {
-        // Send a the new list information to the server.
-      }
-      return { ...state };
+    case 'saveList':
+      listMap.set(action.payload);
+      return { ...state, lists: listMap.getAll() };
     case 'deleteList':
       console.log(action.payload);
       listMap.delete(action.payload);

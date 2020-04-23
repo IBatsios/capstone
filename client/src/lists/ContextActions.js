@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -17,6 +18,7 @@ import { UserContext } from 'data/UserStore';
 import { ListForm } from './ListForm';
 import { ListItemForm } from './ListItemForm';
 import { ListItems } from './ListItems';
+import { URL } from 'config/user';
 
 const useStyles = makeStyles({
   list: {
@@ -51,12 +53,23 @@ export const ContextActions = (props) => {
     handleClose();
   }
 
-  const handleDelete = () => {
-    dispatch({
-      store: 'ListStore',
-      type: 'deleteList',
-      payload: props.list.id
-    });
+  const handleDelete = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'delete',
+        url: `${URL.LISTS}/${props.list.id}`
+      });
+
+      dispatch({
+        store: 'ListStore',
+        type: 'deleteList',
+        payload: props.list.id
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
     handleClose();
   }
 

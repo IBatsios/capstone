@@ -11,17 +11,17 @@
     <a href="/dev/lists">Return to list</a><br><br>
     <form action="/dev/lists/<%= list._id %>?_method=PUT" method="POST">
         <div>
-            <label for="listName">ListName</label>
-            <input type="listName" name="listName" id="listName" placeholder="ListName" value="<%= list.listName %>">   
+            <label for="name">Name</label>
+            <input type="name" name="name" id="name" placeholder="Name" value="<%= list.name %>">   
         </div>
         <div>
-            <label for="itemList">Choose Items:</label>
-            <select id="itemList">
+            <label for="items">Choose Items:</label>
+            <select id="items">
                 <option value="default">default</option>
             </select>
             <script>
             
-                var select = document.getElementById("itemList"),
+                var select = document.getElementById("items"),
                          arr = ["item1","item2"];
                  
                  for(var i = 0; i < arr.length; i++)
