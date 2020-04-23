@@ -18,9 +18,10 @@ var listSchema = new Schema({
     },
     author: {
         id: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
         },
+
         username: String
     },
     items: [
@@ -32,6 +33,7 @@ var listSchema = new Schema({
         name: String,
         description: String,
         url: String
+
       }
     ],
     isActive: {

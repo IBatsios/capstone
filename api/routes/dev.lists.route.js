@@ -35,7 +35,6 @@ router.get('/', async (req, res) => {
  * @since 1.0.0
  */
 router.post('/', async (req, res) => {   
-    req.body.isActive = true;
     const listDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
     var newList = await ListServices.addList(listDTO);
     var response
@@ -101,7 +100,9 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const listId = req.params.id;
+
     const updatedList = await ListServices.updateList(listId, newData, items);
+
     if (!updatedList) {
         console.log('Error when updating list.');
         return res.redirect('/lists');
