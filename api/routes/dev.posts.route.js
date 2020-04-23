@@ -6,6 +6,7 @@
 
 const router = require('express').Router()
 const PostServices = require('../services/PostServices')
+const UserServices = require('../services/UserServices')
 
 // INDEX: show all posts.
 router.get('/', async (req, res) => {
@@ -23,16 +24,16 @@ router.get('/', async (req, res) => {
 // CREATE: add a new post.
 router.post('/', async (req, res) => {
   const postDTO = req.body
-  const result = await PostServices.addNew(postDTO)
+  const userObj = await UserServices.getUser(postDTO.authorId)
+  console.log(userObj)
+  const result = await PostServices.addNew(userObj, postDTO)
 
-  var response
   if (!result) {
     response = 'Post was unsuccessful.'
-  } else {
-    response = 'Post successful.'
+    return res.send(response)
   }
 
-  res.send(response)
+  return res.redirect('posts/')
 })
 
 // NEW: renders the form to add a new post.

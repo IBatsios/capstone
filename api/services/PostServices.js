@@ -24,6 +24,7 @@ class PostServices {
    * @since 1.0.0
    */
   static async addNew(user, postDTO) {
+    console.log(postDTO)
     try {
       const newPost = new Post({
         title: postDTO.title,
@@ -34,6 +35,7 @@ class PostServices {
         comments: [],
         author: user,
         isActive: true,
+        spoiler: postDTO.spoiler,
       })
 
       const result = await connector.create(modelName, newPost)
