@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import {
@@ -14,6 +15,7 @@ import {
 import { UserContext } from 'data/UserStore';
 import { ListItemForm } from './ListItemForm';
 import classes from './ListItems.module.css';
+import { URL } from 'config/user';
 
 
 export const ListItems = (props) => {
@@ -26,15 +28,36 @@ export const ListItems = (props) => {
     });
   };
 
-  const handleDeleteItem = item => () => {
-    dispatch({
-      store: 'ListStore',
-      type: 'deleteListItem',
-      payload: {
-        listId: props.id,
-        item: item
-      }
-    });
+  const handleDeleteItem = item => async () => {
+    try {
+      let response = await axios({
+        withCredentials: true,
+        method: 'delete',
+        url: `${URL.LIST_ITEMS}/${item._id}`,
+        data: {
+          listId: props.id
+        }
+      });
+
+      response = await({
+        withCredentials: true,
+        method: 'get',
+        // Fetch the list with updated items.
+        url: `${URL.LISTS}/${props.id}`
+      });
+      // Save the updated list to the front-end state.
+      // There is reason to believe this will not result in the
+      // list items being re-render with the new data even though
+      // the list items have been updated.  Test it when the back-end
+      // is ready.
+      dispatch({
+        store: 'ListStore',
+        type: 'saveList',
+        payload: response.data 
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleEditItem = item => () => {
