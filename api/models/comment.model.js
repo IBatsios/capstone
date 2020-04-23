@@ -2,6 +2,7 @@
  * This is the schema for the comments that will appear under posts.
  * 
  * @author Hieu Vo and Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 
