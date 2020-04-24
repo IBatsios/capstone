@@ -25,24 +25,27 @@ const CommentServices = require('../services/CommentServices');
  * CREATE: add a new comment report.
  * 
  * @author Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 router.put('/:id', async (req, res) => {
-    try {
-        if (req.session.user) {
-            const user = req.session.user;
-            const isReported = await CommentServices.addReport(req.params.id, user.id);
+    // Only authenticated users should able to add a comment.
+    if (req.session.user) {
+        try {
+                const user = req.session.user;
+                const isReported = await CommentServices.addReport(req.params.id, user.id);
 
-            if (isReported) {
-                return res.status(200).json({comment: isReported});
-            }
-            return res.status(403).json({error: 'Comment was not reported'});
+                if (isReported) {
+                    return res.status(200).json({comment: isReported});
+                }
+                return res.status(403).json({error: 'Comment was not reported'});
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).send(error);
         }
-        return res.status(401).json({error: 'User not logged in'});
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).send(error);
     }
+
+    return res.status(401).json({error: 'User not logged in'});
 });
 
 /**

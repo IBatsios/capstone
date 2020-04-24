@@ -25,11 +25,13 @@ const PostServices = require('../services/PostServices');
  * CREATE: add a new post report.
  * 
  * @author Christopher Thacker
+ * @author Michael McCulloch
  * @since 1.0.0
  */
 router.put('/:id', async (req, res) => {
-    try {
-        if (req.session.user) {
+
+    if (req.session.user) {
+        try {
             const user = req.session.user;
             const isReported = await PostServices.addReport(req.params.id, user.id);
 
@@ -37,12 +39,13 @@ router.put('/:id', async (req, res) => {
                 return res.status(200).json({post: isReported});
             }
             return res.status(403).json({error: 'Post was not reported'});
+        } catch (error) {
+            console.log(error.message);
+            return res.status(500).send(error);
         }
-        return res.status(401).json({error: 'User not logged in'});
-    } catch (error) {
-        console.log(error.message);
-        return res.status(500).send(error);
     }
+
+    return res.status(401).json({error: 'User not logged in'});
 });
 
 /**
