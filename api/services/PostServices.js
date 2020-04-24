@@ -155,6 +155,7 @@ class PostServices {
      * @param {string} userId 
      * 
      * @author Christopher Thacker
+     * @author Michael McCulloch
      * @since 1.0.0
      */
     static async addReport(postId, userId) {
@@ -162,24 +163,29 @@ class PostServices {
             var foundPost = await this.getById(postId);
             var foundUser = await UserServices.getUser(userId);
 
-            // TODO: check if user has already reported the post
+            // Check if user has already reported the post
+            const previousReport = foundPost.reportedBy.some((user) => {
+                return user._id == userId;
+            })
 
-            foundPost.reportedBy.push(foundUser);
-            foundPost.reportCount++;
+            // If user hasn't report the post before, add the report.
+            if (!previousReport) {
+                foundPost.reportedBy.push(foundUser);
+                foundPost.reportCount++;
 
-            try {
-                var updatedPost = await this.update(postId, foundPost);
-                if (updatedPost) {
-                    console.log(`Updated post: ${updatedPost}`);
-                    return updatedPost;
+                try {
+                    var updatedPost = await this.update(postId, foundPost);
+                    if (updatedPost) {
+                        console.log(`Updated post: ${updatedPost}`);
+                        return updatedPost;
+                    }
+                    console.log('Failed to update post');
+                    return false;
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
                 }
-                console.log('Failed to update post');
-                return false;
-            } catch (error) {
-                console.log(error.message);
-                return false;
             }
-
         } catch (error) {
             console.log(error.message);
             return false;
