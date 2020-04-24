@@ -35,6 +35,20 @@ var commentSchema = new Schema(
       type: String,
       required: true,
     },
+    reportedBy: [
+        {
+            id: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'User',
+            },
+            username: String
+        },
+    ], 
+    reportCount: {
+        type: Number,
+        required: true,
+        default: 0
+    },
     isActive: {
       type: Boolean,
       required: true,
