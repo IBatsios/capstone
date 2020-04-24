@@ -10,7 +10,6 @@
 // Imports
 const router = require('express').Router();
 const PostServices = require('../services/PostServices');
-const UserServices = require('../services/UserServices');
 
 /**
  * Testing purposes only.
