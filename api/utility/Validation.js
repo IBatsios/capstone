@@ -114,6 +114,15 @@ class Validation {
             isValid: isEmpty(errors)
         }
     }
+
+    static isContains(json, value) {
+        let contains = false;
+        Object.keys(json).some(key => {
+            contains = typeof json[key] === 'object' ? this.isContains(json[key], value) : json[key] === value;
+            return contains;
+        });
+        return contains;
+    }
 }
 
 module.exports = Validation;
