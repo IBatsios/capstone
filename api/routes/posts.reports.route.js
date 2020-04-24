@@ -28,7 +28,7 @@ const UserServices = require('../services/UserServices');
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.post('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         if (!req.session.user) {
             const user = req.session.user;
