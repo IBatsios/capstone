@@ -29,7 +29,7 @@ const PostServices = require('../services/PostServices');
  */
 router.put('/:id', async (req, res) => {
     try {
-        if (!req.session.user) {
+        if (req.session.user) {
             const user = req.session.user;
             const isReported = await PostServices.addReport(req.params.id, user._id);
 

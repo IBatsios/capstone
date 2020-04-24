@@ -29,9 +29,9 @@ const CommentServices = require('../services/CommentServices');
  */
 router.put('/:id', async (req, res) => {
     try {
-        if (!req.session.user) {
-            // const user = req.session.user;
-            const isReported = await CommentServices.addReport(req.params.id, '5e9b33b2a289c919089318dd');
+        if (req.session.user) {
+            const user = req.session.user;
+            const isReported = await CommentServices.addReport(req.params.id, user._id);
 
             if (isReported) {
                 return res.status(200).json({comment: isReported});
