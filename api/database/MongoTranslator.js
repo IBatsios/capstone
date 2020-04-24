@@ -191,7 +191,7 @@ class MongoTranslator {
                 if (!this.isValidId(id)) {
                     return false;
                 }
-                const newModel = await Model.findByIdAndUpdate(id, { $set: data })
+                const newModel = await Model.findByIdAndUpdate(id, { $set: data }, {new: true})
                     .catch((error) => {
                         console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
                         return false;

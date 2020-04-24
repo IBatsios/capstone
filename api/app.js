@@ -17,9 +17,11 @@ const User = require('./models/user.model')
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users.route')
 const postsRouter = require('./routes/posts.route')
+const postReportRouter = require('./routes/posts.reports.route')
 const itemsRouter = require('./routes/items.route')
 const listsRouter = require('./routes/lists.route')
 const commentsRouter = require('./routes/comments.route')
+const commentReportRouter = require('./routes/comments.reports.route')
 
 // Dev Routers
 const devUsersRouter = require('./routes/dev.users.route')
@@ -79,9 +81,11 @@ app.set('view engine', 'ejs')
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/posts', postsRouter)
+app.use('/report/posts', postReportRouter)
 app.use('/items', itemsRouter)
 app.use('/lists', listsRouter)
 app.use('/comments', commentsRouter)
+app.use('/report/comments', commentReportRouter)
 
 // Dev routes
 app.use('/dev/users/', devUsersRouter)
