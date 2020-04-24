@@ -119,7 +119,6 @@ export const ContextActionsDrawer = (props) => {
  */
 
 export const ContextActions = (props) => {
-  console.log(props);
   const [state, dispatch] = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -133,7 +132,7 @@ export const ContextActions = (props) => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios({
+      await axios({
         withCredentials: true,
         method: 'delete',
         url: `${URL.COMMENTS}/${props._id}`

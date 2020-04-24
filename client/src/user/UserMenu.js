@@ -64,7 +64,7 @@ export const UserMenu = (props) => {
 
   const logout = async () => {
     try {
-      const response = await axios({
+      await axios({
         withCredentials: true,
         method: 'get',
         url: URL.LOGOUT
