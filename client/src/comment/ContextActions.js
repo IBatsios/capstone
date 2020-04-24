@@ -126,6 +126,7 @@ export const ContextActionsDrawer = (props) => {
  */
 
 export const ContextActions = (props) => {
+  console.log(props);
   const [state, dispatch] = useContext(UserContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -189,14 +190,20 @@ export const ContextActions = (props) => {
     handleClose();
   };
 
-  const handleReport = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'reportComment',
-      payload: props.id 
-    });
+  const handleReport = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'put',
+        url: `${URL.REPORT_COMMENTS}/${props._id}`
+      });
+      console.log(response);
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
     handleClose();
-  };
+  }
 
   const handleFriendRequest = () => {
     dispatch({
