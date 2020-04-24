@@ -181,6 +181,7 @@ class CommentServices {
      * @param {string} userId 
      * 
      * @author Christopher Thacker
+     * @author Michael McCulloch
      * @since 1.0.0
      */
     static async addReport(commentId, userId) {
@@ -188,22 +189,28 @@ class CommentServices {
             var foundComment = await this.getById(commentId);
             var foundUser = await UserServices.getUser(userId);
 
-            // TODO: check if user has already reported the post
+            // Check if user has already reported the post
+            const previousReport = foundComment.reportedBy.some((user) => {
+                return user._id == userId;
+            })
 
-            foundComment.reportedBy.push(foundUser);
-            foundComment.reportCount++;
+            // If user hasn't report the post before, add the report.
+            if (!previousReport) {
+                foundComment.reportedBy.push(foundUser);
+                foundComment.reportCount++;
 
-            try {
-                var updatedComment = await this.update(commentId, foundComment);
-                if (updatedComment) {
-                    console.log(`Updated post: ${updatedComment}`);
-                    return updatedComment;
+                try {
+                    var updatedComment = await this.update(commentId, foundComment);
+                    if (updatedComment) {
+                        console.log(`Updated post: ${updatedComment}`);
+                        return updatedComment;
+                    }
+                    console.log('Failed to update comment');
+                    return false;
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
                 }
-                console.log('Failed to update comment');
-                return false;
-            } catch (error) {
-                console.log(error.message);
-                return false;
             }
 
         } catch (error) {
