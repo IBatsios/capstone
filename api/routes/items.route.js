@@ -18,16 +18,15 @@ const ItemServices = require('../services/ItemServices')
  */
 router.get('/', async (req, res) => {
   // const filter = req.body; // Optional TODO: Outsource to a ItemServices function to build filter.
-  const filter = {}
-
-  var allItems = await ItemServices.getManyItems(filter)
+  const filter = req.body
+  const allItems = await ItemServices.getManyItems(filter)
 
   if (!allItems) {
     // return res.send('No items found.');
-    return res.redirect('/items/newItem')
+    return res.status(404).send({ error: `Error attempting to create items` })
   }
 
-  return res.render('items', { items: allItems })
+  res.status(200).send(allItems)
 })
 
 /**
@@ -96,10 +95,12 @@ router.put('/:id', async (req, res) => {
   const itemId = req.params.id
   const updatedItem = await ItemServices.updateItem(itemId, newData)
   if (!updatedItem) {
-    console.log('Error when updating item.')
-    return res.redirect('/items')
+    return res
+      .status(404)
+      .send({ error: `Error attempting to update item by ID ${itemId}.` })
   }
-  return res.redirect(`/items/${itemId}`)
+
+  return res.status(200).send(updatedItem)
 })
 
 /**
@@ -110,12 +111,14 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
   const itemId = req.params.id
-  const response = await ItemServices.deleteItem(itemId) // TODO: Currently deletes the item in the DB, but eventually will need to update isActive flag.
-  console.log(response)
-  if (!response) {
-    console.log('Error when deleting item.') // TODO: Send error message to view.
+  const hiddenItem = await ItemServices.hide(itemId)
+
+  if (!hiddenItem) {
+    return res
+      .status(404)
+      .send({ error: `Error attempting to delete item by ID ${itemId}.` })
   }
-  return res.redirect('/items') //TODO: Send success message to view.
+  return res.status(200).send()
 })
 
 module.exports = router

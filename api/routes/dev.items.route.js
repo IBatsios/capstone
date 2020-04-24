@@ -23,8 +23,6 @@ router.get('/', async (req, res) => {
     if (!allItems) {
         return res.redirect('/items/newItem')
       }
-    
-      
     res.render('items', {items: allItems});
 });
 
@@ -36,20 +34,16 @@ router.get('/', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.post('/', async (req, res) => {   
+router.put('/', async (req, res) => {   
     const itemDTO = req.body
     const userObj = await UserServices.getUser(itemDTO.authorId)
     console.log(userObj)
     const newItem = await ItemServices.addItem(userObj, itemDTO)
-    var response
     if (!newItem) {
-        response = 'unsuccessful.'
-      } else {
-        response = 'successful.'
-      }
-    
-      res.send(response)
-    })
+        return res.redirect('/items/newItem');
+    }
+    return res.render('items/showItem', {item: newItem});
+});
 
 /**
  * NEW: renders the form to register a new Item.
