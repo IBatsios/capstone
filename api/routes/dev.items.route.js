@@ -40,9 +40,9 @@ router.put('/', async (req, res) => {
     console.log(userObj)
     const newItem = await ItemServices.addItem(userObj, itemDTO)
     if (!newItem) {
-        return res.redirect('/items/newItem');
+        return res.redirect('dev/items/newItem');
     }
-    return res.render('items/showItem', {item: newItem});
+    return res.render('dev/items/showItem', {item: newItem});
 });
 
 /**
@@ -114,13 +114,13 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
     const itemId = req.params.id;
-    const response = await ItemServices.deleteItem(itemId); // TODO: Currently deletes the item in the DB, but eventually will need to update isActive flag.
-    console.log(response);
-    if (!response) {
-        console.log('Error when deleting item.'); // TODO: Send error message to view.
-        return res.redirect('/items'); //TODO: Send success message to view.
-    }
-    return res.send('item delete.')
-});
+    const hiddenItem = await ItemServices.hide(itemId)
+
+  if (!hiddenItem) {
+    console.log('Error when deleting item.')
+    return res.redirect('/items')
+  }
+  return res.send('Item hidden.')
+})
 
 module.exports = router;

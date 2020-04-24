@@ -9,7 +9,7 @@
     <h1>Edit Existing Item</h1>
     <h2>Developer Test</h2>
     <a href="/dev/items">Return to list</a><br><br>
-    <form action="/dev/items/<%= item._id %>?_method=PUT" method="POST">
+    <form action="/dev/items/<%= item._id %>?_method=PUT" method="PUT">
         <div>
             <label for="itemName">ItemName</label>
             <input type="itemName" name="itemName" id="itemName" placeholder="ItemName" value="<%= item.itemName %>">   
@@ -27,9 +27,14 @@
             <input type="description" name="description" id="description" placeholder="Description" value="<%= item.description %>">   
         </div>
         <div>
-            <label for="author">Author</label>
-            <input type="text" name="author" id="author" placeholder="author" value="<%= item.author %>" >
-        </div>
+            <label for="isActive">Is Active</label><br />
+            <input type="radio" name="isActive" id="isActive" value="true" />
+            <label>True</label>
+            <br />
+            <input type="radio" name="isActive" id="isActive" value="false" />
+            <label>False</label>
+            <br />
+          </div>
         <div>
             <button>Submit</button>
         </div>

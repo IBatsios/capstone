@@ -38,15 +38,16 @@ router.post('/', async (req, res) => {
     const listDTO = req.body
     const userObj = await UserServices.getUser(listDTO.authorId)
     console.log(userObj)
-    const result = await ListServices.addNew(userObj, listDTO)
+    const newList = await ListServices.addList(userObj, listDTO)
 
-    if (!result) {
-        response = 'List was unsuccessful.'
-        return res.send(response)
+    if (!newList) {
+      response = 'List was unsuccessful.'
+      return res.send(response)
     }
 
-    return res.redirect('/dev/lists/')
-})
+    return res.redirect('lists/')
+  })
+        
 
 /**
  * NEW: renders the form to register a new List.
@@ -116,13 +117,13 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
     const listId = req.params.id;
-    const response = await ListServices.deleteList(listId); // TODO: Currently deletes the list in the DB, but eventually will need to update isActive flag.
-    console.log(response);
-    if (!response) {
-        console.log('Error when deleting list.'); // TODO: Send error message to view.
-        return res.redirect('/lists'); //TODO: Send success message to view.
-    }
-    return res.send('list delete.')
-});
+    const hiddenList = await ListServices.hide(listId)
+
+  if (!hiddenList) {
+    console.log('Error when deleting list.')
+    return res.redirect('/lists')
+  }
+  return res.send('List hidden.')
+})
 
 module.exports = router;

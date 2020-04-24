@@ -13,7 +13,11 @@
     <div style="border: 1px solid red;">
         <p><b>Listname: </b><%= list.name %></p>
         <p><b>List of Item: </b><%= list.items %></p>
-        <p><b>Author: </b><%= list.author %></p>
+        <p><b>Author: </b>
+        <br>Id: <%= list.author.id %>
+        </br>Username: <%= list.author.username %>
+        </br>Avatar: <%= list.author.avatar %></p>
+        <p><b>IsActive:</b><%= list.isActive %></p>
     </div>
     <br>
     <a href="/dev/lists/<%= list._id %>/edit">Edit List</a>
