@@ -9,6 +9,7 @@
 
 const router = require('express').Router();
 const ItemServices = require('../services/ItemServices');
+const UserServices = require('../services/UserServices')
 
 /**
  * INDEX: show all Items.
@@ -18,15 +19,16 @@ const ItemServices = require('../services/ItemServices');
  */
 router.get('/', async (req, res) => {
     const filter = req.body
-
-  const allItems = await ItemServices.getManyItems(filter)
-
-  if (!allItems) {
-    return res.redirect('/items/newItem')
-  }
-
-  res.render('items', {items: allItems});
+    const allItems = await ItemServices.getManyItems(filter)
+    if (!allItems) {
+        return res.redirect('/items/newItem')
+      }
+    
+      
+    res.render('items', {items: allItems});
 });
+
+  
 
 /**
  * CREATE: add a new Item.
@@ -35,9 +37,10 @@ router.get('/', async (req, res) => {
  * @since 1.0.0
  */
 router.post('/', async (req, res) => {   
-    req.body.isActive = true;
-    const itemDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
-    var newItem = await ItemServices.addItem(itemDTO);
+    const itemDTO = req.body
+    const userObj = await UserServices.getUser(itemDTO.authorId)
+    console.log(userObj)
+    const newItem = await ItemServices.addItem(userObj, itemDTO)
     var response
     if (!newItem) {
         response = 'unsuccessful.'
@@ -55,7 +58,7 @@ router.post('/', async (req, res) => {
  * @since 1.0.0
  */
 router.get('/newItem', (req, res) => {
-    return res.render('items/newItem');
+    res.render('items/newItem');
 });
 
 /**
@@ -66,7 +69,7 @@ router.get('/newItem', (req, res) => {
  */
 router.get('/:id', async (req, res) => {
     const itemId = req.params.id;
-    var foundItem = await ItemServices.getItem(itemId);
+    const foundItem = await ItemServices.getItem(itemId);
     if (!foundItem) {
         console.log('Error when retrieving item.');
         return res.redirect('/items');
@@ -84,6 +87,11 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     const itemId = req.params.id
     const foundItem = await ItemServices.getItem(itemId);
+
+    if (!foundItem) {
+        console.log('Error when attempting to render edit item form.')
+        return res.render('/items')
+      }
     return res.render('items/editItem', {item: foundItem});
 });
 

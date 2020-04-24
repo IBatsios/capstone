@@ -4,6 +4,8 @@ const DatabaseConnector = require('../database/DatabaseConnector');
 const connector = new DatabaseConnector();
 const modelName = 'item.model';
 const Item = require(`../models/${modelName}`)
+const ListServices = require('../services/ListServices');
+const UserServices = require('../services/UserServices');
 
 /**
  * item Services class: supplement to the traditional models from MVC. Functions here will be used to get specific information from the database.
@@ -37,6 +39,14 @@ class ItemServices {
             })
       
             const result = await connector.create(modelName, newItem)
+
+            // Add the item to the list.
+            const list = await ListServices.getById(itemDTO.listId)
+            list.items.push(result)
+            ListServices.update(itemDTO.listId, list)
+
+
+        
             if (!result) {
               console.log('New item failed at ItemServices')
               return false
@@ -104,10 +114,22 @@ class ItemServices {
      * @since 1.0.0
      */
     static async updateItem(itemId, newData) {
+        await connector.update(modelName, itemId, newData)
 
         // TODO: validate newData
 
-        const updatedItem = await connector.update(modelName, itemId, newData);
+        const updatedItem = await this.getById(itemId)
+        const list = await ListServices.getById(updatedItem.listId)
+
+        const items = list.items.map((item) => {
+            if (item._id == itemId) {
+                return updatedItem
+            }
+            return item
+        })
+
+        list.items = items
+        ListServices.update(updatedItem.listId, list)
 
         if (updatedItem === null) {
             console.log('Could not find Item to update.');
@@ -145,10 +167,23 @@ class ItemServices {
      */
     static async hide(itemId) {
         const hideData = { isActive: 'false' }
-        const getItem = await this.update(itemId, hideData)
-    
-        return getItem
-      }
+
+        await this.update(itemId, hideData)
+        const updatedItem = await ItemServices.getById(itemId)
+
+        
+        const list = await ListServices.getById(updatedItem.listId)
+
+        // FIXME: This is a work-around to update the items on a list.
+        const items = list.items.filter((item) => item._id != itemId)
+
+        list.items = items
+
+        // Update the list.
+        ListServices.update(updatedItem.listId, list)
+
+        return updatedItem
+    }
     
       /**
        * @author Hieu Vo ref Jamie Weathers

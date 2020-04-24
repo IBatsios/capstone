@@ -32,7 +32,7 @@ class ListServices {
           name: listDTO.name,
           interest: listDTO.interest,
           items: [],
-          author: user, 
+          author: { id: user.id, username: user.username, avatar: user.avatar }, 
           isActive: true
         })
       
