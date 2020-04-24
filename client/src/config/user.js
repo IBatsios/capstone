@@ -1,4 +1,3 @@
-import React from 'react';
 import HomeIcon from '@material-ui/icons/Home';
 import ListIcon from '@material-ui/icons/List';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';

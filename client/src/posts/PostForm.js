@@ -6,24 +6,19 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { UserContext } from 'data/UserStore';
 import {
   ADD_POST,
-  POST_TITLE_ID,
   POST_TITLE_LABEL,
   POST_TITLE_TYPE,
-  POST_CONTENT_ID,
   POST_CONTENT_LABEL,
   POST_CONTENT_TYPE,
   POST_INTEREST_ID,
   POST_INTEREST_LABEL,
-  POST_INTEREST_TYPE,
   POST_INTEREST_HELPER_TEXT,
   SPOILER_LABEL,
   SPOILER_ID
