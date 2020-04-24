@@ -140,15 +140,6 @@ export function postReducer(state, action) {
       postMap.save(post);
       // Send updated information to the server.
       return { ...state, posts: postMap.getAll() };
-    case 'dislikePost':
-      console.log(`disliked postId: ${action.payload}`);
-      post = postMap.getById(action.payload);
-      // This seems wrong.  There is a like count and an arrayLike;
-      // but nothing to store dislikes.  So, I've just decremented the
-      // like counter.
-      post.likeCount--;
-      postMap.save(post);
-      return { ...state, posts: postMap.getAll() };
     case 'reportPost':
       console.log(`postId ${action.payload} has been reported`);
       return { ...state };

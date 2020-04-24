@@ -13,7 +13,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ReportIcon from '@material-ui/icons/Report';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -67,12 +66,6 @@ export const ContextActionsDrawer = (props) => {
                 <ThumbUpIcon />
               </ListItemIcon>
               <ListItemText primary="Like" />
-            </ListItem>
-            <ListItem button onClick={() => props.onDislike(props)}>
-              <ListItemIcon>
-                <ThumbDownIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dislike" />
             </ListItem>
             <ListItem button onClick={() => props.onFriendRequest(props)}>
               <ListItemIcon>
@@ -181,15 +174,6 @@ export const ContextActions = (props) => {
     handleClose();
   };
 
-  const handleDislike = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'dislikeComment',
-      payload: props.id 
-    });
-    handleClose();
-  };
-
   const handleReport = async () => {
     try {
       const response = await axios({
@@ -237,7 +221,7 @@ export const ContextActions = (props) => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          {/* Don't allow the author to like or dislike their own content */}
+          {/* Don't allow the author to like their own content */}
           { !isAuthor() &&
             <div>
               <MenuItem onClick={handleLike}>
@@ -245,12 +229,6 @@ export const ContextActions = (props) => {
                   <ThumbUpIcon />
                 </ListItemIcon>
                 <ListItemText primary="Like" />
-              </MenuItem>
-              <MenuItem onClick={handleDislike}>
-                <ListItemIcon>
-                  <ThumbDownIcon />
-                </ListItemIcon>
-                <ListItemText primary="Dislike" />
               </MenuItem>
               <MenuItem onClick={handleFriendRequest}>
                 <ListItemIcon>

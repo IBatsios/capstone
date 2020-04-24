@@ -13,7 +13,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ReportIcon from '@material-ui/icons/Report';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import AddCommentIcon from '@material-ui/icons/AddComment';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Menu from '@material-ui/core/Menu';
@@ -75,12 +74,6 @@ export const ContextActionsDrawer = (props) => {
                 <ThumbUpIcon />
               </ListItemIcon>
               <ListItemText primary="Like" />
-            </ListItem>
-            <ListItem button onClick={() => props.onDislike(props)}>
-              <ListItemIcon>
-                <ThumbDownIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dislike" />
             </ListItem>
             <ListItem button onClick={() => props.onFriendRequest(props)}>
               <ListItemIcon>
@@ -182,15 +175,6 @@ export const ContextActions = (props) => {
     handleClose();
   }
 
-  const handleDislike = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'dislikePost',
-      payload: props.id 
-    });
-    handleClose();
-  }
-
   const handleAddComment = () => {
     dispatch({
       type: 'pushBlock',
@@ -253,7 +237,7 @@ export const ContextActions = (props) => {
             <ListItemText primary="Edit Post" />
           </MenuItem>
         }
-        {/* Don't allow the author to like or dislike their own content */}
+        {/* Don't allow the author to like their own content */}
         { !isAuthor() &&
           <div>
             <MenuItem onClick={handleLike}>
@@ -261,12 +245,6 @@ export const ContextActions = (props) => {
                 <ThumbUpIcon />
               </ListItemIcon>
               <ListItemText primary="Like" />
-            </MenuItem>
-            <MenuItem onClick={handleDislike}>
-              <ListItemIcon>
-                <ThumbDownIcon />
-              </ListItemIcon>
-              <ListItemText primary="Dislike" />
             </MenuItem>
           </div>
         }
@@ -313,7 +291,6 @@ export const ContextActions = (props) => {
         onReport={handleReport}
         onFriendRequest={handleFriendRequest}
         onLike={handleLike}
-        onDislike={handleDislike}
         {...props}
       />
     </Hidden>
