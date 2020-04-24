@@ -13,6 +13,7 @@ const UserServices = require('../services/UserServices');
  *
  * @author Jamie Weathers
  * @author Michael McCulloch
+ * @author Christopher Thacker
  * @since 1.0.0
  */
 
