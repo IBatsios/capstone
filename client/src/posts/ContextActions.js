@@ -211,12 +211,16 @@ export const ContextActions = (props) => {
     handleClose();
   }
 
-  const handleReport = () => {
-    dispatch({
-      store: 'PostStore',
-      type: 'reportPost',
-      payload: props.id 
-    });
+  const handleReport = async () => {
+    try {
+      const response = await axios({
+        withCredentials: true,
+        method: 'put',
+        url: `${URL.REPORT_POSTS}/${props.id}`
+      });
+    } catch (e) {
+      console.log(e);
+    }
     handleClose();
   }
 
