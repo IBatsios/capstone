@@ -86,7 +86,9 @@ const URL = {
   LOGOUT: `${BACKEND_URL}/logout`,
   LOGIN: `${BACKEND_URL}/login`,
   USERS: `${BACKEND_URL}/users`,
-  FRONTEND: `${FRONTEND_URL}`
+  FRONTEND: `${FRONTEND_URL}`,
+  REPORT_POSTS: `${BACKEND_URL}/report/posts`,
+  REPORT_COMMENTS: `${BACKEND_URL}/report/comments`
 };
 
 const SITE_NAME = 'Featurama';
