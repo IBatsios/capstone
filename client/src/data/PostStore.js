@@ -64,7 +64,7 @@ const deletePost = async (id) => {
   postMap.map.delete(id);
 
   try {
-    const response = await axios({
+    await axios({
       withCredentials: true,
       method: 'delete',
       url: `${URL.POSTS}/${id}`
@@ -76,7 +76,7 @@ const deletePost = async (id) => {
 
 const deleteComment = async (comment) => {
   try {
-    const response = await axios({
+    await axios({
       withCredentials: true,
       method: 'delete',
       url: `${URL.COMMENTS}/${comment._id}`

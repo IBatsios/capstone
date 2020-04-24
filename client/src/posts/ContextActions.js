@@ -139,7 +139,7 @@ export const ContextActions = (props) => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios({
+      await axios({
         withCredentials: true,
         method: 'delete',
         url: `${URL.POSTS}/${props.id}`
@@ -197,7 +197,7 @@ export const ContextActions = (props) => {
 
   const handleReport = async () => {
     try {
-      const response = await axios({
+      await axios({
         withCredentials: true,
         method: 'put',
         url: `${URL.REPORT_POSTS}/${props.id}`
