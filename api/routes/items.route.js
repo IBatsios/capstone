@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
  * @author Jamie Weathers ref Christopher Thacker and Hieu Vo
  * @since 1.0.0
  */
-router.post('/', async (req, res) => {
+router.put('/', async (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: 'User not logged in' })
   }
@@ -83,17 +83,6 @@ router.get('/:id', async (req, res) => {
     console.log(error.message)
     return res.status(500).send(error)
   }
-})
-
-/**
- * EDIT: renders the form to edit an existing Item.
- *
- * @author Hieu Vo ref Christopher Thacker
- * @since 1.0.0
- */
-router.get('/:id/edit', async (req, res) => {
-  const foundItem = await ItemServices.getItem(req.params.id)
-  return res.render('items/editItem', { item: foundItem })
 })
 
 /**
