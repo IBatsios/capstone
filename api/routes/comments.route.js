@@ -6,7 +6,8 @@
  */
 
 const router = require('express').Router()
-const CommentServices = require('../services/CommentServices')
+const CommentServices = require('../services/CommentServices');
+const Middleware = require('../utility/Middleware');
 
 // INDEX: show all comments.
 router.get('/', async (req, res) => {
@@ -21,7 +22,7 @@ router.get('/', async (req, res) => {
 })
 
 // CREATE: add a new comment.
-router.put('/', async (req, res) => {
+router.put('/', Middleware.isLoggedIn, async (req, res) => {
   const commentDTO = req.body
   const user = req.session.user
   const result = await CommentServices.addNew(user, commentDTO)
@@ -50,7 +51,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // PUT: updates a comment in the database.
-router.put('/:id', async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
   const newCommentData = req.body
   const commentId = req.params.id
   const updatedComment = await CommentServices.update(commentId, newCommentData)
@@ -65,7 +66,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // DELETE: turns off a certain comment within the database (NOT permanent deletion).
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
   const commentId = req.params.id
   const hiddenComment = await CommentServices.hide(commentId)
 
