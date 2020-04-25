@@ -10,6 +10,7 @@
 // Imports
 const router = require('express').Router();
 const UserServices = require('../services/UserServices');
+const Middleware = require('../utility/Middleware');
 
 // Message content
 const NO_USERS_FOUND = 'No users found in database';
@@ -124,7 +125,7 @@ router.get('/:id/edit', (req, res) => {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
     const newData = req.body;
     const userId = req.params.id;
     var updatedUser = null;
@@ -149,7 +150,7 @@ router.put('/:id', async (req, res) => {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
     const userId = req.params.id;
     var response = null;
     var errors = {};
