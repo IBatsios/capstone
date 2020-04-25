@@ -11,7 +11,17 @@ const PostServices = require('../services/PostServices')
 router.get('/', async (req, res) => {
   const filter = req.body
 
-  const allPosts = await PostServices.getMany(filter)
+  function descendingDate(a, b) {
+    if (a == b) {
+      return 0
+    } else if (a < b) {
+      return 1
+    } else {
+      return -1
+    }
+  }
+
+  const allPosts = (await PostServices.getMany(filter)).sort(descendingDate)
 
   if (!allPosts) {
     return res.status(404).send({ error: 'No posts were found' })
