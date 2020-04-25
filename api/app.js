@@ -1,6 +1,7 @@
 // Import Dependencies
 const methodOverride = require('method-override')
 const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session')
 const cors = require('cors')
 const createError = require('http-errors')
 const express = require('express')
@@ -52,10 +53,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Passport Configuration
 app.use(
-    require('express-session')({
+    cookieSession({
+        name: 'session',
         secret: 'featuramauniquesecret',
-        resave: false,
-        saveUninitialized: false,
+        maxAge: 24 * 60 * 60 * 1000 // 24 hours
     })
 )
 
@@ -70,6 +71,15 @@ passport.deserializeUser(User.deserializeUser())
 
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user
+    // TODO: Remove the logs after they've no longer useful.
+    console.log('<app.js>');
+    console.log('  <req.session.user>');
+    console.log('     ', req.session.user);
+    console.log('  </req.session.user>');
+    console.log('  <req.cookies>');
+    console.log('     ', req.cookies);
+    console.log('  </req.cookies>');
+    console.log('</app.js>');
     next()
 })
 
