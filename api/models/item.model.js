@@ -17,10 +17,6 @@ var itemSchema = new Schema({
       ref: 'List',
       required: true
     },
-    name:{
-        type: String,
-        required: true
-    },
     url:{
         type: String,
         required: true
@@ -29,7 +25,21 @@ var itemSchema = new Schema({
         type: String,
         required: true
     },
-    
+    author: {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+          required: true,
+        },
+        username: {
+          type: String,
+          required: true,
+        },
+        avatar: {
+          type: String,
+          required: true,
+        },
+      },
     isActive: {
         type: Boolean,
         required: true

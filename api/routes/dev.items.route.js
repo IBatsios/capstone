@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     const filter = req.body
     const allItems = await ItemServices.getManyItems(filter)
     if (!allItems) {
-        return res.redirect('/items/newItem')
+        return res.redirect('/dev/items/newItem')
       }
     res.render('items', {items: allItems});
 });
@@ -34,16 +34,19 @@ router.get('/', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.put('/', async (req, res) => {   
+router.post('/', async (req, res) => {   
     const itemDTO = req.body
     const userObj = await UserServices.getUser(itemDTO.authorId)
     console.log(userObj)
     const newItem = await ItemServices.addItem(userObj, itemDTO)
     if (!newItem) {
-        return res.redirect('/items/newItem');
-    }
-    return res.render('items/showItem', {item: newItem});
-});
+        response = 'item was unsuccessful'
+    res.send(response)
+  } else {
+    res.redirect('/dev/items')
+  }
+})
+        
 
 /**
  * NEW: renders the form to register a new Item.
@@ -98,7 +101,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const itemId = req.params.id;
-    const updatedItem = await ItemServices.updateItem(itemId, newData, itemItem);
+    const updatedItem = await ItemServices.updateItem(itemId, newData);
     if (!updatedItem) {
         console.log('Error when updating item.');
         return res.redirect('/items');
@@ -114,13 +117,14 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
     const itemId = req.params.id;
-    const response = await ItemServices.deleteItem(itemId); // TODO: Currently deletes the item in the DB, but eventually will need to update isActive flag.
-    console.log(response);
-    if (!response) {
-        console.log('Error when deleting item.'); // TODO: Send error message to view.
-        return res.redirect('/items'); //TODO: Send success message to view.
-    }
-    return res.send('item delete.')
-});
+    const hiddenItem = await ItemServices.hide(itemId)
+
+  if (!hiddenItem) {
+    console.log('Error when deleting item.')
+    return res.redirect('/items')
+  }
+  return res.redirect('/')
+
+})
 
 module.exports = router;

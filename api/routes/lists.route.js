@@ -128,7 +128,7 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
     const listId = req.params.id;
-    const response = await ListServices.deleteList(listId); // TODO: Currently deletes the list in the DB, but eventually will need to update isActive flag.
+    const response = await ListServices.hide(listId); // TODO: Currently deletes the list in the DB, but eventually will need to update isActive flag.
     if (!response) {
         console.log('Error when deleting list.'); // TODO: Send error message to view.
     }
