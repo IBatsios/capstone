@@ -13,9 +13,11 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Copyright } from 'layout/Layout';
-import { UserContext } from 'data/UserStore';
-import { URL } from 'config/user';
+import { Copyright } from "layout/Layout";
+import { UserContext } from "data/UserStore";
+import { URL } from "config/user";
+import Google from "./Google";
+import { authenticate, isAuth } from "../helpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,8 +48,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   formContainer: {
-    height: '100vh',
-    overflow: 'auto',
+    height: "100vh",
+    overflow: "auto",
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -59,46 +61,63 @@ export const Login = () => {
   const classes = useStyles();
 
   const [values, setValues] = React.useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
 
-  const handleChange = name => (event) => {
+  const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
   const handleRegister = () => {
     dispatch({
-      type: 'register',
-      payload: true 
+      type: "register",
+      payload: true,
     });
-  }
+  };
 
   const handleSignIn = async () => {
     try {
       const response = await axios({
         withCredentials: true,
-        method: 'post',
+        method: "post",
         url: URL.LOGIN,
         data: {
           username: values.username,
-          password: values.password
-        }
+          password: values.password,
+        },
       });
       dispatch({
-        type: 'signIn',
-        payload: response.data 
+        type: "signIn",
+        payload: response.data,
       });
     } catch (e) {
       console.log(e);
     }
   };
 
+  // const informParent = (response) => {
+  //   authenticate(response, () => {
+  //     isAuth() && isAuth().role === "admin"
+  //       ? history.push("/admin")
+  //       : history.push("/private");
+  //   });
+  // };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid className={classes.formContainer} item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid
+        className={classes.formContainer}
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        square
+      >
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
@@ -147,6 +166,12 @@ export const Login = () => {
             >
               Sign In
             </Button>
+            <Google />
+            {/* <Facebook informParent={informParent} /> */}
+            <Button
+              scope="public_profile,email"
+              onlogin="checkLoginState();"
+            ></Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -156,9 +181,9 @@ export const Login = () => {
               <Grid item>
                 <Link
                   onClick={handleRegister}
-                  component='button'
+                  component="button"
                   variant="body2"
-                 >
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -171,4 +196,4 @@ export const Login = () => {
       </Grid>
     </Grid>
   );
-}
+};
