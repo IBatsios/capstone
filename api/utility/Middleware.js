@@ -18,19 +18,27 @@ class Middleware {
     static isLoggedIn(req, res, next) {
         if (req.isAuthenticated()) {
             return next();
-          }
-          console.log('You must be logged in to do that!');
-          res.redirect('/login');
+        }
+        console.log('SERVER IS OUT OF SYNC WITH CLIENT. PLEASE LOGOUT AND THEN LOG IN AGAIN');
+        res.redirect('/login');
     }
 
     /**
+     * Middleware that is used to check if a requesting user is an administrator or not.
      * 
-     * @param {*} req 
-     * @param {*} res 
-     * @param {*} next 
+     * @param {object} req 
+     * @param {object} res 
+     * @param {function} next 
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
      */
     static isAdmin(req, res, next) {
-        // TODO: check if user is an administrator.
+        if (req.user.isAdmin) {
+            return next();
+        }
+        console.log('You must be an admin to use this feature');
+        res.redirect('/');
     }
 
     /**
