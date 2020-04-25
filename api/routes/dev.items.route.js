@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     const filter = req.body
     const allItems = await ItemServices.getManyItems(filter)
     if (!allItems) {
-        return res.redirect('/items/newItem')
+        return res.redirect('/dev/items/newItem')
       }
     res.render('items', {items: allItems});
 });
@@ -34,16 +34,19 @@ router.get('/', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.put('/', async (req, res) => {   
+router.post('/', async (req, res) => {   
     const itemDTO = req.body
     const userObj = await UserServices.getUser(itemDTO.authorId)
     console.log(userObj)
     const newItem = await ItemServices.addItem(userObj, itemDTO)
     if (!newItem) {
-        return res.redirect('dev/items/newItem');
-    }
-    return res.render('dev/items/showItem', {item: newItem});
-});
+        response = 'item was unsuccessful'
+    res.send(response)
+  } else {
+    res.redirect('/dev/items')
+  }
+})
+        
 
 /**
  * NEW: renders the form to register a new Item.
@@ -98,7 +101,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const itemId = req.params.id;
-    const updatedItem = await ItemServices.updateItem(itemId, newData, itemItem);
+    const updatedItem = await ItemServices.updateItem(itemId, newData);
     if (!updatedItem) {
         console.log('Error when updating item.');
         return res.redirect('/items');
@@ -120,7 +123,8 @@ router.delete('/:id', async (req, res) => {
     console.log('Error when deleting item.')
     return res.redirect('/items')
   }
-  return res.send('Item hidden.')
+  return res.redirect('/')
+
 })
 
 module.exports = router;

@@ -23,16 +23,16 @@ class ItemServices {
      * @author Hieu Vo ref Christopher Thacker
      * @since 1.0.0
      */
-    static async addItem(user, itemDTO) {
+    static async addItem(user,itemDTO) {
 
         // TODO: validate item DTO.
 
         
         try {
             const newItem = new Item({
-              itemName: itemDTO.itemName,
-              URL: itemDTO.URL,
-              interest: itemDTO.interest,
+              name: itemDTO.name,
+              url: itemDTO.url,
+              listId: itemDTO.listId,
               description: itemDTO.description,
               author: user,
               isActive: true,
@@ -41,9 +41,9 @@ class ItemServices {
             const result = await connector.create(modelName, newItem)
 
             // Add the item to the list.
-            const list = await ListServices.getById(itemDTO.listId)
+            const list = await ListServices.getList(itemDTO.listId)
             list.items.push(result)
-            ListServices.update(itemDTO.listId, list)
+            ListServices.updateList(itemDTO.listId, list)
 
 
         
@@ -118,8 +118,8 @@ class ItemServices {
 
         // TODO: validate newData
 
-        const updatedItem = await this.getById(itemId)
-        const list = await ListServices.getById(updatedItem.listId)
+        const updatedItem = await this.getItem(itemId)
+        const list = await ListServices.getList(updatedItem.listId)
 
         const items = list.items.map((item) => {
             if (item._id == itemId) {
@@ -129,7 +129,7 @@ class ItemServices {
         })
 
         list.items = items
-        ListServices.update(updatedItem.listId, list)
+        ListServices.updateList(updatedItem.listId, list)
 
         if (updatedItem === null) {
             console.log('Could not find Item to update.');
@@ -141,26 +141,6 @@ class ItemServices {
 
         return updatedItem;
     }
-
-    /**
-     * Contacts the database connector to deactivate a item that matches the ID passed in.
-     * 
-     * @param {ObjectId|string} itemId 
-     * 
-     * @returns {boolean} true if delete was successful, false if not
-     * 
-     * @author Hieu Vo ref Christopher Thacker
-     * @since 1.0.0
-     */
-    static async deleteItem(itemId) {
-        const deleteResponse = await connector.delete(modelName, itemId);
-
-        if (!deleteResponse) {
-            console.log('Error deleting item.');
-        }
-
-        return deleteResponse;
-    }
         /**
      * @author Hieu Vo ref Jamie Weathers
      * @since 1.0.0
@@ -168,11 +148,11 @@ class ItemServices {
     static async hide(itemId) {
         const hideData = { isActive: 'false' }
 
-        await this.update(itemId, hideData)
-        const updatedItem = await ItemServices.getById(itemId)
+        await this.updateItem(itemId, hideData)
+        const updatedItem = await ItemServices.getItem(itemId)
 
         
-        const list = await ListServices.getById(updatedItem.listId)
+        const list = await ListServices.getList(updatedItem.listId)
 
         // FIXME: This is a work-around to update the items on a list.
         const items = list.items.filter((item) => item._id != itemId)
@@ -180,7 +160,7 @@ class ItemServices {
         list.items = items
 
         // Update the list.
-        ListServices.update(updatedItem.listId, list)
+        ListServices.updateList(updatedItem.listId, list)
 
         return updatedItem
     }
@@ -191,7 +171,7 @@ class ItemServices {
        */
       static async show(itemId) {
         const hideData = { isActive: 'true' }
-        const getItem = await this.update(itemId, hideData)
+        const getItem = await this.updateItem(itemId, hideData)
     
         return getItem
       }

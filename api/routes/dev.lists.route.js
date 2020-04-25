@@ -101,7 +101,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const listId = req.params.id;
-    const updatedList = await ListServices.updateList(listId, newData, items);
+    const updatedList = await ListServices.updateList(listId, newData);
     if (!updatedList) {
         console.log('Error when updating list.');
         return res.redirect('/lists');
@@ -123,7 +123,7 @@ router.delete('/:id', async (req, res) => {
     console.log('Error when deleting list.')
     return res.redirect('/lists')
   }
-  return res.send('List hidden.')
+  return res.redirect('/')
 })
 
 module.exports = router;
