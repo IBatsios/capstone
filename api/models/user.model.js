@@ -51,6 +51,11 @@ var userSchema = new Schema({
         required: false,
         default: null
     },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     isActive: {
         type: Boolean,
         default: true,

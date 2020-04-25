@@ -10,6 +10,7 @@
 // Imports
 const router = require('express').Router();
 const CommentServices = require('../services/CommentServices');
+const Middleware = require('../utility/Middleware');
 
 /**
  * Testing purposes only.
@@ -27,10 +28,10 @@ const CommentServices = require('../services/CommentServices');
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
     try {
-        if (req.session.user) {
-            const user = req.session.user;
+        if (req.cookies.session) {
+            const user = req.cookies.session;
             const isReported = await CommentServices.addReport(req.params.id, user.id);
 
             if (isReported) {
@@ -51,7 +52,7 @@ router.put('/:id', async (req, res) => {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
     try {
             const reportRemoved = await CommentServices.clearReports(req.params.id);
 
