@@ -16,7 +16,7 @@ class Middleware {
      * @since 1.0.0
      */
     static isLoggedIn(req, res, next) {
-        if (req.isAuthenticated()) {
+        if (req.isAuthenticated() && req.session.user !== undefined) {
             return next();
         }
         console.log('SERVER IS OUT OF SYNC WITH CLIENT. PLEASE LOGOUT AND THEN LOG IN AGAIN');
