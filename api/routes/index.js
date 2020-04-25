@@ -122,6 +122,9 @@ router.post('/login', function (req, res, next) {
 router.get('/logout', Middleware.isLoggedIn, function (req, res, next) {
     try {
         req.logout();
+        // URL: https://www.npmjs.com/package/cookie-session
+        // To destroy a session simply set it to null:
+        req.session = null;
         // The client requires a JSON response in order to logout
         // properly.
         return res.send({ success: true });
