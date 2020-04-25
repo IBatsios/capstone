@@ -29,9 +29,9 @@ const PostServices = require('../services/PostServices');
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
-        if (req.session.user) {
+        if (req.session.user && req.session.user !== undefined) {
             const user = req.session.user;
             const isReported = await PostServices.addReport(req.params.id, user.id);
 
