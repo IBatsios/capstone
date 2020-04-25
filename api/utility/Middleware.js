@@ -16,10 +16,11 @@ class Middleware {
      * @since 1.0.0
      */
     static isLoggedIn(req, res, next) {
-        if (req.isAuthenticated() && req.session.user !== undefined) {
+        if (req.isAuthenticated() && req.cookies.session) { // Both should be true or false at the same time, but I'm being explicit to be extra careful.
+            console.log('Authenticated!');
             return next();
         }
-        console.log('SERVER IS OUT OF SYNC WITH CLIENT. PLEASE LOGOUT AND THEN LOG IN AGAIN');
+        console.log('No session found for a currently logged in user');
         res.redirect('/login');
     }
 
