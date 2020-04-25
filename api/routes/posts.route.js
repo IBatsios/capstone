@@ -6,12 +6,24 @@
 
 const router = require('express').Router()
 const PostServices = require('../services/PostServices')
+const Middleware = require('../utility/Middleware');
 
 // INDEX: show all posts.
 router.get('/', async (req, res) => {
   const filter = req.body
 
-  const allPosts = await PostServices.getMany(filter)
+  function descendingDate(a, b) {
+    if (a.createdAt == b.createdAt) {
+      return 0
+    } else if (a.createdAt < b.createdAt) {
+      return 1
+    } else {
+      return -1
+    }
+  }
+
+  const allPosts = (await PostServices.getMany(filter)).sort(descendingDate)
+  console.log(allPosts)
 
   if (!allPosts) {
     return res.status(404).send({ error: 'No posts were found' })
@@ -21,7 +33,7 @@ router.get('/', async (req, res) => {
 })
 
 // CREATE: add a new post.
-router.put('/', async (req, res) => {
+router.put('/', Middleware.isLoggedIn, async (req, res) => {
   const postDTO = req.body
   const user = req.session.user
   const result = await PostServices.addNew(user, postDTO)
@@ -49,7 +61,7 @@ router.get('/:id', async (req, res) => {
 })
 
 // PUT: updates a post in the database.
-router.put('/:id', async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
   const newPostData = req.body
   const postId = req.params.id
   const updatedPost = await PostServices.update(postId, newPostData)
@@ -64,7 +76,7 @@ router.put('/:id', async (req, res) => {
 })
 
 // DELETE: turns off a certain post within the database (NOT permanent deletion).
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
   // Set is active to false.
 
   const postId = req.params.id

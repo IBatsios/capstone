@@ -6,18 +6,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
-import {
-  ADD_POST,
-  ADD_LIST,
-  PROFILE_SETTINGS,
-  LOG_OUT
-} from 'config/view/constants';
+import { USER_MENU } from 'config/view/constants';
 import { UserContext } from 'data/UserStore';
 import { PostForm } from 'posts/PostForm';
 import { ListForm } from 'lists/ListForm';
@@ -55,6 +51,10 @@ export const UserMenu = (props) => {
     });
   }
 
+  const adminPortal = () => {
+    window.open(URL.ADMIN_PORTAL, "_blank");
+  }
+
   const profileForm = () => {
     dispatch({
       type: 'pushBlock',
@@ -88,26 +88,32 @@ export const UserMenu = (props) => {
           <ListItemIcon>
             <PostAddIcon />
           </ListItemIcon>
-          <ListItemText primary={ADD_POST} />
+          <ListItemText primary={USER_MENU.ADD_POST} />
         </ListItem>
         <ListItem button onClick={addList}>
           <ListItemIcon>
             <PlaylistAddIcon />
           </ListItemIcon>
-          <ListItemText primary={ADD_LIST} />
+          <ListItemText primary={USER_MENU.ADD_LIST} />
         </ListItem>
         <ListItem button onClick={profileForm}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={PROFILE_SETTINGS} />
+          <ListItemText primary={USER_MENU.PROFILE_SETTINGS} />
         </ListItem>
       </List>
       <Divider />
       <List>
+        {state.user.isAdmin &&
+          <ListItem button onClick={adminPortal}>
+            <SupervisorAccountIcon />
+            <ListItemText primary={USER_MENU.ADMIN_PORTAL} />
+          </ListItem>
+        }
         <ListItem button onClick={logout}>
           <ExitToAppIcon />
-          <ListItemText primary={LOG_OUT} />
+          <ListItemText primary={USER_MENU.LOG_OUT} />
         </ListItem>
       </List>
     </div>

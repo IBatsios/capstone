@@ -51,9 +51,17 @@ var userSchema = new Schema({
         required: false,
         default: null
     },
+<<<<<<< HEAD
     friends: [{ 
         type: Schema.Types.ObjectId, 
         ref: 'Friends'}],
+=======
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+>>>>>>> ae4b9fcae4c0f76e05c478b51c70aa10b4ea3738
     isActive: {
         type: Boolean,
         default: true,

@@ -14,6 +14,10 @@ const initialState = {};
  * differences in property names between the front and back-ends.  
  **/
 const postMap = {
+  // FIXME: Upon adding new posts the state of all posts is changed.  In
+  // other words, if a post has comments expanded and a new post is
+  // added, all the posts are re-rendered—causing the comments section to
+  // close.
   map: new Map(),
   // Returns a post in the format of the front-end.
   get(post) {
@@ -35,7 +39,20 @@ const postMap = {
       const { _id, topic, ...other } = {...post};
       allPosts.push({ id: _id, interest: topic, ...other});
     }
-    return allPosts;
+
+    const byCreatedDate = (a, b) => {
+      if (a.createdAt == b.createdAt) {
+        return 0;
+      }
+
+      if (a.createdAt < b.createdAt) {
+        return 1;
+      }
+
+      return -1;
+    }
+
+    return allPosts.sort(byCreatedDate);
   },
   getById(id) {
     const {_id, topic, ...other} = this.map.get(id);
