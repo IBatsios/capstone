@@ -78,6 +78,7 @@ const PROTOCOL = 'http';
 const BACKEND_URL = `${PROTOCOL}://${DOMAIN_NAME}:${BACKEND_PORT}`;
 const FRONTEND_URL = `${PROTOCOL}://${DOMAIN_NAME}:${FRONTEND_PORT}`;
 const URL = {
+  ADMIN_PORTAL: `${BACKEND_URL}/`,
   COMMENTS: `${BACKEND_URL}/comments`,
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
