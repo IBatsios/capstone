@@ -7,6 +7,8 @@
  * @since 1.0.0
  */
 
+ const Middleware = require('../utility/Middleware');
+
 // Imports
 const router = require('express').Router();
 const PostServices = require('../services/PostServices');
@@ -27,7 +29,7 @@ const PostServices = require('../services/PostServices');
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
     try {
         if (req.session.user) {
             const user = req.session.user;
@@ -51,7 +53,7 @@ router.put('/:id', async (req, res) => {
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
     try {
             const reportRemoved = await PostServices.clearReports(req.params.id);
 
