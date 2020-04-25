@@ -12,9 +12,9 @@ router.get('/', async (req, res) => {
   const filter = req.body
 
   function descendingDate(a, b) {
-    if (a == b) {
+    if (a.createdAt == b.createdAt) {
       return 0
-    } else if (a < b) {
+    } else if (a.createdAt < b.createdAt) {
       return 1
     } else {
       return -1
@@ -22,6 +22,7 @@ router.get('/', async (req, res) => {
   }
 
   const allPosts = (await PostServices.getMany(filter)).sort(descendingDate)
+  console.log(allPosts)
 
   if (!allPosts) {
     return res.status(404).send({ error: 'No posts were found' })
