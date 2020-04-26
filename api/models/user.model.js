@@ -52,13 +52,26 @@ var userSchema = new Schema(
       required: false,
       default: null,
     },
-    
+
     friends: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Friends',
+        ref: 'Users',
       },
     ],
+    pendingRequests: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+      },
+    ],
+    sentRequests: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+      },
+    ],
+
 
     isAdmin: {
       type: Boolean,
