@@ -114,22 +114,9 @@ class ItemServices {
    */
   static async updateItem(itemId, newData) {
     await connector.update(modelName, itemId, newData)
-
     // TODO: validate newData
-
+    // ^^^^ We don't need to do this. It's going to fail on its own and report what's missing.
     const updatedItem = await this.getItem(itemId)
-    const list = await ListServices.getList(updatedItem.listId)
-
-    const items = list.items.map((item) => {
-      if (item._id == itemId) {
-        return updatedItem
-      }
-      return item
-    })
-
-    list.items = items
-    ListServices.updateList(updatedItem.listId, list)
-
     if (updatedItem === null) {
       console.log('Could not find Item to update.')
     }
@@ -137,6 +124,21 @@ class ItemServices {
     if (updatedItem === false) {
       console.log('Update Item failed.')
     }
+
+    const list = await ListServices.getList(updatedItem.listId)
+
+    // Shouldn't need to apply an update to all items... Just the one.
+    const items = list.items.map((item) => {
+      if (item._id == itemId) {
+        item.name = updatedItem.name
+        item.description = updatedItem.description
+        item.url = updatedItem.url
+      }
+      return item
+    })
+
+    list.items = items
+    ListServices.updateList(updatedItem.listId, { items: list })
 
     return updatedItem
   }
