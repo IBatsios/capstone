@@ -52,29 +52,20 @@ var userSchema = new Schema(
       required: false,
       default: null,
     },
-<<<<<<< HEAD
-<<<<<<< HEAD
-    friends: [{ 
-        type: Schema.Types.ObjectId, 
-        ref: 'Friends'}],
-=======
-=======
+    
     friends: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Friends',
       },
     ],
->>>>>>> a28ed9cd0f7aa27561d324798a792e10fcf529ac
+
     isAdmin: {
       type: Boolean,
       required: true,
       default: false,
     },
-<<<<<<< HEAD
->>>>>>> ae4b9fcae4c0f76e05c478b51c70aa10b4ea3738
-=======
->>>>>>> a28ed9cd0f7aa27561d324798a792e10fcf529ac
+
     isActive: {
       type: Boolean,
       default: true,

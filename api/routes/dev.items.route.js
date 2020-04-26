@@ -39,6 +39,7 @@ router.post('/', async (req, res) => {
     const userObj = await UserServices.getUser(itemDTO.authorId)
     console.log(userObj)
     const newItem = await ItemServices.addItem(userObj, itemDTO)
+
     if (!newItem) {
         response = 'item was unsuccessful'
     res.send(response)
