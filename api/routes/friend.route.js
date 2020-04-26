@@ -26,7 +26,7 @@ router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
     if (!result) {
       return res
         .status(404)
-        .send({ error: `Error attempting to add new friend request.` })
+        .send({ error: `Error attempting to accept request.` })
     }
   
     res.status(200).redirect(`${result._id}`)
@@ -41,7 +41,7 @@ router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
     if (!result) {
       return res
         .status(404)
-        .send({ error: `Error attempting to add new friend request.` })
+        .send({ error: `Error attempting to reject request.` })
     }
   
     res.status(200).redirect(`${result._id}`)

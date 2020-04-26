@@ -1,11 +1,13 @@
 'use strict'
-const UserServices = require('../services/UserServices');
-const connector = new DatabaseConnector()
+
+
 const modelName1 = 'friend.model'
 const Friend = require(`../models/${modelName1}`)
 const modelName2 = 'user.model'
 const User = require(`../models/${modelName2}`)
+
 class FriendServices {
+    
     static async addFriend(UserA, UserB) {
         try {
 
@@ -23,10 +25,17 @@ class FriendServices {
                 { _id: UserA },
                 { $push: { friends: docA._id }}
             )
+            
             const updateUserB = await User.findOneAndUpdate(
                 { _id: UserB },
                 { $push: { friends: docB._id }}
             )
+            if (!updateUserA || !updateUserB) {
+                console.log('request fail')
+                return false
+              }
+            return updateUserA && updateUserB;
+
         } catch (error) {
             console.log(error)
             return false
@@ -65,6 +74,11 @@ class FriendServices {
                 { _id: UserB },
                 { $pull: { friends: docB._id }}
             )
+            if (!updateUserA || !updateUserB) {
+                console.log('reject fail')
+                return false
+              }
+            return updateUserA && updateUserB;
         } catch (error) {
             console.log(error)
             return false
