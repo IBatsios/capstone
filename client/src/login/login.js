@@ -17,7 +17,6 @@ import { Copyright } from "layout/Layout";
 import { UserContext } from "data/UserStore";
 import { URL } from "config/user";
 import Google from "./Google";
-import { authenticate, isAuth } from "../helpers";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -167,11 +166,11 @@ export const Login = () => {
               Sign In
             </Button>
             <Google />
-            {/* <Facebook informParent={informParent} /> */}
+            {/* <Facebook />
             <Button
               scope="public_profile,email"
               onlogin="checkLoginState();"
-            ></Button>
+            ></Button> */}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">

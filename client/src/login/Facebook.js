@@ -2,7 +2,7 @@ import React from "react";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import axios from "axios";
 
-const Facebook = ({ informParent = (f) => f }) => {
+const Facebook = () => {
   const responseFacebook = (response) => {
     console.log(response);
     //     axios({
@@ -30,7 +30,7 @@ const Facebook = ({ informParent = (f) => f }) => {
             onClick={renderProps.onClick}
             className="btn btn-primary btn-lg btn-block"
           >
-            <i className="fab fa-facebook pr-2"></i> Login with Facebook
+            <i class="fab fa-facebook-f"></i> Login with Facebook
           </button>
         )}
       />

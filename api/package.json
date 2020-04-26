@@ -15,6 +15,7 @@
     "express": "~4.16.1",
     "express-session": "^1.17.0",
     "glob": "^7.1.6",
+    "google-auth-library": "^6.0.0",
     "http-errors": "~1.6.3",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",

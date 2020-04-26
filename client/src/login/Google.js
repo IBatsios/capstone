@@ -1,41 +1,46 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
-import { authenticate, isAuth } from "../helpers";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
+require("dotenv").config();
 
-const Google = ({ informParent = (f) => f }) => {
+const Google = () => {
   const responseGoogle = (response) => {
     console.log(response.tokenId);
-    //     axios({
-    //       method: "POST",
-    //       url: `${process.env.REACT_APP_API}/google-login`,
-    //       data: { idToken: response.tokenId },
-    //     })
-    //       .then((response) => {
-    //         console.log("GOOGLE SIGNIN SUCCESS", response);
-    //         // inform parent component
-    //         informParent(response);
-    //       })
-    //       .catch((error) => {
-    //         console.log("GOOGLE SIGNIN ERROR", error.response);
-    //       });
+    axios({
+      method: "POST",
+      url: URL.GOOGLE_LOGIN,
+      data: { idToken: response.tokenId },
+    })
+      .then((response) => {
+        console.log("GOOGLE SIGNIN SUCCESS", response);
+        // inform parent component
+        // informParent(response);
+      })
+      .catch((error) => {
+        console.log("GOOGLE SIGNIN ERROR", error.response);
+      });
   };
   return (
-    <div className="pb-3">
-      <GoogleLogin
-        clientId={`${process.env.REACT_APP_GOOGLE_CLIENT_ID}`}
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        render={(renderProps) => (
-          <Button onClick={Google} disabled={renderProps.disabled}>
-            Login with Google
-          </Button>
-        )}
-        cookiePolicy={"single_host_origin"}
-      />
-    </div>
+    <GoogleLogin
+      //clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+      clientId="89189444358-9thoj2a0f0d0ta156msamp6ml8sgu8fb.apps.googleusercontent.com"
+      onSuccess={responseGoogle}
+      onFailure={responseGoogle}
+      render={(renderProps) => (
+        <Button
+          onClick={renderProps.onClick}
+          fullWidth
+          variant="contained"
+          color="secondary"
+          type="submit"
+        >
+          <i className="fab fa-google pr-2"></i>
+          Login with Google
+        </Button>
+      )}
+      cookiePolicy={"single_host_origin"}
+    />
   );
 };
 
