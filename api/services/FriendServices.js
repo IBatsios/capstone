@@ -1,9 +1,9 @@
 'use strict'
 const UserServices = require('../services/UserServices');
 const connector = new DatabaseConnector()
-const modelName1 = 'Friend.model'
+const modelName1 = 'friend.model'
 const Friend = require(`../models/${modelName1}`)
-const modelName2 = 'Friend.model'
+const modelName2 = 'user.model'
 const User = require(`../models/${modelName2}`)
 class FriendServices {
     static async addFriend(UserA, UserB) {
@@ -74,52 +74,52 @@ class FriendServices {
 
 //another way
 
-    static async friendRequest(userA, userB) {
-        try {
+    // static async friendRequest(userA, userB) {
+    //     try {
             
-            var foundUserA = await UserServices.getUser(userA);
-            var foundUserB = await UserServices.getUser(userB);
+    //         var foundUserA = await UserServices.getUser(userA);
+    //         var foundUserB = await UserServices.getUser(userB);
 
-            // Check if user already has same friend
-            const isFriend = foundUserA.friends.some((user) => {
-                return user._id == userB;
-            })
+    //         // Check if user already has same friend
+    //         const isFriend = foundUserA.friends.some((user) => {
+    //             return user._id == userB;
+    //         })
 
-            // If user does not
-            if (!isFriend) {
-                foundUserA.sentRequests.push(foundUserB);
-                foundUserB.pendingRequests.push(foundUserA);
-            }
+    //         // If user does not
+    //         if (!isFriend) {
+    //             foundUserA.sentRequests.push(foundUserB);
+    //             foundUserB.pendingRequests.push(foundUserA);
+    //         }
 
-        } catch (error) {
-            console.log(error.message);
-            return false;
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error.message);
+    //         return false;
+    //     }
+    // }
 
-    static async acceptFriend(userA, userB) {
-        try {
-            var foundUserA = await UserServices.getUser(userA);
-            var foundUserB = await UserServices.getUser(userB);
+    // static async acceptFriend(userA, userB) {
+    //     try {
+    //         var foundUserA = await UserServices.getUser(userA);
+    //         var foundUserB = await UserServices.getUser(userB);
 
-            // Check if user already has same friend
-            const isFriend = foundUserB.friends.some((user) => {
-                return user._id == userA;
-            })
+    //         // Check if user already has same friend
+    //         const isFriend = foundUserB.friends.some((user) => {
+    //             return user._id == userA;
+    //         })
 
-            // If user does not
-            if (!isFriend) {
-                foundUserA.friends.push(foundUserB);
-                foundUserB.friends.push(foundUserA);
-                foundUserA.sentRequest.pull(foundUserB);
-                foundUserB.pendingRequests.pull(foundUserA);
-            }
+    //         // If user does not
+    //         if (!isFriend) {
+    //             foundUserA.friends.push(foundUserB);
+    //             foundUserB.friends.push(foundUserA);
+    //             foundUserA.sentRequest.pull(foundUserB);
+    //             foundUserB.pendingRequests.pull(foundUserA);
+    //         }
 
-        } catch (error) {
-            console.log(error.message);
-            return false;
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error.message);
+    //         return false;
+    //     }
+    // }
 
 }
 module.exports = FriendServices
