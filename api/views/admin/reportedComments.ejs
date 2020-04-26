@@ -1,0 +1,47 @@
+<!-- Author: Christopher Thacker -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <title>Comments Under Review</title>
+</head>
+
+<body>
+    <h1>Admin Portal</h1>
+    <h2>Comments Under Review</h2>
+    <h4>Logged in as <%= currentUser.username %></h4>
+    <b><a href="/admin">Go Back</a></b>
+    <br>
+    <hr />
+    <br>
+    <% if (!comments || comments === undefined) { %>
+        <div class="reported"><b>No comments have been reported.</b></div>
+    <% } else { %>
+        <% comments.forEach(function(comment) { console.log(comment) %>
+            <div class="reported">
+                <div><b>Comment ID: </b> <%= comment._id %></div>
+                <div><b>Content: </b><%= comment.content %></div>
+                <div><b>Report Count: </b> <%= comment.reportCount %></div>
+                <div><b>Author: </b> <%= comment.author.username %></div>
+                <div><b>Author ID: </b> <%= comment.author.id %></div>
+                <div><b>Is Active: </b> <%= comment.isActive %></div>
+                <br>
+                <form action="/report/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                    <button class="clearReports">This is OK</button>
+                </form>
+                <br>
+                <form action="/admin/reportedComments/<%= comment._id %>?_method=DELETE" method="POST">
+                    <button class="removeItem">Deactivate</button>
+                </form>
+            </div>
+            <br>
+            <% }); %>
+    <% } %>
+
+</body>
+
+</html>

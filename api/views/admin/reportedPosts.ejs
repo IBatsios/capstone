@@ -1,0 +1,48 @@
+<!-- Author: Christopher Thacker -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <title>Posts Under Review</title>
+</head>
+
+<body>
+    <h1>Admin Portal</h1>
+    <h2>Posts Under Review</h2>
+    <h4>Logged in as <%= currentUser.username %></h4>
+    <b><a href="/admin">Go Back</a></b>
+    <br>
+    <hr />
+    <br>
+    <% if (!posts || posts === undefined) { %>
+        <div class="reported"><b>No posts have been reported.</b></div>
+    <% } else { %>
+        <% posts.forEach(function(post) { console.log(post) %>
+            <div class="reported">
+                <div><b>Post ID: </b> <%= post._id %></div>
+                <div><b>Title: </b><%= post.title %></div>
+                <div><b>Content: </b><%= post.content %></div>
+                <div><b>Report Count: </b> <%= post.reportCount %></div>
+                <div><b>Author: </b> <%= post.author.username %></div>
+                <div><b>Author ID: </b> <%= post.author.id %></div>
+                <div><b>Is Active: </b> <%= post.isActive %></div>
+                <br>
+                <form action="/report/posts/<%= post._id %>?_method=DELETE" method="POST">
+                    <button class="clearReports">This is OK</button>
+                </form>
+                <br>
+                <form action="/admin/reportedPosts/<%= post._id %>?_method=DELETE" method="POST">
+                    <button class="removeItem">Deactivate</button>
+                </form>
+            </div>
+            <br>
+            <% }); %>
+    <% } %>
+
+</body>
+
+</html>

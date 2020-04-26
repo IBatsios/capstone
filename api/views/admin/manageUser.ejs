@@ -1,0 +1,59 @@
+<!-- Author: Christopher Thacker -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Show User</title>
+</head>
+
+<body>
+    <h1>Admin Portal</h1>
+    <h2>User Results</h2>
+    <h4>Logged in as <%= currentUser.username %></h4>
+    <b><a href="/admin/manageUsers">Go Back</a></b>
+    <br>
+    <hr />
+    <br>
+    <div>
+        <% if (!users || users === undefined) { %>
+        <div class="reported"><b>No user of that username found.</b></div>
+        <% } else { %>
+        <% users.forEach(function(user) { %>
+        <div class="reported">
+            <div><b>Username:</b> <%= user.username %></div>
+            <div><b>User ID:</b> <%= user._id %></div>
+            <div><b>Email:</b> <%= user.email %></div>
+            <div><b>First Name:</b> <%= user.firstName %></div>
+            <div><b>Last Name:</b> <%= user.lastName %></div>
+            <div><b>Biography:</b> <%= user.bio %></div>
+            <div><b>Phone:</b> <%= user.phone %></div>
+            <div><b>Is Admin:</b> <%= user.isAdmin %></div>
+            <div><b>Is Active:</b> <%= user.isActive %></div>
+
+            <% if (!user.isAdmin) { %>
+            <br>
+            <form action="/admin/makeAdmin/<%= user._id %>?_method=PUT" method="POST">
+                <button class="makeAdmin">Make User Admin</button>
+            </form>
+            <% } %>
+            <br>
+            <!-- Could not compare the IDs for some reason. -->
+            <% if (user.username === currentUser.username) { %>
+            <!-- Do nothing -->
+            <% } else { %>
+            <form action="/admin/deactivateUser/<%= user._id %>?_method=DELETE" method="POST">
+                <button class="removeItem">Remove this User</button>
+            </form>
+            <% } %>
+        </div>
+        <% }); %>
+        <% } %>
+
+    </div>
+    <br>
+</body>
+
+</html>

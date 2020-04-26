@@ -3,27 +3,28 @@ const router = express.Router();
 const passport = require('passport');
 
 const User = require('../models/user.model');
+const UserServices = require('../services/UserServices');
 const Middleware = require('../utility/Middleware');
 const Validation = require('../utility/Validation');
 
 /**
- * Home Page for back-end developer testing.
+ * Home page for back-end. If a user is logged in and is an admin, they will be redirected to the admin portal.
  * 
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Featurama' });
-});
-
-/**
- * Displays the registration form to the user.
- * 
- * @author Christopher Thacker
- * @since 1.0.0
- */
-router.get('/register', function (req, res, next) {
-    res.render('register');
+router.get('/', async function (req, res, next) {
+    if (req.cookies.session) {
+        console.log(`SESSION ID: ${req.session.user.id}`)
+        const user = await UserServices.getUser(req.session.user.id);
+        console.log(`SESSION USER: ${user}`)
+        if (user && user !== undefined) {
+            if (user.isAdmin) {
+                return res.redirect('/admin');
+            }
+        }
+    }
+    return res.render('index', { title: 'Featurama' });
 });
 
 /**
@@ -64,19 +65,15 @@ router.post('/register', async function (req, res, next) {
             req.user.salt = undefined;
             req.user.hash = undefined;
 
+            req.session.user = {
+                id: req.user._id,
+                username: req.user.username,
+                avatar: req.user.avatar
+            };
+
             res.status(200).json(req.user);
         });
     });
-});
-
-/**
- * Displays the login form to the user.
- * 
- * @author Christopher Thacker
- * @since 1.0.0
- */
-router.get('/login', function (req, res, next) {
-    res.render('login');
 });
 
 /**
@@ -86,7 +83,7 @@ router.get('/login', function (req, res, next) {
  * @since 1.0.0
  */
 router.post('/login', function (req, res, next) {
-    const {errors, isValid} = Validation.validateLoginInput(req.body);
+    const { errors, isValid } = Validation.validateLoginInput(req.body);
 
     if (!isValid) {
         return res.status(400).json(errors);
@@ -102,9 +99,9 @@ router.post('/login', function (req, res, next) {
 
         // Pass the user id, username, and avatar with the session.
         req.session.user = {
-          id: req.user._id,
-          username: req.user.username,
-          avatar: req.user.avatar
+            id: req.user._id,
+            username: req.user.username,
+            avatar: req.user.avatar
         };
 
         res.status(200).json(req.user);
