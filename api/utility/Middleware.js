@@ -21,7 +21,7 @@ class Middleware {
             return next();
         }
         console.log('No session found for a currently logged in user');
-        res.redirect('/login');
+        return res.status(500).send({error: 'Not logged in'});
     }
 
     /**
