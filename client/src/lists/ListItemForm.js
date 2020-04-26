@@ -121,7 +121,7 @@ export const ListItemForm = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button {...butonState} onClick={handleSave} color="primary">
+          <Button {...buttonState} onClick={handleSave} color="primary">
             Save 
           </Button>
         </DialogActions>
