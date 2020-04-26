@@ -14,11 +14,10 @@ import {
 import { URL } from 'config/user';
 
 export const ListItemForm = (props) => {
-  console.log(props);
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
-    id: props.id,
+    id: props._id,
     name: props.name || '',
     url: props.url || '',
     description: props.description || '',
@@ -39,9 +38,7 @@ export const ListItemForm = (props) => {
         delete values[key];
       }
     });
-    console.log(values);
     const itemId = values.id || '';
-    console.log(`${URL.LIST_ITEMS}/${itemId}`);
     let response = await axios({
       withCredentials: true,
       method: 'put',
