@@ -2,13 +2,14 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { URL } from "config/user";
 require("dotenv").config();
 
 const Google = () => {
   const responseGoogle = (response) => {
     console.log(response.tokenId);
     axios({
-      method: "POST",
+      method: "post",
       url: URL.GOOGLE_LOGIN,
       data: { idToken: response.tokenId },
     })

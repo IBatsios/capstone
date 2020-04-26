@@ -95,6 +95,7 @@ router.post("/login", function (req, res, next) {
   if (!isValid) {
     return res.status(400).json(errors);
     // console.log(errors);
+
     // return false;
   }
 
@@ -143,9 +144,10 @@ router.get("/logout", Middleware.isLoggedIn, function (req, res, next) {
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post("/google-login", function (req, res, next) {
-  console.log("Did I get here", response);
+  console.log("Did I get here?");
   exports.googleLogin = (req, res) => {
     const { idToken } = req.body;
+    console.log(idToken);
 
     client
       .verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID })
