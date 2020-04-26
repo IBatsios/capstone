@@ -45,11 +45,8 @@ export const ListItems = (props) => {
         // Fetch the list with updated items.
         url: `${URL.LISTS}/${props.id}`
       });
+
       // Save the updated list to the front-end state.
-      // There is reason to believe this will not result in the
-      // list items being re-render with the new data even though
-      // the list items have been updated.  Test it when the back-end
-      // is ready.
       dispatch({
         store: 'ListStore',
         type: 'saveList',
