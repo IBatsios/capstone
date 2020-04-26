@@ -116,7 +116,7 @@ router.post('/login', function (req, res, next) {
  * @author Michael McCulloch
  * @since 1.0.0
  */
-router.get('/logout', Middleware.isLoggedIn, function (req, res, next) {
+router.get('/logout', function (req, res, next) {
     try {
         req.logout();
         // URL: https://www.npmjs.com/package/cookie-session
