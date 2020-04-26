@@ -57,7 +57,8 @@ router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
             const reportRemoved = await CommentServices.clearReports(req.params.id);
 
             if (reportRemoved) {
-                return res.status(200).json({comment: reportRemoved});
+                // return res.status(200).json({comment: reportRemoved});
+                return res.status(200).redirect('/admin/reportedComments')
             }
             return res.status(403).json({error: 'Could not remove reports from post'});
     } catch (error) {

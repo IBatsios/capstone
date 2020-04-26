@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <h1><%= title %></h1>
-    <p><h4><%= title %>'s servers are running!</h4></p>
+    <p>
+        <h4><%= title %>'s servers are running!</h4>
+    </p>
     <p><i>You can access the content on port 3000.</i></p>
-    <% if (!currentUser) { %>
-    <div>Admin Portal: <a href="/login">login</a></div>
-    <% } %>
-  </body>
+</body>
+
 </html>
