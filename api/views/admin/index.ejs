@@ -1,0 +1,33 @@
+<!-- Author: Christopher Thacker -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+
+    <title>Admin Portal</title>
+</head>
+
+<body>
+    <h1>Admin Portal</h1>
+    <h2>User Results</h2>
+    <h4>Logged in as <%= currentUser.username %></h4>
+    <br>
+    <hr />
+    <br>
+    <div>
+        <a href="/admin/reportedPosts">Reported Posts</a>
+    </div>
+    <br>
+    <div>
+        <a href="/admin/reportedComments">Reported Comments</a>
+    </div>
+    <br>
+    <div>
+        <a href="/admin/manageUsers">Manage User Data</a>
+    </div>
+</body>
+
+</html>
