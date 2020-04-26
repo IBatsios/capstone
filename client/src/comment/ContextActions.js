@@ -61,12 +61,14 @@ export const ContextActionsDrawer = (props) => {
         }
         {!props.isAuthor() &&
           <div>
+            {/* This is a planned feature.
             <ListItem button onClick={() => props.onLike(props)}>
               <ListItemIcon>
                 <ThumbUpIcon />
               </ListItemIcon>
               <ListItemText primary="Like" />
             </ListItem>
+            */}
             <ListItem button onClick={() => props.onFriendRequest(props)}>
               <ListItemIcon>
                 <PersonAddIcon />
@@ -223,12 +225,14 @@ export const ContextActions = (props) => {
           {/* Don't allow the author to like their own content */}
           { !isAuthor() &&
             <div>
+              {/* This is a planned feature.
               <MenuItem onClick={handleLike}>
                 <ListItemIcon>
                   <ThumbUpIcon />
                 </ListItemIcon>
                 <ListItemText primary="Like" />
               </MenuItem>
+              */}
               <MenuItem onClick={handleFriendRequest}>
                 <ListItemIcon>
                   <PersonAddIcon />
