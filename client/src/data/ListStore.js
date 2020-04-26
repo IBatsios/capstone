@@ -55,7 +55,7 @@ export function listReducer(state, action) {
     case 'deleteListItem':
       // TODO: Implement delete of an item from a list.
       return { ...state}; 
-    case 'ListItemFormSave':
+    case 'saveListItem':
       console.log(`Add items to list with id: ${action.payload.id}`);
       console.log(action.payload);
       // TODO: Implement saving an item to a list.

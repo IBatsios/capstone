@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,16 +11,18 @@ import {
   LIST_ITEM_DESCRIPTION_LABEL,
   LIST_ITEM_URL_HELPER_TEXT
 } from 'config/view/constants';
+import { URL } from 'config/user';
 
 export const ListItemForm = (props) => {
+  console.log(props);
   const [state, dispatch] = useContext(UserContext);
 
   const [values, setValues] = React.useState({
     id: props.id,
-    userId: state.user.id,
     name: props.name || '',
     url: props.url || '',
-    description: props.description || ''
+    description: props.description || '',
+    listId: props.listId
   });
 
 
@@ -29,17 +32,39 @@ export const ListItemForm = (props) => {
     });
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Remove properties with an undefined value.
     Object.keys(values).forEach(key => {
       if (values[key] === undefined) {
         delete values[key];
       }
     });
+    console.log(values);
+    const itemId = values.id || '';
+    console.log(`${URL.LIST_ITEMS}/${itemId}`);
+    let response = await axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.LIST_ITEMS}/${itemId}`,
+      data: {
+        name: values.name,
+        url: values.url,
+        description: values.description,
+        listId: values.listId
+      }
+    });
+
+    // Get the list with the updated item.
+    response = await axios({
+      withCredentials: true,
+      method: 'get',
+      url: `${URL.LISTS}/${values.listId}`
+    });
+
     dispatch({
       store: 'ListStore',
-      type: 'ListItemFormSave',
-      payload: values
+      type: 'saveList',
+      payload: response.data 
     });
     handleClose();
   };
