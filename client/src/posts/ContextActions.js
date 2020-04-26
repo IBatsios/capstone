@@ -238,6 +238,7 @@ export const ContextActions = (props) => {
           </MenuItem>
         }
         {/* Don't allow the author to like their own content */}
+        {/* This is a future feature.
         { !isAuthor() &&
           <div>
             <MenuItem onClick={handleLike}>
@@ -248,6 +249,7 @@ export const ContextActions = (props) => {
             </MenuItem>
           </div>
         }
+        */}
         <MenuItem onClick={handleAddComment}>
           <ListItemIcon>
             <AddCommentIcon />
