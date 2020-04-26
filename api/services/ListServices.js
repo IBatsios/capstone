@@ -121,32 +121,14 @@ class ListServices {
         return updatedList;
     }
 
-    /**
-     * Contacts the database connector to deactivate a List that matches the ID passed in.
-     * 
-     * @param {ObjectId|string} listId 
-     * 
-     * @returns {boolean} true if delete was successful, false if not
-     * 
-     * @author Hieu Vo ref Christopher Thacker
-     * @since 1.0.0
-     */
-    static async deleteList(listId) {
-        const deleteResponse = await connector.delete(modelName, listId);
-
-        if (!deleteResponse) {
-            console.log('Error deleting list.');
-        }
-
-        return deleteResponse;
-    }
+  
     /**
      * @author Hieu Vo ref Jamie Weathers
      * @since 1.0.0
      */
     static async hide(listId) {
         const hideData = { isActive: 'false' }
-        const getList = await this.update(listId, hideData)
+        const getList = await this.updateList(listId, hideData)
     
         return getList
       }
@@ -157,7 +139,7 @@ class ListServices {
        */
       static async show(listId) {
         const hideData = { isActive: 'true' }
-        const getList = await this.update(listId, hideData)
+        const getList = await this.updateList(listId, hideData)
     
         return getList
       }

@@ -32,3 +32,12 @@ export const LIST_INTEREST_HELPER_TEXT = "Please select the post interest";
 export const ADD_LIST_ITEM = "Add item to list";
 export const LIST_ITEM_DESCRIPTION_LABEL = "Description";
 export const LIST_ITEM_URL_HELPER_TEXT = "The address located in the browser where you want to link to.";
+
+export const USER_MENU = {
+  ADMIN_PORTAL: "Admin Portal",
+  ADD_POST: "Add Post", 
+  ADD_LIST: ADD_LIST, 
+  PROFILE_SETTINGS: "Profile Settings",
+  LOG_OUT: "Log out",
+}
+

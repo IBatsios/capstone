@@ -21,8 +21,8 @@ var listSchema = new Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
         },
-
-        username: String
+        username: String,
+        avatar: String,
     },
     items: [
       {
@@ -32,9 +32,9 @@ var listSchema = new Schema({
         },
         name: String,
         description: String,
-        url: String
+        url: String,
 
-      }
+      },
     ],
     isActive: {
         type: Boolean,

@@ -6,7 +6,7 @@
 
 const router = require('express').Router()
 const PostServices = require('../services/PostServices')
-const Middleware = require('../utility/Middleware');
+const Middleware = require('../utility/Middleware')
 
 // INDEX: show all posts.
 router.get('/', async (req, res) => {
@@ -23,7 +23,6 @@ router.get('/', async (req, res) => {
   }
 
   const allPosts = (await PostServices.getMany(filter)).sort(descendingDate)
-  console.log(allPosts)
 
   if (!allPosts) {
     return res.status(404).send({ error: 'No posts were found' })
