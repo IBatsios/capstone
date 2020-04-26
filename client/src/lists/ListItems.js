@@ -39,7 +39,7 @@ export const ListItems = (props) => {
         }
       });
 
-      response = await({
+      response = await axios({
         withCredentials: true,
         method: 'get',
         // Fetch the list with updated items.
