@@ -125,4 +125,49 @@ router.post('/manageUsers', Middleware.isLoggedIn, Middleware.isAdmin, async (re
     }
 });
 
+/**
+ * Processes the manage users form for admins.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.put('/makeAdmin/:id', Middleware.isLoggedIn, Middleware.isAdmin, async (req, res) => {
+    const newData = {isAdmin: true};
+    const userId = req.params.id;
+    var updatedUser = null;
+
+    try {
+        updatedUser = await UserServices.updateUser(userId, newData);
+    } catch (err) {
+        console.log(err.message);
+    } finally {
+        if (updatedUser) {
+            return res.status(200).render('admin/success');
+        }
+        return res.status(500).render('admin/error');
+    }
+});
+
+/**
+ * DELETE: deactivates an existing user in the database.
+ * 
+ * @author Christopher Thacker
+ * @since 1.0.0
+ */
+router.delete('deactivateUser/:id', Middleware.isLoggedIn, Middleware.isAdmin, async (req, res) => {
+    const userId = req.params.id;
+    var response = null;
+
+    try {
+        response = await UserServices.deleteUser(userId);
+    } catch (err) {
+        console.log(err.message);
+    } finally {
+        if (response) {
+            return res.status(200).render('admin/success')
+        }
+        return res.status(404).render('admin/error');
+    }
+});
+
 module.exports = router;
