@@ -3,10 +3,10 @@ const FriendServices = require('../services/FriendServices');
 const Middleware = require('../utility/Middleware');
 
 // CREATE: add a new friend request.
-router.post('/:id', Middleware.isLoggedIn, async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
   const UserB = req.body
   const UserA = req.session.user
-  const result = await FriendServices.addFriend(UserA, UserB)
+  const result = await FriendServices.friendRequest(UserA, UserB)
 
   if (!result) {
     return res
