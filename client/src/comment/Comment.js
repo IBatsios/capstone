@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { ContextActions } from 'comment/ContextActions';
 import classes from './Comment.module.css';
+import { renderMarkdown } from 'utils';
 
 
 export const Comment = (props) => {
@@ -30,9 +31,7 @@ export const Comment = (props) => {
           }
         />
         <CardContent>
-          <Typography variant="body2" component="p">
-            {props.comment.content}
-          </Typography>
+          {renderMarkdown(props.comment.content)}
         </CardContent>
       </Card>
     </>
