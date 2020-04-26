@@ -18,6 +18,7 @@ import { URL } from 'config/user';
 
 export const ListForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
+  const [buttonState, setButtonState] = React.useState({disabled: false});
 
   const [values, setValues] = React.useState({
     id: props.id,
@@ -33,6 +34,9 @@ export const ListForm = (props) => {
   };
 
   const handleSave = async () => {
+    // Prevent duplicate submissions.
+    setButtonState({disabled: true});
+
     // Send the updated or new list data to the server.
     try {
       const listId = values.id || '';
@@ -109,7 +113,7 @@ export const ListForm = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSave} color="primary">
+          <Button {...buttonState} onClick={handleSave} color="primary">
             Save 
           </Button>
         </DialogActions>
