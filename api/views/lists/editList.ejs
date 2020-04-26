@@ -15,36 +15,34 @@
             <input type="name" name="name" id="name" placeholder="Name" value="<%= list.name %>">   
         </div>
         <div>
-            <label for="items">Choose Items:</label>
-            <select id="items">
-                <option value="default">default</option>
-            </select>
-            <script>
-            
-                var select = document.getElementById("items"),
-                         arr = ["item1","item2"];
-                 
-                 for(var i = 0; i < arr.length; i++)
-                 {
-                     var option = document.createElement("OPTION"),
-                         txt = document.createTextNode(arr[i]);
-                     option.appendChild(txt);
-                     option.setAttribute("value",arr[i]);
-                     select.insertBefore(option,select.lastChild);
-                 }
-                 
-            </script>
-    
-        </div>
-        <div>
             <label for="interest">Interest</label>
             <input type="interest" name="interest" id="interest" placeholder="Interest" value="<%= list.interest %>">   
         </div>
         <div>
-            <label for="author">Author</label>
-            <input type="text" name="author" id="author" placeholder="author" value="<%= list.author %>" >
-        </div>
-        <div>
+            <label for="author">Author</label></br>
+            <input
+              type="author"
+              name="authorId"
+              id="authorId"
+              placeholder="<%= list.author.id %>"
+              value="<%= list.author.id %>"
+            /></br>
+            <input
+              type="text"
+              name="authorUsername"
+              id="authorUsername"
+              placeholder="<%= list.author.username %>"
+              value="<%= list.author.username %>"
+            /></br>
+            <input
+              type="text"
+              name="authorAvatar"
+              id="authorAvatar"
+              placeholder="<%= list.author.avatar %>"
+              value="<%= list.author.avatar %>"
+            /></br>
+          </div>
+          <div>
             <label for="isActive">Is Active</label><br />
             <input type="radio" name="isActive" id="isActive" value="true" />
             <label>True</label>

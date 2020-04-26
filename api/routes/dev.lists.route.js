@@ -9,7 +9,7 @@
 
 const router = require('express').Router();
 const ListServices = require('../services/ListServices');
-
+const UserServices = require('../services/UserServices')
 /**
  * INDEX: show all Lists.
  * 
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   const allLists = await ListServices.getManyLists(filter)
 
   if (!allLists) {
-    return res.redirect('/lists/newList')
+    return res.redirect('/dev/lists/newList')
   }
 
   res.render('lists', {lists: allLists});
@@ -35,17 +35,19 @@ router.get('/', async (req, res) => {
  * @since 1.0.0
  */
 router.post('/', async (req, res) => {   
-    const listDTO = req.body; // Optional TODO: Outsource to a temServices function to build DTO.
-    var newList = await ListServices.addList(listDTO);
-    var response
+    const listDTO = req.body
+    const userObj = await UserServices.getUser(listDTO.authorId)
+    console.log(userObj)
+    const newList = await ListServices.addList(userObj, listDTO)
+
     if (!newList) {
-        response = 'unsuccessful.'
-      } else {
-        response = 'successful.'
-      }
-    
-      res.send(response)
-    })
+      response = 'List was unsuccessful.'
+      return res.send(response)
+    }
+
+    return res.redirect('lists/')
+  })
+        
 
 /**
  * NEW: renders the form to register a new List.
@@ -85,9 +87,8 @@ router.get('/:id/edit', async (req, res) => {
     const foundList = await ListServices.getList(listId);
     if (!foundList) {
         console.log('Error when attempting to render edit list form.')
-        return res.render('/lists')
+        return res.render('dev/lists')
       }
-    
       return res.render('lists/editList', { list: foundList })
     })
 
@@ -100,9 +101,7 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', async (req, res) => {
     const newData = req.body;
     const listId = req.params.id;
-
-    const updatedList = await ListServices.updateList(listId, newData, items);
-
+    const updatedList = await ListServices.updateList(listId, newData);
     if (!updatedList) {
         console.log('Error when updating list.');
         return res.redirect('/lists');
@@ -118,13 +117,13 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
     const listId = req.params.id;
-    const response = await ListServices.deleteList(listId); // TODO: Currently deletes the list in the DB, but eventually will need to update isActive flag.
-    console.log(response);
-    if (!response) {
-        console.log('Error when deleting list.'); // TODO: Send error message to view.
-        return res.redirect('/lists'); //TODO: Send success message to view.
-    }
-    return res.send('list delete.')
-});
+    const hiddenList = await ListServices.hide(listId)
+
+  if (!hiddenList) {
+    console.log('Error when deleting list.')
+    return res.redirect('/lists')
+  }
+  return res.redirect('/')
+})
 
 module.exports = router;
