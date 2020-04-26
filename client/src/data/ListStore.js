@@ -12,7 +12,7 @@ const listMap = {
   map: new Map(),
   // Returns a list in the format of the front-end.
   get(list) {
-    return this.map.get(list.id);
+    return this.map.get(list._id);
   },
   // Saves the list as provide by the backend.
   set(list) {
@@ -47,19 +47,14 @@ export function listReducer(state, action) {
       return {...state, lists: listMap.getAll(), isFetchingLists: false};
     case 'saveList':
       listMap.set(action.payload);
-      return { ...state, lists: listMap.getAll() };
+      return {
+        ...state,
+        lists: listMap.getAll(),
+        activeList: listMap.get(action.payload)
+      };
     case 'deleteList':
-      console.log(action.payload);
       listMap.delete(action.payload);
       return { ...state, lists: listMap.getAll() };
-    case 'deleteListItem':
-      // TODO: Implement delete of an item from a list.
-      return { ...state}; 
-    case 'saveListItem':
-      console.log(`Add items to list with id: ${action.payload.id}`);
-      console.log(action.payload);
-      // TODO: Implement saving an item to a list.
-      return { ...state };
     default:
       return state;
   }
