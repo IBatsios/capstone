@@ -14,8 +14,7 @@ var itemSchema = new Schema(
       required: true,
     },
     listId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'List',
+      type: String,
       required: true,
     },
     url: {
