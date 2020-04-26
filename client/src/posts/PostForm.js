@@ -27,6 +27,7 @@ import { URL } from 'config/user';
 
 export const  PostForm = (props) => {
   const [state, dispatch] = useContext(UserContext);
+  const [buttonState, setButtonState] = React.useState({disabled: false});
 
   const [values, setValues] = React.useState({
     id: props.id,
@@ -44,6 +45,9 @@ export const  PostForm = (props) => {
   };
 
   const handleSave = async () => {
+    // Prevent duplicate submissions.
+    setButtonState({disabled: true});
+
     // Send the updated post data to the server.
     try {
       const postId = values.id || '';
@@ -151,7 +155,7 @@ export const  PostForm = (props) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSave} color="primary">
+          <Button {...buttonState} onClick={handleSave} color="primary">
             Save 
           </Button>
         </DialogActions>
