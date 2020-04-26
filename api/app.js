@@ -25,12 +25,6 @@ const commentsRouter = require('./routes/comments.route')
 const commentReportRouter = require('./routes/comments.reports.route')
 const adminRouter = require('./routes/admin.route')
 
-// Dev Routers
-const devUsersRouter = require('./routes/dev.users.route')
-const devCommentsRouter = require('./routes/dev.comments.route')
-const devPostsRouter = require('./routes/dev.posts.route')
-const devListsRouter = require('./routes/dev.lists.route')
-const devItemsRouter = require('./routes/dev.items.route')
 // Environment Variables Access
 require('dotenv').config()
 
@@ -98,14 +92,6 @@ app.use('/lists', listsRouter)
 app.use('/comments', commentsRouter)
 app.use('/report/comments', commentReportRouter)
 app.use('/admin', adminRouter)
-
-// Dev routes
-app.use('/dev/users/', devUsersRouter)
-app.use('/dev/comments/', devCommentsRouter)
-app.use('/dev/posts/', devPostsRouter)
-app.use('/dev/lists/', devListsRouter)
-app.use('/dev/items/', devItemsRouter)
-
 
 // Connect to Database
 let connection = new DatabaseConnector()
