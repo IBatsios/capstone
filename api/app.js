@@ -23,6 +23,7 @@ const itemsRouter = require('./routes/items.route')
 const listsRouter = require('./routes/lists.route')
 const commentsRouter = require('./routes/comments.route')
 const commentReportRouter = require('./routes/comments.reports.route')
+const adminRouter = require('./routes/admin.route')
 
 // Dev Routers
 const devUsersRouter = require('./routes/dev.users.route')
@@ -96,6 +97,7 @@ app.use('/items', itemsRouter)
 app.use('/lists', listsRouter)
 app.use('/comments', commentsRouter)
 app.use('/report/comments', commentReportRouter)
+app.use('/admin', adminRouter)
 
 // Dev routes
 app.use('/dev/users/', devUsersRouter)
