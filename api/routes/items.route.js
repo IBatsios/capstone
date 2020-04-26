@@ -9,6 +9,8 @@
 
 const router = require('express').Router()
 const ItemServices = require('../services/ItemServices')
+const UserServices = require('../services/UserServices')
+const Middleware = require('../utility/Middleware')
 
 /**
  * INDEX: show all items.
@@ -36,24 +38,21 @@ router.get('/', async (req, res) => {
  * @author Jamie Weathers ref Christopher Thacker and Hieu Vo
  * @since 1.0.0
  */
-router.put('/', async (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'User not logged in' })
-  }
-
+router.put('/', Middleware.isLoggedIn, async (req, res) => {
   try {
     const itemDTO = req.body
+    const user = await UserServices.getUser(req.session.user.id)
 
-    var newItem = await ItemServices.addItem(itemDTO)
+    var newItem = await ItemServices.addItem(user, itemDTO)
 
     if (!newItem) {
       return res.status(400).send({ error: 'New Item Failed!' })
     }
 
-    return res.status(200).send()
+    return res.status(200).send(`${newItem._id}`)
   } catch (err) {
-    console.log(error.message)
-    return res.status(500).send(error)
+    console.log(err.message)
+    return res.status(500).send(err)
   }
 })
 
@@ -64,11 +63,7 @@ router.put('/', async (req, res) => {
  * @author Jamie Weathers ref Christopher Thacker and Hieu Vo
  * @since 1.0.0
  */
-router.get('/:id', async (req, res) => {
-  if (!req.session.user) {
-    return res.status(401).json({ error: 'User not logged in' })
-  }
-
+router.get('/:id', Middleware.isLoggedIn, async (req, res) => {
   try {
     const itemId = req.params.id
     var foundItem = await ItemServices.getItem(itemId)
@@ -90,7 +85,7 @@ router.get('/:id', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.put('/:id', async (req, res) => {
+router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
   const newData = req.body
   const itemId = req.params.id
   const updatedItem = await ItemServices.updateItem(itemId, newData)
@@ -109,7 +104,7 @@ router.put('/:id', async (req, res) => {
  * @author Hieu Vo ref Christopher Thacker
  * @since 1.0.0
  */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
   const itemId = req.params.id
   const hiddenItem = await ItemServices.hide(itemId)
 
