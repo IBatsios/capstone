@@ -23,8 +23,7 @@ const Google = () => {
   };
   return (
     <GoogleLogin
-      //clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-      clientId="89189444358-9thoj2a0f0d0ta156msamp6ml8sgu8fb.apps.googleusercontent.com"
+      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
       onSuccess={responseGoogle}
       onFailure={responseGoogle}
       render={(renderProps) => (
