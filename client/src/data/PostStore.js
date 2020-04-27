@@ -64,7 +64,6 @@ const postMap = {
   },
   like(id) {
     const post = this.map.get(id);
-    console.log(post);
     post.likeCount = post.likeCount++;
     this.map.set(post._id, post);
     // TODO: Add something to the arrayLike property, maybe the authorId of
@@ -104,8 +103,6 @@ const deleteComment = async (comment) => {
       method: 'get',
       url: `${URL.POSTS}/${comment.postId}`
     });
-    console.log(updatedPost);
-    console.log(updatedPost.data);
     postMap.set(updatedPost);
   } catch (e) {
     console.log(e);
@@ -113,11 +110,9 @@ const deleteComment = async (comment) => {
 };
 
 export function postReducer(state, action) {
-  console.log(action);
   let post;
   switch (action.type) {
     case 'isFetchingPosts':
-      console.log('isFetchingPosts');
       return {...state, isFetchingPosts: true};
     case 'setPostData':
       // This would not be necessary if the properties of the backend
@@ -127,18 +122,13 @@ export function postReducer(state, action) {
       });
       return {...state, posts: postMap.getAll(), isFetchingPosts: false};
     case 'CommentFormSave':
-      console.log('CommentFormSave');
       // Prints to the console, the submitted post data.
-      console.log(action.payload);
       return { ...state };
     case 'addCommentToPost':
       return { ...state };
     case 'editComment':
       return { ...state };
     case 'deleteComment':
-      //deleteComment(action.payload);
-      //console.log(postMap.map.get(action.payload.postId));
-      console.log('deleteComment');
       return {...state, posts: postMap.getAll()};
     case 'deletePost':
       // Tell the server which post to delete.
@@ -151,14 +141,12 @@ export function postReducer(state, action) {
       return {...state, posts: postMap.getAll()};
     // The next two case may be moved to a local state.
     case 'likePost':
-      console.log(`liked postId: ${action.payload}`);
       post = postMap.getById(action.payload);
       post.likeCount++;
       postMap.save(post);
       // Send updated information to the server.
       return { ...state, posts: postMap.getAll() };
     case 'reportPost':
-      console.log(`postId ${action.payload} has been reported`);
       return { ...state };
     default:
       return {...state};
