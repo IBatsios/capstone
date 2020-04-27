@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -95,6 +96,12 @@ export const UserMenu = (props) => {
             <PlaylistAddIcon />
           </ListItemIcon>
           <ListItemText primary={USER_MENU.ADD_LIST} />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ContactsIcon />
+          </ListItemIcon>
+          <ListItemText primary={USER_MENU.FRIENDS} />
         </ListItem>
         <ListItem button onClick={profileForm}>
           <ListItemIcon>
