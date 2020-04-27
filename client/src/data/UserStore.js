@@ -1,7 +1,9 @@
 import React, { createContext, useReducer } from 'react';
+import axios from 'axios';
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
-import { userConfig } from '../config/user';
+import { appConfig, userConfig } from '../config/user';
+import { URL } from 'config/user';
 
 /**
  * userMap stores the users requested from the server and handles any
@@ -16,6 +18,33 @@ const userMap = {
   },
   // Saves the user as provide by the backend.
   set(user) {
+    user = {...userConfig, ...user};
+    let friends = [];
+    let pendingRequests = [];
+
+    try {
+      for (let friendId of user.friends) {
+        getUser(friendId).then((result) => {
+          friends.push(result.user);
+        });
+      }
+    } catch {
+      // ES2019 optional catch binding.
+      // The user has no friends.
+    }
+
+    try {
+      for (let userId of user.pendingRequests) {
+        getUser(userId).then((result) => {
+          pendingRequests.push(result.user);
+        });
+      }
+    } catch {
+      // This user doesn't have any pending friend requests.
+    }
+
+    user.friends = friends;
+    user.pendingRequests = pendingRequests;
     this.map.set(user._id, user);
   },
   getById(id) {
@@ -23,6 +52,16 @@ const userMap = {
     return { id: _id, ...other };
   }
 }
+
+const getUser = (id) => {
+  return axios({
+      withCredentials: true,
+      method: 'get',
+      url: `${URL.USERS}/${id}`
+    }).then(response => {
+      return response.data;
+  });
+};
 
 const activeList = {};
 const initialState = {
@@ -54,7 +93,7 @@ export function userReducer(state, action) {
         authenticated: true,
         login: true,
         activeList,
-        ...userConfig,
+        ...appConfig,
         lists: [],
         posts: [],
         dynamicContent: [],
@@ -89,7 +128,6 @@ export function userReducer(state, action) {
     // TODO: Refactor to not require activeList.  It's a work-around
     // to cause ListItems to re-render when items have been updated.
     case 'activeList':
-      console.log(action.payload);
       return {...state, activeList: {...action.payload}};
     case 'logout':
       sessionStorage.removeItem('userId');
@@ -99,6 +137,8 @@ export function userReducer(state, action) {
       return { ...state };
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
+    case 'changeActiveManageFriendsTab':
+      return { ...state, activeManageFriendsTab: action.payload };
     case 'popBlock':
       state.dynamicContent.shift();
       return { ...state };
