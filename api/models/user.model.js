@@ -55,21 +55,34 @@ var userSchema = new Schema(
 
     friends: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Users',
-      },
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        username: String,
+        avatar: String,
+      }
     ],
     pendingRequests: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Users',
-      },
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        username: String,
+        avatar: String,
+      }
+      
     ],
     sentRequests: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Users',
-      },
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        username: String,
+        avatar: String,
+      }
     ],
 
 

@@ -17,9 +17,12 @@ class FriendServices {
             const isAlreadyRequest = foundsendingUser.sentRequests.some((user) => {
                 return user._id == receivingUser;
             })
+            const isPending = foundreceivingUser.pendingRequests.some((user) => {
+                return user._id == sendingUser;
+            })
 
             // If user does not
-            if (!isAlreadyFriend && !isAlreadyRequest ) {
+            if (!isAlreadyFriend && !isAlreadyRequest && !isPending) {
                 foundsendingUser.sentRequests.push(foundreceivingUser);
                 foundreceivingUser.pendingRequests.push(foundsendingUser);
                 try {
@@ -27,6 +30,7 @@ class FriendServices {
                     var updatedreceivingUser = await UserServices.updateUser(receivingUser, foundreceivingUser);
                     if (updatedsendingUser && updatedreceivingUser ) {
                         console.log(`Friend sent: ${updatedsendingUser && updatedreceivingUser}`);
+                        
                         
                     } else {
                     console.log('Friend not sent');
@@ -36,7 +40,10 @@ class FriendServices {
                     console.log(error.message);
                     return false;
                 }
+                return updatedsendingUser && updatedreceivingUser
             }
+            return false
+           
 
         } catch (error) {
             console.log(error.message);
@@ -77,8 +84,9 @@ class FriendServices {
                     console.log(error.message);
                     return false;
                 }
-                
+                return updatedsendingUser && updatedreceivingUser
             }
+            return false
             
 
         } catch (error) {
@@ -117,7 +125,9 @@ class FriendServices {
                     console.log(error.message);
                     return false;
                 }
+                return updatedsendingUser && updatedreceivingUser
             }
+            return false
 
         } catch (error) {
             console.log(error.message);
