@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import styles from './Posts.module.css';
 import { ContextActions } from './ContextActions';
 import { Comments } from 'comment/Comments';
+import { renderMarkdown } from 'utils';
 
 const useStyles = makeStyles(theme => ({
   expand: {
@@ -36,6 +37,7 @@ const Posts = (props) => {
     // which is clicked on.
     setExpanded(expanded === index ? -1 : index);
   };
+
 
   // Only render markup for posts that exist.
   if (props.posts.length > 0) {
@@ -62,9 +64,9 @@ const Posts = (props) => {
               <Typography className={classes.title} gutterBottom>
                 {post.title}
               </Typography>
-              <Typography variant="body2" component="p">
-                {post.content}
-              </Typography>
+
+              {renderMarkdown(post.content)}
+
             </CardContent>
 
             <CardActions disableSpacing>
