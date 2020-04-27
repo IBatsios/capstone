@@ -2,8 +2,8 @@ const router = require('express').Router()
 const FriendServices = require('../services/FriendServices');
 const Middleware = require('../utility/Middleware');
 
-// CREATE: add a new friend request.
-router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
+
+router.put('/:id', async (req, res) => {
   const UserB = req.body
   const UserA = req.session.user
   const result = await FriendServices.friendRequest(UserA, UserB)
@@ -18,7 +18,7 @@ router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
 })
 
 // Accept or friend request.
-router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
+router.put('/:id/accept', async (req, res) => {
     const UserA = req.body
     const UserB = req.session.user
     const result = await FriendServices.acceptFriend(UserA, UserB)
@@ -33,7 +33,7 @@ router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
   })
 
   // reject friend request.
-  router.delete('/:id', Middleware.isLoggedIn, async (req, res) => {
+  router.put('/:id/reject',async (req, res) => {
     const UserA = req.body
     const UserB = req.session.user
     const result = await FriendServices.rejectFriend(UserA, UserB)
