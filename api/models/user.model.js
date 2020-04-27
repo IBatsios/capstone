@@ -52,13 +52,39 @@ var userSchema = new Schema(
       required: false,
       default: null,
     },
-    
+
     friends: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'Friends',
-      },
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        username: String,
+        avatar: String,
+      }
     ],
+    pendingRequests: [
+      {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        username: String,
+        avatar: String,
+      }
+      
+    ],
+    sentRequests: [
+      {
+        id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+        },
+        username: String,
+        avatar: String,
+      }
+    ],
+
 
     isAdmin: {
       type: Boolean,
