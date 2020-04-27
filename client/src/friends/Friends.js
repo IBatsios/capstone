@@ -43,10 +43,25 @@ export const Friends = (props) => {
     });
   };
 
-  const handleRemoveFriend = () => {
+  const handleRejectFriendRequest = id => () => {
+    console.log(id);
+    console.log('handleRemoveFriend');
+    dispatch({
+      type: 'rejectFriendRequest',
+      payload: id
+    });
   }
 
-  const handleAcceptFriend = () => {
+  const handleRemoveFriend = id => () => {
+    console.log('handleRemoveFriend');
+  }
+
+  const handleAcceptFriend = id => () => {
+    console.log('handleAcceptFriend');
+    dispatch({
+      type: 'acceptFriendRequest',
+      payload: id
+    });
   }
 
   return (
@@ -74,6 +89,7 @@ export const Friends = (props) => {
           <Tabs value={active} centered onChange={onTabChange}>
             <Tab label={MANAGE_FRIENDS.FRIENDS} />
             <Tab label={MANAGE_FRIENDS.PENDING} />
+            <Tab label={MANAGE_FRIENDS.SENT_REQUESTS} />
           </Tabs>
           <TabPanel className={classes.tabpanel} value={active} index={0}>
             <List>
@@ -87,9 +103,7 @@ export const Friends = (props) => {
                     />
                     <ListItemText
                       primary={friend.username}
-                      secondary={
-                        friend.bio
-                      }
+                      secondary={ friend.bio }
                     />
                     <>
                       <IconButton
@@ -124,17 +138,39 @@ export const Friends = (props) => {
                     <>
                       <IconButton
                         aria-label="approve"
-                        onClick={handleAcceptFriend}
+                        onClick={handleAcceptFriend(pendingRequest._id)}
                       >
                         <CheckIcon />
                       </IconButton>
                       <IconButton
-                        aria-label="delete"
-                        onClick={handleRemoveFriend}
+                        aria-label="reject"
+                        onClick={handleRejectFriendRequest(pendingRequest._id)}
                       >
                         <CloseIcon />
                       </IconButton>
                     </>
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              ))}
+            </List>
+          </TabPanel>
+          <TabPanel className={classes.tabpanel} value={active} index={2}>
+            <List>
+              {state.user.sentRequests.map((sentRequest, index) => (
+                <React.Fragment key={sentRequest._id}>
+                  <ListItem>
+                    <Avatar
+                      className={classes.avatar}
+                      alt={sentRequest.username}
+                      src={sentRequest.avatar}
+                    />
+                    <ListItemText
+                      primary={sentRequest.username}
+                      secondary={
+                        sentRequest.bio
+                      }
+                    />
                   </ListItem>
                   <Divider />
                 </React.Fragment>
