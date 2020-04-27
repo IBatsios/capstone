@@ -3,10 +3,11 @@ const FriendServices = require('../services/FriendServices');
 const Middleware = require('../utility/Middleware');
 
 
-router.put('/:id', async (req, res) => {
-  const UserB = req.body
-  const UserA = req.session.user
-  const result = await FriendServices.friendRequest(UserA, UserB)
+router.put('/:id',Middleware.isLoggedIn, async (req, res) => {
+  // maybe req.session.user
+  const receivingUser = req.body
+  const sendingUser = req.params.id
+  const result = await FriendServices.friendRequest(sendingUser, receivingUser)
 
   if (!result) {
     return res
@@ -18,10 +19,11 @@ router.put('/:id', async (req, res) => {
 })
 
 // Accept or friend request.
-router.put('/:id/accept', async (req, res) => {
-    const UserA = req.body
-    const UserB = req.session.user
-    const result = await FriendServices.acceptFriend(UserA, UserB)
+router.put('/accept/:id',Middleware.isLoggedIn, async (req, res) => {
+    const receivingUser = req.params.id
+    // maybe req.session.user
+    const sendingUser = req.body
+    const result = await FriendServices.acceptFriend(sendingUser, receivingUser)
   
     if (!result) {
       return res
@@ -33,10 +35,11 @@ router.put('/:id/accept', async (req, res) => {
   })
 
   // reject friend request.
-  router.put('/:id/reject',async (req, res) => {
-    const UserA = req.body
-    const UserB = req.session.user
-    const result = await FriendServices.rejectFriend(UserA, UserB)
+  router.put('/reject/:id', Middleware.isLoggedIn,async (req, res) => {
+    const receivingUser = req.params.id
+    // maybe req.session.user
+    const sendingUser = req.body
+    const result = await FriendServices.rejectFriend(sendingUser, receivingUser)
   
     if (!result) {
       return res

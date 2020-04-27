@@ -1,117 +1,41 @@
 'use strict'
 
-
-// const modelName1 = 'friend.model'
-// const Friend = require(`../models/${modelName1}`)
-// const modelName2 = 'user.model'
-// const User = require(`../models/${modelName2}`)
-
-
 const UserServices = require('../services/UserServices');
 
 class FriendServices {
-    
-    // static async addFriend(UserA, UserB) {
-    //     try {
-    //         const newComment = new Comment({
-    //             content: commentDTO.content,
-    //             postId: commentDTO.postId,
-    //             author: { id: user.id, username: user.username, avatar: user.avatar },
-    //             isActive: true,
-    //         })
 
-    //         const docA = await Friend.findOneAndUpdate(
-    //             { requester: UserA, recipient: UserB },
-    //             { $set: { status: 1 }},
-    //             { upsert: true, new: true }
-    //         )
-    //         const docB = await Friend.findOneAndUpdate(
-    //             { recipient: UserA, requester: UserB },
-    //             { $set: { status: 2 }},
-    //             { upsert: true, new: true }
-    //         )
-    //         const updateUserA = await User.findOneAndUpdate(
-    //             { _id: UserA },
-    //             { $push: { friends: docA._id }}
-    //         )
-            
-    //         const updateUserB = await User.findOneAndUpdate(
-    //             { _id: UserB },
-    //             { $push: { friends: docB._id }}
-    //         )
-    //         if (!updateUserA || !updateUserB) {
-    //             console.log('request fail')
-    //             return false
-    //           }
-    //         return updateUserA && updateUserB;
-
-    //     } catch (error) {
-    //         console.log(error)
-    //         return false
-    //     }
-    // }
-    // static async acceptFriend(UserA, UserB) {
-    //     try {
-
-    //         Friend.findOneAndUpdate(
-    //             { requester: UserA, recipient: UserB },
-    //             { $set: { status: 3 }}
-    //         )
-    //         Friend.findOneAndUpdate(
-    //             { recipient: UserA, requester: UserB },
-    //             { $set: { status: 3 }}
-    //         )
-    //     } catch (error) {
-    //         console.log(error)
-    //         return false
-    //     }
-    // }
-    // static async rejectFriend(UserA, UserB) {
-    //     try {
-
-    //         const docA = await Friend.findOneAndRemove(
-    //             { requester: UserA, recipient: UserB }
-    //         )
-    //         const docB = await Friend.findOneAndRemove(
-    //             { recipient: UserA, requester: UserB }
-    //         )
-    //         const updateUserA = await User.findOneAndUpdate(
-    //             { _id: UserA },
-    //             { $pull: { friends: docA._id }}
-    //         )
-    //         const updateUserB = await User.findOneAndUpdate(
-    //             { _id: UserB },
-    //             { $pull: { friends: docB._id }}
-    //         )
-    //         if (!updateUserA || !updateUserB) {
-    //             console.log('reject fail')
-    //             return false
-    //           }
-    //         return updateUserA && updateUserB;
-    //     } catch (error) {
-    //         console.log(error)
-    //         return false
-    //     }
-    // }
-    
-
-//another way
-
-    static async friendRequest(userA, userB) {
+    static async friendRequest(sendingUser, receivingUser) {
         try {
             
-            var foundUserA = await UserServices.getUser(userA);
-            var foundUserB = await UserServices.getUser(userB);
+            var foundsendingUser = await UserServices.getUser(sendingUser);
+            var foundreceivingUser = await UserServices.getUser(receivingUser);
 
             // Check if user already has same friend
-            const isFriend = foundUserA.friends.some((user) => {
-                return user._id == userB;
+            const isAlreadyFriend = foundsendingUser.friends.some((user) => {
+                return user._id == receivingUser;
+            })
+            const isAlreadyRequest = foundsendingUser.sentRequests.some((user) => {
+                return user._id == receivingUser;
             })
 
             // If user does not
-            if (!isFriend) {
-                foundUserA.sentRequests.push(foundUserB);
-                foundUserB.pendingRequests.push(foundUserA);
+            if (!isAlreadyFriend && !isAlreadyRequest ) {
+                foundsendingUser.sentRequests.push(foundreceivingUser);
+                foundreceivingUser.pendingRequests.push(foundsendingUser);
+                try {
+                    var updatedsendingUser = await UserServices.updateUser(sendingUser, foundsendingUser);
+                    var updatedreceivingUser = await UserServices.updateUser(receivingUser, foundreceivingUser);
+                    if (updatedsendingUser && updatedreceivingUser ) {
+                        console.log(`Friend sent: ${updatedsendingUser && updatedreceivingUser}`);
+                        
+                    } else {
+                    console.log('Friend not sent');
+                    return false;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
+                }
             }
 
         } catch (error) {
@@ -120,43 +44,79 @@ class FriendServices {
         }
     }
 
-    static async acceptFriend(userA, userB) {
+    static async acceptFriend(sendingUser, receivingUser) {
         try {
-            var foundUserA = await UserServices.getUser(userA);
-            var foundUserB = await UserServices.getUser(userB);
+            var foundsendingUser = await UserServices.getUser(sendingUser);
+            var foundreceivingUser = await UserServices.getUser(receivingUser);
 
             // Check if user already has same friend
-            const isAccepted = foundUserB.pendingRequests.some((user) => {
-                return user._id == userA;
+            const isAlreadyFriend = foundreceivingUser.friends.some((user) => {
+                return user._id == sendingUser;
+            })
+            const isRequested = foundreceivingUser.pendingRequests.some((user) => {
+                return user._id == sendingUser;
             })
 
             // If user does not
-            if (isAccepted) {
-                foundUserA.friends.push(foundUserB);
-                foundUserB.friends.push(foundUserA);
-                foundUserA.sentRequests.pull(foundUserB);
-                foundUserB.pendingRequests.pull(foundUserA);
+            if (!isAlreadyFriend && isRequested) {
+                foundsendingUser.friends.push(foundreceivingUser);
+                foundreceivingUser.friends.push(foundsendingUser);
+                foundsendingUser.sentRequests.pull(foundreceivingUser);
+                foundreceivingUser.pendingRequests.pull(foundsendingUser);
+                try {
+                    var updatedsendingUser = await UserServices.updateUser(sendingUser, foundsendingUser);
+                    var updatedreceivingUser = await UserServices.updateUser(receivingUser, foundreceivingUser);
+                    if (updatedsendingUser && updatedreceivingUser ) {
+                        console.log(`accepted: ${updatedsendingUser && updatedreceivingUser}`);
+                        
+                    } else{
+                    console.log('not accepted');
+                    return false;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
+                }
+                
             }
+            
 
         } catch (error) {
             console.log(error.message);
             return false;
         }
     }
-    static async rejectFriend(userA, userB) {
+    static async rejectFriend(sendingUser, receivingUser) {
         try {
-            var foundUserA = await UserServices.getUser(userA);
-            var foundUserB = await UserServices.getUser(userB);
+            var foundsendingUser = await UserServices.getUser(sendingUser);
+            var foundreceivingUser = await UserServices.getUser(receivingUser);
 
             // Check if user already has same friend
-            const isRejected = foundUserB.pendingRequests.some((user) => {
-                return user._id == userA;
+            const isAlreadyFriend = foundreceivingUser.friends.some((user) => {
+                return user._id == sendingUser;
+            })
+            const isRequested = foundreceivingUser.pendingRequests.some((user) => {
+                return user._id == sendingUser;
             })
 
             // If user does not
-            if (isRejected) {
-                foundUserA.sentRequests.pull(foundUserB);
-                foundUserB.pendingRequests.pull(foundUserA);
+            if (!isAlreadyFriend && isRequested) {
+                foundsendingUser.sentRequests.pull(foundreceivingUser);
+                foundreceivingUser.pendingRequests.pull(foundsendingUser);
+                try {
+                    var updatedsendingUser = await UserServices.updateUser(sendingUser, foundsendingUser);
+                    var updatedreceivingUser = await UserServices.updateUser(receivingUser, foundreceivingUser);
+                    if (updatedsendingUser && updatedreceivingUser ) {
+                        console.log(`rejected: ${updatedsendingUser && updatedreceivingUser}`);
+                        
+                    } else{
+                    console.log('not rejected');
+                    return false;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
+                }
             }
 
         } catch (error) {
