@@ -52,11 +52,12 @@ const blocks = {
   }
 }
 
-const userConfig = {
+const appConfig = {
   blocks: blocks,
   interests: INTERESTS,
   headerTabs: [ HOME, WATERCOOLER, LISTS ],
   activeHeaderTab: 0,
+  activeManageFriendsTab: 0,
   section: {
     home: {
       interest: 0
@@ -67,7 +68,14 @@ const userConfig = {
     lists: {
       interest: 0
     }
-  }
+  },
+}
+
+// Default values for user properties.
+const userConfig = {
+  friends: [],
+  // A place to store things needing a user's approval.
+  pendingRequests: []
 }
 
 const DOMAIN_NAME = 'localhost';
@@ -102,6 +110,7 @@ export {
   WATERCOOLER,
   WATERCOOLER_ICON,
   INTERESTS,
+  appConfig,
   userConfig,
   URL,
   SITE_NAME
