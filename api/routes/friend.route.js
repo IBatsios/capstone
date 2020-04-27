@@ -4,9 +4,8 @@ const Middleware = require('../utility/Middleware');
 
 
 router.put('/:id', Middleware.isLoggedIn,async (req, res) => {
-  // maybe req.session.user
-  const receivingUser = req.body
-  const sendingUser = req.params.id
+  const receivingUser = req.params.id
+  const sendingUser = req.session.user.id
   const result = await FriendServices.friendRequest(sendingUser, receivingUser)
 
   if (result) {
@@ -17,17 +16,15 @@ router.put('/:id', Middleware.isLoggedIn,async (req, res) => {
   return res
       .status(404)
       .send({ error: `Error attempting to add new friend request.` })
-
- 
 })
 
 // Accept or friend request.
 router.put('/accept/:id', Middleware.isLoggedIn, async (req, res) => {
-    const receivingUser = req.params.id
-    // maybe req.session.user
-    const sendingUser = req.body
-    const result = await FriendServices.acceptFriend(sendingUser, receivingUser)
-  
+    const accepted = req.params.id
+    const acceptor = req.session.user.id
+
+    const result = await FriendServices.acceptFriend(accepted, acceptor)
+
     if (result) {
       return res.status(200)
       .send( 'accept new friend request.' )
@@ -39,11 +36,10 @@ router.put('/accept/:id', Middleware.isLoggedIn, async (req, res) => {
   })
 
   // reject friend request.
-  router.put('/reject/:id', Middleware.isLoggedIn, async (req, res) => {
-    const receivingUser = req.params.id
-    // maybe req.session.user
-    const sendingUser = req.body
-    const result = await FriendServices.rejectFriend(sendingUser, receivingUser)
+router.put('/reject/:id', Middleware.isLoggedIn, async (req, res) => {
+    const rejectedUser = req.params.id
+    const rejector = req.session.user.id
+    const result = await FriendServices.rejectFriend(rejector, rejected)
   
     if (result) {
       return res.status(200)
