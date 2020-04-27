@@ -38,10 +38,7 @@ const Home = () => {
         });
       }
     };
-      fetchLists();
-  }, []);
 
-  useEffect(() => {
     const fetchPosts = async () => {
       try {
         dispatch({
@@ -66,9 +63,16 @@ const Home = () => {
         });
       }
     };
-      fetchPosts();
+
+    fetchLists();
+    fetchPosts();
   }, []);
-  // Despite the following warning message—which can be seen in the web console, "React Hook useEffect has missing dependencies: 'dispatch' and 'state.posts'. Either include them or remove the dependency array  react-hooks/exhaustive-deps", do not remove the empty array above.  It will create an infinite loop, making requests to the backend.
+
+  /* Despite the following warning message—which can be seen in the web
+     console, "React Hook useEffect has missing dependencies: 'dispatch'
+     and 'state.posts'. Either include them or remove the dependency array
+     react-hooks/exhaustive-deps", do not remove the empty array above. 
+     It will create an infinite loop, making requests to the backend. */
 
   const tabs = state.interests.map((interest, index) => (
     <Tab label={interest} value={index} key={index} />
