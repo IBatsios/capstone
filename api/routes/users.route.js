@@ -26,7 +26,7 @@ const DEPRECATED_MSG = 'This route is deprecated. Please use the following inste
  * @since 1.0.0
  */
 router.get('/', async (req, res) => {
-    const filter = req.body.filter; // Optional TODO: Outsource to a UserServices function to build filter.
+    const filter = req.body; // Optional TODO: Outsource to a UserServices function to build filter.
     var allUsers = null;
     var errors = {};
 
