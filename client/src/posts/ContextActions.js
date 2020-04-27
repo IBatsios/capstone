@@ -30,6 +30,7 @@ export const ContextActionsDrawer = (props) => {
   const [state, setState] = React.useState({
     open: false
   });
+
   const useStyles = makeStyles({
     contextDrawer: {
       width: 'auto',
@@ -185,12 +186,8 @@ export const ContextActions = (props) => {
 
   const handleFriendRequest = () => {
     dispatch({
-      store: 'PostStore',
-      type: 'newFriendRequest',
-      payload: {
-        userId: state.user.id,
-        friendId: props.author.id
-      }
+      type: 'friendRequest',
+      payload: props.author.id
     });
     handleClose();
   }
