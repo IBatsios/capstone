@@ -39,28 +39,22 @@ const getUser = (user) => {
   });
 };
 
-const requestFriend = (userId, friendId) => {
+const requestFriend = async (id) => {
   return axios({
       withCredentials: true,
       method: 'put',
-      url: `${URL.FRIEND}/${friendId}`,
-      data: {
-        id: userId
-      }
+      url: `${URL.FRIENDS}/${id}`,
     }).then(response => {
       console.log(response);
       return response.data;
   });
 };
 
-const acceptFriendRequest = (userId, friendId) => {
+const acceptFriendRequest = (id) => {
   return axios({
       withCredentials: true,
       method: 'put',
-      url: `${URL.ACCEPT_FRIEND}/${friendId}`,
-      data: {
-        id: userId
-      }
+      url: `${URL.ACCEPT_FRIEND}/${id}`,
     }).then(response => {
       console.log(response);
       return response.data;
@@ -120,6 +114,7 @@ export function userReducer(state, action) {
         lists: [],
         posts: [],
         dynamicContent: [<Friends />],
+        //dynamicContent: [],
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
@@ -172,10 +167,13 @@ export function userReducer(state, action) {
       sessionStorage.removeItem('userId');
       return { ...initialState, authenticated: false};
     case 'friendRequest':
-      requestFriend(state.user.id, action.payload); 
+      console.log(action.payload);
+      requestFriend(action.payload); 
       return {...state };
     case 'acceptFriendRequest':
-      acceptFriendRequest(state.user.id, action.payload);
+      console.log('acceptFriendRequest');
+      console.log(action.payload);
+      acceptFriendRequest(action.payload);
       return {...state };
     case 'rejectFriendRequest':
       rejectFriendRequest(state.user.id, action.payload);
