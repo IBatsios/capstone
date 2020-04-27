@@ -37,6 +37,7 @@ export const USER_MENU = {
   ADMIN_PORTAL: "Admin Portal",
   ADD_POST: "Add Post", 
   ADD_LIST: ADD_LIST, 
+  FRIENDS: 'Manage Friends',
   PROFILE_SETTINGS: "Profile Settings",
   LOG_OUT: "Log out",
 }
