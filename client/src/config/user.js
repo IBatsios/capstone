@@ -88,6 +88,9 @@ const FRONTEND_URL = `${PROTOCOL}://${DOMAIN_NAME}:${FRONTEND_PORT}`;
 const URL = {
   ADMIN_PORTAL: `${BACKEND_URL}/`,
   COMMENTS: `${BACKEND_URL}/comments`,
+  FRIENDS: `${BACKEND_URL}/friends`,
+  ACCEPT_FRIEND: `${BACKEND_URL}/friends/accept`,
+  REJECT_FRIEND: `${BACKEND_URL}/friends/reject`,
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
   LISTS: `${BACKEND_URL}/lists`,
