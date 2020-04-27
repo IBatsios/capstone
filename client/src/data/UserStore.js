@@ -2,7 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import axios from 'axios';
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
-import { appConfig, userConfig } from '../config/user';
+import { appConfig } from '../config/user';
+import { Friends } from 'friends/Friends';
 import { URL } from 'config/user';
 
 /**
@@ -18,33 +19,6 @@ const userMap = {
   },
   // Saves the user as provide by the backend.
   set(user) {
-    user = {...userConfig, ...user};
-    let friends = [];
-    let pendingRequests = [];
-
-    try {
-      for (let friendId of user.friends) {
-        getUser(friendId).then((result) => {
-          friends.push(result.user);
-        });
-      }
-    } catch {
-      // ES2019 optional catch binding.
-      // The user has no friends.
-    }
-
-    try {
-      for (let userId of user.pendingRequests) {
-        getUser(userId).then((result) => {
-          pendingRequests.push(result.user);
-        });
-      }
-    } catch {
-      // This user doesn't have any pending friend requests.
-    }
-
-    user.friends = friends;
-    user.pendingRequests = pendingRequests;
     this.map.set(user._id, user);
   },
   getById(id) {
@@ -53,15 +27,58 @@ const userMap = {
   }
 }
 
-const getUser = (id) => {
+const getUser = (user) => {
+  console.log(user);
   return axios({
       withCredentials: true,
       method: 'get',
-      url: `${URL.USERS}/${id}`
+      url: `${URL.USERS}/${user.id}`
     }).then(response => {
+      console.log(response);
       return response.data;
   });
 };
+
+const requestFriend = (userId, friendId) => {
+  return axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.FRIEND}/${friendId}`,
+      data: {
+        id: userId
+      }
+    }).then(response => {
+      console.log(response);
+      return response.data;
+  });
+};
+
+const acceptFriendRequest = (userId, friendId) => {
+  return axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.ACCEPT_FRIEND}/${friendId}`,
+      data: {
+        id: userId
+      }
+    }).then(response => {
+      console.log(response);
+      return response.data;
+  });
+};
+
+const rejectFriendRequest = async (userId, friendId) => {
+  const response = await axios({
+    withCredentials: true,
+    method: 'put',
+    url: `${URL.REJECT_FRIEND}/${friendId}`,
+    data: {
+      id: userId
+    }
+  })
+  console.log(response);
+};
+
 
 const activeList = {};
 const initialState = {
@@ -86,6 +103,27 @@ export function userReducer(state, action) {
       return listReducer(state, action);
     case 'isFetchingUser':
       return {...state, isFetchingUser: true};
+    case 'getUser':
+      //userMap.set(action.payload.user);
+      console.log('getUser');
+      let user = getUser(state.user);
+      console.log(user);
+      return {...state };
+    case 'setUser':
+      userMap.set(action.payload.user);
+      return {
+        ...state,
+        authenticated: true,
+        login: true,
+        activeList,
+        ...appConfig,
+        lists: [],
+        posts: [],
+        dynamicContent: [<Friends />],
+        user: userMap.getById(action.payload.user._id),
+        isFetchingUser: false
+      };
+      /*
     case 'setUser':
       userMap.set(action.payload.user);
       return {
@@ -100,6 +138,7 @@ export function userReducer(state, action) {
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
+      */
     case 'updateUser':
       userMap.set(action.payload.user);
       return {
@@ -115,7 +154,7 @@ export function userReducer(state, action) {
         isFetchingPosts: false,
         login: true,
         activeList,
-        ...userConfig,
+        ...appConfig,
         lists: [],
         posts: [],
         dynamicContent: []
@@ -132,9 +171,20 @@ export function userReducer(state, action) {
     case 'logout':
       sessionStorage.removeItem('userId');
       return { ...initialState, authenticated: false};
+    case 'friendRequest':
+      requestFriend(state.user.id, action.payload); 
+      return {...state };
+    case 'acceptFriendRequest':
+      acceptFriendRequest(state.user.id, action.payload);
+      return {...state };
+    case 'rejectFriendRequest':
+      rejectFriendRequest(state.user.id, action.payload);
+      return {...state };
+      /*
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };
+      */
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     case 'changeActiveManageFriendsTab':
