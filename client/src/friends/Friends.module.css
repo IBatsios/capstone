@@ -1,0 +1,15 @@
+.avatar {
+  margin-right: 1.2rem;
+}
+.closeButton {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  padding: 1.2rem;
+}
+.tabpanel {
+  height: 100% !important; 
+  overflow: auto;
+  min-height: 70vh !important;
+  max-height: 70vh !important;
+}
