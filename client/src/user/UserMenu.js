@@ -19,6 +19,7 @@ import { UserContext } from 'data/UserStore';
 import { PostForm } from 'posts/PostForm';
 import { ListForm } from 'lists/ListForm';
 import { ProfileForm } from 'user/ProfileForm';
+import { Friends } from 'friends/Friends';
 import { URL } from 'config/user';
 
 export const UserMenu = (props) => {
@@ -56,12 +57,20 @@ export const UserMenu = (props) => {
     window.open(URL.ADMIN_PORTAL, "_blank");
   }
 
+  const manageFriends = () => {
+    dispatch({
+      type: 'pushBlock',
+      payload: <Friends />
+    });
+  }
+
   const profileForm = () => {
     dispatch({
       type: 'pushBlock',
       payload: <ProfileForm />
     });
   }
+
 
   const logout = async () => {
     try {
@@ -97,7 +106,7 @@ export const UserMenu = (props) => {
           </ListItemIcon>
           <ListItemText primary={USER_MENU.ADD_LIST} />
         </ListItem>
-        <ListItem button>
+        <ListItem button onClick={manageFriends}>
           <ListItemIcon>
             <ContactsIcon />
           </ListItemIcon>
