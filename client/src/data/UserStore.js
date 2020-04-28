@@ -172,7 +172,6 @@ export function userReducer(state, action) {
       return {...state };
     case 'acceptFriendRequest':
       console.log('acceptFriendRequest');
-      console.log(action.payload);
       acceptFriendRequest(action.payload);
       return {...state };
     case 'rejectFriendRequest':
