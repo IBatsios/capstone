@@ -52,6 +52,15 @@ export const Friends = (props) => {
     });
   }
 
+  const handleCancelFriendRequest = id => () => {
+    console.log('handleCancelFriendRequest');
+    console.log(id);
+    dispatch({
+      type: 'cancelFriendRequest',
+      payload: id
+    });
+  }
+
   const handleRemoveFriend = id => () => {
     console.log('handleRemoveFriend');
   }
@@ -174,6 +183,12 @@ export const Friends = (props) => {
                         sentRequest.bio
                       }
                     />
+                    <IconButton
+                      aria-label="reject"
+                      onClick={handleCancelFriendRequest(sentRequest._id)}
+                    >
+                      <CloseIcon />
+                    </IconButton>
                   </ListItem>
                   <Divider />
                 </React.Fragment>
