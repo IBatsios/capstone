@@ -10,7 +10,7 @@ router.put('/:id', Middleware.isLoggedIn,async (req, res) => {
 
   if (result) {
     return res.status(200)
-    .send( 'add new friend request.' )
+    .send(result)
 
   }
   return res
@@ -27,7 +27,7 @@ router.put('/accept/:id', Middleware.isLoggedIn, async (req, res) => {
 
     if (result) {
       return res.status(200)
-      .send( 'accept new friend request.' )
+      .send(result)
   
     }
     return res
@@ -43,7 +43,7 @@ router.put('/reject/:id', Middleware.isLoggedIn, async (req, res) => {
   
     if (result) {
       return res.status(200)
-      .send( 'reject new friend request.' )
+      .send(result)
   
     }
     return res
@@ -58,12 +58,27 @@ router.put('/reject/:id', Middleware.isLoggedIn, async (req, res) => {
   
     if (result) {
       return res.status(200)
-      .send( 'reject new friend request.' )
+      .send(result)
   
     }
     return res
         .status(404)
-        .send({ error: `Error attempting to reject new friend request.` })
+        .send({ error: `Error attempting to cancel friend request.` })
+  })
+
+  router.put('/remove/:id', async (req, res) => {
+    const receivingUser = req.params.id
+    const sendingUser = '5e9b33b2a289c919089318dd'
+    const result = await FriendServices.removeFriend(sendingUser, receivingUser)
+  
+    if (result) {
+      return res.status(200)
+      .send(result)
+  
+    }
+    return res
+        .status(404)
+        .send({ error: `Error attempting to remove friend request.` })
   })
 
 module.exports = router
