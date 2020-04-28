@@ -105,6 +105,8 @@ export const Friends = (props) => {
                       primary={friend.username}
                       secondary={ friend.bio }
                     />
+                    {/* Removing friends is a future feature.  for now
+                      friends are forever.
                     <>
                       <IconButton
                         aria-label="delete"
@@ -113,6 +115,7 @@ export const Friends = (props) => {
                         <CloseIcon />
                       </IconButton>
                     </>
+                   */}
                   </ListItem>
                   <Divider />
                 </React.Fragment>
