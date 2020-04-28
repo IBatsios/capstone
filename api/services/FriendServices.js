@@ -134,7 +134,86 @@ class FriendServices {
             return false;
         }
     }
-    
+    static async cancelRequest(sendingUser, receivingUser) {
+        try {
+            var foundsendingUser = await UserServices.getUser(sendingUser);
+            var foundreceivingUser = await UserServices.getUser(receivingUser);
+
+            // Check if user already has same friend
+            const isAlreadyFriend = foundreceivingUser.friends.some((user) => {
+                return user._id == sendingUser;
+            })
+            const isAlreadyRequest = foundsendingUser.sentRequests.some((user) => {
+                return user._id == receivingUser;
+            })
+
+            // If user does not
+            if (!isAlreadyFriend && isAlreadyRequest) {
+                foundsendingUser.sentRequests.pull(foundreceivingUser);
+                foundreceivingUser.pendingRequests.pull(foundsendingUser);
+                try {
+                    var updatedsendingUser = await UserServices.updateUser(sendingUser, foundsendingUser);
+                    var updatedreceivingUser = await UserServices.updateUser(receivingUser, foundreceivingUser);
+                    if (updatedsendingUser && updatedreceivingUser ) {
+                        console.log(`rejected: ${updatedsendingUser && updatedreceivingUser}`);
+                        
+                    } else{
+                    console.log('not rejected');
+                    return false;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
+                }
+                return updatedsendingUser && updatedreceivingUser
+            }
+            return false
+
+        } catch (error) {
+            console.log(error.message);
+            return false;
+        }
+    }
+    static async removeFriend(sendingUser, receivingUser) {
+        try {
+            
+            var foundsendingUser = await UserServices.getUser(sendingUser);
+            var foundreceivingUser = await UserServices.getUser(receivingUser);
+
+            // Check if user already has same friend
+            const isAlreadyFriend = foundsendingUser.friends.some((user) => {
+                return user._id == receivingUser;
+            })
+
+            // If user does 
+            if (isAlreadyFriend) {
+                foundsendingUser.friends.pull(foundreceivingUser);
+                foundreceivingUser.friends.pull(foundsendingUser);
+                try {
+                    var updatedsendingUser = await UserServices.updateUser(sendingUser, foundsendingUser);
+                    var updatedreceivingUser = await UserServices.updateUser(receivingUser, foundreceivingUser);
+                    if (updatedsendingUser && updatedreceivingUser ) {
+                        console.log(`Friend remove: ${updatedsendingUser && updatedreceivingUser}`);
+                        
+                        
+                    } else {
+                    console.log('Friend not remove');
+                    return false;
+                    }
+                } catch (error) {
+                    console.log(error.message);
+                    return false;
+                }
+                return updatedsendingUser && updatedreceivingUser
+            }
+            return false
+           
+
+        } catch (error) {
+            console.log(error.message);
+            return false;
+        }
+    }
 
 }
 module.exports = FriendServices

@@ -38,13 +38,22 @@ const getUser = (user) => {
   });
 };
 
+const cancelFriendRequest = async (id) => {
+  return axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.CANCEL_FRIEND_REQUEST}/${id}`,
+    }).then(response => {
+      return response.data;
+  });
+};
+
 const requestFriend = async (id) => {
   return axios({
       withCredentials: true,
       method: 'put',
       url: `${URL.FRIENDS}/${id}`,
     }).then(response => {
-      console.log(response);
       return response.data;
   });
 };
@@ -55,7 +64,6 @@ const acceptFriendRequest = (id) => {
       method: 'put',
       url: `${URL.ACCEPT_FRIEND}/${id}`,
     }).then(response => {
-      console.log(response);
       return response.data;
   });
 };
@@ -66,7 +74,15 @@ const rejectFriendRequest = async (id) => {
     method: 'put',
     url: `${URL.REJECT_FRIEND}/${id}`
   })
-  console.log(response);
+};
+
+const removeFriend = async (id) => {
+  console.log(id);
+  const response = await axios({
+    withCredentials: true,
+    method: 'put',
+    url: `${URL.REMOVE_FRIEND}/${id}`
+  })
 };
 
 
@@ -149,6 +165,14 @@ export function userReducer(state, action) {
       console.log(action.payload);
       requestFriend(action.payload); 
       return {...state };
+    case 'removeFriend':
+      console.log(action.payload);
+      removeFriend(action.payload);
+      return {...state };
+    case 'cancelFriendRequest':
+      console.log(action.payload);
+      cancelFriendRequest(action.payload); 
+      return {...state };
     case 'acceptFriendRequest':
       console.log('acceptFriendRequest');
       acceptFriendRequest(action.payload);
@@ -156,11 +180,6 @@ export function userReducer(state, action) {
     case 'rejectFriendRequest':
       rejectFriendRequest(action.payload);
       return {...state };
-      /*
-    case 'newFriendRequest':
-      console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
-      return { ...state };
-      */
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     case 'changeActiveManageFriendsTab':
