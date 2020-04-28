@@ -2,7 +2,7 @@
 const modelName = 'user.model'
 const User = require(`../models/${modelName}`)
 
-const PostServices = require('../services/PostServices')
+// const PostServices = require('../services/PostServices')
 const DatabaseConnector = require('../database/DatabaseConnector')
 const connector = new DatabaseConnector()
 
@@ -176,13 +176,6 @@ class UserServices {
      */
     static async deleteUser(userId) {
         var deleteResponse = false
-
-        try {
-            var response = await PostServices.hideUserPosts(userId);
-            console.log(`DELETED ${response} POSTS BY USER`);
-        } catch (error) {
-            console.log(error.message);
-        }
 
         try {
             deleteResponse = await connector.delete(modelName, userId)
