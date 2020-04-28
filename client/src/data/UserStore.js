@@ -60,14 +60,11 @@ const acceptFriendRequest = (id) => {
   });
 };
 
-const rejectFriendRequest = async (userId, friendId) => {
+const rejectFriendRequest = async (id) => {
   const response = await axios({
     withCredentials: true,
     method: 'put',
-    url: `${URL.REJECT_FRIEND}/${friendId}`,
-    data: {
-      id: userId
-    }
+    url: `${URL.REJECT_FRIEND}/${id}`
   })
   console.log(response);
 };
@@ -157,7 +154,7 @@ export function userReducer(state, action) {
       acceptFriendRequest(action.payload);
       return {...state };
     case 'rejectFriendRequest':
-      rejectFriendRequest(state.user.id, action.payload);
+      rejectFriendRequest(action.payload);
       return {...state };
       /*
     case 'newFriendRequest':
