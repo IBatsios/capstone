@@ -3,7 +3,6 @@ import axios from 'axios';
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
 import { appConfig } from '../config/user';
-import { Friends } from 'friends/Friends';
 import { URL } from 'config/user';
 
 /**
@@ -113,27 +112,10 @@ export function userReducer(state, action) {
         ...appConfig,
         lists: [],
         posts: [],
-        dynamicContent: [<Friends />],
-        //dynamicContent: [],
-        user: userMap.getById(action.payload.user._id),
-        isFetchingUser: false
-      };
-      /*
-    case 'setUser':
-      userMap.set(action.payload.user);
-      return {
-        ...state,
-        authenticated: true,
-        login: true,
-        activeList,
-        ...appConfig,
-        lists: [],
-        posts: [],
         dynamicContent: [],
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
-      */
     case 'updateUser':
       userMap.set(action.payload.user);
       return {
