@@ -89,6 +89,7 @@ const URL = {
   ADMIN_PORTAL: `${BACKEND_URL}/`,
   COMMENTS: `${BACKEND_URL}/comments`,
   FRIENDS: `${BACKEND_URL}/friends`,
+  CANCEL_FRIEND_REQUEST: `${BACKEND_URL}/friends/cancel`,
   ACCEPT_FRIEND: `${BACKEND_URL}/friends/accept`,
   REJECT_FRIEND: `${BACKEND_URL}/friends/reject`,
   POSTS: `${BACKEND_URL}/posts`,
