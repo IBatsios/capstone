@@ -149,6 +149,21 @@ class DatabaseConnector {
     }
 
     /**
+     * Update connector method: calls the translator's matching "updateMany()" method.
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    async updateMany(modelName, filter, data) {
+        try {
+            return await Translator.updateMany(modelName, filter, data);
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    /**
      * Delete connector method: calls the translator's matching "delete()" method.
      * 
      * @author Christopher Thacker
