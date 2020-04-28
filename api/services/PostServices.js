@@ -238,6 +238,28 @@ class PostServices {
             return false;
         }
     }
+
+    /**
+     * Hides all posts by a given user.
+     * 
+     * @param {*} userId ID of user that owns the posts
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    static async hideUserPosts(userId) {
+        var numHidden = 0;
+        var filter = {'author.id': userId};
+        var newData = {isActive: false};
+        
+        try {
+            numHidden = await connector.updateMany(modelName, filter, newData);
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            return numHidden;
+        }
+    }
 }
 
 module.exports = PostServices
