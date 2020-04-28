@@ -214,6 +214,45 @@ class MongoTranslator {
         }
     }
 
+        /**
+     * Update in DB: change many existing records in the database.
+     * 
+     * @param {string} modelName 
+     * @param {ObjectId|string} id
+     * @param {object} data
+     * 
+     * @returns {object|false} the updated record if operation was successful | false if operation failed
+     * 
+     * @author Christopher Thacker
+     * @since 1.0.0
+     */
+    static async updateMany(modelName, filter, data) {
+        const Model = require(`../models/${modelName}`);
+
+        if (this.mongoIsConnected()) {
+            try {
+                const updatedModels = await Model.updateMany(filter, data)
+                    .catch((error) => {
+                        console.log(`Error: ${error.message}`); // TODO: store error message(s) to be displayed to the user
+                        return false;
+                    });
+
+                if (updatedModels === 0) {
+                    console.log('No objects found to update.');
+                }
+
+                return updatedModels.n;
+
+            } catch (error) {
+                console.log('Fatal error when making update() request to MongoDB.');
+                return false;
+            }
+        } else {
+            console.log('MongoDB is not connected.');
+            return false;
+        }
+    }
+
     /**
      * Delete in DB: remove a record from the database.
      * 
