@@ -92,6 +92,7 @@ const URL = {
   CANCEL_FRIEND_REQUEST: `${BACKEND_URL}/friends/cancel`,
   ACCEPT_FRIEND: `${BACKEND_URL}/friends/accept`,
   REJECT_FRIEND: `${BACKEND_URL}/friends/reject`,
+  REMOVE_FRIEND: `${BACKEND_URL}/friends/remove`,
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
   LISTS: `${BACKEND_URL}/lists`,
