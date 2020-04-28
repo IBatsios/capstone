@@ -38,7 +38,6 @@ const listMap = {
 export function listReducer(state, action) {
   switch (action.type) {
     case 'isFetchingLists':
-      console.log('isFetchingLists');
       return {...state, isFetchingLists: true};
     case 'setListData':
       action.payload.lists.map(list => {

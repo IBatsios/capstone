@@ -1,7 +1,9 @@
 import React, { createContext, useReducer } from 'react';
+import axios from 'axios';
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
-import { userConfig } from '../config/user';
+import { appConfig } from '../config/user';
+import { URL } from 'config/user';
 
 /**
  * userMap stores the users requested from the server and handles any
@@ -23,6 +25,50 @@ const userMap = {
     return { id: _id, ...other };
   }
 }
+
+const getUser = (user) => {
+  console.log(user);
+  return axios({
+      withCredentials: true,
+      method: 'get',
+      url: `${URL.USERS}/${user.id}`
+    }).then(response => {
+      console.log(response);
+      return response.data;
+  });
+};
+
+const requestFriend = async (id) => {
+  return axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.FRIENDS}/${id}`,
+    }).then(response => {
+      console.log(response);
+      return response.data;
+  });
+};
+
+const acceptFriendRequest = (id) => {
+  return axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.ACCEPT_FRIEND}/${id}`,
+    }).then(response => {
+      console.log(response);
+      return response.data;
+  });
+};
+
+const rejectFriendRequest = async (id) => {
+  const response = await axios({
+    withCredentials: true,
+    method: 'put',
+    url: `${URL.REJECT_FRIEND}/${id}`
+  })
+  console.log(response);
+};
+
 
 const activeList = {};
 const initialState = {
@@ -47,6 +93,12 @@ export function userReducer(state, action) {
       return listReducer(state, action);
     case 'isFetchingUser':
       return {...state, isFetchingUser: true};
+    case 'getUser':
+      //userMap.set(action.payload.user);
+      console.log('getUser');
+      let user = getUser(state.user);
+      console.log(user);
+      return {...state };
     case 'setUser':
       userMap.set(action.payload.user);
       return {
@@ -54,7 +106,7 @@ export function userReducer(state, action) {
         authenticated: true,
         login: true,
         activeList,
-        ...userConfig,
+        ...appConfig,
         lists: [],
         posts: [],
         dynamicContent: [],
@@ -76,7 +128,7 @@ export function userReducer(state, action) {
         isFetchingPosts: false,
         login: true,
         activeList,
-        ...userConfig,
+        ...appConfig,
         lists: [],
         posts: [],
         dynamicContent: []
@@ -89,16 +141,30 @@ export function userReducer(state, action) {
     // TODO: Refactor to not require activeList.  It's a work-around
     // to cause ListItems to re-render when items have been updated.
     case 'activeList':
-      console.log(action.payload);
       return {...state, activeList: {...action.payload}};
     case 'logout':
       sessionStorage.removeItem('userId');
       return { ...initialState, authenticated: false};
+    case 'friendRequest':
+      console.log(action.payload);
+      requestFriend(action.payload); 
+      return {...state };
+    case 'acceptFriendRequest':
+      console.log('acceptFriendRequest');
+      acceptFriendRequest(action.payload);
+      return {...state };
+    case 'rejectFriendRequest':
+      rejectFriendRequest(action.payload);
+      return {...state };
+      /*
     case 'newFriendRequest':
       console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
       return { ...state };
+      */
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
+    case 'changeActiveManageFriendsTab':
+      return { ...state, activeManageFriendsTab: action.payload };
     case 'popBlock':
       state.dynamicContent.shift();
       return { ...state };

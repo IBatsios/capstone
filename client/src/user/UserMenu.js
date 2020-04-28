@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -18,6 +19,7 @@ import { UserContext } from 'data/UserStore';
 import { PostForm } from 'posts/PostForm';
 import { ListForm } from 'lists/ListForm';
 import { ProfileForm } from 'user/ProfileForm';
+import { Friends } from 'friends/Friends';
 import { URL } from 'config/user';
 
 export const UserMenu = (props) => {
@@ -55,12 +57,20 @@ export const UserMenu = (props) => {
     window.open(URL.ADMIN_PORTAL, "_blank");
   }
 
+  const manageFriends = () => {
+    dispatch({
+      type: 'pushBlock',
+      payload: <Friends />
+    });
+  }
+
   const profileForm = () => {
     dispatch({
       type: 'pushBlock',
       payload: <ProfileForm />
     });
   }
+
 
   const logout = async () => {
     try {
@@ -95,6 +105,12 @@ export const UserMenu = (props) => {
             <PlaylistAddIcon />
           </ListItemIcon>
           <ListItemText primary={USER_MENU.ADD_LIST} />
+        </ListItem>
+        <ListItem button onClick={manageFriends}>
+          <ListItemIcon>
+            <ContactsIcon />
+          </ListItemIcon>
+          <ListItemText primary={USER_MENU.FRIENDS} />
         </ListItem>
         <ListItem button onClick={profileForm}>
           <ListItemIcon>

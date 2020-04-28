@@ -33,11 +33,24 @@ export const ADD_LIST_ITEM = "Add item to list";
 export const LIST_ITEM_DESCRIPTION_LABEL = "Description";
 export const LIST_ITEM_URL_HELPER_TEXT = "The address located in the browser where you want to link to.";
 
+const COMMON = {
+  FRIENDS: "Friends",
+  MANAGE_FRIENDS: "Manage Friends",
+  PENDING: "Pending"
+}
+
 export const USER_MENU = {
   ADMIN_PORTAL: "Admin Portal",
   ADD_POST: "Add Post", 
   ADD_LIST: ADD_LIST, 
+  FRIENDS: COMMON.MANAGE_FRIENDS, 
   PROFILE_SETTINGS: "Profile Settings",
   LOG_OUT: "Log out",
 }
 
+export const MANAGE_FRIENDS = {
+  TITLE: COMMON.MANAGE_FRIENDS,
+  FRIENDS: COMMON.FRIENDS,
+  PENDING: COMMON.PENDING,
+  SENT_REQUESTS: "Sent Requests"
+}

@@ -52,11 +52,12 @@ const blocks = {
   }
 }
 
-const userConfig = {
+const appConfig = {
   blocks: blocks,
   interests: INTERESTS,
   headerTabs: [ HOME, WATERCOOLER, LISTS ],
   activeHeaderTab: 0,
+  activeManageFriendsTab: 0,
   section: {
     home: {
       interest: 0
@@ -67,7 +68,14 @@ const userConfig = {
     lists: {
       interest: 0
     }
-  }
+  },
+}
+
+// Default values for user properties.
+const userConfig = {
+  friends: [],
+  // A place to store things needing a user's approval.
+  pendingRequests: []
 }
 
 const DOMAIN_NAME = 'localhost';
@@ -80,6 +88,9 @@ const FRONTEND_URL = `${PROTOCOL}://${DOMAIN_NAME}:${FRONTEND_PORT}`;
 const URL = {
   ADMIN_PORTAL: `${BACKEND_URL}/`,
   COMMENTS: `${BACKEND_URL}/comments`,
+  FRIENDS: `${BACKEND_URL}/friends`,
+  ACCEPT_FRIEND: `${BACKEND_URL}/friends/accept`,
+  REJECT_FRIEND: `${BACKEND_URL}/friends/reject`,
   POSTS: `${BACKEND_URL}/posts`,
   REGISTER: `${BACKEND_URL}/register`,
   LISTS: `${BACKEND_URL}/lists`,
@@ -102,6 +113,7 @@ export {
   WATERCOOLER,
   WATERCOOLER_ICON,
   INTERESTS,
+  appConfig,
   userConfig,
   URL,
   SITE_NAME
