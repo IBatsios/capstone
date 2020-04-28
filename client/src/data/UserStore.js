@@ -3,7 +3,6 @@ import axios from 'axios';
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
 import { appConfig } from '../config/user';
-import { Friends } from 'friends/Friends';
 import { URL } from 'config/user';
 
 /**
@@ -126,8 +125,7 @@ export function userReducer(state, action) {
         ...appConfig,
         lists: [],
         posts: [],
-        //dynamicContent: [],
-        dynamicContent: [<Friends />],
+        dynamicContent: [],
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
@@ -182,11 +180,6 @@ export function userReducer(state, action) {
     case 'rejectFriendRequest':
       rejectFriendRequest(action.payload);
       return {...state };
-      /*
-    case 'newFriendRequest':
-      console.log(`userId ${action.payload.userId} want to be friends with userId ${action.payload.friendId}`);
-      return { ...state };
-      */
     case 'changeActiveHeaderTab':
       return { ...state, activeHeaderTab: action.payload };
     case 'changeActiveManageFriendsTab':
