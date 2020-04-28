@@ -36,8 +36,8 @@ router.put('/:id', Middleware.isLoggedIn, async (req, res) => {
             const isReported = await PostServices.addReport(req.params.id, user.id);
 
             if (isReported) {
-                // return res.status(200).json({post: isReported});
-                return res.status(200).redirect('/admin/reportedPosts')
+                return res.status(200).json({post: isReported});
+                // return res.status(200).redirect('/admin/reportedPosts')
             }
             return res.status(403).json({error: 'Post was not reported'});
         }
