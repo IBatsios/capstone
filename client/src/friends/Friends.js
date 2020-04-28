@@ -44,8 +44,6 @@ export const Friends = (props) => {
   };
 
   const handleRejectFriendRequest = id => () => {
-    console.log(id);
-    console.log('handleRemoveFriend');
     dispatch({
       type: 'rejectFriendRequest',
       payload: id
@@ -62,7 +60,10 @@ export const Friends = (props) => {
   }
 
   const handleRemoveFriend = id => () => {
-    console.log('handleRemoveFriend');
+    dispatch({
+      type: 'removeFriend',
+      payload: id
+    });
   }
 
   const handleAcceptFriend = id => () => {
@@ -114,17 +115,14 @@ export const Friends = (props) => {
                       primary={friend.username}
                       secondary={ friend.bio }
                     />
-                    {/* Removing friends is a future feature.  for now
-                      friends are forever.
                     <>
                       <IconButton
                         aria-label="delete"
-                        onClick={handleRemoveFriend}
+                        onClick={handleRemoveFriend(friend._id)}
                       >
                         <CloseIcon />
                       </IconButton>
                     </>
-                   */}
                   </ListItem>
                   <Divider />
                 </React.Fragment>
