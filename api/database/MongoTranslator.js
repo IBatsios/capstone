@@ -218,7 +218,7 @@ class MongoTranslator {
      * Update in DB: change many existing records in the database.
      * 
      * @param {string} modelName 
-     * @param {ObjectId|string} id
+     * @param {string} filter
      * @param {object} data
      * 
      * @returns {object|false} the updated record if operation was successful | false if operation failed
