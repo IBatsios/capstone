@@ -77,6 +77,15 @@ const rejectFriendRequest = async (id) => {
   })
 };
 
+const removeFriend = async (id) => {
+  console.log(id);
+  const response = await axios({
+    withCredentials: true,
+    method: 'put',
+    url: `${URL.REMOVE_FRIEND}/${id}`
+  })
+};
+
 
 const activeList = {};
 const initialState = {
@@ -157,6 +166,10 @@ export function userReducer(state, action) {
     case 'friendRequest':
       console.log(action.payload);
       requestFriend(action.payload); 
+      return {...state };
+    case 'removeFriend':
+      console.log(action.payload);
+      removeFriend(action.payload);
       return {...state };
     case 'cancelFriendRequest':
       console.log(action.payload);
