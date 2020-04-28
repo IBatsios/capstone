@@ -37,9 +37,24 @@ router.put('/accept/:id', Middleware.isLoggedIn, async (req, res) => {
 
   // reject friend request.
 router.put('/reject/:id', Middleware.isLoggedIn, async (req, res) => {
-    const rejectedUser = req.params.id
+    const rejected = req.params.id
     const rejector = req.session.user.id
     const result = await FriendServices.rejectFriend(rejector, rejected)
+  
+    if (result) {
+      return res.status(200)
+      .send( 'reject new friend request.' )
+  
+    }
+    return res
+        .status(404)
+        .send({ error: `Error attempting to reject new friend request.` })
+  })
+
+  router.put('/cancel/:id', Middleware.isLoggedIn, async (req, res) => {
+    const receivingUser = req.params.id
+    const sendingUser = req.session.user.id
+    const result = await FriendServices.cancelRequest(sendingUser, receivingUser)
   
     if (result) {
       return res.status(200)
