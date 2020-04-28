@@ -154,7 +154,7 @@ router.put('/makeAdmin/:id', Middleware.isLoggedIn, Middleware.isAdmin, async (r
  * @author Christopher Thacker
  * @since 1.0.0
  */
-router.delete('deactivateUser/:id', Middleware.isLoggedIn, Middleware.isAdmin, async (req, res) => {
+router.delete('/deactivateUser/:id', Middleware.isLoggedIn, Middleware.isAdmin, async (req, res) => {
     const userId = req.params.id;
     var response = null;
 
