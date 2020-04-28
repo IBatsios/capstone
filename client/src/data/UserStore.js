@@ -3,6 +3,7 @@ import axios from 'axios';
 import { listReducer } from 'data/ListStore';
 import { postReducer } from 'data/PostStore';
 import { appConfig } from '../config/user';
+import { Friends } from 'friends/Friends';
 import { URL } from 'config/user';
 
 /**
@@ -38,13 +39,22 @@ const getUser = (user) => {
   });
 };
 
+const cancelFriendRequest = async (id) => {
+  return axios({
+      withCredentials: true,
+      method: 'put',
+      url: `${URL.CANCEL_FRIEND_REQUEST}/${id}`,
+    }).then(response => {
+      return response.data;
+  });
+};
+
 const requestFriend = async (id) => {
   return axios({
       withCredentials: true,
       method: 'put',
       url: `${URL.FRIENDS}/${id}`,
     }).then(response => {
-      console.log(response);
       return response.data;
   });
 };
@@ -55,7 +65,6 @@ const acceptFriendRequest = (id) => {
       method: 'put',
       url: `${URL.ACCEPT_FRIEND}/${id}`,
     }).then(response => {
-      console.log(response);
       return response.data;
   });
 };
@@ -66,7 +75,6 @@ const rejectFriendRequest = async (id) => {
     method: 'put',
     url: `${URL.REJECT_FRIEND}/${id}`
   })
-  console.log(response);
 };
 
 
@@ -109,7 +117,8 @@ export function userReducer(state, action) {
         ...appConfig,
         lists: [],
         posts: [],
-        dynamicContent: [],
+        //dynamicContent: [],
+        dynamicContent: [<Friends />],
         user: userMap.getById(action.payload.user._id),
         isFetchingUser: false
       };
@@ -148,6 +157,10 @@ export function userReducer(state, action) {
     case 'friendRequest':
       console.log(action.payload);
       requestFriend(action.payload); 
+      return {...state };
+    case 'cancelFriendRequest':
+      console.log(action.payload);
+      cancelFriendRequest(action.payload); 
       return {...state };
     case 'acceptFriendRequest':
       console.log('acceptFriendRequest');
