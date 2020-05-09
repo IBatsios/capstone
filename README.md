@@ -28,7 +28,7 @@
 <img align="left" src="https://avatars0.githubusercontent.com/u/24241518?s=460&v=4" width="100" height="100">
 
 **Christopher Thacker**<br>
-[Kozmocha](https://github.com/CS-Topher)<br><br><br>
+[CS-Topher](https://github.com/CS-Topher)<br><br><br>
 
 <img align="left" src="https://avatars1.githubusercontent.com/u/38018429?s=460&v=4" width="100" height="100">
 
